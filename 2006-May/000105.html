@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r115%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251502.k4PF2U1m016670%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000104.html">
+   <LINK REL="Next"  HREF="000106.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r115%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251502.k4PF2U1m016670%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Thu May 25 17:02:30 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000104.html">[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000106.html">[Liman-svn] r116 - in trunk: . db docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-25 17:02:20 +0200 (Thu, 25 May 2006)
+New Revision: 115
+
+Modified:
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+Log:
+Korrektur diverser Tippfehler
+
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-25 15:02:20 UTC (rev 115)
+@@ -105,7 +105,7 @@
+ 
+ L&#246;scht alle zu einem \hyperlink{classMitglied}{Mitglied} geh&#246;renden Kommentare. 
+ 
+-L&#246;scht alle Kommentare aus Kommentare, die mit Kommentaren mit der Kommentarnummer (\$kommentar\_\-nr) verbunden sind. \begin{Desc}
++L&#246;scht alle Kommentare aus Kommentare, die mit Mitglieder mit der Mitglieds\_\-Nr (\$member\_\-nr) verbunden sind. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 15:02:20 UTC (rev 115)
+@@ -50,7 +50,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet \hyperlink{classLiteratur}{Literatur}. 
+ 
+-Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren, Hinzuf&#252;gen und &#196;ndern von \hyperlink{classLiteratur}{Literatur} in Bibliothek zur verf&#252;gung. \begin{Desc}
++Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren, Hinzuf&#252;gen und &#196;ndern von \hyperlink{classLiteratur}{Literatur} in Bibliothek zur Verf&#252;gung. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-25 15:02:20 UTC (rev 115)
+@@ -9,7 +9,7 @@
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art} (\$text)
+-\begin{CompactList}\small\item\em Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}, interne Namen. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Importiert Bib\-Te\-X- bzw. interne Namen. \item\end{CompactList}\item 
+ \hyperlink{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{Get\-Display\-Text} ()
+ \begin{CompactList}\small\item\em Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che. \item\end{CompactList}\item 
+ \hyperlink{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}{Get\-Bibtex\-Text} ()
+@@ -33,7 +33,7 @@
+ \label{classLiteraturArt_b3312217430531ed7821a46a39c49af7}
+ 
+ 
+-Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}, interne Namen. 
++Importiert Bib\-Te\-X- bzw. interne Namen. 
+ 
+ Importiert die in Bib\-Te\-X-Dateien oder in der Datenbank/Benutzeroberfl&#228;chen verwendeten Bezeichner f&#252;r Literaturarten und weist sie einen internen Wert zu. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+@@ -56,7 +56,7 @@
+ 
+ Liefert Bezeichner f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+-Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart in \hyperlink{classBibTeX}{Bib\-Te\-X} herausgesucht. \begin{Desc}
++Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart in \hyperlink{classBibTeX}{Bib\-Te\-X} herausgesucht. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]String mit Bezeichner der Literaturart in Bib\-Te\-X-Darstellung \end{Desc}
+@@ -71,7 +71,7 @@
+ 
+ Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che. 
+ 
+-Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart in der Datenbank/Benutzeroberfl&#228;che herausgesucht. \begin{Desc}
++Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart in der Datenbank/Benutzeroberfl&#228;che herausgesucht. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]String mit Bezeichner der Literaturart in Datenbank/Benutzeroberfl&#228;chendarstellung \end{Desc}
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-25 15:02:20 UTC (rev 115)
+@@ -97,7 +97,7 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit Objekten der Form\begin{itemize}
+-\item Nr\item \hyperlink{classLogin}{Login}\item Vorname\item Nachname\item E-Mail\end{itemize}
++\item Nr\item \hyperlink{classLogin}{Login}\item Vorname\item Nachname\item Email\end{itemize}
+ \end{Desc}
+ \hypertarget{classMitglied_a856527798258505adf9eb08b79fd9fc}{
+ \index{Mitglied@{Mitglied}!Insert@{Insert}}
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-25 15:02:20 UTC (rev 115)
+@@ -153,7 +153,7 @@
+ 
+ Liefert Fehlerinformationen. 
+ 
+-Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck. \begin{Desc}
++Liefert Feld mit Fehlernachricht und interner Fehlernummer zur&#252;ck. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/include/kommentar.php	2006-05-25 15:02:20 UTC (rev 115)
+@@ -58,8 +58,8 @@
+ 
+ 		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
+ 		 *
+-		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Kommentaren
+-		 *  mit der Kommentarnummer ($kommentar_nr) verbunden sind.
++		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Mitglieder
++		 *  mit der Mitglieds_Nr ($member_nr) verbunden sind.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $member_nr Nummer eines Mitglieds
+ 		 */
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/include/literatur.php	2006-05-25 15:02:20 UTC (rev 115)
+@@ -10,7 +10,7 @@
+ 	/*! \brief Verwaltet Literatur
+ 	 *
+ 	 *  Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren,
+-	 *  Hinzuf&#252;gen und &#196;ndern von Literatur in Bibliothek zur verf&#252;gung.
++	 *  Hinzuf&#252;gen und &#196;ndern von Literatur in Bibliothek zur Verf&#252;gung.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Literatur
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/include/literaturart.php	2006-05-25 15:02:20 UTC (rev 115)
+@@ -28,7 +28,7 @@
+ 		 */
+ 		var $value = 0;
+ 		
+-		/*! \brief Importiert BibTeX, interne Namen
++		/*! \brief Importiert BibTeX- bzw. interne Namen
+ 		 *
+ 		 *  Importiert die in BibTeX-Dateien oder in der
+ 		 *  Datenbank/Benutzeroberfl&#228;chen verwendeten Bezeichner f&#252;r
+@@ -100,7 +100,7 @@
+ 		/*! \brief Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che
+ 		 *
+ 		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
+-		 *  wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart
++		 *  wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart
+ 		 *  in der Datenbank/Benutzeroberfl&#228;che herausgesucht.
+ 		 *  \pre -
+ 		 *  \return String mit Bezeichner der Literaturart in
+@@ -148,7 +148,7 @@
+ 		/*! \brief Liefert Bezeichner f&#252;r BibTeX
+ 		 *
+ 		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
+-		 *  wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart
++		 *  wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart
+ 		 *  in BibTeX herausgesucht.
+ 		 *  \pre -
+ 		 *  \return String mit Bezeichner der Literaturart in
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/include/mitglied.php	2006-05-25 15:02:20 UTC (rev 115)
+@@ -112,7 +112,7 @@
+ 		 *    - Login
+ 		 *    - Vorname
+ 		 *    - Nachname
+-		 *    - E-Mail
++		 *    - Email
+ 		 */
+ 		function GetAll()
+ 		{
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-25 14:36:47 UTC (rev 114)
++++ trunk/include/sqldb_mysql.php	2006-05-25 15:02:20 UTC (rev 115)
+@@ -165,7 +165,7 @@
+ 		
+ 		/*! \brief Liefert Fehlerinformationen
+ 		 *
+-		 *  Liefert Array mit Fehlernachricht und interner Fehlernummer
++		 *  Liefert Feld mit Fehlernachricht und interner Fehlernummer
+ 		 *  zur&#252;ck.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000104.html">[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000106.html">[Liman-svn] r116 - in trunk: . db docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#105">[ date ]</a>
+              <a href="thread.html#105">[ thread ]</a>
+              <a href="subject.html#105">[ subject ]</a>
+              <a href="author.html#105">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

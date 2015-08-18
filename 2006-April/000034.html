@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r44 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r44%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604242020.k3OKKBt4014991%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000033.html">
+   <LINK REL="Next"  HREF="000035.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r44 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r44%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604242020.k3OKKBt4014991%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r44 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Apr 24 22:20:11 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000033.html">[Liman-svn] r43 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000035.html">[Liman-svn] r45 - in trunk: . docs/beleg1 include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-24 22:20:08 +0200 (Mon, 24 Apr 2006)
+New Revision: 44
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+Hinzuf?\195?\188gen einiger Abschnitte in operationeller Anforderungen
+(kann erst nach Fertigstellung des Datenkatalogs beendet werden)
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-24 19:39:41 UTC (rev 43)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-24 20:20:08 UTC (rev 44)
+@@ -19,7 +19,6 @@
+ \subsection{Umgebungsmodell}
+ 
+ \subsubsection{Ereignistabelle}
+-%wenn die Tabellen zu lang werden -&gt; longtable
+ N = Nutzer, M = registriertes Mitglied, A = Administrator \\
+ M kann zus&#228;tzlich zu seinen, alle Ereignisse von N ausl&#246;sen. A kann ebenso alle Ereignisse von M und N ausl&#246;sen.
+ 
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-24 19:39:41 UTC (rev 43)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-24 20:20:08 UTC (rev 44)
+@@ -5,39 +5,116 @@
+          gZahl - 2Byte, rZahl - 4 Byte\\
+          Zeichenkette - 1Byte pro Zeichen (der maximalen L&#228;nge) erforderlich sind.
+ 
+-TODO:
+-\begin{tabular}[ht]{|l|l|l|}
++TODO:\\
++\begin{longtable}{|l|p{6.0cm}|p{2cm}|}
+ \hline
+-Element &amp; Struktur &amp; Bytes \\
++Element &amp; Struktur &amp; Bytes\\
+ \hline\hline
+-% Mitglieder
+-Mitglied  &amp; M\_Name + (Funktion) &amp; $50+14=64$ \\
+-M\_Name  &amp;  &lt;Vor&gt;Name + &lt;Familien&gt;Name &amp; $25+25=50$ \\
+-M\_Name  &amp;  [&quot;Vorsitzender&quot; | &quot;Stellvertreter&quot; | &quot;Kassenwart&quot;] &amp; $14$ \\
++\endhead
++
++Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + ISBN + Jahr + Beschreibung + Ort + Stichworte \\
++\hline
++Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
++\hline
++Art &amp; [``Buch'' | ``Artikel'' | ``Handbuch'' | ``Diplomarbeit'' | ``Sonstiges''] \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG}  &amp; $13$\\
++\hline
++Titel &amp; Zeichenkette40 \\
++\hline
++Autor &amp; Zeichenkette40 \\
++\hline
++ISBN &amp; gZahl *1stellig* + '-' + gZahl *4stellig* + '-' + gZahl *4stellig* + '-' + gZahl *1stellig* \textbf{DAS STIMMT LAUT WIKIPEDIA NICHT}\\
++\hline
++Jahr &amp; gZahl *4stellig* \\
++\hline
++Beschreibung &amp; Zeichenkette250 \\
++\hline
++Ort &amp; Zeichenkette40 \\
++\hline
++Stichworte &amp; Zeichenkette100 \\
+ \hline\hline
+-Leistung &amp; abc+cde &amp; $19+23=42$ \\
+-.... &amp; ... &amp; ... \\
++
++Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr\\
+ \hline
+-\end{tabular}
++Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* \\
++\hline
++Kommentartext &amp; Zeichenkette400 \\
++\hline\hline
+ 
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Login + Passwort + Rechte\\
++\hline
++Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* \\ 
++\hline
++Name &amp; &lt;Vor&gt;Name + &lt;Nach&gt;Name \\
++\hline
++Login &amp; Zeichenkette12 \\
++\hline
++Passwort &amp; Zeichenkette12 \\
++\hline
++Rechte &amp; [``Benutzer'' $\mid $``Administrator``] \\
++\hline\hline
++
++Mitgliedsdaten &amp; Name + Login + Passwort + Rechte \\
++\hline
++Literaturdaten &amp; Art + Titel + Autor + ISBN + Jahr + Beschreibung + Ort + Stichworte \\
++\hline
++Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext \\
++\hline
++BibTeX-Datei &amp; *Datei im Bibtexformat* \\
++\hline
++Suchbegriff &amp; [Zeichenkette100 | (Art) + (Titel) + (Autor) + (ISBN) + (Jahr) + (Beschreibung) + (Ort) + (Stichworte)] *Mindestens ein optionales Feld muss angegeben sein* \\
++\hline
++Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} \\
++\hline\hline
++
++Best&#228;tigung\_BibTeXImport &amp; Literatur\_Nr + Zeichenkette ''Importieren vorgenommen`` \\
++\hline
++Best&#228;tigung\_Literaturanlegen &amp; Literatur\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++\hline
++Best&#228;tigung\_Literatur&#228;ndern &amp; Literatur\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++\hline
++Best&#228;tigung\_Literaturl&#246;schen &amp; Literatur\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++\hline
++Best&#228;tigung\_Kommentaranlegen &amp; Kommentar\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++\hline
++Best&#228;tigung\_Kommentar&#228;ndern &amp; Kommentar\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++\hline
++Best&#228;tigung\_Kommentarl&#246;schen &amp; Kommentar\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++\hline
++Best&#228;tigung\_Mitgliedanlegen &amp; Mitglieds\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++\hline
++Best&#228;tigung\_Mitglied&#228;ndern &amp; Mitglieds\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++\hline
++Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++\hline
++Literatur\_Info &amp; Literatur + Kommentare \\
++\hline
++Suchtreffer &amp; \{Literatur\_Nr + Titel\} \textbf{NICHT NOCH MEHR?}\\
++\hline
++Mitgliederliste &amp; \{Mitglieds\_Nr + Name\}\\
++\hline
++\end{longtable}
++
+ \subsection{Speicher (Angaben zum Speicherbedarf in Byte)}
+-TODO:
++TODO:\\
+ \begin{tabular}[ht]{|l|l|l|l|l|}
+ \hline
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Mitglieder &amp; {Mitglied} &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
+-Leistungen &amp; {Leistung} &amp; $0*42$ &amp; $50*42=2100$ &amp; $100*42=4200$ \\
++Bibliothek &amp; {Literatur} &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
++Kommentare &amp; {Kommentar} &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
++Mitglieder &amp; {Mitglied}  &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
+ \hline
+ \end{tabular}
+ 
+ \subsection{Weitere Datenfl&#252;sse}
+-TODO:
++TODO:\\
+ \begin{tabular}[ht]{|l|l|l|l|l|}
+ \hline
+ Datenfluss &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Revisionsunterlagen &amp; {Mitglied} &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
++Kommentare &amp; {Kommentar} &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
++Suchtreffer &amp; \{Literatur\_Nr + Titel\}  &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
++...\\
+ \hline
+ \end{tabular}
+ 
+@@ -51,7 +128,7 @@
+ \end{itemize}
+ 
+ \subsection{Genauigkeit}
+-TODO siehe Beispielbeleg S. 23
++Es werden nur Ganzzahlen im ganzen System verarbeitet. Es werden hierbei keine problematische Rechnungen vorgenommen.
+ 
+ \section{Operationelle Anforderungen an die Datenstr&#246;me}
+ TODO siehe Beispielbeleg S. 23
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000033.html">[Liman-svn] r43 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000035.html">[Liman-svn] r45 - in trunk: . docs/beleg1 include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#34">[ date ]</a>
+              <a href="thread.html#34">[ thread ]</a>
+              <a href="subject.html#34">[ subject ]</a>
+              <a href="author.html#34">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

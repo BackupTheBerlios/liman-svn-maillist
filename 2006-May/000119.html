@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r129 - trunk/include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r129%20-%20trunk/include&In-Reply-To=%3C200605301554.k4UFs3sO017486%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000118.html">
+   <LINK REL="Next"  HREF="000120.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r129 - trunk/include</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r129%20-%20trunk/include&In-Reply-To=%3C200605301554.k4UFs3sO017486%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r129 - trunk/include">fwilhelm at berlios.de
+       </A><BR>
+    <I>Tue May 30 17:54:03 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000118.html">[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include
+</A></li>
+        <LI>Next message: <A HREF="000120.html">[Liman-svn] r130 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-05-30 17:54:03 +0200 (Tue, 30 May 2006)
+New Revision: 129
+
+Added:
+   trunk/include/sqldb_mock.php
+Log:
+Datenbank-Klasse f?\195?\188r Tests angelegt
+
+Added: trunk/include/sqldb_mock.php
+===================================================================
+--- trunk/include/sqldb_mock.php	2006-05-30 14:00:07 UTC (rev 128)
++++ trunk/include/sqldb_mock.php	2006-05-30 15:54:03 UTC (rev 129)
+@@ -0,0 +1,183 @@
++&lt;?php
++	class SQLDB_Mock
++	{
++		var $query_result = false; ///&lt; Identifikation der letzten Datenbankabfrage
++		var $fetch_index = 0;
++		var $isOpen = false;
++		
++		function SQLDB_Mock()
++		{
++			$this-&gt;isOpen = true;
++		}
++		
++		function Close()
++		{
++			$this-&gt;isOpen = false;
++		}
++		
++		function DataSeek($row_number)
++		{
++			if( $this-&gt;isOpen &amp;&amp; is_array($this-&gt;query_result) &amp;&amp; ($row_number &lt; count($this-&gt;query_result)) )
++			{
++				return $this-&gt;query_result[$this-&gt;fetch_index];
++			}
++			else
++			{
++				return false;
++			}
++		}
++		
++		function Fetch()
++		{
++			if( $this-&gt;isOpen &amp;&amp; is_array($this-&gt;query_result) &amp;&amp; ( $this-&gt;fetch_index &lt; count($this-&gt;query_result) ) )
++			{
++				return $this-&gt;query_result[$this-&gt;fetch_index++];
++			}
++			else
++			{
++				return false;
++			}
++		}
++		
++		function FreeResult()
++		{
++			if ($this-&gt;query_result !== false)
++			{
++				$this-&gt;query_result = false;
++				$this-&gt;fetch_index = 0;
++			}
++			
++			return true;
++		}
++		
++		function GetAffectedRows()
++		{
++			if ($this-&gt;isOpen)
++			{
++				if($this-&gt;query_result === false )
++				{
++					return 0;
++				}
++				
++				if( is_int( $this-&gt;query_result ) )
++				{
++					return $this-&gt;query_result;
++				}
++				
++				if( is_array($this-&gt;query_result) )
++				{
++					return count($this-&gt;query_result);
++				}
++				
++				return false;
++			}
++			else
++			{
++				return false;
++			}
++		}
++		
++		function GetError()
++		{
++			$error = array();
++
++			// was k&#246;nnte hier rein?
++
++			return $error;
++		}
++		
++		function GetNumRows()
++		{
++			if ($this-&gt;db_id !== false &amp;&amp; is_array($this-&gt;query_result) )
++			{
++				return count($this-&gt;query_result);
++			}
++			else
++			{
++				return false;
++			}
++		}
++		
++		var $error_msgs = array();
++		var $patterns = array();
++		var $results = array();
++		var $queryCounter = 0;
++		
++		/*! \brief 
++		 *
++		 *  TODO
++		 *  \pre -
++		 *  \param[in] $pattern Regul&#228;rer Ausdruck mit dem die Query verglichen wird
++		 *  \param[in] $result Ergebnis der Abfrage
++		 *  \remarks
++		 *  Der Regul&#228;re Ausdruck dient nur der Identifikation der Query, nicht der zur Verifikation.
++		 *  Die Query muss seperat auf ihre Funktion getestet werden.
++		 * 
++		 *  Wird als Ergebnis ein Integer angegeben, wird das als Zahl der betroffenen Zeilen interpretiert.
++		 *  Wird als Ergebnis ein Array angegeben, so wird es als mehrzeiliges Ergebnis gewertet.
++		 */
++		function ExpectQuery( $pattern, $result )
++		{
++			if( !is_int($result) &amp;&amp; !is_array($result) )
++			{
++				$buff = $result;
++				$result = array();
++				$result[] = $buff;
++			}
++			
++			$this-&gt;patterns[] = $pattern;
++			$this-&gt;results[] = $result;
++		}
++		
++		function Verify()
++		{
++			if( $this-&gt;queryCounter != count($this-&gt;results) )
++			{
++				$this-&gt;error_msgs[] = &quot;Nicht alle Queries wurden ausgef&#252;hrt - erwartet: &quot;.count($this-&gt;results).&quot; tats&#228;chlich: &quot;.$this-&gt;queryCounter;
++			}
++			
++			$ret = $this-&gt;error_msgs;
++			
++			// reset
++			$this-&gt;error_msgs = array();
++			$this-&gt;patterns = array();
++			$this-&gt;results = array();
++			$this-&gt;queryCounter = 0;
++			
++			if( count($ret) == 0)
++			{
++				return true;
++			}
++			else
++			{
++				return $ret;
++			}
++		}
++		
++		function Query($query)
++		{
++			if( $this-&gt;isOpen )
++			{
++				if( count($this-&gt;patterns) &lt;= $this-&gt;queryCounter )
++				{
++					$this-&gt;queryCounter++;
++					$this-&gt;error_msgs[] = &quot;Unerwartete Anzahl an Queries - erwartet &quot;.count($this-&gt;patterns).&quot; tats&#228;chlich: &quot;.$this-&gt;queryCounter;
++					return false;
++				}
++				else if( !preg_match($this-&gt;patterns[$this-&gt;queryCounter],$query) )
++				{
++					$this-&gt;error_msgs[] = &quot;Unerwartete Query - erwartet: &quot;.$this-&gt;patterns[$this-&gt;queryCounter].&quot; tats&#228;chlich: &quot;.$query;
++					return false;
++				}
++				
++				$this-&gt;FreeResult();
++				$this-&gt;query_result = $this-&gt;results[$this-&gt;queryCounter++];
++				return true;
++			}
++			else
++			{
++				return false;
++			}
++		}
++	}
++?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000118.html">[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include
+</A></li>
+	<LI>Next message: <A HREF="000120.html">[Liman-svn] r130 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#119">[ date ]</a>
+              <a href="thread.html#119">[ thread ]</a>
+              <a href="subject.html#119">[ subject ]</a>
+              <a href="author.html#119">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r22 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r22%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604221158.k3MBwdqD026125%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000011.html">
+   <LINK REL="Next"  HREF="000013.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r22 - trunk/docs/beleg1</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r22%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604221158.k3MBwdqD026125%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r22 - trunk/docs/beleg1">fwilhelm at berlios.de
+       </A><BR>
+    <I>Sat Apr 22 13:58:39 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000011.html">[Liman-svn] r21 - in trunk/docs/beleg1: . visio
+</A></li>
+        <LI>Next message: <A HREF="000013.html">[Liman-svn] r23 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-04-22 13:58:36 +0200 (Sat, 22 Apr 2006)
+New Revision: 22
+
+Modified:
+   trunk/docs/beleg1/pspec_bibtex.tex
+   trunk/docs/beleg1/pspec_buchverwaltung.tex
+Log:
+Prozessspezifikation f?\195?\188r: Teilmodell BibTeX, Teilmodel Buchverwaltung
+
+Modified: trunk/docs/beleg1/pspec_bibtex.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_bibtex.tex	2006-04-21 20:24:39 UTC (rev 21)
++++ trunk/docs/beleg1/pspec_bibtex.tex	2006-04-22 11:58:36 UTC (rev 22)
+@@ -2,13 +2,25 @@
+ \paragraph{BibTeX\_importieren}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: BibTeX\_importieren  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;Frank Wilhelm\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}:
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Daten := deserialisiere BibTeX_Datei;
++   
++   IF lesen_erfolgreich THEN
++   BEGIN
++     Buch_anlegen( Daten )
++     
++     IF anlegen_erfolgreich THEN
++       Setze Best&#228;tigung_BibTeXImport
++   END
++   ELSE
++     Setze Fehler 101
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -17,13 +29,21 @@
+ \paragraph{BibTeX\_exportieren}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: BibTeX\_exportieren  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\\\
++					&amp;\textbf{Bearbeiter}: &amp;Frank Wilhelm\\\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}:
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Daten := Finde in Buch Literatur mit Literatur.Literatur_Nr = Exportanfrage.Literatur_Nr;
++  
++   IF gefunden THEN
++     BibTeX_Datei := Serialisiere Daten
++   ELSE
++     Setze Fehler 102
++ END
+ \end{verbatim}
++
+ \hrulefill
+ 
+
+Modified: trunk/docs/beleg1/pspec_buchverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_buchverwaltung.tex	2006-04-21 20:24:39 UTC (rev 21)
++++ trunk/docs/beleg1/pspec_buchverwaltung.tex	2006-04-22 11:58:36 UTC (rev 22)
+@@ -2,13 +2,27 @@
+ \paragraph{Buch\_anlegen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Buch\_anlegen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;Frank Wilhelm\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}:
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Finde in Literatur Buch
++         mit Literatur.Titel = Buchdaten.Titel
++         und Literatur.Autor = Buchdaten.Autor;
++ 
++   IF gefunden THEN
++   BEGIN
++     Zeige Warnung 201
++     IF not best&#228;tigt THEN
++       Abbrechen
++   END
++   
++   Lege in Buch Literatur mit Buchdaten an
++   Setze Best&#228;tigung_Buchanlegen
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -18,13 +32,22 @@
+ \paragraph{Buch\_&#228;ndern}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Buch\_&#228;ndern  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;Frank Wilhelm\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}:
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Setze in Literatur Buch
++         mit Literatur.Literatur_Nr = Buchnummer
++         auf Buchdaten;
++  
++   IF erfolgreich THEN
++     Setze Best&#228;tigung_Buch&#228;ndern
++   ELSE
++     Setze Fehler 202
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -40,6 +63,13 @@
+ \hrulefill\\
+ \textbf{Voraussetzung}:
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   L&#246;sche in Literatur Buch mit Literatur.Literatur_Nr = Buchnummer;
++   
++   IF erfolgreich THEN
++     Setze Best&#228;tigung_Buchl&#246;schen
++   ELSE
++     Setze Fehler 203
++ END
+ \end{verbatim}
+ \hrulefill
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000011.html">[Liman-svn] r21 - in trunk/docs/beleg1: . visio
+</A></li>
+	<LI>Next message: <A HREF="000013.html">[Liman-svn] r23 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

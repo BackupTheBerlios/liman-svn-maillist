@@ -1,0 +1,1003 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r159 - in trunk: . include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r159%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606121459.k5CExP9h005291%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000148.html">
+   <LINK REL="Next"  HREF="000150.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r159 - in trunk: . include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r159%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606121459.k5CExP9h005291%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r159 - in trunk: . include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun 12 16:59:25 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000148.html">[Liman-svn] r158 - trunk/include/tests
+</A></li>
+        <LI>Next message: <A HREF="000150.html">[Liman-svn] r160 - in trunk: . include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-12 16:59:24 +0200 (Mon, 12 Jun 2006)
+New Revision: 159
+
+Modified:
+   trunk/bibtex.php
+   trunk/commentmod.php
+   trunk/include/autor.php
+   trunk/include/config.php
+   trunk/include/global.php
+   trunk/include/header.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/sqldb.php
+   trunk/index.php
+Log:
+- vereinzelt Kommentare hinzugef?\195?\188gt
+- $basepath entfernt und GZIP-Kompression optional gemacht
+
+
+Modified: trunk/bibtex.php
+===================================================================
+--- trunk/bibtex.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/bibtex.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -4,6 +4,7 @@
+ 
+ 	require_once(&quot;include/header.php&quot;);
+ 
++	// Abbruch wenn keine Mitgliedsrechte vorhanden
+ 	if ($login-&gt;IsMember() === false)
+ 	{
+ 		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
+@@ -13,71 +14,79 @@
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ &lt;?php
++	// Zeige Importformular, wenn noch keine Daten gesendet wurden
+ 	if (empty($_FILES[&quot;bibtexfile&quot;]) === true &amp;&amp; empty($_POST[&quot;bibtextext&quot;]) === true)
+ 	{
+ 	?&gt;
+-	&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtexfileform&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+-	&lt;fieldset&gt;
+-   		 &lt;legend&gt;&lt;b&gt;BibTeX-Datei importieren&lt;/b&gt;&lt;/legend&gt;
++		&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtexfileform&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
++		&lt;fieldset&gt;
++			&lt;legend&gt;&lt;b&gt;BibTeX-Datei importieren&lt;/b&gt;&lt;/legend&gt;
++		
++		
++			&lt;table class=&quot;bibteximport&quot;&gt;
++				&lt;tbody&gt;
++					&lt;tr&gt;
++						&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;Datei:&lt;/label&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;input class=&quot;input_file&quot; type=&quot;file&quot; id=&quot;bibtexfile&quot; name=&quot;bibtexfile&quot;&gt;&lt;/td&gt;
++					&lt;/tr&gt;
++					&lt;tr&gt;
++						&lt;th&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
++					&lt;/tr&gt;
++				&lt;/tbody&gt;
++			&lt;/table&gt;
++		&lt;/fieldset&gt;
++		&lt;/form&gt;
+ 	
+-	
+-		&lt;table class=&quot;bibteximport&quot;&gt;
+-			&lt;tbody&gt;
+-				&lt;tr&gt;
+-					&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;Datei:&lt;/label&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input class=&quot;input_file&quot; type=&quot;file&quot; id=&quot;bibtexfile&quot; name=&quot;bibtexfile&quot;&gt;&lt;/td&gt;
+-				&lt;/tr&gt;
+-				&lt;tr&gt;
+-					&lt;th&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
+-				&lt;/tr&gt;
+-			&lt;/tbody&gt;
+-		&lt;/table&gt;
+-	&lt;/fieldset&gt;
+-	&lt;/form&gt;
+-
+-	&lt;hr&gt;
+-	
+-	&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtextextform&quot; method=&quot;post&quot;&gt;
+-	&lt;fieldset&gt;
+-   		&lt;legend&gt;&lt;b&gt;BibTeX importieren&lt;/b&gt;&lt;/legend&gt;
+-		&lt;table class=&quot;bibteximport&quot;&gt;
+-			&lt;tbody&gt;
+-				&lt;tr&gt;
+-					&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;BibTeX:&lt;/label&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;bibtextext&quot; id=&quot;bibtextext&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
+-				&lt;/tr&gt;
+-				&lt;tr&gt;
+-					&lt;th&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
+-				&lt;/tr&gt;
+-			&lt;/tbody&gt;
+-		&lt;/table&gt;
+-	&lt;/fieldset&gt;
+-	&lt;/form&gt;
++		&lt;hr&gt;
++		
++		&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtextextform&quot; method=&quot;post&quot;&gt;
++		&lt;fieldset&gt;
++			&lt;legend&gt;&lt;b&gt;BibTeX importieren&lt;/b&gt;&lt;/legend&gt;
++			&lt;table class=&quot;bibteximport&quot;&gt;
++				&lt;tbody&gt;
++					&lt;tr&gt;
++						&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;BibTeX:&lt;/label&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;bibtextext&quot; id=&quot;bibtextext&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
++					&lt;/tr&gt;
++					&lt;tr&gt;
++						&lt;th&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
++					&lt;/tr&gt;
++				&lt;/tbody&gt;
++			&lt;/table&gt;
++		&lt;/fieldset&gt;
++		&lt;/form&gt;
+ 	&lt;?php
+ 	}
+ 	else
+ 	{
++		// BibTeX-Daten entweder von Dateiupload oder &#252;bergebenen Textdaten
+ 		$bibtex = &quot;&quot;;
+ 		if (empty($_FILES[&quot;bibtexfile&quot;]) === false)
+ 		{
++			// Wenn Datei hochgeladen wurde, lese Inhalt der Datei
+ 			$bibtex = file_get_contents($_FILES[&quot;bibtexfile&quot;][&quot;tmp_name&quot;]);
+ 		}
+ 		elseif (empty($_POST[&quot;bibtextext&quot;]) === false)
+ 		{
++			// Wenn Textdaten hochgeladen wurden, entferne automatisch
++			// hinzugef&#252;gte Backslashes vor Zeichen mit besonderer Bedeutung
+ 			$bibtex = stripslashes($_POST[&quot;bibtextext&quot;]);
+ 		}
+ 
++		// Fehler, wenn &quot;nichts&quot; hochgeladen/&#252;bergeben wurde
+ 		if ($bibtex === false || empty($bibtex) === true)
+ 		{
+ 			echo &quot;&lt;div id=\&quot;error\&quot;&gt;Konnte nichts zum importieren lesen&lt;/div&gt;&quot;;
+ 		}
+ 		else
+ 		{
++			// Importiere BibTeX in Datenbank
+ 			require_once(&quot;include/literatur.php&quot;);
+ 			$imported = Literatur::InsertBibTeX($bibtex);
+ 
++			// Gebe je nach Anzahl importierter Literatureintr&#228;ge Text aus
+ 			switch ($imported)
+ 			{
+ 			case 0:
+
+Modified: trunk/commentmod.php
+===================================================================
+--- trunk/commentmod.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/commentmod.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -1,4 +1,5 @@
+ &lt;?php
++	// W&#228;hle Seitentitel nach ausgew&#228;hlter Aktion
+ 	if (isset($_GET[&quot;delete&quot;]) === true)
+ 	{
+ 		$title = &quot;Kommentar l&#246;schen&quot;;
+@@ -15,6 +16,7 @@
+ 
+ 	require_once(&quot;include/header.php&quot;);
+ 
++	// Abbruch wenn keine Mitgliedsrechte vorhanden
+ 	if ($login-&gt;IsMember() === false)
+ 	{
+ 		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
+@@ -23,6 +25,8 @@
+ 	}
+ 	elseif ($login-&gt;IsAdministrator() === false)
+ 	{
++		// Wenn keine Administratorrechte vorhanden sind
++		// d&#252;rfen nur die eigenen Daten ge&#228;ndert werden
+ 		$_GET[&quot;userid&quot;] = $login-&gt;Nr;
+ 		$_POST[&quot;userid&quot;] = $login-&gt;Nr;
+ 	}
+@@ -31,20 +35,27 @@
+ &lt;?php
+ 	require_once(&quot;include/kommentar.php&quot;);
+ 	require_once(&quot;include/form_helper.php&quot;);
++
++	// Suche gew&#228;hlte Aktion
+ 	if (isset($_GET[&quot;delete&quot;]) === true)
+ 	{
++		// L&#246;schen wenn akzeptiert wurde
+ 		if (isset($_POST[&quot;accept&quot;]) === true)
+ 		{
++			// Fehlerhafte Daten zum L&#246;schen &#252;bertragen?
+ 			if (empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false)
+ 			{
++				// Wenn ja, gebe Fehler aus
+ 				echo &quot;&lt;p id=\&quot;error\&quot;&gt;Kommentar konnte nicht gel&#246;scht werden, da es ein Fehler bei der &#220;bertragung der Informationen des Kommentars gab&lt;/p&gt;&quot;;
+ 			}
+ 			else
+ 			{
++				// Wenn nicht, l&#246;sche Kommentar und gebe Erfolgsmeldung aus
+ 				Kommentar::Delete($_POST[&quot;id&quot;]);
+ 				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde entfernt&lt;/p&gt;&quot;;
+ 			}
+ 
++			// Wurde eine Literaturnummer &#252;bergeben, gebe Zur&#252;ckbutton aus
+ 			if (empty($_POST[&quot;litid&quot;]) === false)
+ 			{
+ 				echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
+@@ -52,6 +63,7 @@
+ 		}
+ 		else
+ 		{
++			// Frage ob gel&#246;scht Kommentar werden soll
+ 			require_once(&quot;include/form_helper.php&quot;);
+ 			echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+ 			echo &quot;Wollen sie den Kommentar wirklich entfernen?&quot;;
+@@ -69,18 +81,22 @@
+ 	}
+ 	elseif  (isset($_GET[&quot;insert&quot;]) === true)
+ 	{
++		// Fehlerhafte Daten zum Anlegen &#252;bertragen?
+ 		if (isset($_POST[&quot;text&quot;]) === false ||
+ 			empty($_POST[&quot;userid&quot;]) === true || is_numeric($_POST[&quot;userid&quot;]) === false ||
+ 			empty($_POST[&quot;litid&quot;]) === true || is_numeric($_POST[&quot;litid&quot;]) === false)
+ 		{
++			// Wenn ja, gebe Fehler aus
+ 			echo &quot;&lt;p id=\&quot;error\&quot;&gt;Kommentar konnte nicht angelegt werden, da es ein Fehler bei der &#220;bertragung der Informationen des Kommentars gab&lt;/p&gt;&quot;;
+ 		}
+ 		else
+ 		{
++			// Wenn nicht, lege Kommentar an und gebe Erfolgsmeldung aus
+ 			Kommentar::Insert($_POST[&quot;text&quot;], $_POST[&quot;userid&quot;], $_POST[&quot;litid&quot;]);
+ 			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde angelegt&lt;/p&gt;&quot;;
+ 		}
+ 
++		// Wurde eine Literaturnummer &#252;bergeben, gebe Zur&#252;ckbutton aus
+ 		if (empty($_POST[&quot;litid&quot;]) === false)
+ 		{
+ 			echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
+@@ -88,17 +104,21 @@
+ 	}
+ 	elseif (isset($_GET[&quot;update&quot;]) === true)
+ 	{
++		// Fehlerhafte Daten zum &#196;ndern &#252;bertragen?
+ 		if (isset($_POST[&quot;text&quot;]) === false ||
+ 			empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false)
+ 		{
++			// Wenn ja, gebe Fehler aus
+ 			echo &quot;&lt;p id=\&quot;error\&quot;&gt;Kommentar konnte nicht ge&#228;ndert werden, da es ein Fehler bei der &#220;bertragung der Informationen des Kommentars gab&lt;/p&gt;&quot;;
+ 		}
+ 		else
+ 		{
++			// Wenn nicht, &#228;ndere Kommentar und gebe Erfolgsmeldung aus
+ 			Kommentar::Update($_POST[&quot;id&quot;], $_POST[&quot;text&quot;]);
+ 			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde ge&#228;ndert&lt;/p&gt;&quot;;
+ 		}
+ 
++		// Wurde eine Literaturnummer &#252;bergeben, gebe Zur&#252;ckbutton aus
+ 		if (empty($_POST[&quot;litid&quot;]) === false)
+ 		{
+ 			echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/autor.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -45,8 +45,10 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// Entferne Autoren ohne Verbindung in Literatur_Autor zur Literatur
+ 				$sql = &quot;DELETE autoren, connect
+ 						FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+@@ -56,6 +58,7 @@
+ 				if ($sqldb-&gt;Query($sql) === false)
+ 				{
+ 					// Workaround f&#252;r MySQL &lt; 4
++					// Finde Autoren ohne Verbindung in Literatur_Autor zur Literatur
+ 					$sql = &quot;SELECT autoren.Autor_Nr AS Nr
+ 							FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 							LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+@@ -63,19 +66,23 @@
+ 							WHERE connect.Autor_Nr is NULL&quot;;
+ 					$sqldb-&gt;Query($sql);
+ 
++					// Lese alle Autorennummern aus
+ 					$authorid = array();
+ 					while ($line = $sqldb-&gt;Fetch())
+ 					{
+ 						$authorid[] = $line-&gt;Nr;
+ 					}
+ 
++					// Wenn Autoren gefunden worden
+ 					if (empty($authorid) === false)
+ 					{
++						// Erstelle Kommagetrennte Liste der Autorennummern
++						$idlist = implode(&quot;, &quot;, $authorid);
++
++						// L&#246;sche gefundene Autoren
+ 						$sqlDelete = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Autoren
+ 								WHERE Autor_Nr IN (&quot;;
+-						$idlist = implode(&quot;, &quot;, $authorid);
+-						$sqlDelete .= $idlist.&quot;)&quot;;
+-
++								$sqlDelete .= $idlist.&quot;)&quot;;
+ 						$sqldb-&gt;Query($sqlDelete);
+ 					}
+ 				}
+@@ -95,13 +102,16 @@
+ 		{
+ 			global $db_config, $sqldb;
+ 
+-			$authors = array();
++			// Lese alle Autoren mit Verbindung zu Literatur in Literatur_Autor
+ 			$sql = &quot;SELECT  autoren.Autor_Nr AS Nr, Autorname AS Name
+ 					FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+ 					INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 					ON connect.Autor_Nr = autoren.Autor_Nr
+ 					WHERE Literatur_Nr = '$literatur_nr'&quot;;
+ 			$sqldb-&gt;Query($sql);
++
++			// Lese Autoren aus und erstelle Array aus gefundenen Autoren
++			$authors = array();
+ 			while ($cur = $sqldb-&gt;Fetch())
+ 			{
+ 				$authors[] = new Autor($cur);
+@@ -130,25 +140,34 @@
+ 			global $db_config, $sqldb, $login;
+ 			$authorNumbers = array();
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// Trenne kommagetrennte Liste der Autoren an Kommas auf
+ 				$authorNames = array();
+-				$authorNames = split( &quot;,&quot;, $autoren );
+-			
+-				for( $i = 0; $i &lt; count($authorNames); $i++ )
++				$authorNames = split(&quot;,&quot;, $autoren);
++
++				// Suche ob jeder Autorname in kommagetrennter Liste in Autoren steht
++				foreach ($authorNames as $autor)
+ 				{
++					// Suche nach Autoreintrag
+ 					$sqlSelect = &quot;SELECT Autor_Nr AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+-							WHERE Autorname = '&quot;.trim($authorNames[$i]).&quot;'&quot;;
++							WHERE Autorname = '&quot;.trim($autor).&quot;'&quot;;
+ 					$sqldb-&gt;Query( $sqlSelect );
+ 					
+-					if( $cur = $sqldb-&gt;Fetch() )
++					// Existiert der Eintrag?
++					if ($cur = $sqldb-&gt;Fetch())
+ 					{
++						// Wenn ja, speichere Autornummer f&#252;r R&#252;ckgabe
+ 						$authorNumbers[] = $cur-&gt;Nr;
+ 					}
+ 					else
+ 					{
+-						$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($authorNames[$i]).&quot;')&quot;;
+-						$sqldb-&gt;Query( $sqlInsert );
++						// Wenn nicht, dann f&#252;ge Autorname in Datenbank ein
++						$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($autor).&quot;')&quot;;
++						$sqldb-&gt;Query($sqlInsert);
++
++						// Speichere neue Autornummer f&#252;r R&#252;ckgabe
+ 						$authorNumbers[] = $sqldb-&gt;GetInsertID();
+ 					}
+ 				}
+
+Modified: trunk/include/config.php
+===================================================================
+--- trunk/include/config.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/config.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -10,4 +10,5 @@
+ 	$db_config['prefix'] = &quot;liman_&quot;;
+ 
+ 	$ext = &quot;php&quot;;	// Endung der von den Usern abrufbaren Dateien
++	$gz_enable = true; // aktiviere GZIP-Kompression der HTML-Dateien
+ ?&gt;
+
+Modified: trunk/include/global.php
+===================================================================
+--- trunk/include/global.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/global.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -1,9 +1,4 @@
+ &lt;?php
+-	if (empty($basepath))
+-	{
+-		$basepath = &quot;./&quot;;
+-	}
+-
+ 	// Benutze Backslashes, wenn dies nicht automatisch gemacht wird
+ 	if( !get_magic_quotes_gpc())
+ 	{
+@@ -30,11 +25,8 @@
+ 			}
+ 		}
+ 	
+-		//quote_array($HTTP_GET_VARS);
+ 		quote_array($_GET);
+-		//quote_array($HTTP_POST_VARS);
+ 		quote_array($_POST);
+-		//quote_array($HTTP_COOKIE_VARS);
+ 		quote_array($_COOKIE);
+ 	}
+ 
+@@ -69,7 +61,7 @@
+ 		return $str;
+ 	}
+ 
+-	require_once($basepath.&quot;include/config.php&quot;);
+-	require_once($basepath.&quot;include/sqldb.php&quot;);
+-	require_once($basepath.&quot;include/login.php&quot;);
+-?&gt;
+\ No newline at end of file
++	require_once(&quot;include/config.php&quot;);
++	require_once(&quot;include/sqldb.php&quot;);
++	require_once(&quot;include/login.php&quot;);
++?&gt;
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/header.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -1,16 +1,14 @@
+-&lt;?php
+-	
+-	ob_start('ob_gzhandler'); 
++&lt;?php 
+ 	header(&quot;Content-Language: de&quot;);
+-
+ 	header(&quot;Content-type: text/html; charset=UTF-8&quot;);
+ 
+-	if (empty($basepath))
+-                $basepath = &quot;./&quot;;
+-	elseif (isset($_GET[&quot;basepath&quot;]) || isset($_POST[&quot;basepath&quot;]))
+-		die(&quot;Don't send basepath with request&quot;);
++	require_once(&quot;include/global.php&quot;);
+ 
+-	require_once($basepath.&quot;include/global.php&quot;);
++	// Aktiviere GZIP-Kompression, wenn gew&#252;nscht
++	if (isset($gz_enable) === true &amp;&amp; $gz_enable === true)
++	{
++		ob_start('ob_gzhandler');
++	}
+ ?&gt;
+ &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;<A HREF="http://www.w3.org/TR/html4/strict.dtd">http://www.w3.org/TR/html4/strict.dtd</A>&quot;&gt;
+ &lt;html&gt;
+@@ -18,8 +16,8 @@
+ 		&lt;title&gt;&lt;?=empty($title)?&quot;&quot;:$title.&quot; :: &quot;; ?&gt;LiMan&lt;/title&gt;
+ 		&lt;link rel=&quot;SHORTCUT ICON&quot; href=&quot;favicon.ico&quot;&gt;
+ 		&lt;style type=&quot;text/css&quot; title=&quot;LiMan 1.0&quot; media=&quot;screen,projection&quot;&gt;
+-			@import &quot;&lt;?=$basepath;?&gt;design/liman.css&quot;;
+-			&lt;?=empty($extracss)?&quot;&quot;:&quot;@import \&quot;$basepath/design/&quot;.$extracss.&quot;\&quot;;\n&quot;; ?&gt;
++			@import &quot;design/liman.css&quot;;
++			&lt;?=empty($extracss)?&quot;&quot;:&quot;@import \&quot;design/&quot;.$extracss.&quot;\&quot;;\n&quot;; ?&gt;
+ 		&lt;/style&gt;
+ 		&lt;?=empty($extrahead)?&quot;&quot;:$extrahead.&quot;\n&quot;; ?&gt;
+ 		&lt;meta name=&quot;description&quot; content=&quot;Literature Manager&quot;&gt;
+@@ -28,7 +26,7 @@
+ 		&lt;meta name=&quot;robots&quot; content=&quot;follow&quot;&gt;
+ 		&lt;meta http-equiv=&quot;content-language&quot; content=&quot;de&quot;&gt;
+ 		&lt;meta name=&quot;author&quot; content=&quot;Simon Wunderlich&quot;&gt;
+-		&lt;link rel=&quot;home&quot; title=&quot;Home&quot; href=&quot;&lt;?=$basepath.&quot;index.&quot;.$ext;?&gt;&quot;&gt;
++		&lt;link rel=&quot;home&quot; title=&quot;Home&quot; href=&quot;index.&lt;?=$ext;?&gt;&quot;&gt;
+ 	&lt;/head&gt;
+ 	&lt;body id=&quot;liman&quot;&gt;
+ 		&lt;div id=&quot;container&quot;&gt;
+@@ -61,24 +59,24 @@
+ 					&lt;?php
+ 						if ($login-&gt;IsMember() === false)
+ 						{
+-					?&gt;
+-						&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-							&lt;div&gt;
+-							&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-							&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
+-							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+-							&lt;/div&gt;
+-						&lt;/form&gt;
+-					&lt;?php
++						?&gt;
++							&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
++								&lt;div&gt;
++								&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++								&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
++								&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
++								&lt;/div&gt;
++							&lt;/form&gt;
++						&lt;?php
+ 						}
+ 						else
+ 						{
+-					?&gt;
+-						&lt;form action=&quot;login.&lt;?=$ext;?&gt;?logout&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-							&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
+-							&lt;/div&gt;
+-						&lt;/form&gt;
+-					&lt;?php
++						?&gt;
++							&lt;form action=&quot;login.&lt;?=$ext;?&gt;?logout&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
++								&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
++								&lt;/div&gt;
++							&lt;/form&gt;
++						&lt;?php
+ 						}
+ 					?&gt;
+ 				&lt;/div&gt;
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/kommentar.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -63,6 +63,8 @@
+ 
+ 			if ($login-&gt;IsAdministrator() === true)
+ 			{
++				// Wenn Administratorrechte vorliegen,
++				// L&#246;sche Kommentar mit Kommentar_Nr = $nr
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+ 						WHERE Kommentar_Nr = '$nr'
+ 						LIMIT 1&quot;;
+@@ -70,6 +72,8 @@
+ 			}
+ 			elseif ($login-&gt;IsMember() === true)
+ 			{
++				// Wenn Mitgliedsrechte vorliegen, l&#246;sche Kommentar mit Kommentar_Nr = $nr
++				// nur wenn Mitglieds_Nr des aktuellen Nutzers
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+ 						WHERE Kommentar_Nr = '$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
+ 						LIMIT 1&quot;;
+@@ -90,8 +94,10 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// L&#246;sche alle Kommentare zu bestimmten Literatur
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+ 						WHERE Literatur_Nr = '$literatur_nr'&quot;;
+ 				$sqldb-&gt;Query($sql);
+@@ -111,8 +117,10 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsAdministrator() === true)
+ 			{
++				// L&#246;sche alle Kommentare von bestimmten Mitglied
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+ 						WHERE Mitglieds_Nr = '$member_nr'&quot;;
+ 				$sqldb-&gt;Query($sql);
+@@ -132,7 +140,7 @@
+ 		{
+ 			global $db_config, $sqldb;
+ 
+-			$authors = array();
++			// Lese alle Kommentare zu bestimmter Literatur
+ 			$sql = &quot;SELECT  Kommentar_Nr AS Nr, Kommentartext AS Text, mitglieder.Mitglieds_Nr AS Mitglieds_Nr, Vorname, Name AS Nachname
+ 					FROM &quot;.$db_config['prefix'].&quot;Kommentare AS kommentare
+ 					INNER JOIN  &quot;.$db_config['prefix'].&quot;Mitglieder AS mitglieder
+@@ -141,6 +149,8 @@
+ 					ORDER BY Nr ASC&quot;;
+ 			$sqldb-&gt;Query($sql);
+ 
++			// Lese Kommentare aus und erstelle Array aus gefundenen Kommentaren
++			$authors = array();
+ 			while ($cur = $sqldb-&gt;Fetch())
+ 			{
+ 				$authors[] = new Kommentar($cur);
+@@ -172,22 +182,29 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Liegen Administratorrechte vor? Alternativ Mitgliedsrechte
++			// (aber nur, wenn der Verfasser gleich der eingeloggte User ist)
+ 			if ($login-&gt;IsAdministrator() === true ||
+ 				($login-&gt;IsMember() === true &amp;&amp; $verfasser_nr == $login-&gt;Nr))
+ 			{
++				// Suche nach Literatureintrag mit &#252;bergebener Literatur_Nr $literatur_nr
+ 				$sqlExists = &quot;SELECT Literatur_Nr FROM &quot;.$db_config['prefix'].&quot;Bibliothek
+ 						WHERE Literatur_Nr='$literatur_nr'&quot;;
+ 				$sqldb-&gt;Query($sqlExists);
+ 
++				// Existiert eine Literatur mit $literatur_nr?
+ 				if ($sqldb-&gt;Fetch() !== false)
+ 				{
++					// Suche ob schon Kommentar von Mitglied zur Literatur existiert
+ 					$sqlAlready = &quot;SELECT Kommentar_Nr FROM &quot;.$db_config['prefix'].&quot;Kommentare
+ 							WHERE Literatur_Nr='$literatur_nr' AND Mitglieds_Nr='$verfasser_nr'&quot;;
+ 					$sqldb-&gt;Query($sqlAlready);
+ 
+ 					$cur = $sqldb-&gt;Fetch();
++					// Existiert noch kein Kommentar zur Literatur von Mitglied?
+ 					if ($cur === false)
+ 					{
++						// Wenn ja, f&#252;ge neuen Kommentar hinzu, wenn Text angegeben wurde
+ 						if (empty($text) === false)
+ 						{
+ 							$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
+@@ -197,6 +214,7 @@
+ 					}
+ 					else
+ 					{
++						// Existiert schon ein Kommentar, dann &#228;ndere diesen
+ 						Kommentar::Update($cur-&gt;Kommentar_Nr, $text);
+ 					}
+ 				}
+@@ -223,14 +241,20 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Wurde kein Text angegeben?
+ 			if (empty($text) === true)
+ 			{
++				// Wenn ja, l&#246;sche Kommentar
+ 				Kommentar::Delete($nr);
+ 			}
+ 			else
+ 			{
++				// Wenn nicht, &#228;ndere Kommentar
++
+ 				if ($login-&gt;IsAdministrator() === true)
+ 				{
++					// Wenn Administratorrechte vorliegen,
++					// &#196;ndere Kommentar mit Kommentar_Nr = $nr
+ 					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
+ 							SET Kommentartext='$text'
+ 							WHERE Kommentar_Nr='$nr'
+@@ -239,6 +263,8 @@
+ 				}
+ 				elseif ($login-&gt;IsMember() === true)
+ 				{
++					// Wenn Mitgliedsrechte vorliegen, &#228;ndere Kommentar mit Kommentar_Nr = $nr
++					// nur wenn Mitglieds_Nr des aktuellen Nutzers
+ 					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
+ 							SET Kommentartext='$text'
+ 							WHERE Kommentar_Nr='$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/literatur.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -51,11 +51,15 @@
+ 		function Literatur($nr)
+ 		{
+ 			global $db_config, $sqldb;
++
++			// Suche Literatur mit Literatur_Nr = $nr heraus
+ 			$sql = &quot;SELECT Literatur_Nr, Art, Titel, Jahr, Verlag, ISBN, Beschreibung, Ort, Stichworte
+ 					FROM &quot;.$db_config['prefix'].&quot;Bibliothek
+ 					WHERE Literatur_Nr='$nr'
+ 					LIMIT 1&quot;;
+ 			$sqldb-&gt;Query($sql);
++
++			// Lese gefundene Daten aus
+ 			if ($cur = $sqldb-&gt;Fetch())
+ 			{
+ 				$this-&gt;Nr = $cur-&gt;Literatur_Nr;
+@@ -82,17 +86,23 @@
+ 		function ToBibtex()
+ 		{
+ 			$str = &quot;&quot;;
++
++			// Wurde ein LiteraturArt-Objekt angelegt?
+ 			if (is_object($this-&gt;Art) === true)
+ 			{
++				// Lege Kopf des BibTeX-Eintrags an
+ 				$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;.$this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
+ 				
+-				if (!empty($this-&gt;Titel))
++				// Titel hinzuf&#252;gen, wenn vorhanden
++				if (empty($this-&gt;Titel) === false)
+ 				{
+ 					$str .= &quot;,\n\ttitle = \&quot;&quot;.addslashes($this-&gt;Titel).&quot;\&quot;&quot;;
+ 				}
+ 	
++				// Autoren hinzuf&#252;gen, wenn vorhanden
+ 				if (empty($this-&gt;Autoren) === false)
+ 				{
++					// Erstelle and-getrennte Liste der Autorennamen
+ 					$autornamen = array();
+ 					foreach ($this-&gt;Autoren as $autor)
+ 					{
+@@ -103,26 +113,31 @@
+ 					$str .= &quot;,\n\tauthor = \&quot;&quot;.addslashes($autorlist).&quot;\&quot;&quot;;
+ 				}
+ 	
+-				if (!empty($this-&gt;Jahr))
++				// Jahr hinzuf&#252;gen, wenn vorhanden
++				if (empty($this-&gt;Jahr) === false)
+ 				{
+ 					$str .= &quot;,\n\tyear = \&quot;&quot;.addslashes($this-&gt;Jahr).&quot;\&quot;&quot;;
+ 				}
+ 	
+-				if (!empty($this-&gt;Verlag))
++				// Verlag hinzuf&#252;gen, wenn vorhanden
++				if (empty($this-&gt;Verlag) === false)
+ 				{
+ 					$str .= &quot;,\n\tpublisher = \&quot;&quot;.addslashes($this-&gt;Verlag).&quot;\&quot;&quot;;
+ 				}
+ 	
+-				if (!empty($this-&gt;ISBN))
++				// ISBN hinzuf&#252;gen, wenn vorhanden
++				if (empty($this-&gt;ISBN) === false)
+ 				{
+ 					$str .= &quot;,\n\tisbn = \&quot;&quot;.addslashes($this-&gt;ISBN).&quot;\&quot;&quot;;
+ 				}
+ 	
+-				if (!empty($this-&gt;Ort))
++				// Ort hinzuf&#252;gen, wenn vorhanden
++				if (empty($this-&gt;Ort) === false)
+ 				{
+ 					$str .= &quot;,\n\taddress = \&quot;&quot;.addslashes($this-&gt;Ort).&quot;\&quot;&quot;;
+ 				}
+ 				
++				// Beende BibTeX-Eintrag
+ 				$str .= &quot;\n}\n&quot;;
+ 			}
+ 			return $str;
+@@ -145,19 +160,24 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// L&#246;sche Literatur aus Bibliothek
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Bibliothek
+ 						WHERE Literatur_Nr = '$nr'
+ 						LIMIT 1&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// Entferne alle Verbindugnen zwischen Literatur und Autoren
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor
+ 						WHERE Literatur_Nr = '$nr'&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// L&#246;sche nun alle freigewordenen Autoren
+ 				Autor::Clean();
+ 
++				// L&#246;sche alle zur Literatur geh&#246;rdenden Kommentare
+ 				Kommentar::DeleteAll($nr);
+ 			}
+ 		}
+@@ -179,6 +199,7 @@
+ 					'mastersthesis', 'misc', 'phdthesis', 'proceedings', 'techreport',
+ 					'unpublished');
+ 
++			// Finde alle BibTeX-Eintr&#228;ge
+ 			// Funktioniert nicht bei Argumenten &#252;ber mehrere Zeilen
+ 			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
+ 			{
+@@ -191,6 +212,7 @@
+ 
+ 			$entries = false;
+ 			
++			// Extrahiere alle Eintr&#228;ge
+ 			for ($i = 0; $i &lt; $num_entries; $i++)
+ 			{
+ 				$cur = new stdClass;
+@@ -223,6 +245,7 @@
+ 				// Extrahiere &quot;Optionen&quot;
+ 				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
++					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
+ 					for ($j = 0; $j &lt; $num_options; $j++)
+ 					{
+@@ -238,6 +261,7 @@
+ 							$argument = substr($argument, 1, strlen($argument)-2);
+ 						}
+ 
++						// Wei&#223;e Daten der aktuellen Option zu
+ 						switch (strtolower(trim($regexp_options[2][$j])))
+ 						{
+ 						case &quot;title&quot;:
+@@ -282,6 +306,8 @@
+ 			$imported = 0;
+ 			if ($entries !== false &amp;&amp; empty($entries) === false)
+ 			{
++				// Importiere die einzelnen Eintr&#228;ge in Bibliothek
++				// wenn Titel und Autor vorhanden sind
+ 				foreach ($entries as $entry)
+ 				{
+ 					if (empty($entry-&gt;titel) === false &amp;&amp; empty($entry-&gt;autoren) === false)
+@@ -321,12 +347,16 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// F&#252;ge Literatur in Bibliothek ein
+ 				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Bibliothek
+ 						VALUES (NULL, '$art', '$titel', '$jahr', '$verlag', '$isbn', '$beschreibung', '$ort', '$stichworte')&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// Importiere jeden Autor und f&#252;ge Verbindung zur
++				// zur Literatur in Literatur_Autor an
+ 				if ($nr = $sqldb-&gt;GetInsertID())
+ 				{
+ 					$autorlist = Autor::Split($autoren);
+@@ -370,18 +400,22 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Mitglied angemeldet sind
+ 			if ($login-&gt;IsMember() === true)
+ 			{
++				// L&#246;sche jede Verbindung zu Autoren in Literatur_Autor mit aktueller Literatur
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor
+ 						WHERE Literatur_Nr='$nr'&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// &#196;ndere aktuellen Literatureintrag
+ 				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Bibliothek
+ 							SET Art='$art', Titel='$titel', Jahr='$jahr', Verlag='$verlag', ISBN='$isbn', Beschreibung='$beschreibung', Ort='$ort', Stichworte='$stichworte'
+ 							WHERE Literatur_Nr='$nr'
+ 							LIMIT 1&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// F&#252;ge neue Autoren hinzu und verbinde sie mit Literatur durch Literatur_Autor
+ 				$autorlist = Autor::Split($autoren);
+ 				foreach ($autorlist as $cur)
+ 				{
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/literaturart.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -39,6 +39,7 @@
+ 		 */
+ 		function LiteraturArt($text)
+ 		{
++			// Suche Zahlenrepr&#228;sentation des &#252;bergebenen Texts heraus
+ 			switch ($text)
+ 			{
+ 			case &quot;book&quot;:
+@@ -109,6 +110,7 @@
+ 		 */
+ 		function GetDisplayText()
+ 		{
++			// Suche Datenbank-/Benutzeroberfl&#228;chetext herau
+ 			switch ($this-&gt;value)
+ 			{
+ 			case 1:
+@@ -157,6 +159,7 @@
+ 		 */
+ 		function GetBibtexText()
+ 		{
++			// Suche BibTeX-Text heraus
+ 			switch ($this-&gt;value)
+ 			{
+ 			case 1:
+
+Modified: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/include/sqldb.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -3,7 +3,7 @@
+ 	{
+ 		default:
+ 		case &quot;mysql&quot;:
+-			require_once($basepath.&quot;include/sqldb_mysql.php&quot;);
++			require_once(&quot;include/sqldb_mysql.php&quot;);
+ 			break;
+ 	}
+ 	
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-06-12 14:45:58 UTC (rev 158)
++++ trunk/index.php	2006-06-12 14:59:24 UTC (rev 159)
+@@ -17,38 +17,44 @@
+ 		&lt;/thead&gt;
+ 		&lt;tbody&gt;
+ 			&lt;?php
++				// Suche zuletzt hinzugef&#252;gte Literatur
+ 				require_once(&quot;include/suche.php&quot;);
+ 				$search = new Suche();
++
++				// Gebe alle gefundenen Treffer aus
+ 				foreach ($search-&gt;Treffer as $cur)
+ 				{
+-			?&gt;
+-				&lt;tr&gt;
+-					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++				?&gt;
++					&lt;tr&gt;
++					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;
++						&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;
++					&lt;/td&gt;
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+-				&lt;/tr&gt;
+-			&lt;?php
++					&lt;/tr&gt;
++				&lt;?php
+ 				}
+ 			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;?php
++		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#252;ge- und Importierknopf an
+ 		if ($login-&gt;IsMember() === true)
+ 		{
+-	?&gt;
+-		&lt;hr&gt;
+-		&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
+-			&lt;span&gt;
+-				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-			&lt;/span&gt;
+-		&lt;/form&gt;
+-		&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
+-			&lt;span&gt;
+-				&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
+-			&lt;/span&gt;
+-		&lt;/form&gt;
+-	&lt;?php
++		?&gt;
++			&lt;hr&gt;
++			&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
++				&lt;span&gt;
++					&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++				&lt;/span&gt;
++			&lt;/form&gt;
++			&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
++				&lt;span&gt;
++					&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
++				&lt;/span&gt;
++			&lt;/form&gt;
++		&lt;?php
+ 		}
+ 	?&gt;
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000148.html">[Liman-svn] r158 - trunk/include/tests
+</A></li>
+	<LI>Next message: <A HREF="000150.html">[Liman-svn] r160 - in trunk: . include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#149">[ date ]</a>
+              <a href="thread.html#149">[ thread ]</a>
+              <a href="subject.html#149">[ subject ]</a>
+              <a href="author.html#149">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

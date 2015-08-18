@@ -1,0 +1,431 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r140 - in trunk: . design docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r140%20-%20in%20trunk%3A%20.%20design%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200606071555.k57Ft5JH011805%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000129.html">
+   <LINK REL="Next"  HREF="000131.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r140 - in trunk: . design docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r140%20-%20in%20trunk%3A%20.%20design%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200606071555.k57Ft5JH011805%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r140 - in trunk: . design docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Wed Jun  7 17:55:05 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000129.html">[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include
+</A></li>
+        <LI>Next message: <A HREF="000131.html">[Liman-svn] r141 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#130">[ date ]</a>
+              <a href="thread.html#130">[ thread ]</a>
+              <a href="subject.html#130">[ subject ]</a>
+              <a href="author.html#130">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-07 17:55:00 +0200 (Wed, 07 Jun 2006)
+New Revision: 140
+
+Modified:
+   trunk/design/liman.css
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/autor.php
+   trunk/include/header.php
+   trunk/include/literatur.php
+   trunk/include/login.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+   trunk/login.php
+Log:
+- BerliOS-Workarounds (Erster Teil)
+- SQLDB::GetInsertID hinzugef?\195?\188gt (wegen BerliOS)
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/design/liman.css	2006-06-07 15:55:00 UTC (rev 140)
+@@ -54,7 +54,7 @@
+ 	list-style: none;
+ }
+ 
+-#search input, #loginform #benutzername, #loginform #password {
++#search input, #loginform #loginname, #loginform #passwort {
+ 	margin: 0 auto;
+ 	font-size: 1em;
+ 	width: 10.8em;
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-06-07 15:55:00 UTC (rev 140)
+@@ -32,12 +32,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
++\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\item \hyperlink{classSQLDB_094a5b811d412900f2435cabb2194fb8}{SQLDB::Get\-Insert\-ID}\end{itemize}
+ \end{Desc}
+ \begin{Desc}
+ \item[Autor:]Frank Wilhelm \end{Desc}
+ \begin{Desc}
+-\item[&#196;nderungsstand:]30.05.2006 \end{Desc}
++\item[&#196;nderungsstand:]6.06.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-07 15:55:00 UTC (rev 140)
+@@ -54,12 +54,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Autor::Clean}\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Autor::Split}\item \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Kommentar::Delete\-All}\item \hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Kommentar::Get\-All}\item \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art::Literatur\-Art}\item Literatur\-Art::Get\-Bib\-Tex\-Text\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
++\item \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Autor::Clean}\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Autor::Split}\item \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Kommentar::Delete\-All}\item \hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Kommentar::Get\-All}\item \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art::Literatur\-Art}\item Literatur\-Art::Get\-Bib\-Tex\-Text\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\item \hyperlink{classSQLDB_094a5b811d412900f2435cabb2194fb8}{SQLDB::Get\-Insert\-ID}\end{itemize}
+ \end{Desc}
+ \begin{Desc}
+ \item[Autor:]Sven Eckelmann \end{Desc}
+ \begin{Desc}
+-\item[&#196;nderungsstand:]30.05.2006 \end{Desc}
++\item[&#196;nderungsstand:]06.06.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-06-07 15:55:00 UTC (rev 140)
+@@ -22,6 +22,8 @@
+ \begin{CompactList}\small\item\em Anzahl zuletzt ge&#228;nderter Datens&#228;tze. \item\end{CompactList}\item 
+ \hyperlink{classSQLDB_efc9afe11649d6cdae21575717ec3436}{Get\-Error} ()
+ \begin{CompactList}\small\item\em Liefert Fehlerinformationen. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_094a5b811d412900f2435cabb2194fb8}{Get\-Insert\-ID} ()
++\begin{CompactList}\small\item\em Liefert die ID des letzten INSERTS. \item\end{CompactList}\item 
+ \hyperlink{classSQLDB_15b181251b309ab55331be29fa33ac9f}{Get\-Num\-Rows} ()
+ \begin{CompactList}\small\item\em Anzahl zuletzt gefundener Datens&#228;tze. \item\end{CompactList}\item 
+ \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{Query} (\$query)
+@@ -43,7 +45,7 @@
+ \begin{Desc}
+ \item[Autor:]Sven Eckelmann \end{Desc}
+ \begin{Desc}
+-\item[&#196;nderungsstand:]30.05.2006 \end{Desc}
++\item[&#196;nderungsstand:]06.06.2006 \end{Desc}
+ 
+ 
+ 
+@@ -161,6 +163,26 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
++\hypertarget{classSQLDB_094a5b811d412900f2435cabb2194fb8}{
++\index{SQLDB@{SQLDB}!GetInsertID@{GetInsertID}}
++\index{GetInsertID@{GetInsertID}!SQLDB@{SQLDB}}
++\paragraph[GetInsertID]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Get\-Insert\-ID ()}\hfill}
++\label{classSQLDB_094a5b811d412900f2435cabb2194fb8}
++
++
++Liefert die ID des letzten INSERTS. 
++
++Liefert die ID des bei den letzten INSERT angelegten Datensatzes zur&#252;ck \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++INSERT-Query muss gemacht worden sein \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]ID des zuletzt hinzugef&#252;gten Datensatzes \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabewerte:]
++\begin{description}
++\item[{\em bei}]Misserfolg \end{description}
++\end{Desc}
+ \hypertarget{classSQLDB_15b181251b309ab55331be29fa33ac9f}{
+ \index{SQLDB@{SQLDB}!GetNumRows@{GetNumRows}}
+ \index{GetNumRows@{GetNumRows}!SQLDB@{SQLDB}}
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/autor.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -8,9 +8,10 @@
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *  - SQLDB::GetInsertID
+ 	 *
+ 	 *  \author Frank Wilhelm
+-	 *  \date 30.05.2006
++	 *  \date 6.06.2006
+ 	 */
+ 	class Autor
+ 	{
+@@ -52,6 +53,8 @@
+ 						ON autoren.Autor_Nr = connect.Autor_Nr
+ 						WHERE connect.Autor_Nr is NULL&quot;;
+ 				$sqldb-&gt;Query($sql);
++				print_r($sqldb-&gt;GetError());
++				print_r($sql);
+ 			}
+ 		}
+ 
+@@ -101,7 +104,6 @@
+ 		function Split($autoren)
+ 		{
+ 			global $db_config, $sqldb, $login;
+-			
+ 			$authorNumbers = array();
+ 
+ 			if ($login-&gt;IsMember() === true)
+@@ -122,11 +124,8 @@
+ 					else
+ 					{
+ 						$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($authorNames[$i]).&quot;')&quot;;
+-						$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren&quot;;
+ 						$sqldb-&gt;Query( $sqlInsert );
+-						$sqldb-&gt;Query( $sqlIdentity );
+-						$line = $sqldb-&gt;Fetch();
+-						$authorNumbers[] = $line-&gt;Nr;
++						$authorNumbers[] = $sqldb-&gt;GetInsertID();
+ 					}
+ 				}
+ 			}
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/header.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -64,8 +64,8 @@
+ 					?&gt;
+ 						&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+ 							&lt;div&gt;
+-							&lt;label for=&quot;benutzername&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;benutzername&quot; name=&quot;benutzername&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-							&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
++							&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++							&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
+ 							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+ 							&lt;/div&gt;
+ 						&lt;/form&gt;
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/literatur.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -20,9 +20,10 @@
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *  - SQLDB::GetInsertID
+ 	 *
+ 	 *  \author Sven Eckelmann
+-	 *  \date 30.05.2006
++	 *  \date 06.06.2006
+ 	 */
+ 	class Literatur
+ 	{
+@@ -210,12 +211,8 @@
+ 						VALUES (NULL, '$art', '$titel', '$jahr', '$verlag', '$isbn', '$beschreibung', '$ort', '$stichworte')&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
+-				$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Bibliothek&quot;;
+-				$sqldb-&gt;Query($sqlIdentity);
+-
+-				if ($identity = $sqldb-&gt;Fetch())
++				if ($nr = $sqldb-&gt;GetInsertID())
+ 				{
+-					$nr = $identity-&gt;Nr;
+ 					$autorlist = Autor::Split($autoren);
+ 					for ($i = 0; $i &lt; count($autorlist); $i++)
+ 					{
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/login.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -68,30 +68,30 @@
+ 			// Neue Session starten?
+ 			if (empty($benutzer) === false &amp;&amp; empty($passwort) === false)
+ 			{
+-				session_register(&quot;benutzer&quot;);
+-				session_register(&quot;passwort&quot;);
++				session_register(&quot;login_benutzer&quot;);
++				session_register(&quot;login_passwort&quot;);
+ 				session_register(&quot;ip&quot;);
+ 
+-				$_SESSION[&quot;benutzer&quot;] = $benutzer;
+-				$_SESSION[&quot;passwort&quot;] = Mitglied::PasswordHash($passwort);
++				$_SESSION[&quot;login_benutzer&quot;] = $benutzer;
++				$_SESSION[&quot;login_passwort&quot;] = Mitglied::PasswordHash($passwort);
+ 				$_SESSION[&quot;ip&quot;] = $_SERVER['REMOTE_ADDR'];
+ 				
+ 			}
+ 
+ 			// Korrekt eingeloggt?
+ 			if (isset($_SESSION[&quot;ip&quot;]) &amp;&amp; $_SESSION[&quot;ip&quot;] == $_SERVER['REMOTE_ADDR'] &amp;&amp;
+-				!empty($_SESSION[&quot;benutzer&quot;]) &amp;&amp; !empty($_SESSION[&quot;passwort&quot;]))
++				!empty($_SESSION[&quot;login_benutzer&quot;]) &amp;&amp; !empty($_SESSION[&quot;login_passwort&quot;]))
+ 			{
+ 				// Hole, Nr, Passwort und Rechte zu Loginnamen
+ 				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Passwort AS passwort, Rechte
+ 					FROM &quot;.$db_config['prefix'].&quot;Mitglieder AS members
+-					WHERE members.Login = '&quot;.$_SESSION[&quot;benutzer&quot;].&quot;'
++					WHERE members.Login = '&quot;.$_SESSION[&quot;login_benutzer&quot;].&quot;'
+ 					LIMIT 1&quot;;
+ 			
+ 				$sqldb-&gt;Query($sql);
+ 				if ($line = $sqldb-&gt;Fetch())
+ 				{
+-					if ($line-&gt;passwort === $_SESSION[&quot;passwort&quot;])
++					if ($line-&gt;passwort === $_SESSION[&quot;login_passwort&quot;])
+ 					{
+ 						$this-&gt;Nr = $line-&gt;Nr;
+ 						switch ($line-&gt;Rechte)
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/sqldb_mysql.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -8,7 +8,7 @@
+ 	 *  \pre -
+ 	 *
+ 	 *  \author Sven Eckelmann
+-	 *  \date 30.05.2006
++	 *  \date 06.06.2006
+ 	 */
+ 	class SQLDB
+ 	{
+@@ -187,6 +187,27 @@
+ 
+ 			return $error;
+ 		}
++
++		/*! \brief Liefert die ID des letzten INSERTS
++		 *
++		 *  Liefert die ID des bei den letzten INSERT angelegten
++		 *  Datensatzes zur&#252;ck
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre INSERT-Query muss gemacht worden sein
++		 *  \return ID des zuletzt hinzugef&#252;gten Datensatzes
++		 *  \retval bei Misserfolg
++		 */
++		function GetInsertID()
++		{
++			if ($this-&gt;db_id !== false)
++			{
++				return @mysql_insert_id($this-&gt;db_id);
++			}
++			else
++			{
++				return false;
++			}
++		}
+ 		
+ 		/*! \brief Anzahl zuletzt gefundener Datens&#228;tze
+ 		 *
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/include/suche.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -98,8 +98,8 @@
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+-						WHERE MATCH (Titel, Verlag, ISBN, Beschreibung, Ort, Stichworte) AGAINST ('$volltext' IN BOOLEAN MODE)
+-						OR MATCH (Autorname) AGAINST ('$volltext' IN BOOLEAN MODE)&quot;;
++						WHERE MATCH (Titel, Verlag, ISBN, Beschreibung, Ort, Stichworte) AGAINST ('$volltext')
++						OR MATCH (Autorname) AGAINST ('$volltext')&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 				
+ 				while ($cur = $sqldb-&gt;Fetch())
+@@ -148,7 +148,7 @@
+ 
+ 			$titel = trim($titel);
+ 			$autor = trim($autor);
+-			if (empty($titel) === false || !empty($autor) === false)
++			if (empty($titel) === false || empty($autor) === false)
+ 			{
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+@@ -158,7 +158,7 @@
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+ 						WHERE bibliothek.Titel like '%&quot;.$titel.&quot;%'&quot;;
+ 
+-				if (empty($autor) !== false)
++				if (empty($autor) === false)
+ 				{
+ 					$sql .= &quot; AND (&quot;;
+ 					$authors = array();
+
+Modified: trunk/login.php
+===================================================================
+--- trunk/login.php	2006-06-05 16:49:39 UTC (rev 139)
++++ trunk/login.php	2006-06-07 15:55:00 UTC (rev 140)
+@@ -5,9 +5,9 @@
+ 	
+ 	require_once(&quot;include/global.php&quot;);
+ 
+-	if (empty($_POST[&quot;benutzername&quot;]) === false &amp;&amp; empty($_POST[&quot;password&quot;]) === false)
++	if (empty($_POST[&quot;loginname&quot;]) === false &amp;&amp; empty($_POST[&quot;passwort&quot;]) === false)
+ 	{
+-		$login = new Login($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;]);
++		$login = new Login($_POST[&quot;loginname&quot;], $_POST[&quot;passwort&quot;]);
+ 	}
+ 	elseif (isset($_GET[&quot;logout&quot;]) === true)
+ 	{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000129.html">[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include
+</A></li>
+	<LI>Next message: <A HREF="000131.html">[Liman-svn] r141 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#130">[ date ]</a>
+              <a href="thread.html#130">[ thread ]</a>
+              <a href="subject.html#130">[ subject ]</a>
+              <a href="author.html#130">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

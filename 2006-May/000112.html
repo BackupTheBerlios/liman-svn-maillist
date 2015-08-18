@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r122 - in trunk: . docs/beleg2/doxygen include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r122%20-%20in%20trunk%3A%20.%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605271220.k4RCKGbS003963%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000111.html">
+   <LINK REL="Next"  HREF="000113.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r122 - in trunk: . docs/beleg2/doxygen include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r122%20-%20in%20trunk%3A%20.%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605271220.k4RCKGbS003963%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r122 - in trunk: . docs/beleg2/doxygen include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 14:20:16 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000111.html">[Liman-svn] r121 - in trunk: docs/beleg2 docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000113.html">[Liman-svn] r123 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 14:20:14 +0200 (Sat, 27 May 2006)
+New Revision: 122
+
+Added:
+   trunk/login.php
+Modified:
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/include/kommentar.php
+Log:
+- login.php hinzugef?\195?\188gt
+- Kommentar implementiert
+
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-27 11:48:29 UTC (rev 121)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-27 12:20:14 UTC (rev 122)
+@@ -37,7 +37,11 @@
+ Verwaltet Kommentare. 
+ 
+ Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur- bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen $\ast$\end{Desc}
++\begin{Desc}
++\item[Importiert:]\begin{itemize}
++\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\end{Desc}
+ 
+ 
+ 
+@@ -58,7 +62,7 @@
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$data}]Objekt mit Kommentardaten der Form\begin{itemize}
+-\item Nr\item Text\item Mitglieds\_\-Nr\item Vorname\item Nachname\end{itemize}
++\item Nr\item Text\item Mitglieds\_\-Nr\item Vorname\item Nachname \end{itemize}
+ \end{description}
+ \end{Desc}
+ 
+@@ -78,7 +82,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars \end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{
+ \index{Kommentar@{Kommentar}!DeleteAll@{DeleteAll}}
+@@ -94,7 +98,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur}\end{description}
++\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{
+ \index{Kommentar@{Kommentar}!DeleteAllMember@{DeleteAllMember}}
+@@ -110,7 +114,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds\end{description}
++\item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds \end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_6119b3c12a61d8d5a41cded165517914}{
+ \index{Kommentar@{Kommentar}!Insert@{Insert}}
+@@ -126,7 +130,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur}\end{description}
++\item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_0b3e20e910493e67b67b747243f04511}{
+ \index{Kommentar@{Kommentar}!Update@{Update}}
+@@ -142,7 +146,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars \end{description}
+ \end{Desc}
+ 
+ 
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-27 11:48:29 UTC (rev 121)
++++ trunk/include/kommentar.php	2006-05-27 12:20:14 UTC (rev 122)
+@@ -9,7 +9,9 @@
+ 	 *  Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren
+ 	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur-
+ 	 *  bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden.
+-	 *  \pre Datenbankverbindung muss bestehen
++	 *  \pre Datenbankverbindung muss bestehen *  \sa
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
+ 	 */
+ 	class Kommentar
+ 	{
+@@ -32,7 +34,10 @@
+ 		 */
+ 		function Kommentar($data)
+ 		{
+-			/// \todo implementieren
++			$this-&gt;Nr = $data-&gt;Nr;
++			$this-&gt;Text = $data-&gt;Text;
++			$this-&gt;Verfasser_Nr = $data-&gt;Mitglieds_Nr;
++			$this-&gt;Verfasser_Name = $data-&gt;Vorname.&quot; &quot;.$data-&gt;Nachname;
+ 		}
+ 		
+ 		/*! \brief L&#246;scht Kommentar
+@@ -44,7 +49,12 @@
+ 		 */
+ 		function Delete($nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++					WHERE Kommentar_Nr = '$nr'
++					LIMIT 1&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 		
+ 		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
+@@ -56,7 +66,11 @@
+ 		 */
+ 		function DeleteAll($literatur_nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++					WHERE Literatur_Nr = '$literatur_nr'&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 
+ 		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
+@@ -68,7 +82,11 @@
+ 		 */
+ 		function DeleteAllMember($member_nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++					WHERE Mitglieds_Nr = '$member_nr'&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 		
+ 		/*! \brief Legt Kommentar an
+@@ -85,7 +103,11 @@
+ 		 */
+ 		function Insert($text, $verfasser_nr, $literatur_nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++					VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 		
+ 		/*! \brief &#196;ndert einen Kommentar
+@@ -100,7 +122,13 @@
+ 		 */
+ 		function Update($nr, $text)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
++					SET Kommentartext='$text'
++					WHERE Kommentar_Nr='$nr'
++					LIMIT 1&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 	}
+ }
+
+Added: trunk/login.php
+===================================================================
+--- trunk/login.php	2006-05-27 11:48:29 UTC (rev 121)
++++ trunk/login.php	2006-05-27 12:20:14 UTC (rev 122)
+@@ -0,0 +1,21 @@
++&lt;?php
++	$title = &quot;Login&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	
++	require_once(&quot;include/global.php&quot;);
++
++	if (!empty($_POST[&quot;login&quot;]) &amp;&amp; !empty($_POST[&quot;password&quot;]))
++	{
++		$login = new Login($_POST[&quot;login&quot;], $_POST[&quot;password&quot;]);
++	}
++	elseif (isset($_GET[&quot;logout&quot;]))
++	{
++		$login-&gt;Logout();
++	}
++
++	require_once(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;clogin&quot; class=&quot;content&quot;&gt;
++&lt;/div&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000111.html">[Liman-svn] r121 - in trunk: docs/beleg2 docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000113.html">[Liman-svn] r123 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#112">[ date ]</a>
+              <a href="thread.html#112">[ thread ]</a>
+              <a href="subject.html#112">[ subject ]</a>
+              <a href="author.html#112">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

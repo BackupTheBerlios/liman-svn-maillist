@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r118 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r118%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605270950.k4R9ox8c029204%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000107.html">
+   <LINK REL="Next"  HREF="000109.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r118 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r118%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605270950.k4R9ox8c029204%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r118 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 11:50:59 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000107.html">[Liman-svn] r117 - trunk/include
+</A></li>
+        <LI>Next message: <A HREF="000109.html">[Liman-svn] r119 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 11:50:39 +0200 (Sat, 27 May 2006)
+New Revision: 118
+
+Modified:
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/mitglied.php
+Log:
+- &quot;todo implementieren&quot; zu noch zu implementierenden Funktionen hinzugef?\195?\188gt
+- R?\195?\188ckgabewert zu Mitglied::Insert und Mitglied::Update hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-27 09:50:39 UTC (rev 118)
+@@ -66,7 +66,7 @@
+ Entfernt unn&#246;tige Autoren. 
+ 
+ Entfernt aus Autoren alle Autoren, die keine Verbindung (Literatur\_\-Autoren-Tabelle) mehr mit \hyperlink{classLiteratur}{Literatur} haben. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen\end{Desc}
+ \hypertarget{classAutor_79cd90084cab240919a5daecf39156a7}{
+ \index{Autor@{Autor}!GetAll@{GetAll}}
+ \index{GetAll@{GetAll}!Autor@{Autor}}
+@@ -102,7 +102,7 @@
+ \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Feld mit Autor\_\-Nr der Autoren \end{Desc}
++\item[R\&quot;{u}ckgabe:]Feld mit Autor\_\-Nr der Autoren\end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-27 09:50:39 UTC (rev 118)
+@@ -58,7 +58,7 @@
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$data}]Objekt mit Kommentardaten der Form\begin{itemize}
+-\item Nr\item Text\item Mitglieds\_\-Nr\item Vorname\item Nachname \end{itemize}
++\item Nr\item Text\item Mitglieds\_\-Nr\item Vorname\item Nachname\end{itemize}
+ \end{description}
+ \end{Desc}
+ 
+@@ -78,7 +78,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars\end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{
+ \index{Kommentar@{Kommentar}!DeleteAll@{DeleteAll}}
+@@ -94,7 +94,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
++\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur}\end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{
+ \index{Kommentar@{Kommentar}!DeleteAllMember@{DeleteAllMember}}
+@@ -110,7 +110,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds \end{description}
++\item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds\end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_6119b3c12a61d8d5a41cded165517914}{
+ \index{Kommentar@{Kommentar}!Insert@{Insert}}
+@@ -126,7 +126,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
++\item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur}\end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_0b3e20e910493e67b67b747243f04511}{
+ \index{Kommentar@{Kommentar}!Update@{Update}}
+@@ -142,7 +142,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars\end{description}
+ \end{Desc}
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-27 09:50:39 UTC (rev 118)
+@@ -71,7 +71,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur} \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur}\end{description}
+ \end{Desc}
+ 
+ 
+@@ -90,7 +90,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu l&#246;schenden \hyperlink{classLiteratur}{Literatur} \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu l&#246;schenden \hyperlink{classLiteratur}{Literatur}\end{description}
+ \end{Desc}
+ \hypertarget{classLiteratur_3347551316e8f73659fc6f32ac6095df}{
+ \index{Literatur@{Literatur}!Insert@{Insert}}
+@@ -106,7 +106,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]Stichworte \end{description}
++\item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]Stichworte\end{description}
+ \end{Desc}
+ \hypertarget{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}{
+ \index{Literatur@{Literatur}!InsertBibTeX@{InsertBibTeX}}
+@@ -122,7 +122,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$bibtex}]String mit Inhalt einer Bib\-Te\-X-Datei \end{description}
++\item[\mbox{$\leftarrow$} {\em \$bibtex}]String mit Inhalt einer Bib\-Te\-X-Datei\end{description}
+ \end{Desc}
+ \hypertarget{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{
+ \index{Literatur@{Literatur}!ToBibtex@{ToBibtex}}
+@@ -136,7 +136,7 @@
+ Exportiert die aktuellen Informationen im Literaturobjekt in das Bib\-Te\-X-Format. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]\$string mit Bib\-Te\-X-Eintrag \end{Desc}
++\item[R\&quot;{u}ckgabe:]\$string mit Bib\-Te\-X-Eintrag\end{Desc}
+ \hypertarget{classLiteratur_b613c28476ea28058f8fc2bccb57c923}{
+ \index{Literatur@{Literatur}!Update@{Update}}
+ \index{Update@{Update}!Literatur@{Literatur}}
+@@ -151,7 +151,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu ver&#228;ndernden \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]neuer Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]neuer Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]neues Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]neuer Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]neue ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]neue Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]neuer Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]neue Stichworte \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu ver&#228;ndernden \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]neuer Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]neuer Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]neues Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]neuer Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]neue ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]neue Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]neuer Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]neue Stichworte\end{description}
+ \end{Desc}
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-27 09:50:39 UTC (rev 118)
+@@ -63,7 +63,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur} \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur}\end{description}
+ \end{Desc}
+ 
+ 
+@@ -108,13 +108,18 @@
+ 
+ Legt \hyperlink{classMitglied}{Mitglied} an. 
+ 
+-F&#252;gt neues \hyperlink{classMitglied}{Mitglied} mit Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder ein. Dazu wird das Passwort noch mit Mitglied::Passwort\-Hash gehasht. \begin{Desc}
++F&#252;gt neues \hyperlink{classMitglied}{Mitglied} mit Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder ein. Dazu wird das Passwort noch mit Mitglied::Passwort\-Hash gehasht. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$login}]Benutzername des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]Benutzerpasswort des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]Rechte des neuen Mitglieds (1 - \hyperlink{classMitglied}{Mitglied}, 2 - Passwort) \item[\mbox{$\leftarrow$} {\em \$vorname}]Vorname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]Nachname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]E-Mail-Adresse des neuen Mitglieds\end{description}
++\item[\mbox{$\leftarrow$} {\em \$login}]Benutzername des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]Benutzerpasswort des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]Rechte des neuen Mitglieds (1 - \hyperlink{classMitglied}{Mitglied}, 2 - Passwort) \item[\mbox{$\leftarrow$} {\em \$vorname}]Vorname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]Nachname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]E-Mail-Adresse des neuen Mitglieds \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabewerte:]
++\begin{description}
++\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde eingef&#252;gt \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht hinzugef&#252;gt werden\end{description}
++\end{Desc}
+ \hypertarget{classMitglied_9b13db80866c22bf992e73f2eb75e369}{
+ \index{Mitglied@{Mitglied}!PasswordHash@{PasswordHash}}
+ \index{PasswordHash@{PasswordHash}!Mitglied@{Mitglied}}
+@@ -140,13 +145,18 @@
+ 
+ &#196;ndert ein \hyperlink{classMitglied}{Mitglied}. 
+ 
+-&#196;ndert die Daten das Mitglieds mit der Mitglieds\_\-Nr (\$nr), in neuen Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder. Wenn \$passwort nicht die L&#228;nge 0 hat, wird es noch mit Mitglied::Passwort\-Hash gehasht. Andernfalls wird das alte Passwort in Mitglieder beibehalten. \begin{Desc}
++&#196;ndert die Daten das Mitglieds mit der Mitglieds\_\-Nr (\$nr), in neuen Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder. Wenn \$passwort nicht die L&#228;nge 0 hat, wird es noch mit Mitglied::Passwort\-Hash gehasht. Andernfalls wird das alte Passwort in Mitglieder beibehalten. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu ver&#228;ndernden Mitglieds \item[\mbox{$\leftarrow$} {\em \$login}]neuer Benutzername des Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]neues Passwort des Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]neuen Rechte des Mitglieds \item[\mbox{$\leftarrow$} {\em \$vorname}]neuer Vorname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]neuer Nachname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]neue E-Mail-Adresse des Mitglieds\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu ver&#228;ndernden Mitglieds \item[\mbox{$\leftarrow$} {\em \$login}]neuer Benutzername des Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]neues Passwort des Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]neuen Rechte des Mitglieds \item[\mbox{$\leftarrow$} {\em \$vorname}]neuer Vorname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]neuer Nachname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]neue E-Mail-Adresse des Mitglieds \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabewerte:]
++\begin{description}
++\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde ge&#228;ndert \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht ge&#228;ndert werden\end{description}
++\end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/include/autor.php	2006-05-27 09:50:39 UTC (rev 118)
+@@ -37,6 +37,7 @@
+ 		 */
+ 		function Clean()
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief R&#252;ckgabe eines Feldes von Autoren
+@@ -82,6 +83,7 @@
+ 		 */
+ 		function Split($autoren)
+ 		{
++			/// \todo implementieren
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/include/kommentar.php	2006-05-27 09:50:39 UTC (rev 118)
+@@ -32,6 +32,7 @@
+ 		 */
+ 		function Kommentar($data)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+ 		/*! \brief L&#246;scht Kommentar
+@@ -43,6 +44,7 @@
+ 		 */
+ 		function Delete($nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+ 		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
+@@ -54,6 +56,7 @@
+ 		 */
+ 		function DeleteAll($literatur_nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
+@@ -65,6 +68,7 @@
+ 		 */
+ 		function DeleteAllMember($member_nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+ 		/*! \brief Legt Kommentar an
+@@ -81,6 +85,7 @@
+ 		 */
+ 		function Insert($text, $verfasser_nr, $literatur_nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+ 		/*! \brief &#196;ndert einen Kommentar
+@@ -95,6 +100,7 @@
+ 		 */
+ 		function Update($nr, $text)
+ 		{
++			/// \todo implementieren
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/include/literatur.php	2006-05-27 09:50:39 UTC (rev 118)
+@@ -36,6 +36,7 @@
+ 		 */
+ 		function Literatur($nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief Exportiert Literatur nach BibTeX
+@@ -47,6 +48,7 @@
+ 		 */
+ 		function ToBibtex()
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief L&#246;scht Literatur
+@@ -60,6 +62,7 @@
+ 		 */
+ 		function Delete($nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief Importiert BibTeX
+@@ -73,6 +76,7 @@
+ 		 */
+ 		function InsertBibTeX($bibtex)
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief Legt Literatur an
+@@ -95,6 +99,7 @@
+ 		 */
+ 		function Insert($autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
++			/// \todo implementieren
+ 		}
+ 
+ 		/*! \brief &#196;ndert Literatur
+@@ -121,6 +126,7 @@
+ 		 */
+ 		function Update($nr, $autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
++			/// \todo implementieren
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-25 22:26:12 UTC (rev 117)
++++ trunk/include/mitglied.php	2006-05-27 09:50:39 UTC (rev 118)
+@@ -29,6 +29,7 @@
+ 		 */
+ 		function Mitglied($nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+ 		/*! \brief Generiert Passworthash
+@@ -63,7 +64,9 @@
+ 		 *  ($passwort), Benutzerrechten ($rechte), Vorname ($vorname),
+ 		 *  Nachname ($nachname), E-Mail-Adresse ($email) in Mitglieder
+ 		 *  ein. Dazu wird das Passwort noch mit Mitglied::PasswortHash
+-		 *  gehasht.
++		 *  gehasht. Sollte ein Mitglied mit gleichem Login existieren
++		 *  wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein
++		 *  Mitglied mit gleichem Login erlaubt.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $login Benutzername des neuen Mitglieds
+ 		 *  \param[in] $passwort Benutzerpasswort des neuen Mitglieds
+@@ -72,6 +75,8 @@
+ 		 *  \param[in] $vorname Vorname des neuen Mitglieds
+ 		 *  \param[in] $nachname Nachname des neuen Mitglieds
+ 		 *  \param[in] $email E-Mail-Adresse des neuen Mitglieds
++		 *  \retval true Mitglied wurde eingef&#252;gt
++		 *  \retval false Mitglied konnte nicht hinzugef&#252;gt werden
+ 		 */
+ 		function Insert($login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+@@ -86,7 +91,10 @@
+ 		 *  Nachname ($nachname), E-Mail-Adresse ($email) in
+ 		 *  Mitglieder. Wenn $passwort nicht die L&#228;nge 0 hat, wird es 
+ 		 *  noch mit Mitglied::PasswortHash gehasht. Andernfalls wird
+-		 *  das alte Passwort in Mitglieder beibehalten.
++		 *  das alte Passwort in Mitglieder beibehalten. Sollte ein
++		 *  Mitglied mit gleichem Login existieren wird ein Fehler
++		 *  zur&#252;ckgegeben, da die Datenbank nur ein Mitglied mit
++		 *  gleichem Login erlaubt.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Mitglieds_Nr des zu ver&#228;ndernden Mitglieds
+ 		 *  \param[in] $login neuer Benutzername des Mitglieds
+@@ -95,6 +103,8 @@
+ 		 *  \param[in] $vorname neuer Vorname des Mitglieds
+ 		 *  \param[in] $nachname neuer Nachname des Mitglieds
+ 		 *  \param[in] $email neue E-Mail-Adresse des Mitglieds
++		 *  \retval true Mitglied wurde ge&#228;ndert
++		 *  \retval false Mitglied konnte nicht ge&#228;ndert werden
+ 		 */
+ 		function Update($nr, $login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000107.html">[Liman-svn] r117 - trunk/include
+</A></li>
+	<LI>Next message: <A HREF="000109.html">[Liman-svn] r119 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#108">[ date ]</a>
+              <a href="thread.html#108">[ thread ]</a>
+              <a href="subject.html#108">[ subject ]</a>
+              <a href="author.html#108">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

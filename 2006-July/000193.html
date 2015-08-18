@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r203 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r203%20-%20trunk/docs/beleg3&In-Reply-To=%3C200607031655.k63GtYZo029581%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000192.html">
+   <LINK REL="Next"  HREF="000194.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r203 - trunk/docs/beleg3</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r203%20-%20trunk/docs/beleg3&In-Reply-To=%3C200607031655.k63GtYZo029581%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r203 - trunk/docs/beleg3">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jul  3 18:55:34 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000192.html">[Liman-svn] r202 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000194.html">[Liman-svn] r204 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#193">[ date ]</a>
+              <a href="thread.html#193">[ thread ]</a>
+              <a href="subject.html#193">[ subject ]</a>
+              <a href="author.html#193">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-07-03 18:55:26 +0200 (Mon, 03 Jul 2006)
+New Revision: 203
+
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/systemhandbuch.tex
+Log:
+- Korrekturen in Anwenderdokumentation und Systemhandbuch
+- fatalen Fehler beim Erstellen der PDF des dritten Teilbelegs behoben
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-03 10:32:48 UTC (rev 202)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-03 16:55:26 UTC (rev 203)
+@@ -41,8 +41,10 @@
+ Was die Rechte eines Administrators betrifft so sind diese allein auf Grund seines Aufgabengebietes unbeschr&quot;ankt, d.h. er kann alle Daten sehen, erstellen, bearbeiten und l&quot;oschen.\\ 
+ 
+ \end{enumerate}
++
++
+ \section{Bedienungsanleitung}
+-\subsection{Start der Anwenung}
++\subsection{Start der Anwendung}
+ Um den Literaturmanager zu starten muss man einen Web-Browser (hier Firefox 1.5.0.4) starten und die passende Internet-Adresse in das URL-Feld eintragen. Die URL kann man beim Administrator erfragen, da er den Web-Server zuvor konfiguriert.
+ \subsection{Die Hauptseite}
+ Hat man die richtige Web-Adresse eingegeben, so l&quot;adt der Browser folgende Seite:\\
+@@ -71,7 +73,7 @@
+ \includegraphics[scale=1.0]{login}\\
+ \end{center}
+ War die Anmeldung erfolgreich so erscheint folgende Anzeige und man ist als Mitglied eingeloggt:\\
+-\includegraphics[scale=0.8]{login1}\\
++\includegraphics[scale=0.8]{login1}
+ 
+ \subsection{Wie finde ich eine Literatur?}
+ Um Informationen zu einem Literaturtitel zu erhalten bietet es sich an die Suchfunktion des Literaturmanagers zu nutzen. Hierzu kommen wir kurz auf das Bild des Hauptbildschirm weiter oben zur&quot;uck:\\
+@@ -88,7 +90,7 @@
+ Die Suchfunktionen richten sich nunmehr auf spezielle Informationen eines Buches, was sich bei sehr gro&quot;sen Datenbest&quot;anden, die sich im Lauf der Zeit anreichern, in Form einer gr&quot;o&quot;seren &quot;Ubersichtlichkeit der Suchtreffer auszahlen k&quot;onnte.\\
+ Im Feld 'Titel' gibt man einfach einen Literatur-Titel , ein Wort aus dem Titel oder sogar nur eine kurze Zeichenkette wie 'Algo' ein.\\
+ Im Feld 'Autor' funktioniert es genau so, einfach einen Autor oder auch nur Teile seines Namens eingeben und den Button 'Suche' dr&quot;ucken.\\
+-Die Volltextsuche sucht, &quot;ahnlich wie die 'normale' Suche auf dem Hauptformular in allen Informationen eines Literaturtitels mit Ausnahme der Kommentare.\\
++Die Volltextsuche sucht, &quot;ahnlich wie die 'normale' Suche auf dem Hauptformular in allen Informationen eines Literaturtitels mit Ausnahme der Kommentare.
+ 
+ \subsection{Wie kann ich eine neue Literatur anlegen?}
+ Kommen wir nun vom Recherchieren zum bearbeiten und Pflegen der Literaturverwaltung.\\
+@@ -102,7 +104,7 @@
+ \includegraphics[scale=0.8]{lit_ins1}\\
+ Will man nun einen Eintrag in das Literaturverzeichnis machen, so muss man alle Felder ihrer Beschreibung gem&quot;a&quot;s auszuf&quot;ullen und den Button '&quot;Ubernehmen' dr&quot;ucken.\\
+ F&quot;ur einen von der Anwendung akzeptierten Eintrag sind die Felder 'Titel' und 'Autor' zwingend auszuf&quot;ullen, sonst erscheint folgende Fehlermeldung:\\
+-\includegraphics[scale=0.8]{err}\\
++\includegraphics[scale=0.8]{err}
+ 
+ \subsection{Literatur mit BibTeX anlegen}
+ W&quot;ahlt man statt dem Web-Formular zum Literatur-Import den Import via BibTeX, so sieht man sich folgendem Formular konfrontiert:\\
+@@ -118,7 +120,7 @@
+ \includegraphics[scale=0.8]{import2}\\
+ Nach der Eingabe der Beschreibung muss man noch den Button 'Importieren' dr&quot;ucken und ein neues Buch mit Titel 'BibTeX kurzgefasst' wurde in die Literaturverwaltung aufgenommen.\\
+ Der efolgreiche Import wird durch folgende Anzeige signalisiert:\\
+-\includegraphics[scale=0.8]{import_succ}\\
++\includegraphics[scale=0.8]{import_succ}
+ 
+ \subsection{Wie bearbeite ich eine Literatur?}
+ M&quot;ochte man einen Literatureintrag &quot;andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun&quot;achst die Literaturtabelle anzeigen lassen, danach den zu &quot;andernden Eintrag ausw&quot;ahlen und den Button 'Bearbeiten' dr&quot;ucken.\\
+@@ -127,14 +129,14 @@
+ Im folgenden Bild wollen wir eine &quot;Anderung an unserem erstellten Literatur-Titel 'BibTeX kurzgefasst' vornehmen, wir wollen die ISBN von 9-99999-999-9 in 0-00000-000-0 &quot;andern und Verlag in SwP umbenennen:\\
+ \includegraphics[scale=0.8]{bearb2}\\
+ Anschlie&quot;send noch '&quot;Ubernehmen' dr&quot;ucken und unsere Literaturdaten wurden ge&quot;andert. Best&quot;atigt wird die &quot;Anderung durch folgende Meldung:\\
+-\includegraphics[scale=0.8]{bearb3}\\
++\includegraphics[scale=0.8]{bearb3}
+ 
+ \subsection{Wie l&quot;osche ich eine Literatur?}
+ Ist es n&quot;otig einen Literatureintrag zu l&quot;oschen, so w&quot;ahlt man ihn wie auch beim 'Bearbeiten' in der Literaturliste aus, l&quot;asst sich also die betreffenden Literaturdetails anzeigen, und bet&quot;atigt den Button 'L&quot;oschen':\\
+ \includegraphics[scale=0.8]{del_lit}\\
+ Daraufhin erscheint die Aufforderung den L&quot;oschvorgang zu best&quot;atigen. Sollten man es sich anders &quot;uberlegt haben, so bet&quot;atigt man NICHT den Best&quot;atigen-Button sondern verl&quot;asst &quot;uber das seitliche Men&quot;u oder den Zur&#252;ck-Knopf des Browsers den L&quot;oschprozess.\\
+ Sollte man sich sicher sein, dass man den Eintrag l&quot;oschen will, so klickt man auf den Button 'Best&quot;atigen':\\
+-\includegraphics[scale=0.8]{sure}\\
++\includegraphics[scale=0.8]{sure}
+ 
+ 
+ \subsection{Wie kommentiere ich einen Literatureintrag?}
+@@ -145,7 +147,7 @@
+ \includegraphics[scale=0.8]{comment1}\\
+ Auch hier erfolgt eine visuelle Best&quot;atigung &quot;uber die erfolgreiche Abgabe eines Kommentars:
+ \includegraphics[scale=0.8]{comment2}\\
+-Mit dem Button 'Zur&quot;uck' gelangt man zu den Literaturdetails des gerade kommentierten Titels zur&quot;uck.\\
++Mit dem Button 'Zur&quot;uck' gelangt man zu den Literaturdetails des gerade kommentierten Titels zur&quot;uck.
+ 
+ \subsection{Wie &quot;andere ich einen Kommentar?}
+ Will man einen seiner Kommentare zu einem Literaturtitel &quot;andern, muss man den gew&quot;unschten Titel in der Literaturliste ausw&quot;ahlen um sich die Details anzeigen zu lassen.\\
+@@ -189,7 +191,7 @@
+ erscheinen: (Zur Demonstration sind alle Felder leer, um alle Fehlermeldungen anzuzeigen)\\
+ \includegraphics[scale=0.5]{nutzeranl3}\\
+ Wenn man die Felder korrekt ausgef&quot;ullt hat und der Nutzer angelegt werden konnte kommt folgende Meldung:\\
+-\includegraphics[scale=0.5]{nutzeranl4}\\
++\includegraphics[scale=0.5]{nutzeranl4}
+ 
+ \subsection{Wie bearbeite ich einen Nutzer?}
+ Um einen bereits angelegten Nutzer zu bearbeiten, klicken wir zun&quot;achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
+@@ -199,7 +201,7 @@
+ Das schon aus dem Abschnitt 'Wie lege ich einen Nutzer an?' bekannte Formular erscheint und man kann s&quot;amtliche Daten &quot;andern.\\
+ \includegraphics[scale=0.5]{nutzerbea2}\\
+ Wenn der Nutzer erfolgreich bearbeitet wurde, erscheint folgende Nachricht:\\
+-\includegraphics[scale=0.5]{nutzerbea3}\\
++\includegraphics[scale=0.5]{nutzerbea3}
+ 
+ \subsection{Wie l&quot;osche ich einen Nutzer?}  
+ Um einen Nutzer zu l&quot;oschen, klicken wir zun&quot;achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
+@@ -209,15 +211,13 @@
+ Es erscheint eine Frage, ob sie den Nutzer wirklich entfernen wollen:\\
+ \includegraphics[scale=0.5]{nutzerloe2}\\
+ Wenn der Nutzer entfernt wurde, erscheint folgende Nachricht:\\
+-\includegraphics[scale=0.5]{nutzerloe3}\\
++\includegraphics[scale=0.5]{nutzerloe3}
+ 
+ \section{Helpsystem}
+ Die Nachrichten beim Anlegen, Editieren und L&quot;oschen von Datenbest&quot;anden sind als Hilfestellung v&quot;ollig ausreichend.\\
+-Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr&quot;aftig genug.\\
+-
+
++Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr&quot;aftig genug.
+ 
+ 
+ 
+ 
+ 
+-
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-07-03 10:32:48 UTC (rev 202)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-07-03 16:55:26 UTC (rev 203)
+@@ -116,20 +116,18 @@
+ 
+ Wenn Sie Senden ausw&quot;ahlen, wird die Ausgabe als Datei gespeichert, was f&quot;ur den Zweck der Datensicherung am Sinn vollsten ist. Ansonsten wird die 
+ Ausgabe auf dem Bildschirm wiedergegeben. 
+-Falls sie &quot;ofters Sicherungen anlegt, ist eine weitere Option ZIP / GZIP Komprimieren sehr praktisch. Wenn Sie dies ausw&quot;ahlen wird die Datei mit ZIP 
+-komprimiert.
++Falls sie &quot;ofters Sicherungen anlegen, ist eine weitere Option ZIP / GZIP Komprimieren sehr praktisch. Wenn Sie dies ausw&quot;ahlen wird die Datei mit ZIP komprimiert.
+ 
+ Eine weitere M&#246;glichkeit, besonders f&#252;r die automatisierte Sicherung der Datenbank, bietet das Programm mysqldump, welches ein Teil der MySQL-Anwendungen ist. Eine genau Erkl&#228;rung &#252;ber die Funktionsweise von mysqldump ist in den Handb&#252;chern zu MySQL enthalten (\pdfurl{<A HREF="http://www.mysql.com/doc/de/mysqldump.html">http://www.mysql.com/doc/de/mysqldump.html</A>}).
+ 
+ 
+ Eine Fehlermeldung k&quot;onnte zum Beispiel ''Could not connect to SQL server. Please inform Webmaster'' sein. Hier gelingt es dem System nicht, sich mit 
+ der Datenbank zu verbinden. Als erstes sollten Sie sicher stellen, ob Ihr MySQL-Server gestartet ist. Ein weiterer Grund f&quot;ur diese Fehlermeldung k&quot;onnte 
+-eine unaktuelle Config.php sein. In dieser Datei werden alle Einstellungen gespeichert, unter anderem auch f&quot;ur den Datenbankzugriff wichtige Daten. Es 
++eine unaktuelle include/config.php sein. In dieser Datei werden alle Einstellungen gespeichert, unter anderem auch f&quot;ur den Datenbankzugriff wichtige Daten. Es 
+ kann vorkommen, dass hier zum Beispiel ein veralteter Benutzername oder Passwort enthalten ist.
+ 
+ Was sollte man tun, wenn die Fehlermeldung, dass Daten nicht geschrieben/ge&#228;ndert oder gel&#246;scht werden k&quot;onnen, auftritt? Schauen Sie nach, ob die Rechte 
+ der einzelnen Tabellen der Datenbank richtig gesetzt sind. Am besten mit dem weiter vorn schon erw&quot;ahnten Programm ''phpMyAdmin''.
+ 
+-Des weiteren kann auftreten, dass ein User nach dem einloggen direkt wieder aus geloggt wird. Der Grund f&quot;ur diesen Fehler ist, dass Ihr Webserver keine 
+-Schreib rechte auf den Ordner, der die Sessions speichert, hat. Die Zugriffsrechte f&quot;ur Ordner/Datein auf einem Webserver lassen sich zum Beispiel 
+-mit Hilfe eines FTP Programms einstellen. 
+\ No newline at end of file
++Des weiteren kann auftreten, dass ein User nach dem Einloggen direkt wieder aus geloggt wird. Der Grund f&quot;ur diesen Fehler ist, dass Ihr Webserver keine 
++Schreibrechte auf den Ordner hat, in der PHP die Sessions speichert.
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000192.html">[Liman-svn] r202 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000194.html">[Liman-svn] r204 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#193">[ date ]</a>
+              <a href="thread.html#193">[ thread ]</a>
+              <a href="subject.html#193">[ subject ]</a>
+              <a href="author.html#193">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

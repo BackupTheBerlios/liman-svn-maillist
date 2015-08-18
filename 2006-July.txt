@@ -1,0 +1,1098 @@
+From trusch at berlios.de  Mon Jul  3 12:32:49 2006
+From: trusch at berlios.de (trusch at BerliOS)
+Date: Mon, 3 Jul 2006 12:32:49 +0200
+Subject: [Liman-svn] r202 - trunk/docs/beleg3
+Message-ID: <200607031032.k63AWnX7008276@sheep.berlios.de>
+
+Author: trusch
+Date: 2006-07-03 12:32:48 +0200 (Mon, 03 Jul 2006)
+New Revision: 202
+
+Added:
+   trunk/docs/beleg3/nutzeranl.pdf
+   trunk/docs/beleg3/nutzeranl2.pdf
+   trunk/docs/beleg3/nutzeranl3.pdf
+   trunk/docs/beleg3/nutzeranl4.pdf
+   trunk/docs/beleg3/nutzerbea.pdf
+   trunk/docs/beleg3/nutzerbea2.pdf
+   trunk/docs/beleg3/nutzerbea3.pdf
+   trunk/docs/beleg3/nutzerloe.pdf
+   trunk/docs/beleg3/nutzerloe2.pdf
+   trunk/docs/beleg3/nutzerloe3.pdf
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/ext_suche.pdf
+   trunk/docs/beleg3/systemhandbuch.tex
+Log:
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-29 19:50:37 UTC (rev 201)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-03 10:32:48 UTC (rev 202)
+@@ -176,4 +176,48 @@
+ Grunds"atzlich gilt, dass man "Anderungen in den Nutzerdaten der Mitglieder ausschlie"slich als Administrator durchf"uhren darf.\\
+ Um in die Nutzerverwaltung zu gelangen, befolgt man zun"achst die selben Anweisungen, wie sie im Punkt 3.4.4 'Wie logge ich mich ein?' aufgef"uhrt sind.\\
+ Hat man sich eingeloggt geht man im Segment Navigation (siehe 3.4.2 'Die Hauptseite') in das Untermen"u 'Nutzer'.\\
+-Im Gegensatz zur Mitgliedsoberfl"ache, sind nun alle Mitglieder aufgelistet.
+\ No newline at end of file
++Im Gegensatz zur Mitgliedsoberfl"ache, sind nun alle Mitglieder aufgelistet.
++
++\subsection{Wie lege ich einen Nutzer an?}
++Hierzu klicken wir zun"achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster Nutzer:\\
++\includegraphics[scale=0.5]{nutzeranl}\\
++Wenn man hier auf den Button 'Nutzer hinzuf"ugen' klickt, kommt man zu folgendem Formular:\\
++
++\includegraphics[scale=0.5]{nutzeranl2}\\
++Will man nun einen Nutzer hinzuf"ugen, so muss man alle Felder ihrer Beschreibung gem"a"s auszuf"ullen und den Button '"Ubernehmen' 
++dr"ucken. F"ur einen von der Anwendung akzeptierten Eintrag m"ussen alle Felder richtig ausgef"ullt sein, sonst k"onnen folgende Fehlermeldungen 
++erscheinen: (Zur Demonstration sind alle Felder leer, um alle Fehlermeldungen anzuzeigen)\\
++\includegraphics[scale=0.5]{nutzeranl3}\\
++Wenn man die Felder korrekt ausgef"ullt hat und der Nutzer angelegt werden konnte kommt folgende Meldung:\\
++\includegraphics[scale=0.5]{nutzeranl4}\\
++
++\subsection{Wie bearbeite ich einen Nutzer?}
++Um einen bereits angelegten Nutzer zu bearbeiten, klicken wir zun"achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
++Nutzer:\\
++\includegraphics[scale=0.5]{nutzerbea}\\
++Wenn man zum Beispiel den Nutzer 'testnutzer' bearbeiten will, so klickt man auf den Bearbeitungsbutton in der jeweiligen Zeile.
++Das schon aus dem Abschnitt 'Wie lege ich einen Nutzer an?' bekannte Formular erscheint und man kann s"amtliche Daten "andern.\\
++\includegraphics[scale=0.5]{nutzerbea2}\\
++Wenn der Nutzer erfolgreich bearbeitet wurde, erscheint folgende Nachricht:\\
++\includegraphics[scale=0.5]{nutzerbea3}\\
++
++\subsection{Wie l"osche ich einen Nutzer?}  
++Um einen Nutzer zu l"oschen, klicken wir zun"achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
++Nutzer:\\
++\includegraphics[scale=0.5]{nutzerloe}\\
++Wenn man zum Beispiel den Nutzer 'testnutzer' l"oschen will, so klickt man auf den L"oschbutton in der jeweiligen Zeile.
++Es erscheint eine Frage, ob sie den Nutzer wirklich entfernen wollen:\\
++\includegraphics[scale=0.5]{nutzerloe2}\\
++Wenn der Nutzer entfernt wurde, erscheint folgende Nachricht:\\
++\includegraphics[scale=0.5]{nutzerloe3}\\
++
++\section{Helpsystem}
++Die Nachrichten beim Anlegen, Editieren und L"oschen von Datenbest"anden sind als Hilfestellung v"ollig ausreichend.\\
++Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr"aftig genug.\\
++
+
++
++
++
++
++
++
+
+Modified: trunk/docs/beleg3/ext_suche.pdf
+===================================================================
+(Binary files differ)
+
+Added: trunk/docs/beleg3/nutzeranl.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzeranl.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzeranl2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzeranl2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzeranl3.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzeranl3.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzeranl4.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzeranl4.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerbea.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerbea.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerbea2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerbea2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerbea3.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerbea3.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerloe.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerloe.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerloe2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerloe2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzerloe3.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzerloe3.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-29 19:50:37 UTC (rev 201)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-07-03 10:32:48 UTC (rev 202)
+@@ -106,7 +106,6 @@
+ Es wird empfohlen, regelm"a"sig eine Sicherung der Datenbank anzulegen. Das System bietet diese Funktion nicht direkt an,
+ sondern verweist auf das Programm phpMyAdmin (\pdfurl{http://www.phpmyadmin.net/}). Zust"andig f"ur die Sicherung der Datenbank ist der Link ``Exportieren'' in der Datenbankansicht.
+ 
+-{TODO Screenshot}
+ 
+ Ihr Datenbank besteht aus mehreren Tabellen, bevor diese Exportiert werden k"onnen, m"ussen sie ausw"ahlen, welche der Tabellen Sie Sichern wollen. 
+ Daneben stellen Sie ein, ob nur die Struktur 
+@@ -117,13 +116,20 @@
+ 
+ Wenn Sie Senden ausw"ahlen, wird die Ausgabe als Datei gespeichert, was f"ur den Zweck der Datensicherung am Sinn vollsten ist. Ansonsten wird die 
+ Ausgabe auf dem Bildschirm wiedergegeben. 
+-Falls sie "ofters Sicherungen anlegt, ist eine weitere Option "ZIP / GZIP Komprimieren" sehr praktisch. Wenn Sie dies ausw"ahlen wird die Datei mit ZIP 
++Falls sie "ofters Sicherungen anlegt, ist eine weitere Option ZIP / GZIP Komprimieren sehr praktisch. Wenn Sie dies ausw"ahlen wird die Datei mit ZIP 
+ komprimiert.
+ 
+ Eine weitere M?glichkeit, besonders f?r die automatisierte Sicherung der Datenbank, bietet das Programm mysqldump, welches ein Teil der MySQL-Anwendungen ist. Eine genau Erkl?rung ?ber die Funktionsweise von mysqldump ist in den Handb?chern zu MySQL enthalten (\pdfurl{http://www.mysql.com/doc/de/mysqldump.html}).
+ 
+-{TODO Was tun, wenn der Webserver ``Could not connect to SQL server. Please inform Webmaster'' bringt?}
+ 
+-{TODO Was tun, wenn Daten nie geschrieben/ge?ndert/gel?scht werden?}
++Eine Fehlermeldung k"onnte zum Beispiel ''Could not connect to SQL server. Please inform Webmaster'' sein. Hier gelingt es dem System nicht, sich mit 
++der Datenbank zu verbinden. Als erstes sollten Sie sicher stellen, ob Ihr MySQL-Server gestartet ist. Ein weiterer Grund f"ur diese Fehlermeldung k"onnte 
++eine unaktuelle Config.php sein. In dieser Datei werden alle Einstellungen gespeichert, unter anderem auch f"ur den Datenbankzugriff wichtige Daten. Es 
++kann vorkommen, dass hier zum Beispiel ein veralteter Benutzername oder Passwort enthalten ist.
+ 
+-{TODO Was tun, wenn User nach dem einloggen direkt wieder ausgeloggt werden?}
+\ No newline at end of file
++Was sollte man tun, wenn die Fehlermeldung, dass Daten nicht geschrieben/ge?ndert oder gel?scht werden k"onnen, auftritt? Schauen Sie nach, ob die Rechte 
++der einzelnen Tabellen der Datenbank richtig gesetzt sind. Am besten mit dem weiter vorn schon erw"ahnten Programm ''phpMyAdmin''.
++
++Des weiteren kann auftreten, dass ein User nach dem einloggen direkt wieder aus geloggt wird. Der Grund f"ur diesen Fehler ist, dass Ihr Webserver keine 
++Schreib rechte auf den Ordner, der die Sessions speichert, hat. Die Zugriffsrechte f"ur Ordner/Datein auf einem Webserver lassen sich zum Beispiel 
++mit Hilfe eines FTP Programms einstellen. 
+\ No newline at end of file
+
+
+
+From lazhur at berlios.de  Mon Jul  3 18:55:34 2006
+From: lazhur at berlios.de (lazhur at BerliOS)
+Date: Mon, 3 Jul 2006 18:55:34 +0200
+Subject: [Liman-svn] r203 - trunk/docs/beleg3
+Message-ID: <200607031655.k63GtYZo029581@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-07-03 18:55:26 +0200 (Mon, 03 Jul 2006)
+New Revision: 203
+
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/systemhandbuch.tex
+Log:
+- Korrekturen in Anwenderdokumentation und Systemhandbuch
+- fatalen Fehler beim Erstellen der PDF des dritten Teilbelegs behoben
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-03 10:32:48 UTC (rev 202)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-03 16:55:26 UTC (rev 203)
+@@ -41,8 +41,10 @@
+ Was die Rechte eines Administrators betrifft so sind diese allein auf Grund seines Aufgabengebietes unbeschr"ankt, d.h. er kann alle Daten sehen, erstellen, bearbeiten und l"oschen.\\ 
+ 
+ \end{enumerate}
++
++
+ \section{Bedienungsanleitung}
+-\subsection{Start der Anwenung}
++\subsection{Start der Anwendung}
+ Um den Literaturmanager zu starten muss man einen Web-Browser (hier Firefox 1.5.0.4) starten und die passende Internet-Adresse in das URL-Feld eintragen. Die URL kann man beim Administrator erfragen, da er den Web-Server zuvor konfiguriert.
+ \subsection{Die Hauptseite}
+ Hat man die richtige Web-Adresse eingegeben, so l"adt der Browser folgende Seite:\\
+@@ -71,7 +73,7 @@
+ \includegraphics[scale=1.0]{login}\\
+ \end{center}
+ War die Anmeldung erfolgreich so erscheint folgende Anzeige und man ist als Mitglied eingeloggt:\\
+-\includegraphics[scale=0.8]{login1}\\
++\includegraphics[scale=0.8]{login1}
+ 
+ \subsection{Wie finde ich eine Literatur?}
+ Um Informationen zu einem Literaturtitel zu erhalten bietet es sich an die Suchfunktion des Literaturmanagers zu nutzen. Hierzu kommen wir kurz auf das Bild des Hauptbildschirm weiter oben zur"uck:\\
+@@ -88,7 +90,7 @@
+ Die Suchfunktionen richten sich nunmehr auf spezielle Informationen eines Buches, was sich bei sehr gro"sen Datenbest"anden, die sich im Lauf der Zeit anreichern, in Form einer gr"o"seren "Ubersichtlichkeit der Suchtreffer auszahlen k"onnte.\\
+ Im Feld 'Titel' gibt man einfach einen Literatur-Titel , ein Wort aus dem Titel oder sogar nur eine kurze Zeichenkette wie 'Algo' ein.\\
+ Im Feld 'Autor' funktioniert es genau so, einfach einen Autor oder auch nur Teile seines Namens eingeben und den Button 'Suche' dr"ucken.\\
+-Die Volltextsuche sucht, "ahnlich wie die 'normale' Suche auf dem Hauptformular in allen Informationen eines Literaturtitels mit Ausnahme der Kommentare.\\
++Die Volltextsuche sucht, "ahnlich wie die 'normale' Suche auf dem Hauptformular in allen Informationen eines Literaturtitels mit Ausnahme der Kommentare.
+ 
+ \subsection{Wie kann ich eine neue Literatur anlegen?}
+ Kommen wir nun vom Recherchieren zum bearbeiten und Pflegen der Literaturverwaltung.\\
+@@ -102,7 +104,7 @@
+ \includegraphics[scale=0.8]{lit_ins1}\\
+ Will man nun einen Eintrag in das Literaturverzeichnis machen, so muss man alle Felder ihrer Beschreibung gem"a"s auszuf"ullen und den Button '"Ubernehmen' dr"ucken.\\
+ F"ur einen von der Anwendung akzeptierten Eintrag sind die Felder 'Titel' und 'Autor' zwingend auszuf"ullen, sonst erscheint folgende Fehlermeldung:\\
+-\includegraphics[scale=0.8]{err}\\
++\includegraphics[scale=0.8]{err}
+ 
+ \subsection{Literatur mit BibTeX anlegen}
+ W"ahlt man statt dem Web-Formular zum Literatur-Import den Import via BibTeX, so sieht man sich folgendem Formular konfrontiert:\\
+@@ -118,7 +120,7 @@
+ \includegraphics[scale=0.8]{import2}\\
+ Nach der Eingabe der Beschreibung muss man noch den Button 'Importieren' dr"ucken und ein neues Buch mit Titel 'BibTeX kurzgefasst' wurde in die Literaturverwaltung aufgenommen.\\
+ Der efolgreiche Import wird durch folgende Anzeige signalisiert:\\
+-\includegraphics[scale=0.8]{import_succ}\\
++\includegraphics[scale=0.8]{import_succ}
+ 
+ \subsection{Wie bearbeite ich eine Literatur?}
+ M"ochte man einen Literatureintrag "andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun"achst die Literaturtabelle anzeigen lassen, danach den zu "andernden Eintrag ausw"ahlen und den Button 'Bearbeiten' dr"ucken.\\
+@@ -127,14 +129,14 @@
+ Im folgenden Bild wollen wir eine "Anderung an unserem erstellten Literatur-Titel 'BibTeX kurzgefasst' vornehmen, wir wollen die ISBN von 9-99999-999-9 in 0-00000-000-0 "andern und Verlag in SwP umbenennen:\\
+ \includegraphics[scale=0.8]{bearb2}\\
+ Anschlie"send noch '"Ubernehmen' dr"ucken und unsere Literaturdaten wurden ge"andert. Best"atigt wird die "Anderung durch folgende Meldung:\\
+-\includegraphics[scale=0.8]{bearb3}\\
++\includegraphics[scale=0.8]{bearb3}
+ 
+ \subsection{Wie l"osche ich eine Literatur?}
+ Ist es n"otig einen Literatureintrag zu l"oschen, so w"ahlt man ihn wie auch beim 'Bearbeiten' in der Literaturliste aus, l"asst sich also die betreffenden Literaturdetails anzeigen, und bet"atigt den Button 'L"oschen':\\
+ \includegraphics[scale=0.8]{del_lit}\\
+ Daraufhin erscheint die Aufforderung den L"oschvorgang zu best"atigen. Sollten man es sich anders "uberlegt haben, so bet"atigt man NICHT den Best"atigen-Button sondern verl"asst "uber das seitliche Men"u oder den Zur?ck-Knopf des Browsers den L"oschprozess.\\
+ Sollte man sich sicher sein, dass man den Eintrag l"oschen will, so klickt man auf den Button 'Best"atigen':\\
+-\includegraphics[scale=0.8]{sure}\\
++\includegraphics[scale=0.8]{sure}
+ 
+ 
+ \subsection{Wie kommentiere ich einen Literatureintrag?}
+@@ -145,7 +147,7 @@
+ \includegraphics[scale=0.8]{comment1}\\
+ Auch hier erfolgt eine visuelle Best"atigung "uber die erfolgreiche Abgabe eines Kommentars:
+ \includegraphics[scale=0.8]{comment2}\\
+-Mit dem Button 'Zur"uck' gelangt man zu den Literaturdetails des gerade kommentierten Titels zur"uck.\\
++Mit dem Button 'Zur"uck' gelangt man zu den Literaturdetails des gerade kommentierten Titels zur"uck.
+ 
+ \subsection{Wie "andere ich einen Kommentar?}
+ Will man einen seiner Kommentare zu einem Literaturtitel "andern, muss man den gew"unschten Titel in der Literaturliste ausw"ahlen um sich die Details anzeigen zu lassen.\\
+@@ -189,7 +191,7 @@
+ erscheinen: (Zur Demonstration sind alle Felder leer, um alle Fehlermeldungen anzuzeigen)\\
+ \includegraphics[scale=0.5]{nutzeranl3}\\
+ Wenn man die Felder korrekt ausgef"ullt hat und der Nutzer angelegt werden konnte kommt folgende Meldung:\\
+-\includegraphics[scale=0.5]{nutzeranl4}\\
++\includegraphics[scale=0.5]{nutzeranl4}
+ 
+ \subsection{Wie bearbeite ich einen Nutzer?}
+ Um einen bereits angelegten Nutzer zu bearbeiten, klicken wir zun"achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
+@@ -199,7 +201,7 @@
+ Das schon aus dem Abschnitt 'Wie lege ich einen Nutzer an?' bekannte Formular erscheint und man kann s"amtliche Daten "andern.\\
+ \includegraphics[scale=0.5]{nutzerbea2}\\
+ Wenn der Nutzer erfolgreich bearbeitet wurde, erscheint folgende Nachricht:\\
+-\includegraphics[scale=0.5]{nutzerbea3}\\
++\includegraphics[scale=0.5]{nutzerbea3}
+ 
+ \subsection{Wie l"osche ich einen Nutzer?}  
+ Um einen Nutzer zu l"oschen, klicken wir zun"achst im Segment 'Navigation' auf den Punkt 'Nutzer', daraufhin erscheint das Fenster 
+@@ -209,15 +211,13 @@
+ Es erscheint eine Frage, ob sie den Nutzer wirklich entfernen wollen:\\
+ \includegraphics[scale=0.5]{nutzerloe2}\\
+ Wenn der Nutzer entfernt wurde, erscheint folgende Nachricht:\\
+-\includegraphics[scale=0.5]{nutzerloe3}\\
++\includegraphics[scale=0.5]{nutzerloe3}
+ 
+ \section{Helpsystem}
+ Die Nachrichten beim Anlegen, Editieren und L"oschen von Datenbest"anden sind als Hilfestellung v"ollig ausreichend.\\
+-Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr"aftig genug.\\
+-
+
++Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr"aftig genug.
+ 
+ 
+ 
+ 
+ 
+-
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-07-03 10:32:48 UTC (rev 202)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-07-03 16:55:26 UTC (rev 203)
+@@ -116,20 +116,18 @@
+ 
+ Wenn Sie Senden ausw"ahlen, wird die Ausgabe als Datei gespeichert, was f"ur den Zweck der Datensicherung am Sinn vollsten ist. Ansonsten wird die 
+ Ausgabe auf dem Bildschirm wiedergegeben. 
+-Falls sie "ofters Sicherungen anlegt, ist eine weitere Option ZIP / GZIP Komprimieren sehr praktisch. Wenn Sie dies ausw"ahlen wird die Datei mit ZIP 
+-komprimiert.
++Falls sie "ofters Sicherungen anlegen, ist eine weitere Option ZIP / GZIP Komprimieren sehr praktisch. Wenn Sie dies ausw"ahlen wird die Datei mit ZIP komprimiert.
+ 
+ Eine weitere M?glichkeit, besonders f?r die automatisierte Sicherung der Datenbank, bietet das Programm mysqldump, welches ein Teil der MySQL-Anwendungen ist. Eine genau Erkl?rung ?ber die Funktionsweise von mysqldump ist in den Handb?chern zu MySQL enthalten (\pdfurl{http://www.mysql.com/doc/de/mysqldump.html}).
+ 
+ 
+ Eine Fehlermeldung k"onnte zum Beispiel ''Could not connect to SQL server. Please inform Webmaster'' sein. Hier gelingt es dem System nicht, sich mit 
+ der Datenbank zu verbinden. Als erstes sollten Sie sicher stellen, ob Ihr MySQL-Server gestartet ist. Ein weiterer Grund f"ur diese Fehlermeldung k"onnte 
+-eine unaktuelle Config.php sein. In dieser Datei werden alle Einstellungen gespeichert, unter anderem auch f"ur den Datenbankzugriff wichtige Daten. Es 
++eine unaktuelle include/config.php sein. In dieser Datei werden alle Einstellungen gespeichert, unter anderem auch f"ur den Datenbankzugriff wichtige Daten. Es 
+ kann vorkommen, dass hier zum Beispiel ein veralteter Benutzername oder Passwort enthalten ist.
+ 
+ Was sollte man tun, wenn die Fehlermeldung, dass Daten nicht geschrieben/ge?ndert oder gel?scht werden k"onnen, auftritt? Schauen Sie nach, ob die Rechte 
+ der einzelnen Tabellen der Datenbank richtig gesetzt sind. Am besten mit dem weiter vorn schon erw"ahnten Programm ''phpMyAdmin''.
+ 
+-Des weiteren kann auftreten, dass ein User nach dem einloggen direkt wieder aus geloggt wird. Der Grund f"ur diesen Fehler ist, dass Ihr Webserver keine 
+-Schreib rechte auf den Ordner, der die Sessions speichert, hat. Die Zugriffsrechte f"ur Ordner/Datein auf einem Webserver lassen sich zum Beispiel 
+-mit Hilfe eines FTP Programms einstellen. 
+\ No newline at end of file
++Des weiteren kann auftreten, dass ein User nach dem Einloggen direkt wieder aus geloggt wird. Der Grund f"ur diesen Fehler ist, dass Ihr Webserver keine 
++Schreibrechte auf den Ordner hat, in der PHP die Sessions speichert.
+\ No newline at end of file
+
+
+
+From lazhur at berlios.de  Tue Jul  4 21:57:00 2006
+From: lazhur at berlios.de (lazhur at BerliOS)
+Date: Tue, 4 Jul 2006 21:57:00 +0200
+Subject: [Liman-svn] r204 - trunk/docs/beleg3
+Message-ID: <200607041957.k64Jv0cp002360@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-07-04 21:56:59 +0200 (Tue, 04 Jul 2006)
+New Revision: 204
+
+Modified:
+   trunk/docs/beleg3/ext_suche.pdf
+Log:
+- auf ?\195?\164ltere Revision des Bildes der Erweiterten Suche zur?\195?\188ckgestellt
+
+
+Modified: trunk/docs/beleg3/ext_suche.pdf
+===================================================================
+(Binary files differ)
+
+
+
+From lazhur at berlios.de  Wed Jul 12 19:08:36 2006
+From: lazhur at berlios.de (lazhur at BerliOS)
+Date: Wed, 12 Jul 2006 19:08:36 +0200
+Subject: [Liman-svn] r205 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include docs/protokoll include
+Message-ID: <200607121708.k6CH8aBw007620@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-07-12 19:08:23 +0200 (Wed, 12 Jul 2006)
+New Revision: 205
+
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/arbeitsaufgaben.tex
+   trunk/docs/beleg3/sourcecodes/include/config.php
+   trunk/docs/beleg3/sourcecodes/include/literatur.php
+   trunk/docs/beleg3/sourcecodes/include/sqldb.php
+   trunk/docs/beleg3/sourcecodes/index.php
+   trunk/docs/beleg3/sourcecodes/lit.php
+   trunk/docs/beleg3/sourcecodes/search.php
+   trunk/docs/beleg3/sourcecodes/userlist.php
+   trunk/docs/beleg3/tests.tex
+   trunk/docs/protokoll/2006_06_07.xhtml
+   trunk/include/config.php
+   trunk/include/literatur.php
+   trunk/include/sqldb.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/search.php
+   trunk/userlist.php
+Log:
+- Raumnummer im Protokoll vom 07.06.2006 korrigiert
+- HTML4-TBody-Fehler im Zusammenhang mit leeren Suchergebnisssen behoben
+- "BibTeX-ISBN-Import-Bug" behoben
+- ?\195?\156berpr?\195?\188fung auf vorhandene PHP-MySQL-Module hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -122,6 +122,8 @@
+ Der efolgreiche Import wird durch folgende Anzeige signalisiert:\\
+ \includegraphics[scale=0.8]{import_succ}
+ 
++Beim Einf??gen von BibTeX-Daten ist darauf zu achten, dass nur je ein Attribut auf einer Zeile steht. Bei mehr als einem Attribut kann nicht garantiert werden, dass eine korrekte Trennung der einzelnen Attribute durchgef??hrt wird. Au??erdem sollte direkte Einbettung von LaTeX-Befehle vermieden werden. Sollte dies trotzdem einmal passieren, muss der Literatureintrag nachtr??glich bearbeitet werden.
++
+ \subsection{Wie bearbeite ich eine Literatur?}
+ M"ochte man einen Literatureintrag "andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun"achst die Literaturtabelle anzeigen lassen, danach den zu "andernden Eintrag ausw"ahlen und den Button 'Bearbeiten' dr"ucken.\\
+ \includegraphics[scale=0.8]{bearb1}\\
+@@ -216,8 +218,3 @@
+ \section{Helpsystem}
+ Die Nachrichten beim Anlegen, Editieren und L"oschen von Datenbest"anden sind als Hilfestellung v"ollig ausreichend.\\
+ Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr"aftig genug.
+-
+-
+-
+-
+-
+
+Modified: trunk/docs/beleg3/arbeitsaufgaben.tex
+===================================================================
+--- trunk/docs/beleg3/arbeitsaufgaben.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/arbeitsaufgaben.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -303,7 +303,7 @@
+ 			\end{itemize}
+ 			\subsection{N??chste Pflichtkonsultation mit Betreuer}
+ 			\begin{itemize}
+-			\item Die n??chste Pflichtkonsultation mit Herrn Rentzsch findet am {\em 13.06.2006 um 13:10 Uhr im Raum 			1/B317 } statt.
++			\item Die n??chste Pflichtkonsultation mit Herrn Rentzsch findet am {\em 13.06.2006 um 13:10 Uhr im Raum 			1/344 } statt.
+ 			\end{itemize}
+ 			Chemnitz, 07.06.2006
+ 			\begin{itemize}
+
+Modified: trunk/docs/beleg3/sourcecodes/include/config.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/config.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/config.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -1,14 +1,12 @@
+ <?php
+-	error_reporting(E_ALL);
++        // Datenbankeinstellungen
++        $db_config['dbms'] = "mysql";
++        $db_config['user'] = "liman";
++        $db_config['pass'] = "drownamil";
++        $db_config['name'] = "liman";
++        $db_config['host'] = "db.berlios.de";
++        $db_config['prefix'] = "liman_";
+ 
+-	// Datenbankeinstellungen
+-	$db_config['dbms'] = "mysql";	// welche Datenbankklasse benutzen?
+-	$db_config['user'] = ""; // Nutzername des Datenbanknutzers
+-	$db_config['pass'] = ""; // Passwort f?r Datenbanknutzer
+-	$db_config['name'] = ""; // Name der Datenbank
+-	$db_config['host'] = ""; // Adresse des Datenbankservers
+-	$db_config['prefix'] = "liman_"; // Prefix der Tabellennamen
+-
+-	$ext = "php";	// Endung der von den Usern abrufbaren Dateien
+-	$gz_enable = true; // aktiviere GZIP-Kompression der HTML-Dateien
+-?>
++        $ext = "php";   // Endung der von den Usern abrufbaren Dateien
++        $gz_enable = false; // aktiviere GZIP-Kompression der HTML-Dateien
++?>
+\ No newline at end of file
+
+Modified: trunk/docs/beleg3/sourcecodes/include/literatur.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -201,7 +201,7 @@
+ 
+ 			// Finde alle BibTeX-Eintr?ge
+ 			// Funktioniert nicht bei Argumenten ?ber mehrere Zeilen
+-			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*'. '[\w]*[\s]*=[\s]*([\w]+|\{.*\}|".*")[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
++			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|".*")[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
+ 			{
+ 				$num_entries = sizeof($regexp_entries[0]);
+ 			}
+@@ -243,10 +243,11 @@
+ 				$cur->id = trim($regexp_entries[2][$i]);
+ 
+ 				// Extrahiere "Optionen"
+-				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|'. '".*")[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|".*")[\s]*(,|))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
++					print_r($regexp_options[0]);
+ 					for ($j = 0; $j < $num_options; $j++)
+ 					{
+ 						// Name des Arguments der "Option" auslesen und bereinigen
+@@ -262,7 +263,7 @@
+ 						}
+ 
+ 						// Wei?e Daten der aktuellen Option zu
+-						switch (strtolower( trim($regexp_options[2][$j])))
++						switch (strtolower(trim($regexp_options[2][$j])))
+ 						{
+ 						case "title":
+ 							$cur->titel = $argument;
+
+Modified: trunk/docs/beleg3/sourcecodes/include/sqldb.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/sqldb.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/sqldb.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -4,7 +4,15 @@
+ 	{
+ 		default:
+ 		case "mysql":
+-			require_once("include/sqldb_mysql.php");
++			if (function_exists("mysql_connect") === true
++			    && function_exists("mysql_connect") === true)
++			{
++				require_once("include/sqldb_mysql.php");
++			}
++			else
++			{
++				die("Es liegt ein Problem mit der PHP-MySQL-Einbindung vor. Bitte vergewissern sie sich, dass alle n?tigen PHP-Module vorhanden sind.");
++			}
+ 			break;
+ 	}
+ 	
+@@ -13,5 +21,8 @@
+ 	
+ 	// Gib Fehler aus und breche ab, wenn keine Verbindung zum SQL-Server besteht
+ 	if ($sqldb->db_id === false)
+-		die(mysql_error().". Could not connect to SQL server. Please inform Webmaster");;
++	{
++		$error = $sqldb->GetError();
++		die("Could not connect to SQL server. Please inform Webmaster:\n ".$error['msg']);
++	}
+ ?>
+
+Modified: trunk/docs/beleg3/sourcecodes/index.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/index.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/index.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,12 +14,14 @@
+ 				<th scope="col">ISBN</th>
+ 			</tr>
+ 		</thead>
+-		<tbody>
+-			<?php
+-				// Suche zuletzt hinzugef?gte Literatur
+-				require_once("include/suche.php");
+-				$search = new Suche();
++		<?php
++			// Suche zuletzt hinzugef?gte Literatur
++			require_once("include/suche.php");
++			$search = new Suche();
+ 
++			if (empty($search->Treffer) === false)
++			{
++				echo "<tbody>";
+ 				// Gebe alle gefundenen Treffer aus
+ 				foreach ($search->Treffer as $cur)
+ 				{
+@@ -34,8 +36,13 @@
+ 					</tr>
+ 				<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"4\">Keine Literatur vorhanden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 	<?php
+ 		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf?ge- und Importierknopf aus
+
+Modified: trunk/docs/beleg3/sourcecodes/lit.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/lit.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/lit.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -91,10 +91,14 @@
+ 	<hr>
+ 
+ 	<table id="litkommentare">
+-		<tbody>
+-			<?php
+-				require_once("include/form_helper.php");
+-				$owncomment = ""; // hat der user schon etwas kommentiert?
++		<?php
++			require_once("include/form_helper.php");
++			$owncomment = ""; // hat der user schon etwas kommentiert?
++			
++			
++			if (empty($literatur->Kommentare) === false)
++			{
++				echo "<tbody>";
+ 				foreach ($literatur->Kommentare as $cur)
+ 				{
+ 					// Suche ob schon ein Kommentar des aktuellen Mitglieds existiert
+@@ -119,8 +123,13 @@
+ 				</tr>
+ 			<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"2\">Keine Kommentare vorhanden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 
+ 	<?php
+
+Modified: trunk/docs/beleg3/sourcecodes/search.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/search.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/search.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -56,7 +56,7 @@
+ 		{
+ 	?>
+ 		<tr>
+-			<td><a href="lit.<?= $ext; ?>?id=<?= htmlspecialchars($cur->Nr); ?>"><?= htmlspecialchars($cur->Titel); ?></a></td>
++			<td><a href="lit.<?=$ext;?>?id=<?= htmlspecialchars($cur->Nr); ?>"><?= htmlspecialchars($cur->Titel); ?></a></td>
+ 			<td><?=htmlspecialchars($cur->Autor);?></td>
+ 			<td><?=htmlspecialchars($cur->Verlag);?></td>
+ 			<td><?=htmlspecialchars($cur->ISBN);?></td>
+@@ -71,7 +71,7 @@
+ 	else
+ 	{
+ 		// Wenn nicht, gebe Information aus
+-		echo "<div id=\"warning\">Keine Treffern gefunden</div>";
++		echo "<div id=\"warning\">Keine Treffer gefunden</div>";
+ 	}
+ ?>
+ 
+
+Modified: trunk/docs/beleg3/sourcecodes/userlist.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,10 +14,12 @@
+ 				<th scope="col">Aktionen</th>
+ 			</tr>
+ 		</thead>
+-		<tbody>
+-			<?php
+-				require_once("include/mitglied.php");
++		<?php
++			require_once("include/mitglied.php");
+ 
++			if (empty($members->Treffer) === false)
++			{
++				echo "<tbody>";
+ 				// Lese alle Mitglieder aus (wenn Administrator)
+ 				// oder eigene Daten (wenn Mitglied)
+ 				$members = Mitglied::GetAll();
+@@ -52,8 +54,13 @@
+ 			</tr>
+ 			<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"5\">Keine Mitglieder gefunden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 
+ 	<?php
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/tests.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -8,7 +8,7 @@
+ \item Eingabedaten:\\
+ 	test.php wird aufgerufen. Sonstige Eingaben werden fest im Code der Tests durchgef??hrt.
+ \item Erwartete Ereignisse:\\
+-	Alle Tests liefern "OK" zur??ck
++	Alle Tests liefern ``OK'' zur??ck
+ \item Systemzustand nach Test:\\
+ 	Unver??ndert, wie vor dem Test.
+ \end{enumerate}
+
+Modified: trunk/docs/protokoll/2006_06_07.xhtml
+===================================================================
+--- trunk/docs/protokoll/2006_06_07.xhtml	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/protokoll/2006_06_07.xhtml	2006-07-12 17:08:23 UTC (rev 205)
+@@ -70,7 +70,7 @@
+ 
+ 			<h3 id="nextpk">N??chste Pflichtkonsultation mit Betreuer</h3>
+ 			<ul>
+-			<li>Die n??chste Pflichtkonsultation mit Herrn Rentzsch findet am <b>13.06.2006 um 13:10 Uhr im Raum 			1/B317 </b> statt.</li>
++			<li>Die n??chste Pflichtkonsultation mit Herrn Rentzsch findet am <b>13.06.2006 um 13:10 Uhr im Raum 			1/344 </b> statt.</li>
+ 			</ul>
+ 
+ 			<p>Chemnitz, 07.06.2006</p>
+
+Modified: trunk/include/config.php
+===================================================================
+--- trunk/include/config.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/config.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -1,12 +1,12 @@
+ <?php
+-	// Datenbankeinstellungen
+-	$db_config['dbms'] = "mysql";	// welche Datenbankklasse benutzen?
+-	$db_config['user'] = "liman"; // Nutzername des Datenbanknutzers
+-	$db_config['pass'] = "drownamil"; // Passwort f??r Datenbanknutzer
+-	$db_config['name'] = "liman"; // Name der Datenbank
+-	$db_config['host'] = "db.berlios.de"; // Adresse des Datenbankservers
+-	$db_config['prefix'] = "liman_"; // Prefix der Tabellennamen
++        // Datenbankeinstellungen
++        $db_config['dbms'] = "mysql";
++        $db_config['user'] = "liman";
++        $db_config['pass'] = "drownamil";
++        $db_config['name'] = "liman";
++        $db_config['host'] = "db.berlios.de";
++        $db_config['prefix'] = "liman_";
+ 
+-	$ext = "php";	// Endung der von den Usern abrufbaren Dateien
+-	$gz_enable = true; // aktiviere GZIP-Kompression der HTML-Dateien
+-?>
++        $ext = "php";   // Endung der von den Usern abrufbaren Dateien
++        $gz_enable = false; // aktiviere GZIP-Kompression der HTML-Dateien
++?>
+\ No newline at end of file
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/literatur.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -243,10 +243,11 @@
+ 				$cur->id = trim($regexp_entries[2][$i]);
+ 
+ 				// Extrahiere "Optionen"
+-				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|".*")[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|".*")[\s]*(,|))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
++					print_r($regexp_options[0]);
+ 					for ($j = 0; $j < $num_options; $j++)
+ 					{
+ 						// Name des Arguments der "Option" auslesen und bereinigen
+
+Modified: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/sqldb.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -4,7 +4,15 @@
+ 	{
+ 		default:
+ 		case "mysql":
+-			require_once("include/sqldb_mysql.php");
++			if (function_exists("mysql_connect") === true
++			    && function_exists("mysql_connect") === true)
++			{
++				require_once("include/sqldb_mysql.php");
++			}
++			else
++			{
++				die("Es liegt ein Problem mit der PHP-MySQL-Einbindung vor. Bitte vergewissern sie sich, dass alle n??tigen PHP-Module vorhanden sind.");
++			}
+ 			break;
+ 	}
+ 	
+@@ -13,5 +21,8 @@
+ 	
+ 	// Gib Fehler aus und breche ab, wenn keine Verbindung zum SQL-Server besteht
+ 	if ($sqldb->db_id === false)
+-		die(mysql_error().". Could not connect to SQL server. Please inform Webmaster");;
++	{
++		$error = $sqldb->GetError();
++		die("Could not connect to SQL server. Please inform Webmaster:\n ".$error['msg']);
++	}
+ ?>
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/index.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,12 +14,14 @@
+ 				<th scope="col">ISBN</th>
+ 			</tr>
+ 		</thead>
+-		<tbody>
+-			<?php
+-				// Suche zuletzt hinzugef??gte Literatur
+-				require_once("include/suche.php");
+-				$search = new Suche();
++		<?php
++			// Suche zuletzt hinzugef??gte Literatur
++			require_once("include/suche.php");
++			$search = new Suche();
+ 
++			if (empty($search->Treffer) === false)
++			{
++				echo "<tbody>";
+ 				// Gebe alle gefundenen Treffer aus
+ 				foreach ($search->Treffer as $cur)
+ 				{
+@@ -34,8 +36,13 @@
+ 					</tr>
+ 				<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"4\">Keine Literatur vorhanden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 	<?php
+ 		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf??ge- und Importierknopf aus
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/lit.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -91,10 +91,14 @@
+ 	<hr>
+ 
+ 	<table id="litkommentare">
+-		<tbody>
+-			<?php
+-				require_once("include/form_helper.php");
+-				$owncomment = ""; // hat der user schon etwas kommentiert?
++		<?php
++			require_once("include/form_helper.php");
++			$owncomment = ""; // hat der user schon etwas kommentiert?
++			
++			
++			if (empty($literatur->Kommentare) === false)
++			{
++				echo "<tbody>";
+ 				foreach ($literatur->Kommentare as $cur)
+ 				{
+ 					// Suche ob schon ein Kommentar des aktuellen Mitglieds existiert
+@@ -119,8 +123,13 @@
+ 				</tr>
+ 			<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"2\">Keine Kommentare vorhanden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 
+ 	<?php
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/search.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -71,7 +71,7 @@
+ 	else
+ 	{
+ 		// Wenn nicht, gebe Information aus
+-		echo "<div id=\"warning\">Keine Treffern gefunden</div>";
++		echo "<div id=\"warning\">Keine Treffer gefunden</div>";
+ 	}
+ ?>
+ 
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,10 +14,12 @@
+ 				<th scope="col">Aktionen</th>
+ 			</tr>
+ 		</thead>
+-		<tbody>
+-			<?php
+-				require_once("include/mitglied.php");
++		<?php
++			require_once("include/mitglied.php");
+ 
++			if (empty($members->Treffer) === false)
++			{
++				echo "<tbody>";
+ 				// Lese alle Mitglieder aus (wenn Administrator)
+ 				// oder eigene Daten (wenn Mitglied)
+ 				$members = Mitglied::GetAll();
+@@ -52,8 +54,13 @@
+ 			</tr>
+ 			<?php
+ 				}
+-			?>
+-		</tbody>
++				echo "</tbody>";
++			}
++			else
++			{
++				echo "<tbody><tr><td colspan=\"5\">Keine Mitglieder gefunden</td></tr></tbody>";
++			}
++		?>
+ 	</table>
+ 
+ 	<?php
+
+
+
+From lazhur at berlios.de  Wed Jul 12 19:13:52 2006
+From: lazhur at berlios.de (lazhur at BerliOS)
+Date: Wed, 12 Jul 2006 19:13:52 +0200
+Subject: [Liman-svn] r206 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes
+Message-ID: <200607121713.k6CHDqWb010579@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-07-12 19:13:49 +0200 (Wed, 12 Jul 2006)
+New Revision: 206
+
+Modified:
+   trunk/docs/beleg3/sourcecodes/userlist.php
+   trunk/docs/beleg3/systemhandbuch.tex
+   trunk/userlist.php
+Log:
+- Zeilendreher in userlist.php korrigiert
+- "vollkommen frei" -> "frei" in Systemhandbuch (was war daran ?\195?\188berhaupt falsch?)
+
+
+Modified: trunk/docs/beleg3/sourcecodes/userlist.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
++++ trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-12 17:13:49 UTC (rev 206)
+@@ -17,12 +17,12 @@
+ 		<?php
+ 			require_once("include/mitglied.php");
+ 
+-			if (empty($members->Treffer) === false)
++			// Lese alle Mitglieder aus (wenn Administrator)
++			// oder eigene Daten (wenn Mitglied)
++			$members = Mitglied::GetAll();
++			if (empty($members) === false)
+ 			{
+ 				echo "<tbody>";
+-				// Lese alle Mitglieder aus (wenn Administrator)
+-				// oder eigene Daten (wenn Mitglied)
+-				$members = Mitglied::GetAll();
+ 				foreach ($members as $cur)
+ 				{
+ 			?>
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-07-12 17:08:23 UTC (rev 205)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-07-12 17:13:49 UTC (rev 206)
+@@ -1,6 +1,6 @@
+ \chapter{Systemhandbuch}
+ \section{Installationsanleitung}
+-Das System ist vollkommen frei und kostenlos "uber das Internet von \pdfurl{http://liman.berlios.de/} 
++Das System ist frei und kostenlos "uber das Internet von \pdfurl{http://liman.berlios.de/} 
+ bzw. direkt der 
+ Downloadseite \pdfurl{http://developer.berlios.de/project/showfiles.php?group\_id=6441} 
+ zu beziehen.
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
++++ trunk/userlist.php	2006-07-12 17:13:49 UTC (rev 206)
+@@ -17,12 +17,12 @@
+ 		<?php
+ 			require_once("include/mitglied.php");
+ 
+-			if (empty($members->Treffer) === false)
++			// Lese alle Mitglieder aus (wenn Administrator)
++			// oder eigene Daten (wenn Mitglied)
++			$members = Mitglied::GetAll();
++			if (empty($members) === false)
+ 			{
+ 				echo "<tbody>";
+-				// Lese alle Mitglieder aus (wenn Administrator)
+-				// oder eigene Daten (wenn Mitglied)
+-				$members = Mitglied::GetAll();
+ 				foreach ($members as $cur)
+ 				{
+ 			?>
+
+
+
+From lazhur at berlios.de  Wed Jul 12 19:21:34 2006
+From: lazhur at berlios.de (lazhur at BerliOS)
+Date: Wed, 12 Jul 2006 19:21:34 +0200
+Subject: [Liman-svn] r207 - in trunk: docs/beleg3/sourcecodes/include include
+Message-ID: <200607121721.k6CHLYvb012485@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-07-12 19:21:12 +0200 (Wed, 12 Jul 2006)
+New Revision: 207
+
+Modified:
+   trunk/docs/beleg3/sourcecodes/include/literatur.php
+   trunk/include/literatur.php
+Log:
+- ?\195?\188berfl?\195?\188ssige Debug-Ausgabe entfernt
+
+
+Modified: trunk/docs/beleg3/sourcecodes/include/literatur.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-12 17:13:49 UTC (rev 206)
++++ trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-12 17:21:12 UTC (rev 207)
+@@ -247,7 +247,6 @@
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
+-					print_r($regexp_options[0]);
+ 					for ($j = 0; $j < $num_options; $j++)
+ 					{
+ 						// Name des Arguments der "Option" auslesen und bereinigen
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-07-12 17:13:49 UTC (rev 206)
++++ trunk/include/literatur.php	2006-07-12 17:21:12 UTC (rev 207)
+@@ -247,7 +247,6 @@
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
+-					print_r($regexp_options[0]);
+ 					for ($j = 0; $j < $num_options; $j++)
+ 					{
+ 						// Name des Arguments der "Option" auslesen und bereinigen
+
+
+

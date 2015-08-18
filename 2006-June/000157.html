@@ -1,0 +1,619 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r167 - in trunk: . docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r167%20-%20in%20trunk%3A%20.%20docs/beleg3/sourcecodes%20docs/beleg3/sourcecodes/include%20include&In-Reply-To=%3C200606132024.k5DKOREm025720%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000156.html">
+   <LINK REL="Next"  HREF="000158.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r167 - in trunk: . docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r167%20-%20in%20trunk%3A%20.%20docs/beleg3/sourcecodes%20docs/beleg3/sourcecodes/include%20include&In-Reply-To=%3C200606132024.k5DKOREm025720%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r167 - in trunk: . docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include include">lazhur at berlios.de
+       </A><BR>
+    <I>Tue Jun 13 22:24:27 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000156.html">[Liman-svn] r166 - in trunk: docs/beleg3/sourcecodes/include include
+</A></li>
+        <LI>Next message: <A HREF="000158.html">[Liman-svn] r168 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-13 22:24:26 +0200 (Tue, 13 Jun 2006)
+New Revision: 167
+
+Modified:
+   trunk/docs/beleg3/sourcecodes/include/autor.php
+   trunk/docs/beleg3/sourcecodes/include/header.php
+   trunk/docs/beleg3/sourcecodes/include/kommentar.php
+   trunk/docs/beleg3/sourcecodes/include/literatur.php
+   trunk/docs/beleg3/sourcecodes/include/suche.php
+   trunk/docs/beleg3/sourcecodes/index.php
+   trunk/docs/beleg3/sourcecodes/install.php
+   trunk/docs/beleg3/sourcecodes/lit.php
+   trunk/docs/beleg3/sourcecodes/litmod.php
+   trunk/docs/beleg3/sourcecodes/search.php
+   trunk/docs/beleg3/sourcecodes/user.php
+   trunk/docs/beleg3/sourcecodes/userlist.php
+   trunk/include/autor.php
+   trunk/include/header.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/install.php
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/search.php
+   trunk/user.php
+   trunk/userlist.php
+Log:
+- Verbessere Quellcodeausgabe in dritten Teilbeleg
+
+
+Modified: trunk/docs/beleg3/sourcecodes/include/autor.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/autor.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/include/autor.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -60,8 +60,8 @@
+ 					// Workaround f&#252;r MySQL &lt; 4
+ 					// Finde Autoren ohne Verbindung in Literatur_Autor zur Literatur
+ 					$sql = &quot;SELECT autoren.Autor_Nr AS Nr
+-							FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+-							LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							FROM &quot;. $db_config['prefix'] .&quot;Autoren AS autoren
++							LEFT JOIN &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON autoren.Autor_Nr = connect.Autor_Nr
+ 							WHERE connect.Autor_Nr is NULL&quot;;
+ 					$sqldb-&gt;Query($sql);
+
+Modified: trunk/docs/beleg3/sourcecodes/include/header.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/header.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/include/header.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -72,11 +72,13 @@
+ 						{
+ 						?&gt;
+ 							&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-								&lt;div&gt;
+-								&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-								&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
+-								&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+-								&lt;/div&gt;
++							&lt;div&gt;
++							&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;
++							&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++							&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;
++							&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
++							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
++							&lt;/div&gt;
+ 							&lt;/form&gt;
+ 						&lt;?php
+ 						}
+@@ -84,8 +86,8 @@
+ 						{
+ 						?&gt;
+ 							&lt;form action=&quot;login.&lt;?=$ext;?&gt;?logout&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-								&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
+-								&lt;/div&gt;
++							&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
++							&lt;/div&gt;
+ 							&lt;/form&gt;
+ 						&lt;?php
+ 						}
+
+Modified: trunk/docs/beleg3/sourcecodes/include/kommentar.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/kommentar.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/include/kommentar.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -207,7 +207,7 @@
+ 						// Wenn ja, f&#252;ge neuen Kommentar hinzu, wenn Text angegeben wurde
+ 						if (empty($text) === false)
+ 						{
+-							$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++							$sql = &quot;INSERT INTO &quot;. $db_config['prefix']. &quot;Kommentare
+ 								VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
+ 							$sqldb-&gt;Query($sql);
+ 						}
+
+Modified: trunk/docs/beleg3/sourcecodes/include/literatur.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -91,7 +91,7 @@
+ 			if (is_object($this-&gt;Art) === true)
+ 			{
+ 				// Lege Kopf des BibTeX-Eintrags an
+-				$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;.$this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
++				$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;. $this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
+ 				
+ 				// Titel hinzuf&#252;gen, wenn vorhanden
+ 				if (empty($this-&gt;Titel) === false)
+@@ -201,7 +201,7 @@
+ 
+ 			// Finde alle BibTeX-Eintr&#228;ge
+ 			// Funktioniert nicht bei Argumenten &#252;ber mehrere Zeilen
+-			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
++			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*'. '[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
+ 			{
+ 				$num_entries = sizeof($regexp_entries[0]);
+ 			}
+@@ -243,7 +243,7 @@
+ 				$cur-&gt;id = trim($regexp_entries[2][$i]);
+ 
+ 				// Extrahiere &quot;Optionen&quot;
+-				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|'. '&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
+@@ -262,7 +262,7 @@
+ 						}
+ 
+ 						// Wei&#223;e Daten der aktuellen Option zu
+-						switch (strtolower(trim($regexp_options[2][$j])))
++						switch (strtolower( trim($regexp_options[2][$j])))
+ 						{
+ 						case &quot;title&quot;:
+ 							$cur-&gt;titel = $argument;
+
+Modified: trunk/docs/beleg3/sourcecodes/include/suche.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/suche.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/include/suche.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -102,7 +102,7 @@
+ 				// Finde Literatur mit Suchbegriff
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+-							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							INNER JOIN  &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+@@ -167,7 +167,7 @@
+ 				// Finde Literatur mit Titel und Autor
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+-							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							INNER JOIN  &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+
+Modified: trunk/docs/beleg3/sourcecodes/index.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/index.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/index.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -25,7 +25,7 @@
+ 				{
+ 				?&gt;
+ 					&lt;tr&gt;
+-					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;
++					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;
+ 						&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;
+ 					&lt;/td&gt;
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/install.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/install.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/install.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -148,7 +148,7 @@
+ 			)&quot;;
+ 		$sqlCreate[&quot;Bibliothek&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Bibliothek` (
+ 			`Literatur_Nr` int(11) NOT NULL auto_increment,
+-			`Art` enum('Buch','Artikel','Brosch&#252;re','Protokoll','Anleitung','Diplomarbeit','Dissertation','Techn. Bericht','Unver&#246;ffentlicht','Sonstiges') NOT NULL,
++			`Art` enum('Buch', 'Artikel', 'Brosch&#252;re', 'Protokoll', 'Anleitung', 'Diplomarbeit', 'Dissertation', 'Techn. Bericht', 'Unver&#246;ffentlicht', 'Sonstiges') NOT NULL,
+ 			`Titel` varchar(40) NOT NULL,
+ 			`Jahr` int(11) NOT NULL,
+ 			`Verlag` varchar(40) NOT NULL,
+
+Modified: trunk/docs/beleg3/sourcecodes/lit.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/lit.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/lit.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -76,10 +76,10 @@
+ 			?&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+-					&lt;td&gt;&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot; method=&quot;post&quot;&gt;
++					&lt;td&gt;&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot; method=&quot;post&quot;&gt;
+ 							&lt;span&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;/span&gt;
+ 						&lt;/form&gt;
+-						&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext;?&gt;?delete=&amp;id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot; method=&quot;post&quot;&gt;
++						&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext; ?&gt;?delete=&amp;id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot; method=&quot;post&quot;&gt;
+ 							&lt;span&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;/span&gt;
+ 					&lt;/form&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+@@ -106,14 +106,14 @@
+ 					}
+ 			?&gt;
+ 				&lt;tr&gt;
+-					&lt;th scope=&quot;row&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Verfasser_Name);?&gt;:&lt;/th&gt;	
+-					&lt;td class=&quot;kommentar&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
++					&lt;th scope=&quot;row&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Verfasser_Name); ?&gt;:&lt;/th&gt;	
++					&lt;td class=&quot;kommentar&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Text); ?&gt;&lt;/td&gt;
+ 					&lt;td&gt;&lt;?php
+ 						// Darf der User l&#246;schen?
+ 						if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr || $login-&gt;IsAdministrator() === true)
+ 						{
+ 							echo &quot;&lt;span style=\&quot;font-size: xx-small\&quot;&gt;&quot;;
+-							echo &quot;&lt;a href=\&quot;commentmod.php?delete&amp;id=&quot;.$cur-&gt;Nr.&quot;&amp;litid=&quot;.htmlspecialchars($_GET[&quot;id&quot;]).&quot;\&quot;&gt;(l&#246;schen)&lt;/a&gt;&lt;/span&gt;&quot;;
++							echo &quot;&lt;a href=\&quot;commentmod.php?delete&amp;id=&quot;. $cur-&gt;Nr .&quot;&amp;litid=&quot;. htmlspecialchars($_GET[&quot;id&quot;]) .&quot;\&quot;&gt;(l&#246;schen)&lt;/a&gt;&lt;/span&gt;&quot;;
+ 						}
+ 					?&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+@@ -171,7 +171,7 @@
+ 					&lt;tr&gt;
+ 						&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;text&quot;&gt;Kommentar &#228;ndern:&lt;/label&gt;&lt;/th&gt;	
+ 						&lt;td&gt;
+-							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;?=htmlspecialchars($owncomment-&gt;Text);?&gt;&lt;/textarea&gt;
++							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;?= htmlspecialchars($owncomment-&gt;Text); ?&gt;&lt;/textarea&gt;
+ 						&lt;/td&gt;
+ 					&lt;/tr&gt;
+ 					&lt;tr&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/litmod.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/litmod.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/litmod.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -282,7 +282,7 @@
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;beschreibung&quot; id=&quot;beschreibung&quot;&gt;&lt;?=htmlspecialchars($beschreibung);?&gt;&lt;/textarea&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;beschreibung&quot; id=&quot;beschreibung&quot;&gt;&lt;?=htmlspecialchars($beschreibung); ?&gt;&lt;/textarea&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+@@ -360,7 +360,7 @@
+ 					{
+ 				?&gt;
+ 					&lt;tr&gt;
+-						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/search.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/search.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/search.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -56,7 +56,7 @@
+ 		{
+ 	?&gt;
+ 		&lt;tr&gt;
+-			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;a href=&quot;lit.&lt;?= $ext; ?&gt;?id=&lt;?= htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/user.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/user.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/user.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -75,7 +75,7 @@
+ 				&lt;td&gt;
+ 					&lt;form style=&quot;display:inline&quot; action=&quot;usermod.&lt;?=$ext;?&gt;&quot; method=&quot;post&quot;&gt;
+ 						&lt;span&gt;
+-							&lt;input type=&quot;hidden&quot; id=&quot;id&quot; name=&quot;id&quot; value=&quot;&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot;&gt;
++							&lt;input type=&quot;hidden&quot; id=&quot;id&quot; name=&quot;id&quot; value=&quot;&lt;?= htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot;&gt;
+ 							&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
+ 						&lt;/span&gt;
+ 					&lt;/form&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/userlist.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/userlist.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/docs/beleg3/sourcecodes/userlist.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -35,7 +35,7 @@
+ 						// bei Administratoren immer
+ 						if ($login-&gt;IsAdministrator() === true || $login-&gt;Nr == $cur-&gt;Nr)
+ 						{
+-							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
++							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?id=&quot;. htmlspecialchars($cur-&gt;Nr) .&quot;\&quot;&gt;&quot;;
+ 							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Bearbeiten\&quot;&gt;&quot;;
+ 							echo &quot;&lt;/form&gt;&quot;;
+ 						}
+@@ -43,7 +43,7 @@
+ 						// Sind Administratorrechte vorhanden, gebe L&#246;schknopf aus
+ 						if ($login-&gt;IsAdministrator() === true)
+ 						{
+-							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?delete=&amp;id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
++							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?delete=&amp;id=&quot;. htmlspecialchars($cur-&gt;Nr) .&quot;\&quot;&gt;&quot;;
+ 							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;L&#246;schen\&quot;&gt;&quot;;
+ 							echo &quot;&lt;/form&gt;&quot;;
+ 						}
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/include/autor.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -60,8 +60,8 @@
+ 					// Workaround f&#195;&#188;r MySQL &lt; 4
+ 					// Finde Autoren ohne Verbindung in Literatur_Autor zur Literatur
+ 					$sql = &quot;SELECT autoren.Autor_Nr AS Nr
+-							FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+-							LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							FROM &quot;. $db_config['prefix'] .&quot;Autoren AS autoren
++							LEFT JOIN &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON autoren.Autor_Nr = connect.Autor_Nr
+ 							WHERE connect.Autor_Nr is NULL&quot;;
+ 					$sqldb-&gt;Query($sql);
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/include/header.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -72,11 +72,13 @@
+ 						{
+ 						?&gt;
+ 							&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-								&lt;div&gt;
+-								&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-								&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
+-								&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+-								&lt;/div&gt;
++							&lt;div&gt;
++							&lt;label for=&quot;loginname&quot;&gt;Login:&lt;/label&gt;
++							&lt;input id=&quot;loginname&quot; name=&quot;loginname&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++							&lt;label for=&quot;passwort&quot;&gt;Passwort:&lt;/label&gt;
++							&lt;input id=&quot;passwort&quot; name=&quot;passwort&quot; type=&quot;password&quot;&gt;
++							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
++							&lt;/div&gt;
+ 							&lt;/form&gt;
+ 						&lt;?php
+ 						}
+@@ -84,8 +86,8 @@
+ 						{
+ 						?&gt;
+ 							&lt;form action=&quot;login.&lt;?=$ext;?&gt;?logout&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+-								&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
+-								&lt;/div&gt;
++							&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
++							&lt;/div&gt;
+ 							&lt;/form&gt;
+ 						&lt;?php
+ 						}
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/include/kommentar.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -207,7 +207,7 @@
+ 						// Wenn ja, f&#195;&#188;ge neuen Kommentar hinzu, wenn Text angegeben wurde
+ 						if (empty($text) === false)
+ 						{
+-							$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++							$sql = &quot;INSERT INTO &quot;. $db_config['prefix'] .&quot;Kommentare
+ 								VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
+ 							$sqldb-&gt;Query($sql);
+ 						}
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/include/literatur.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -91,7 +91,7 @@
+ 			if (is_object($this-&gt;Art) === true)
+ 			{
+ 				// Lege Kopf des BibTeX-Eintrags an
+-				$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;.$this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
++				$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;. $this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
+ 				
+ 				// Titel hinzuf&#195;&#188;gen, wenn vorhanden
+ 				if (empty($this-&gt;Titel) === false)
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/include/suche.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -102,7 +102,7 @@
+ 				// Finde Literatur mit Suchbegriff
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+-							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							INNER JOIN  &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+@@ -167,7 +167,7 @@
+ 				// Finde Literatur mit Titel und Autor
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+-							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							INNER JOIN  &quot;. $db_config['prefix'] .&quot;Literatur_Autor AS connect
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/index.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -25,7 +25,7 @@
+ 				{
+ 				?&gt;
+ 					&lt;tr&gt;
+-					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;
++					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;
+ 						&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;
+ 					&lt;/td&gt;
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+
+Modified: trunk/install.php
+===================================================================
+--- trunk/install.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/install.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -148,7 +148,7 @@
+ 			)&quot;;
+ 		$sqlCreate[&quot;Bibliothek&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Bibliothek` (
+ 			`Literatur_Nr` int(11) NOT NULL auto_increment,
+-			`Art` enum('Buch','Artikel','Brosch&#195;&#188;re','Protokoll','Anleitung','Diplomarbeit','Dissertation','Techn. Bericht','Unver&#195;&#182;ffentlicht','Sonstiges') NOT NULL,
++			`Art` enum('Buch', 'Artikel', 'Brosch&#195;&#188;re', 'Protokoll', 'Anleitung', 'Diplomarbeit', 'Dissertation', 'Techn. Bericht', 'Unver&#195;&#182;ffentlicht', 'Sonstiges') NOT NULL,
+ 			`Titel` varchar(40) NOT NULL,
+ 			`Jahr` int(11) NOT NULL,
+ 			`Verlag` varchar(40) NOT NULL,
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/lit.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -76,10 +76,10 @@
+ 			?&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+-					&lt;td&gt;&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot; method=&quot;post&quot;&gt;
++					&lt;td&gt;&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot; method=&quot;post&quot;&gt;
+ 							&lt;span&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;/span&gt;
+ 						&lt;/form&gt;
+-						&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext;?&gt;?delete=&amp;id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot; method=&quot;post&quot;&gt;
++						&lt;form style=&quot;display:inline&quot; action=&quot;litmod.&lt;?=$ext; ?&gt;?delete=&amp;id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot; method=&quot;post&quot;&gt;
+ 							&lt;span&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;/span&gt;
+ 					&lt;/form&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+@@ -106,14 +106,14 @@
+ 					}
+ 			?&gt;
+ 				&lt;tr&gt;
+-					&lt;th scope=&quot;row&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Verfasser_Name);?&gt;:&lt;/th&gt;	
+-					&lt;td class=&quot;kommentar&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
++					&lt;th scope=&quot;row&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Verfasser_Name); ?&gt;:&lt;/th&gt;	
++					&lt;td class=&quot;kommentar&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Text); ?&gt;&lt;/td&gt;
+ 					&lt;td&gt;&lt;?php
+ 						// Darf der User l&#195;&#182;schen?
+ 						if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr || $login-&gt;IsAdministrator() === true)
+ 						{
+ 							echo &quot;&lt;span style=\&quot;font-size: xx-small\&quot;&gt;&quot;;
+-							echo &quot;&lt;a href=\&quot;commentmod.php?delete&amp;id=&quot;.$cur-&gt;Nr.&quot;&amp;litid=&quot;.htmlspecialchars($_GET[&quot;id&quot;]).&quot;\&quot;&gt;(l&#195;&#182;schen)&lt;/a&gt;&lt;/span&gt;&quot;;
++							echo &quot;&lt;a href=\&quot;commentmod.php?delete&amp;id=&quot;. $cur-&gt;Nr .&quot;&amp;litid=&quot;. htmlspecialchars($_GET[&quot;id&quot;]) .&quot;\&quot;&gt;(l&#195;&#182;schen)&lt;/a&gt;&lt;/span&gt;&quot;;
+ 						}
+ 					?&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+@@ -171,7 +171,7 @@
+ 					&lt;tr&gt;
+ 						&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;text&quot;&gt;Kommentar &#195;&#164;ndern:&lt;/label&gt;&lt;/th&gt;	
+ 						&lt;td&gt;
+-							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;?=htmlspecialchars($owncomment-&gt;Text);?&gt;&lt;/textarea&gt;
++							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;?= htmlspecialchars($owncomment-&gt;Text); ?&gt;&lt;/textarea&gt;
+ 						&lt;/td&gt;
+ 					&lt;/tr&gt;
+ 					&lt;tr&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/litmod.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -282,7 +282,7 @@
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;beschreibung&quot; id=&quot;beschreibung&quot;&gt;&lt;?=htmlspecialchars($beschreibung);?&gt;&lt;/textarea&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;beschreibung&quot; id=&quot;beschreibung&quot;&gt;&lt;?=htmlspecialchars($beschreibung); ?&gt;&lt;/textarea&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+@@ -360,7 +360,7 @@
+ 					{
+ 				?&gt;
+ 					&lt;tr&gt;
+-						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext; ?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/search.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -56,7 +56,7 @@
+ 		{
+ 	?&gt;
+ 		&lt;tr&gt;
+-			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?= htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?=h tmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/user.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -75,7 +75,7 @@
+ 				&lt;td&gt;
+ 					&lt;form style=&quot;display:inline&quot; action=&quot;usermod.&lt;?=$ext;?&gt;&quot; method=&quot;post&quot;&gt;
+ 						&lt;span&gt;
+-							&lt;input type=&quot;hidden&quot; id=&quot;id&quot; name=&quot;id&quot; value=&quot;&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot;&gt;
++							&lt;input type=&quot;hidden&quot; id=&quot;id&quot; name=&quot;id&quot; value=&quot;&lt;?= htmlspecialchars($_GET[&quot;id&quot;]); ?&gt;&quot;&gt;
+ 							&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
+ 						&lt;/span&gt;
+ 					&lt;/form&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-06-13 19:00:04 UTC (rev 166)
++++ trunk/userlist.php	2006-06-13 20:24:26 UTC (rev 167)
+@@ -35,7 +35,7 @@
+ 						// bei Administratoren immer
+ 						if ($login-&gt;IsAdministrator() === true || $login-&gt;Nr == $cur-&gt;Nr)
+ 						{
+-							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
++							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?id=&quot;. htmlspecialchars($cur-&gt;Nr) .&quot;\&quot;&gt;&quot;;
+ 							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Bearbeiten\&quot;&gt;&quot;;
+ 							echo &quot;&lt;/form&gt;&quot;;
+ 						}
+@@ -43,7 +43,7 @@
+ 						// Sind Administratorrechte vorhanden, gebe L&#195;&#182;schknopf aus
+ 						if ($login-&gt;IsAdministrator() === true)
+ 						{
+-							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?delete=&amp;id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
++							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?delete=&amp;id=&quot;. htmlspecialchars($cur-&gt;Nr) .&quot;\&quot;&gt;&quot;;
+ 							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;L&#195;&#182;schen\&quot;&gt;&quot;;
+ 							echo &quot;&lt;/form&gt;&quot;;
+ 						}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000156.html">[Liman-svn] r166 - in trunk: docs/beleg3/sourcecodes/include include
+</A></li>
+	<LI>Next message: <A HREF="000158.html">[Liman-svn] r168 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#157">[ date ]</a>
+              <a href="thread.html#157">[ thread ]</a>
+              <a href="subject.html#157">[ subject ]</a>
+              <a href="author.html#157">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,700 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r177 - trunk/include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r177%20-%20trunk/include/tests&In-Reply-To=%3C200606222112.k5MLCBKi022133%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000166.html">
+   <LINK REL="Next"  HREF="000168.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r177 - trunk/include/tests</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r177%20-%20trunk/include/tests&In-Reply-To=%3C200606222112.k5MLCBKi022133%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r177 - trunk/include/tests">fwilhelm at berlios.de
+       </A><BR>
+    <I>Thu Jun 22 23:12:11 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000166.html">[Liman-svn] r176 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000168.html">[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#167">[ date ]</a>
+              <a href="thread.html#167">[ thread ]</a>
+              <a href="subject.html#167">[ subject ]</a>
+              <a href="author.html#167">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-06-22 23:12:10 +0200 (Thu, 22 Jun 2006)
+New Revision: 177
+
+Removed:
+   trunk/include/tests/literatur.php
+Modified:
+   trunk/include/tests/autor.php
+   trunk/include/tests/kommentar.php
+   trunk/include/tests/mitglied.php
+Log:
+Test f?\195?\188r Literatur gel?\195?\182scht (zu schwer isolierbar),
+Tests von Autor beinhalten Nutzerrechte,
+Tests f?\195?\188r Kommentar und Mitglied vervollst?\195?\164ndigt
+
+Modified: trunk/include/tests/autor.php
+===================================================================
+--- trunk/include/tests/autor.php	2006-06-19 19:16:25 UTC (rev 176)
++++ trunk/include/tests/autor.php	2006-06-22 21:12:10 UTC (rev 177)
+@@ -3,15 +3,26 @@
+ 	
+ 	class AutorTest
+ 	{
++		var $login;
++		
+ 		function Setup()
+ 		{
++			global $login;
++			
++			$this-&gt;login = new stdClass();
++			$this-&gt;login-&gt;Level = $login-&gt;Level;
++			$this-&gt;login-&gt;Nr = $login-&gt;Nr;
+ 		}
+ 		
+ 		function TearDown()
+ 		{
+-			global $sqldb;
++			global $login, $sqldb;
+ 			
+ 			$sqldb-&gt;Verify();
++			$login-&gt;Level = $this-&gt;login-&gt;Level;
++			$login-&gt;Nr = $this-&gt;login-&gt;Nr;
++			
++			$sqldb-&gt;Verify();
+ 		}
+ 		
+ 		function ConstructorTest()
+@@ -71,16 +82,30 @@
+ 		
+ 		function Split()
+ 		{
+-			global $sqldb;
++			global $sqldb, $login;
+ 			
++			$login-&gt;Level = 0;	// Gast
++			
+ 			$testAutorNamen = &quot;Schon Vorhanden, Wird Hinzugef&#252;gt&quot;;
+ 			
++			$autoren = Autor::Split( $testAutorNamen );
++			
++			$result = $sqldb-&gt;Verify();
++			if( $result !== false )
++			{
++				$result-&gt;Unit = 'Autor';
++				$result-&gt;Test = 'Split (Gast)';
++				return $result;
++			}
++			
+ 			$testAutoren = array();
+ 			$testAutoren[] = new stdClass();
+ 			$testAutoren[] = new stdClass();
+ 			
+ 			$testAutoren[0]-&gt;Nr = 1;
+ 			$testAutoren[1]-&gt;Nr = 2;
++			
++			$login-&gt;Level = 1;	// Mitglied
+ 			 
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', $testAutoren[0] );
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', false  );
+@@ -92,12 +117,12 @@
+ 			if( $result !== false )
+ 			{
+ 				$result-&gt;Unit = 'Autor';
+-				$result-&gt;Test = 'Split';
++				$result-&gt;Test = 'Split (Mitglied)';
+ 				return $result;
+ 			}
+ 			
+ 			if( count($autoren) != count($testAutoren) )
+-				return new ErrorMessage( 'Autor', 'Split', 'Anzahl Autoren', count($testAutoren), count($autoren) );
++				return new ErrorMessage( 'Autor', 'Split (Mitglied)', 'Anzahl Autoren', count($testAutoren), count($autoren) );
+ 			
+ 			return true;
+ 		}
+
+Modified: trunk/include/tests/kommentar.php
+===================================================================
+--- trunk/include/tests/kommentar.php	2006-06-19 19:16:25 UTC (rev 176)
++++ trunk/include/tests/kommentar.php	2006-06-22 21:12:10 UTC (rev 177)
+@@ -3,25 +3,43 @@
+ 	
+ 	class KommentarTest
+ 	{
++		var $login;
++		
+ 		function Setup()
+ 		{
++			global $login;
++			
++			$this-&gt;login = new stdClass();
++			$this-&gt;login-&gt;Level = $login-&gt;Level;
++			$this-&gt;login-&gt;Nr = $login-&gt;Nr;
+ 		}
+ 		
+ 		function TearDown()
+ 		{
+-			global $sqldb;
++			global $sqldb, $login;
+ 			
+ 			$sqldb-&gt;Verify();
++			$login-&gt;Level = $this-&gt;login-&gt;Level;
++			$login-&gt;Nr = $this-&gt;login-&gt;Nr;
++			
++			$sqldb-&gt;Verify();
+ 		}
+ 		
++		function CreateKommentarData( $nr, $text, $mitglieds_nr, $vorname, $nachname )
++		{
++			$data = new stdClass();
++			$data-&gt;Nr = $nr;
++			$data-&gt;Text = $text;
++			$data-&gt;Mitglieds_Nr = $mitglieds_nr;
++			$data-&gt;Vorname = $vorname;
++			$data-&gt;Nachname = $nachname;
++			
++			return $data;
++		}
++		
+ 		function ConstructorTest()
+ 		{
+-			$testData = new stdClass();
+-			$testData-&gt;Nr = 1;
+-			$testData-&gt;Text = &quot;Das ist ein Kommentar&quot;;
+-			$testData-&gt;Mitglieds_Nr = 2;
+-			$testData-&gt;Vorname = &quot;Max&quot;;
+-			$testData-&gt;Nachname = &quot;Mustermann&quot;;
++			$testData = CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 2, &quot;Max&quot;, &quot;Mustermann&quot; );
+ 			
+ 			$kommentar = new Kommentar($testData);
+ 			
+@@ -40,9 +58,79 @@
+ 			return true; 
+ 		}
+ 		
++		function Delete()
++		{
++			global $sqldb, $login;
++			
++			$login-&gt;Rechte = 0;
++			
++			Kommentar::Delete( 0 );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Delete (Gast)';
++				return $dbResult;
++			}
++			
++			$login-&gt;Rechte = 1;
++			
++			$sqldb-&gt;ExpectQuery( 'DELETE FROM.*Kommentare.*WHERE.*Mitglieds_Nr.*', 1 );
++			
++			Kommentar::Delete( 0 );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Delete (Mitglied)';
++				return $dbResult;
++			}
++			
++			$login-&gt;Rechte = 2;
++			
++			$sqldb-&gt;ExpectQuery( 'DELETE FROM.*Kommentare.*WHERE.*', 1 );
++			
++			Kommentar::Delete( 0 );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Delete (Admin)';
++				return $dbResult;
++			}
++			
++			return true;
++		}
++		
+ 		function GetAll()
+ 		{
+-			return new ErrorMessage( 'Kommentar', 'GetAll', 'Test nicht implementiert', null, null  );
++			global $sqldb;
++			
++			$testData = array();
++			$testData[] = CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 1, &quot;Max&quot;, &quot;Mustermann&quot; );
++			$testData[] = CreateKommentarData( 2, &quot;Noch ein Kommentar&quot;, 2, &quot;Fritz&quot;, &quot;Fischer&quot; );
++			
++			$sqldb-&gt;ExpectQuery( 'SELECT.*FROM.*Kommentare', $testData );
++			$result = Kommentar::GetAll();
++			
++			$dbResult = $sqldb-&gt;Verify();
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'GetAll';
++				return $dbResult;
++			}
++
++			if( count($testData) != count($result) )
++				return new ErrorMessage( 'Kommentar', 'GetAll', 'Anzahl Kommentare', count($testData), count($result) );
++			
++			return true;
+ 		}
+ 		
+ 		function Insert()
+@@ -52,7 +140,43 @@
+ 		
+ 		function Update()
+ 		{
+-			return new ErrorMessage( 'Kommentar', 'Update', 'Test nicht implementiert', null, null  );
++			global $login, $sqldb;
++			
++			$login-&gt;Rechte = 1;
++			
++			$sqldb-&gt;ExpectQuery( 'DELETE FROM.*Kommentare', 1 );
++			Kommentar::Update( 1, &quot;&quot; );		// Wenn Text leer ist, soll Kommentar gel&#65533;scht werden
++			$dbResult = $sqldb-&gt;Verify();
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Update (leer)';
++				return $dbResult; 
++			}
++			
++			$sqldb-&gt;ExpectQuery( 'UPDATE.*Kommentare.*WHERE.*Mitglieds_Nr', 1 );
++			Kommentar::Update( 1, &quot;Neuer Text&quot; );
++			$dbResult = $sqldb-&gt;Verify();
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Update (Mitglied)';
++				return $dbResult; 
++			}
++			
++			$login-&gt;Rechte = 2;
++			
++			$sqldb-&gt;ExpectQuery( 'UPDATE.*Kommentare.*WHERE', 1 );
++			Kommentar::Update( 1, &quot;Neuer Text&quot; );
++			$dbResult = $sqldb-&gt;Verify();
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Kommentar';
++				$dbResult-&gt;Test = 'Update (Admin)';
++				return $dbResult; 
++			}
++			
++			return true;
+ 		}
+ 	}
+ ?&gt;
+
+Deleted: trunk/include/tests/literatur.php
+===================================================================
+--- trunk/include/tests/literatur.php	2006-06-19 19:16:25 UTC (rev 176)
++++ trunk/include/tests/literatur.php	2006-06-22 21:12:10 UTC (rev 177)
+@@ -1,42 +0,0 @@
+-&lt;?php
+-	require_once(&quot;include/tests/errormessage.php&quot;);
+-	
+-	class LiteraturTest
+-	{
+-		function Setup()
+-		{
+-		}
+-		
+-		function TearDown()
+-		{
+-			global $sqldb;
+-			
+-			$sqldb-&gt;Verify();
+-		}
+-		
+-		function ConstructorTest()
+-		{
+-			return new ErrorMessage( 'Literatur', 'ctor', 'Test nicht implementiert', null, null );
+-		}
+-		
+-		function Insert()
+-		{
+-			return new ErrorMessage( 'Literatur', 'Insert', 'Test nicht implementiert', null, null );
+-		}
+-		
+-		function Update()
+-		{
+-			return new ErrorMessage( 'Literatur', 'Update', 'Test nicht implementiert', null, null );
+-		}
+-		
+-		function InsertBibtex()
+-		{
+-			return new ErrorMessage( 'Literatur', 'InsertBibtex', 'Test nicht implementiert', null, null );
+-		}
+-		
+-		function ToBibtex()
+-		{
+-			return new ErrorMessage( 'Literatur', 'ToBibtex', 'Test nicht implementiert', null, null );
+-		}
+-	}
+-?&gt;
+
+Modified: trunk/include/tests/mitglied.php
+===================================================================
+--- trunk/include/tests/mitglied.php	2006-06-19 19:16:25 UTC (rev 176)
++++ trunk/include/tests/mitglied.php	2006-06-22 21:12:10 UTC (rev 177)
+@@ -3,29 +3,44 @@
+ 	
+ 	class MitgliedTest
+ 	{
++		var $login;
++		
+ 		function Setup()
+ 		{
++			global $login;
++			
++			$this-&gt;login = new stdClass();
++			$this-&gt;login-&gt;Level = $login-&gt;Level;
++			$this-&gt;login-&gt;Nr = $login-&gt;Nr;
+ 		}
+ 		
+ 		function TearDown()
+ 		{
+-			global $sqldb;
++			global $sqldb, $login;
+ 			
+ 			$sqldb-&gt;Verify();
++			$login-&gt;Level = $this-&gt;login-&gt;Level;
++			$login-&gt;Nr = $this-&gt;login-&gt;Nr;
+ 		}
+ 		
++		function CreateMemberData( $nr, $login, $pass, $firstName, $name, $email, $rights )
++		{
++			$data = new stdClass();
++			$data-&gt;Nr = $nr;
++			$data-&gt;Login = $login;
++			$data-&gt;Passwort = Mitglied::PasswordHash($pass);
++			$data-&gt;Vorname = $firstName;
++			$data-&gt;Nachname = $name;
++			$data-&gt;Email = $email;
++			$data-&gt;Rechte = $rights;
++			return $data;
++		}
++		
+ 		function ConstructorTest()
+ 		{
+ 			global $sqldb;
+ 			
+-			$testData = new stdClass();
+-			$testData-&gt;Mitglieds_Nr = 1;
+-			$testData-&gt;Login = &quot;Maximator&quot;;
+-			$testData-&gt;Passwort = Mitglied::PasswordHash(&quot;passwort&quot;);
+-			$testData-&gt;Vorname = &quot;Max&quot;;
+-			$testData-&gt;Name = &quot;Mustermann&quot;;
+-			$testData-&gt;Email = &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;;
+-			$testData-&gt;Rechte = &quot;Benutzer&quot;;
++			$testData = CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;,&quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
+ 			
+ 			$sqldb-&gt;ExpectQuery(&quot;SELECT.*FROM.*Mitglieder.*WHERE.*Mitglieds_Nr.*LIMIT 1&quot;, $testData );
+ 			
+@@ -40,7 +55,7 @@
+ 			}
+ 			
+ 			if( $mitglied-&gt;Nr != $testData-&gt;Mitglieds_Nr )
+-				return new ErrorMessage( 'Mitglied', 'ctor', 'Mitgliedsnummer falsch', $testData-&gt;Mitglieds_Nr, $mitglied-&gt;Nr );
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Mitgliedsnummer falsch', $testData-&gt;Mitglieds_Nr, $mitglied-&gt;Mitglieds_Nr );
+ 				
+ 			if( $mitglied-&gt;Login != $testData-&gt;Login )
+ 				return new ErrorMessage( 'Mitglied', 'ctor', 'Login falsch', $testData-&gt;Login, $mitglied-&gt;Login );
+@@ -52,15 +67,243 @@
+ 				return new ErrorMessage( 'Mitglied', 'ctor', 'Vorname falsch', $testData-&gt;Vorname, $mitglied-&gt;Vorname );
+ 				
+ 			if( $mitglied-&gt;Nachname != $testData-&gt;Name )
+-				return new ErrorMessage( 'Mitglied', 'ctor', 'Name falsch', $testData-&gt;Name, $mitglied-&gt;Nachname );
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Name falsch', $testData-&gt;Name, $mitglied-&gt;Name );
+ 				
+ 			if( $mitglied-&gt;Email != $testData-&gt;Email )
+ 				return new ErrorMessage( 'Mitglied', 'ctor', 'Email falsch', $testData-&gt;Email, $mitglied-&gt;Email );
+ 				
+ 			if( $mitglied-&gt;Rechte != 1 )
+-				return new ErrorMessage( 'Mitglied', 'ctor', 'Rechte falsch', 1, $mitglied-&gt;Rechte );
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Email falsch', 1, $mitglied-&gt;Rechte );
+ 				
+ 			return true;
+ 		}
++		
++		function Delete()
++		{
++			global $sqldb, $login;
++			
++			$login-&gt;Rechte = 1;		// Test mit Mitglied-Rechten
++			
++			$delResult = Mitglied::Delete( 1 );
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Delete (Mitglied)';
++				return $dbResult;
++			}
++			
++			if( $delResult !== false )	//	&lt; Admin darf nicht l&#65533;schen
++			{
++				return new ErrorMessage( 'Mitglied', 'Delete (Mitglied)', 'R&#65533;ckgabewert', false, $delResult );
++			}
++			
++			// ------------------------------------------------
++			
++			$login-&gt;Rechte = 2;		// Test mit Admin-Rechten
++			
++			$sqldb-&gt;ExpectQuery( 'DELETE FROM.*Mitglieder.*WHERE', 1 );
++			
++			$delResult = Mitglied::Delete( 1 );
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Delete (Mitglied)';
++				return $dbResult;
++			}
++			
++			if( $delResult !== true )	// Admin darf l&#65533;schen
++			{
++				return new ErrorMessage( 'Mitglied', 'Delete (Admin)', 'R&#65533;ckgabewert', true, $delResult );
++			}
++			
++			return true;
++		}
++		
++		function Insert()
++		{
++			global $sqldb, $login;
++			
++			$login-&gt;Rechte = 1;		// Test mit Mitglied-Rechten
++			
++			$insResult = Mitglied::Insert( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Insert (Mitglied)';
++				return $dbResult;
++			}
++			
++			if( $insResult !== false )	//	&lt; Admin darf nicht hinzuf&#65533;gen
++			{
++				return new ErrorMessage( 'Mitglied', 'Insert (Mitglied)', 'R&#65533;ckgabewert', false, $insResult );
++			}
++			
++			// ------------------------------------------------
++			
++			$login-&gt;Rechte = 2;		// Test mit Admin-Rechten
++			
++			$sqldb-&gt;ExpectQuery( 'INSERT INTO.*Mitglieder.*VALUES', 1 );
++			
++			$insResult = Mitglied::Insert( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Insert (Mitglied)';
++				return $dbResult;
++			}
++			
++			if( $insResult !== true )	// Admin darf hinzuf&#65533;gen
++			{
++				return new ErrorMessage( 'Mitglied', 'Insert (Admin)', 'R&#65533;ckgabewert', true, $insResult );
++			}
++			
++			return true;
++		}
++		
++		function Update()
++		{
++			global $sqldb, $login;
++			
++			$login-&gt;Rechte = 1;	// Test mit Mitglied-Rechten
++			$login-&gt;Nr = 3;		// aber falscher Nummer
++			$updResult = Mitglied::Update( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Update (anderes Mitglied)';
++				return $dbResult;
++			}
++			
++			if( $updResult !== false )	// fremder Nutzer darf nicht editieren
++			{
++				return new ErrorMessage( 'Mitglied', 'Update (Gast)', 'R&#65533;ckgabewert', false, $updResult );
++			}
++			
++			// ------------------------------------------------
++			
++			$login-&gt;Rechte = 1;	// Test mit Mitglied-Rechten
++			$login-&gt;Nr = 1;		// richtige Nummer
++			$sqldb-&gt;ExpectQuery( 'UPDATE.*Mitglieder.*WHERE', 1 );
++			
++			$updResult = Mitglied::Update( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Update (selbst)';
++				return $dbResult;
++			}
++			
++			if( $updResult !== true )	// man darf sich selbst editieren
++			{
++				return new ErrorMessage( 'Mitglied', 'Update (Gast)', 'R&#65533;ckgabewert', true, $updResult );
++			}
++			
++			// ------------------------------------------------
++			
++			$login-&gt;Rechte = 1;	// Test mit Administrator-Rechten
++			$login-&gt;Nr = 2;		// andere Nummer
++			$sqldb-&gt;ExpectQuery( 'UPDATE.*Mitglieder.*WHERE', 1 );
++			
++			$updResult = Mitglied::Update( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true)
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'Update (Admin)';
++				return $dbResult;
++			}
++			
++			if( $updResult !== true )	// Admin darf alle editieren
++			{
++				return new ErrorMessage( 'Mitglied', 'Update (Gast)', 'R&#65533;ckgabewert', true, $updResult );
++			}
++			
++			return true;
++		}
++		
++		function GetAll()
++		{
++			global $sqldb, $login;
++			
++			$queryResult = array();
++			$queryResult[] = CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; ); 
++			$queryResult[] = CreateMemberData( 2, &quot;FischerFritze&quot;, &quot;passwort&quot;, &quot;Fritz&quot;, &quot;fischer&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">fritz at fischer.net</A>&quot;, &quot;Administrator&quot; );
++			
++			$login-&gt;Level = 0;	// Test mit Gast-Rechten
++			
++			$members = Mitglied::GetAll();
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'GetAll (Gast)';
++				return $dbResult;
++			}
++			
++			if( count($members) != 0 )	// Gast bekommt keine Anzeige
++				return new ErrorMessage( 'Mitglied', 'GetAll (Gast)', 'Anzahl Mitglieder', 0, count($members) );
++				
++			// ------------------------------------------------
++			
++			$login-&gt;Nr = 1;
++			$login-&gt;Level = 1;	// Test mit Mitglied-Rechten
++			
++			$sqldb-&gt;ExpectQuery( &quot;SELECT.*FROM.*Mitglieder.*WHERE.*Mitglieds_Nr\\s*=\\s*'1'&quot;, $queryResult[0] );
++			
++			$members = Mitglied::GetAll();
++			$dbResult = $sqldb-&gt;Verify();
++
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'GetAll (Mitglied)';
++				return $dbResult;
++			}
++			
++			if( count($members) != 1 )	// Mitglied bekommt nur sich selbst
++				return new ErrorMessage( 'Mitglied', 'GetAll (Mitglied)', 'Anzahl Mitglieder', 1, count($members) );
++				
++			if( $members[0]-&gt;Nr != 1 )	// nur einer wird angezeigt (Mitglied selbst)
++				return new ErrorMessage( 'Mitglied', 'GetAll (Mitglied)', 'Mitgliedsnummer', 1, $members[0]-&gt;Nr );
++				
++			// ------------------------------------------------
++			
++			$login-&gt;Nr = 2;
++			$login-&gt;Level = 2;	// Test mit Admin-Rechten
++			
++			$sqldb-&gt;ExpectQuery( 'SELECT.*FROM.*Mitglieder', $queryResult );
++			
++			$members = Mitglied::GetAll();
++			$dbResult = $sqldb-&gt;Verify();
++			
++			if( $dbResult !== true )
++			{
++				$dbResult-&gt;Unit = 'Mitglied';
++				$dbResult-&gt;Test = 'GetAll (Admin)';
++				return $dbResult;
++			}
++			
++			if( count($members) != count($queryResult) )	// alle werden angezeigt
++				return new ErrorMessage( 'Mitglied', 'GetAll (Admin)', 'Anzahl Mitglieder', count($queryResult), count($members) );
++				
++			return true;
++		}
+ 	}
+ ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000166.html">[Liman-svn] r176 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000168.html">[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#167">[ date ]</a>
+              <a href="thread.html#167">[ thread ]</a>
+              <a href="subject.html#167">[ subject ]</a>
+              <a href="author.html#167">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

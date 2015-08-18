@@ -1,0 +1,781 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r101 - trunk/include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r101%20-%20trunk/include&In-Reply-To=%3C200605171924.k4HJO2dq019164%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000090.html">
+   <LINK REL="Next"  HREF="000092.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r101 - trunk/include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r101%20-%20trunk/include&In-Reply-To=%3C200605171924.k4HJO2dq019164%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r101 - trunk/include">lazhur at berlios.de
+       </A><BR>
+    <I>Wed May 17 21:24:02 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000090.html">[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio
+</A></li>
+        <LI>Next message: <A HREF="000092.html">[Liman-svn] r102 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-17 21:24:00 +0200 (Wed, 17 May 2006)
+New Revision: 101
+
+Added:
+   trunk/include/literaturart.php
+Modified:
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+Log:
+(Rest des letzten Commits)
+
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/autor.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -3,21 +3,41 @@
+ 	{
+ 		define(&quot;Autor&quot;, 1);
+ 
+-		/*! \brief blabla
++		/*! \brief TODO
+ 		 *
++		 *  TODO
+ 		 */
+ 		class Autor
+ 		{
+-			var $blabla = 0; ///&lt; blabla
++			var $Nr = 0; ///&lt; TODO
++			var $Name = 0; ///&lt; TODO
+ 			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $data TODO
++			 */
++			function Autor($data)
++			{
++			}
+ 
+-			/*! \brief blabla
++			/*! \brief TODO
+ 			 *
+-			 *  \param $blabla blabla
++			 *  TODO
+ 			 */
+-			function Autor()
++			function Clean()
+ 			{
+ 			}
++
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $autoren TODO
++			 *  \return TODO
++			 */
++			function Split($autoren)
++			{
++			}
+ 		}
+ 	}
+ ?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/kommentar.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -4,21 +4,63 @@
+ 		define(&quot;Kommentar&quot;, 1);
+ 		require_once(&quot;login.php&quot;);
+ 
+-		/*! \brief blabla
++		/*! \brief TODO
+ 		 *
++		 *  TODO
+ 		 */
+ 		class Kommentar
+ 		{
+-			var $blabla = 0; ///&lt; blabla
++			var $Nr = 0; ///&lt; TODO
++			var $Text = 0; ///&lt; TODO
++			var $Verfasser_Nr = 0; ///&lt; TODO
++			var $Verfasser_Name = 0; ///&lt; TODO
+ 			
+-
+-			/*! \brief blabla
++			/*! \brief TODO
+ 			 *
+-			 *  \param $blabla blabla
++			 *  TODO
++			 *  \param $data TODO
+ 			 */
+-			function Kommentar()
++			function Kommentar($data)
+ 			{
+ 			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $nr TODO
++			 */
++			function Delete($nr)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $literatur_nr TODO
++			 */
++			function DeleteAll($literatur_nr)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $data TODO
++			 */
++			function Insert($data)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $text TODO
++			 *  \param $verfasser_nr TODO
++			 *  \param $literatur_nr TODO
++			 */
++			function Update($text, $verfasser_nr, $literatur_nr)
++			{
++			}
+ 		}
+ 	}
+ ?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/literatur.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -4,23 +4,97 @@
+ 		define(&quot;Literatur&quot;, 1);
+ 		require_once(&quot;login.php&quot;);
+ 		require_once(&quot;kommentar.php&quot;);
++		require_once(&quot;literaturart.php&quot;);
+ 		require_once(&quot;autor.php&quot;);
+ 
+-		/*! \brief blabla
++		/*! \brief TODO
+ 		 *
++		 *  TODO
+ 		 */
+ 		class Literatur
+ 		{
+-			var $blabla = 0; ///&lt; blabla
++			var $Nr = 0; ///&lt; TODO
++			var $Titel = &quot;&quot;; ///&lt; TODO
++			var $Jahr = 0; ///&lt; TODO
++			var $Verlag = &quot;&quot;; ///&lt; TODO
++			var $ISBN = &quot;&quot;; ///&lt; TODO
++			var $Beschreibung = &quot;&quot;; ///&lt; TODO
++			var $Ort = &quot;&quot;; ///&lt; TODO
++			var $Stichworte = &quot;&quot;; ///&lt; TODO
++			var $Art; ///&lt; TODO
++			var $Autoren = array(); ///&lt; TODO
++			var $Kommentare = array(); ///&lt; TODO
+ 			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $nr TODO
++			 */
++			function Literatur($nr)
++			{
++			}
+ 
+-			/*! \brief blabla
++			/*! \brief TODO
+ 			 *
+-			 *  \param $blabla blabla
++			 *  TODO
++			 *  \return TODO
+ 			 */
+-			function Literatur()
++			function ToBibtex()
+ 			{
+ 			}
++
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $nr TODO
++			 */
++			function Delete($nr)
++			{
++			}
++
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $bibtex TODO
++			 */
++			function Insert($bibtex)
++			{
++			}
++
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $art TODO
++			 *  \param $titel TODO
++			 *  \param $jahr TODO
++			 *  \param $nr TODO
++			 *  \param $verlag TODO
++			 *  \param $isbn TODO
++			 *  \param $beschreibung TODO
++			 *  \param $ort TODO
++			 *  \param $stichworte TODO
++			 */
++			function Insert($art, $titel, $jahr, $nr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
++			{
++			}
++
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $nr TODO
++			 *  \param $art TODO
++			 *  \param $titel TODO
++			 *  \param $jahr TODO
++			 *  \param $nr TODO
++			 *  \param $verlag TODO
++			 *  \param $isbn TODO
++			 *  \param $beschreibung TODO
++			 *  \param $ort TODO
++			 *  \param $stichworte TODO
++			 */
++			function Insert($nr, $art, $titel, $jahr, $nr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
++			{
++			}
+ 		}
+ 	}
+ ?&gt;
+\ No newline at end of file
+
+Added: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/literaturart.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -0,0 +1,163 @@
++&lt;?php
++	if(!defined(&quot;LiteraturArt&quot;))
++	{
++		define(&quot;LiteraturArt&quot;, 1);
++
++		/*! \brief TODO
++		 *
++		 *  TODO
++		 */
++		class LiteraturArt
++		{
++			var $value = 0; ///&lt; TODO
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $text TODO
++			 */
++			function LiteraturArt($text)
++			{
++				switch ($text)
++				{
++				case &quot;book&quot;:
++				case &quot;inbook&quot;:
++				case &quot;Buch&quot;:
++					$this-&gt;value = 0;
++					break;
++
++				case &quot;Artikel&quot;:
++				case &quot;article&quot;:
++					$this-&gt;value = 1;
++					break;
++
++				case &quot;Brosch&#252;re&quot;:
++				case &quot;booklet&quot;:
++					$this-&gt;value = 2;
++					break;
++			
++				case &quot;Protokoll&quot;:
++				case &quot;proceedings&quot;:
++				case &quot;inproceedings&quot;:
++				case &quot;conference&quot;:
++					$this-&gt;value = 3;
++					break;
++
++				case &quot;Anleitung&quot;:
++				case &quot;manual&quot;:
++					$this-&gt;value = 4;
++					break;
++
++				case &quot;Diplomarbeit&quot;:
++				case &quot;mastersthesis&quot;:
++					$this-&gt;value = 5;
++					break;
++
++				case &quot;Dissertation&quot;:
++				case &quot;phdthesis&quot;:
++					$this-&gt;value = 6;
++					break;
++
++				case &quot;Techn. Bericht&quot;:
++				case &quot;techreport&quot;:
++					$this-&gt;value = 7;
++					break;
++
++				case &quot;Unver&#246;ffentlicht&quot;:
++				case &quot;unpublished&quot;:
++					$this-&gt;value = 8;
++					break;
++
++				default:
++				case &quot;Sonstiges&quot;:
++				case &quot;misc&quot;:
++					$this-&gt;value = 9;
++				};
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \return TODO
++			 */
++			function GetDisplayText()
++			{
++				switch ($this-&gt;value)
++				{
++				case 0:
++					return &quot;Buch&quot;;
++
++				case 1:
++					return &quot;Artikel&quot;;
++
++				case 2:
++					return &quot;Brosch&#252;re&quot;;
++			
++				case 3:
++					return &quot;Protokoll&quot;;
++
++				case 4:
++					return &quot;Anleitung&quot;;
++
++				case 5:
++					return &quot;Diplomarbeit&quot;;
++
++				case 6:
++					return &quot;Dissertation&quot;;
++
++				case 7:
++					return &quot;Techn. Bericht&quot;;
++
++				case 8:
++					return &quot;Unver&#246;ffentlicht&quot;;
++
++				default:
++				case 9:
++					return &quot;Sonstiges&quot;;
++				};
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \return TODO
++			 */
++			function GetBibtexText()
++			{
++				switch ($this-&gt;value)
++				{
++				case 0:
++					return &quot;book&quot;;
++
++				case 1:
++					return &quot;article&quot;;
++
++				case 2:
++					return &quot;booklet&quot;;
++			
++				case 3:
++					return &quot;proceedings&quot;;
++
++				case 4:
++					return &quot;manual&quot;;
++
++				case 5:
++					return &quot;mastersthesis&quot;;
++
++				case 6:
++					return &quot;phdthesis&quot;;
++
++				case 7:
++					return &quot;techreport&quot;;
++
++				case 8:
++					return &quot;unpublished&quot;;
++
++				default:
++				case 9:
++					return &quot;misc&quot;;
++				};
++			}
++		}
++	}
++?&gt;
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/mitglied.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -4,21 +4,76 @@
+ 		define(&quot;Mitglied&quot;, 1);
+ 		require_once(&quot;login.php&quot;);
+ 
+-		/*! \brief blabla
++		/*! \brief TODO
+ 		 *
++		 *  TODO
+ 		 */
+ 		class Mitglied
+ 		{
+-			var $blabla = 0; ///&lt; blabla
++			var $Nr = 0; ///&lt; TODO
++			var $Login = &quot;&quot;; ///&lt; TODO
++			var $Passwort = &quot;&quot;; ///&lt; TODO
++			var $Rechte = 0; ///&lt; TODO
++			var $Vorname = &quot;&quot;; ///&lt; TODO
++			var $Nachname = &quot;&quot;; ///&lt; TODO
++			var $Email = &quot;&quot;; ///&lt; TODO
+ 			
+-
+-			/*! \brief blabla
++			/*! \brief TODO
+ 			 *
+-			 *  \param $blabla blabla
++			 *  TODO
++			 *  \param $pass TODO
+ 			 */
+-			function Mitglied()
++			function PasswordHash($pass)
+ 			{
++				return sha1($pass);
+ 			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $nr TODO
++			 */
++			function Delete($nr)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $login TODO
++			 *  \param $passwort TODO
++			 *  \param $rechte TODO
++			 *  \param $vorname TODO
++			 *  \param $nachname TODO
++			 *  \param $email TODO
++			 */
++			function Insert($login, $passwort, $rechte, $vorname, $nachname, $email)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param nr TODO
++			 *  \param $login TODO
++			 *  \param $passwort TODO
++			 *  \param $rechte TODO
++			 *  \param $vorname TODO
++			 *  \param $nachname TODO
++			 *  \param $email TODO
++			 */
++			function Update($nr, $login, $passwort, $rechte, $vorname, $nachname, $email)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \return TODO
++			 */
++			function GetAll()
++			{
++			}
+ 		}
+ 	}
+ ?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/sqldb_mysql.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -56,25 +56,13 @@
+ 				return  false;
+ 			}
+ 			
+-			/*! \brief Anzahl zuletzt ge&#228;nderter Datens&#228;tze
+-			 *
+-			 *  Gibt Anzahl der bei der letzten INSERT, UPDATE bzw.
+-			 *  DELETE Anweisung ge&#228;nderten Datens&#228;tze
+-			 *  \return Anzahl der Datens&#228;tze
+-			 *  \remarks F&#252;r gefundene Datens&#228;tze sollte num_rows() genutzt werden
+-			 */
+-			function affected_rows()
+-			{
+-				return @mysql_affected_rows($this-&gt;db_id);
+-			}
+-			
+ 			/*! \brief Beendet Verbindung
+ 			 *
+ 			 *  Beendet die Verbindung zum Datenbankserver
+ 			 *  \return Bei Erfolg true, im Fehlerfall false
+ 			 *  \remarks Persistente Verbindungen werden nicht geschlossen
+ 			 */
+-			function close()
++			function Close()
+ 			{
+ 				return @mysql_close($this-&gt;db_id);
+ 			}
+@@ -83,29 +71,14 @@
+ 			 *
+ 			 *  L&#228;sst den internen Zeiger auf angegebenen
+ 			 *  Datensatz der letzten Anfrage zeigen. Der
+-			 *  Datensatz l&#228;sst sich danach mit fetch_*
+-			 *  abfragen.
++			 *  Datensatz l&#228;sst sich danach mit Fetch abfragen.
+ 			 *  \return Bei Erfolg true, im Fehlerfall false
+ 			 */
+-			function data_seek($row_number)
++			function DataSeek($row_number)
+ 			{
+ 				return @mysql_data_seek($this-&gt;query_result, $row_number);
+ 			}
+ 			
+-			/*! \brief Liefert Fehlerinformationen
+-			 *
+-			 *  Liefert Array mit Fehlernachricht und interner
+-			 *  Fehlernummer zur&#252;ck
+-			 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
+-			 */
+-			function error()
+-			{
+-				$error = array();
+-				$error['msg'] = @mysql_error($query_result);
+-				$error['code'] = @mysql_errno($query_result);
+-				return $error;
+-			}
+-			
+ 			/*! \brief Liefert Datensatz als Objekt
+ 			 *
+ 			 *  Wandelt aktuellen Datensatz in Objekt um und gibt
+@@ -113,36 +86,50 @@
+ 			 *  interne Zeiger eine Stelle weiter ger&#252;ckt
+ 			 *  \return Bei Erfolg Datensatz als Objekt, sonst false
+ 			 */
+-			function fetch_object()
++			function Fetch()
+ 			{
+ 				return @mysql_fetch_object($this-&gt;query_result);
+ 			}
+ 			
+-			/*! \brief Liefert Datensatz als Feld
+-			 *
+-			 *  Wandelt aktuellen Datensatz in Feld um und gibt
+-			 *  ihn zur&#252;ck. Nach erfolgreicher Operation wird der
+-			 *  interne Zeiger eine Stelle weiter ger&#252;ckt
+-			 *  \return Bei Erfolg Datensatz als Feld, sonst false
+-			 */
+-			function fetch_row()
+-			{
+-				return @mysql_fetch_row($this-&gt;query_result);
+-			}
+-			
+ 			/*! \brief Entfernt Ergebnisse
+ 			 *  
+ 			 *  Entfernt Datens&#228;tze der letzten Anfrage und gibt
+ 			 *  deren Speicher frei
+ 			 *  \remarks Funktion wird vor jedem query aufgerufen
+ 			 */
+-			function free_result()
++			function FreeResult()
+ 			{
+ 				$ret = @mysql_free_result($this-&gt;query_result);
+ 				unset($this-&gt;query_result);
+ 				return $ret;
+ 			}
+ 			
++			/*! \brief Anzahl zuletzt ge&#228;nderter Datens&#228;tze
++			 *
++			 *  Gibt Anzahl der bei der letzten INSERT, UPDATE bzw.
++			 *  DELETE Anweisung ge&#228;nderten Datens&#228;tze
++			 *  \return Anzahl der Datens&#228;tze
++			 *  \remarks F&#252;r gefundene Datens&#228;tze sollte num_rows() genutzt werden
++			 */
++			function GetAffectedRows()
++			{
++				return @mysql_affected_rows($this-&gt;db_id);
++			}
++			
++			/*! \brief Liefert Fehlerinformationen
++			 *
++			 *  Liefert Array mit Fehlernachricht und interner
++			 *  Fehlernummer zur&#252;ck
++			 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
++			 */
++			function GetError()
++			{
++				$error = array();
++				$error['msg'] = @mysql_error($query_result);
++				$error['code'] = @mysql_errno($query_result);
++				return $error;
++			}
++			
+ 			/*! \brief Anzahl zuletzt gefundener Datens&#228;tze
+ 			 *
+ 			 *  Gibt Anzahl der bei der letzten SELECT-Anweisung
+@@ -150,7 +137,7 @@
+ 			 *  \return Anzahl der Datens&#228;tze
+ 			 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte affected_rows() genutzt werden
+ 			 */
+-			function num_rows()
++			function GetNumRows()
+ 			{
+ 				return @mysql_num_rows($this-&gt;query_result);
+ 			}
+@@ -158,13 +145,12 @@
+ 			/*! \brief Sendet Anfrage an Server
+ 			 *
+ 			 *  Sendet eine Anfrage an die aktive Datenbank.
+-			 *  Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit
+-			 *  fetch_field, fetch_object und fetch_row abgefragt
+-			 *  werden
++			 *  Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch
++			 *  abgefragt  werden
+ 			 *  \param $query SQL-Anfrage an den Datenbankserver
+ 			 *  \return false wenn ein Fehler in der Anfrage aufgetreten ist
+ 			 */
+-			function query($query)
++			function Query($query)
+ 			{
+ 				$this-&gt;free_result();
+ 				return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-17 19:14:01 UTC (rev 100)
++++ trunk/include/suche.php	2006-05-17 19:24:00 UTC (rev 101)
+@@ -4,21 +4,40 @@
+ 		define(&quot;Suche&quot;, 1);
+ 		require_once(&quot;literatur.php&quot;);
+ 
+-		/*! \brief blabla
++		/*! \brief TODO
+ 		 *
++		 *  TODO
+ 		 */
+ 		class Suche
+ 		{
+-			var $blabla = 0; ///&lt; blabla
++			var $Treffer = 0; ///&lt; TODO
+ 			
+-
+-			/*! \brief blabla
++			/*! \brief TODO
+ 			 *
+-			 *  \param $blabla blabla
++			 *  TODO
+ 			 */
+ 			function Suche()
+ 			{
+ 			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $volltext TODO
++			 */
++			function Suche($volltext)
++			{
++			}
++			
++			/*! \brief TODO
++			 *
++			 *  TODO
++			 *  \param $autor TODO
++			 *  \param $titel TODO
++			 */
++			function Suche($autor, $titel)
++			{
++			}
+ 		}
+ 	}
+ ?&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000090.html">[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio
+</A></li>
+	<LI>Next message: <A HREF="000092.html">[Liman-svn] r102 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#91">[ date ]</a>
+              <a href="thread.html#91">[ thread ]</a>
+              <a href="subject.html#91">[ subject ]</a>
+              <a href="author.html#91">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

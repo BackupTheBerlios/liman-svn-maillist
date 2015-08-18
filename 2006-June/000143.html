@@ -1,0 +1,1001 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r153%20-%20in%20trunk/docs%3A%20beleg2/doxygen%20beleg3%20beleg3/interfaces&In-Reply-To=%3C200606091909.k59J9E47014425%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000142.html">
+   <LINK REL="Next"  HREF="000144.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r153%20-%20in%20trunk/docs%3A%20beleg2/doxygen%20beleg3%20beleg3/interfaces&In-Reply-To=%3C200606091909.k59J9E47014425%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun  9 21:09:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000142.html">[Liman-svn] r152 - in trunk: . design include
+</A></li>
+        <LI>Next message: <A HREF="000144.html">[Liman-svn] r154 - in trunk: . design include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-09 21:09:10 +0200 (Fri, 09 Jun 2006)
+New Revision: 153
+
+Added:
+   trunk/docs/beleg3/interfaces/kommentar.php
+   trunk/docs/beleg3/interfaces/literatur.php
+   trunk/docs/beleg3/interfaces/literaturart.php
+   trunk/docs/beleg3/interfaces/login.php
+   trunk/docs/beleg3/interfaces/mitglied.php
+   trunk/docs/beleg3/interfaces/sqldb_mysql.php
+   trunk/docs/beleg3/interfaces/suche.php
+Modified:
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+   trunk/docs/beleg3/interfaces/autor.php
+   trunk/docs/beleg3/programmdokumentation.tex
+Log:
+- Programminterfaces in 3. Beleg eingef?\195?\188gt
+- Fehlende Verkn?\195?\188pfung zu BibTeX-Klasse aus 2. Beleg entfernt
+
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-09 19:09:10 UTC (rev 153)
+@@ -11,11 +11,11 @@
+ \hyperlink{classLiteratur_55626b912da4c041eaf981781ed6c640}{Literatur} (\$nr)
+ \begin{CompactList}\small\item\em Liest \hyperlink{classLiteratur}{Literatur} ein. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{To\-Bibtex} ()
+-\begin{CompactList}\small\item\em Exportiert \hyperlink{classLiteratur}{Literatur} nach \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Exportiert \hyperlink{classLiteratur}{Literatur} nach Bib\-Te\-X. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_f5b265d349df2a9d17079b81d808fa89}{Delete} (\$nr)
+ \begin{CompactList}\small\item\em L&#195;&#182;scht \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}{Insert\-Bib\-Te\-X} (\$bibtex)
+-\begin{CompactList}\small\item\em Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Importiert Bib\-Te\-X. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_3347551316e8f73659fc6f32ac6095df}{Insert} (\$autoren, \$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
+ \begin{CompactList}\small\item\em Legt \hyperlink{classLiteratur}{Literatur} an. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_b613c28476ea28058f8fc2bccb57c923}{Update} (\$nr, \$autoren, \$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
+@@ -131,7 +131,7 @@
+ \label{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}
+ 
+ 
+-Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}. 
++Importiert Bib\-Te\-X. 
+ 
+ Importiert \hyperlink{classLiteratur}{Literatur} nach Bibliothek aus einem Bib\-Te\-X-formatierten String. Alle Eintr&#195;&#164;ge werden dazu nacheinandere eingelesen und umgewandelt, um diese dann in die Datenbank zu schreiben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+@@ -141,7 +141,7 @@
+ \item[\mbox{$\leftarrow$} {\em \$bibtex}]String mit Inhalt einer Bib\-Te\-X-Datei \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Anzahl der importierten \hyperlink{classLiteratur}{Literatur}\end{Desc}
++\item[R\&quot;{u}ckgabe:]Anzahl der importierten \hyperlink{classLiteratur}{Literatur} \end{Desc}
+ \hypertarget{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{
+ \index{Literatur@{Literatur}!ToBibtex@{ToBibtex}}
+ \index{ToBibtex@{ToBibtex}!Literatur@{Literatur}}
+@@ -149,7 +149,7 @@
+ \label{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}
+ 
+ 
+-Exportiert \hyperlink{classLiteratur}{Literatur} nach \hyperlink{classBibTeX}{Bib\-Te\-X}. 
++Exportiert \hyperlink{classLiteratur}{Literatur} nach Bib\-Te\-X. 
+ 
+ Exportiert die aktuellen Informationen im Literaturobjekt in das Bib\-Te\-X-Format. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+
+Modified: trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-06-09 19:09:10 UTC (rev 153)
+@@ -13,7 +13,7 @@
+ \hyperlink{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{Get\-Display\-Text} ()
+ \begin{CompactList}\small\item\em Liefert Bezeichner f&#195;&#188;r Datenbank/Benutzeroberfl&#195;&#164;che. \item\end{CompactList}\item 
+ \hyperlink{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}{Get\-Bibtex\-Text} ()
+-\begin{CompactList}\small\item\em Liefert Bezeichner f&#195;&#188;r \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em Liefert Bezeichner f&#195;&#188;r Bib\-Te\-X. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+@@ -44,7 +44,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$text}]\hyperlink{classBibTeX}{Bib\-Te\-X} oder interner Bezeichner einer Literaturart \end{description}
++\item[\mbox{$\leftarrow$} {\em \$text}]Bib\-Te\-X oder interner Bezeichner einer Literaturart \end{description}
+ \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Ist der Bezeichner unbekannt, erh&#195;&#164;lt die \hyperlink{classLiteratur}{Literatur} die Art \char`\&quot;{}Sonstiges\char`\&quot;{} \end{Desc}
+@@ -58,9 +58,9 @@
+ \label{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}
+ 
+ 
+-Liefert Bezeichner f&#195;&#188;r \hyperlink{classBibTeX}{Bib\-Te\-X}. 
++Liefert Bezeichner f&#195;&#188;r Bib\-Te\-X. 
+ 
+-Je nach der bei der Erstellung des Objekts gew&#195;&#164;hlten Art, wird der dazugeh&#195;&#182;rige Bezeichner f&#195;&#188;r die Literaturart in \hyperlink{classBibTeX}{Bib\-Te\-X} herausgesucht. \begin{Desc}
++Je nach der bei der Erstellung des Objekts gew&#195;&#164;hlten Art, wird der dazugeh&#195;&#182;rige Bezeichner f&#195;&#188;r die Literaturart in Bib\-Te\-X herausgesucht. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]String mit Bezeichner der Literaturart in Bib\-Te\-X-Darstellung \end{Desc}
+
+Modified: trunk/docs/beleg3/interfaces/autor.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/autor.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/autor.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -8,9 +8,10 @@
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *  - SQLDB::GetInsertID
+ 	 *
+ 	 *  \author Frank Wilhelm
+-	 *  \date 30.05.2006
++	 *  \date 6.06.2006
+ 	 */
+ 	class Autor
+ 	{
+
+Added: trunk/docs/beleg3/interfaces/kommentar.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/kommentar.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/kommentar.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,129 @@
++&lt;?php
++	require_once(&quot;include/login.php&quot;);
++
++	/*! \brief Verwaltet Kommentare
++	 *
++	 *  Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren
++	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder Kommentare nach
++	 *  ihrer Verbindung zur Literatur bzw. Mitgliedern gel&#246;scht werden.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Login::IsAdministrator
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
++	 */
++	class Kommentar
++	{
++		var $Nr = 0; ///&lt; Identifikationsnummer des Kommentars
++		var $Text = 0; ///&lt; Kommentartext
++		var $Verfasser_Nr = 0; ///&lt; Mitglieds_Nr des Verfassers
++		var $Verfasser_Name = 0; ///&lt; Name des Verfassers (Vor- und Nachname)
++		
++		/*! \brief Legt Kommentarobjekt an
++		 *
++		 *  Legt ein neues Kommentarobjekt aus einem Objekt mit den
++		 *  Attributen Nr, Text, Verfasser_Nr und Verfasser_Name an.
++		 *  \pre -
++		 *  \param[in] $data Objekt mit Kommentardaten der Form
++		 *    - Nr
++		 *    - Text
++		 *    - Mitglieds_Nr
++		 *    - Vorname
++		 *    - Nachname
++		 */
++		function Kommentar($data);
++		
++		/*! \brief L&#246;scht Kommentar
++		 *
++		 *  L&#246;scht einen Kommentar aus Kommentare mit der Kommentar_Nr
++		 *  $nr.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Kommentar in Kommentare mit Kommentar_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Nummer des zu l&#246;schenden Kommentars
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt, wenn Mitglieds_Nr
++		 *    des Kommentars ungleich der eigenen Mitglieds_Nr ist.
++		 *    Ist der Nutzer nicht angemeldet, werden keine Operationen
++		 *    ausgef&#252;hrt
++		 */
++		function Delete($nr);
++		
++		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
++		 *
++		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Literatur
++		 *  mit der Literaturnummer ($literatur_nr) verbunden sind.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $literatur_nr Nummer der Literatur
++		 *  \remarks Ist Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
++		 */
++		function DeleteAll($literatur_nr);
++
++		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
++		 *
++		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Mitglieder
++		 *  mit der Mitglieds_Nr ($member_nr) verbunden sind.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $member_nr Nummer eines Mitglieds
++		 *  \remarks Ist der Nutzer nicht als Administrator eingeloggt,
++		 *    werden keine Operationen ausgef&#252;hrt.
++		 */
++		function DeleteAllMember($member_nr);
++
++		/*! \brief Gibt Kommentare zu bestimmter Literatur zur&#252;ck
++		 *
++		 *  Liest alle Kommentare die einer Literatur ($literatur_nr)
++		 *  zugeordnet sind aus Kommentare aus und gibt sie als Feld des
++		 *  Typs Kommentar zur&#252;ck.
++		 *  \param[in] $literatur_nr Nr einer Literatur mit Kommentaren
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld vom Typ Kommentar
++		 */
++		function GetAll($literatur_nr);
++		
++		/*! \brief Legt Kommentar an
++		 *
++		 *  Legt einen neuen Kommentar mit Text ($text) zu einer
++		 *  Literatur ($literatur_nr) vom einem Verfasser 
++		 *  ($verfasser_nr) an.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Text ($text) darf nicht leer sein
++		 *  \param[in] $text Text des Kommentars
++		 *  \param[in] $verfasser_nr Mitglieds_Nr des Verfassers
++		 *  \param[in] $literatur_nr Nummer der Literatur
++		 *  \remarks Ist das aktuelle Mitglied kein 
++		 *  Administrator, dann muss $verfasser_nr gleich der aktuellen
++		 *  Nummer des Logins sein. Ist der Nutzer nicht eingeloggt,
++		 *  werden keine Operationen ausgef&#252;hrt. Ist keine passende
++		 *  Literatur mit der Literatur_Nr $literatur_nr vorhanden,
++		 *  wird kein Kommentar angelegt. Existiert schon ein Kommentar
++		 *  zu Literatur mit $literatur_nr von Mitglied mit Mitglieds_Nr
++		 *  $verfasser_nr, wird nur der Text des Kommentars mit
++		 *  Kommentar::Update ge&#228;ndert.
++		 */
++		function Insert($text, $verfasser_nr, $literatur_nr);
++		
++		/*! \brief &#196;ndert einen Kommentar
++		 *
++		 *  &#196;ndert in Kommentare den Text des Kommentars mit $nr
++		 *  in $text.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Kommentar in Kommentare mit Kommentar_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Nummer des zu ver&#228;ndernden Kommentars
++		 *  \param[in] $text neuer Text des Kommentars
++		 *  \remarks Ist das aktuelle Mitglied kein Administrator,
++		 *  dann muss die aktuelle Nummer des Mitglieds gleich der
++		 *  Mitglieds_Nr des Kommentars in Kommentare sein. Ist der
++		 *  Nutzer nicht eingeloggt, werden keine Operationen
++		 *  ausgef&#252;hrt. Wird kein Text ($text) angegeben, wird der
++		 *  Kommentar mit Kommentar::Delete gel&#246;scht.
++		 */
++		function Update($nr, $text);
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/literatur.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/literatur.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/literatur.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,139 @@
++&lt;?php
++	require_once(&quot;include/login.php&quot;);
++	require_once(&quot;include/kommentar.php&quot;);
++	require_once(&quot;include/literaturart.php&quot;);
++	require_once(&quot;include/autor.php&quot;);
++
++	/*! \brief Verwaltet Literatur
++	 *
++	 *  Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren,
++	 *  Hinzuf&#252;gen und &#196;ndern von Literatur in Bibliothek zur Verf&#252;gung.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Autor::Clean
++	 *  - Autor::GetAll
++	 *  - Autor::Split
++	 *  - Kommentar::DeleteAll
++	 *  - Kommentar::GetAll
++	 *  - LiteraturArt::LiteraturArt
++	 *  - LiteraturArt::GetBibTexText
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *  - SQLDB::GetInsertID
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 06.06.2006
++	 */
++	class Literatur
++	{
++		var $Nr = 0; ///&lt; Literaturidentifikationsnummer
++		var $Titel = &quot;&quot;; ///&lt; Titel der Literatur
++		var $Jahr = 0; ///&lt; Erscheinungsjahr
++		var $Verlag = &quot;&quot;; ///&lt; Verlag/Herausgeber
++		var $ISBN = &quot;&quot;; ///&lt; ISBN der Literatur
++		var $Beschreibung = &quot;&quot;; ///&lt; Bemerkung zur Literatur
++		var $Ort = &quot;&quot;; ///&lt; Herausgabeort
++		var $Stichworte = &quot;&quot;; ///&lt; Stichworte zum Inhalt der Literatur
++		var $Art; ///&lt; Typ der Literatur
++		var $Autoren = array(); ///&lt; Feld mit Autoren der Literatur
++		var $Kommentare = array(); ///&lt; Feld mit Kommentaren der Literatur
++		
++		/*! \brief Liest Literatur ein
++		 *
++		 *  Erstellt aus Literatur in Bibliothek mit Literatur_Nr
++		 *  ($nr) neues Literaturobjekt.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Nummer der zu einlesenden Literatur
++		 */
++		function Literatur($nr);
++
++		/*! \brief Exportiert Literatur nach BibTeX
++		 *
++		 *  Exportiert die aktuellen Informationen im Literaturobjekt
++		 *  in das BibTeX-Format.
++		 *  \pre -
++		 *  \return $string mit BibTeX-Eintrag
++		 */
++		function ToBibtex();
++
++		/*! \brief L&#246;scht Literatur
++		 *
++		 *  L&#246;scht Literatur aus Bibliothek mit der Literatur_Nr $nr.
++		 *  Alle verbundenen Kommentare werden aus Kommentare gel&#246;scht.
++		 *  Au&#223;erdem werden alle nun nicht mehr gebrauchten Autoren in
++		 *  Autoren gel&#246;scht.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Nummer der zu l&#246;schenden Literatur
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
++		 */
++		function Delete($nr);
++
++		/*! \brief Importiert BibTeX
++		 *
++		 *  Importiert Literatur nach Bibliothek aus einem
++		 *  BibTeX-formatierten String. Alle Eintr&#228;ge werden dazu
++		 *  nacheinandere eingelesen und umgewandelt, um diese dann
++		 *  in die Datenbank zu schreiben.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $bibtex String mit Inhalt einer BibTeX-Datei
++		 *  \return Anzahl der importierten Literatur
++		 */
++		function InsertBibTeX($bibtex);
++
++		/*! \brief Legt Literatur an
++		 *
++		 *  Legt neue Literatur in Bibliothek mit den &#252;bergebenen
++		 *  Parametern ($art, $titel, $jahr, $verlag, $isbn,
++		 *  $beschreibung, $ort, $stichworte) an. Danach werden die
++		 *  Autoren ($autoren) in Autoren geschrieben und mit der
++		 *  Tabelle Literatur_Autor der Literatur zugeordnet.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
++		 *  \param[in] $art Bezeichner der Literaturart
++		 *  \param[in] $titel Titel der Literatur
++		 *  \param[in] $jahr Erscheinungsjahr der Literatur
++		 *  \param[in] $verlag Verlag der Literatur
++		 *  \param[in] $isbn ISBN der Literatur
++		 *  \param[in] $beschreibung Beschreibung der Literatur
++		 *  \param[in] $ort Erscheinungsort
++		 *  \param[in] $stichworte Stichworte
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
++		 */
++		function Insert($autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte);
++
++		/*! \brief &#196;ndert Literatur
++		 *
++		 *  Entfernt alle zur Literatur_Nr ($nr) geh&#246;renden
++		 *  Verbindungen in Autor_Literatur um danach die Literatur mit
++		 *  Literatur_Nr $nr zu den neuen Werten ($art, $titel, $jahr,
++		 *  $verlag, $isbn, $beschreibung, $ort, $stichworte) zu &#228;ndern.
++		 *  Danach werden die Autoren ($autoren) in Autoren geschrieben
++		 *  und mit der Tabelle Literatur_Autor der Literatur
++		 *  zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in
++		 *  Autoren werden gel&#246;scht.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Nummer der zu ver&#228;ndernden Literatur
++		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
++		 *  \param[in] $art neuer Bezeichner der Literaturart
++		 *  \param[in] $titel neuer Titel der Literatur
++		 *  \param[in] $jahr neues Erscheinungsjahr der Literatur
++		 *  \param[in] $verlag neuer Verlag der Literatur
++		 *  \param[in] $isbn neue ISBN der Literatur
++		 *  \param[in] $beschreibung neue Beschreibung der Literatur
++		 *  \param[in] $ort neuer Erscheinungsort
++		 *  \param[in] $stichworte neue Stichworte
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
++		 */
++		function Update($nr, $autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte);
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/literaturart.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/literaturart.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/literaturart.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,53 @@
++&lt;?php
++	/*! \brief Verwaltet Literaturarten
++	 *
++	 *  Verwaltet die aus der Datenbank oder BibTeX-Datei erhaltenen
++	 *  Informationen zur Art einer Literatur. Enthaltene Informationen
++	 *  k&#246;nnen wieder als BibTeX- oder als der in Datenbank/Benutzeroberfl&#228;che
++	 *  verwendeten Namen zur&#252;ckgegeben werden.
++	 *  \pre -
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
++	 */
++	class LiteraturArt
++	{
++		/*! \brief Importiert BibTeX- bzw. interne Namen
++		 *
++		 *  Importiert die in BibTeX-Dateien oder in der
++		 *  Datenbank/Benutzeroberfl&#228;chen verwendeten Bezeichner f&#252;r
++		 *  Literaturarten und weist sie einen internen Wert zu.
++		 *  \pre -
++		 *  \param[in] $text BibTeX oder interner Bezeichner einer Literaturart
++		 *  \remarks Ist der Bezeichner unbekannt, erh&#228;lt die Literatur
++		 *    die Art &quot;Sonstiges&quot;
++		 */
++		function LiteraturArt($text);
++		
++		/*! \brief Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che
++		 *
++		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
++		 *  wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart
++		 *  in der Datenbank/Benutzeroberfl&#228;che herausgesucht.
++		 *  \pre -
++		 *  \return String mit Bezeichner der Literaturart in
++		 *    Datenbank/Benutzeroberfl&#228;chendarstellung
++		 *  \remarks Sollte der Wert der Literatur nicht bekannt sein
++		 *    wird &quot;Sonstiges&quot; zur&#252;ckgegeben
++		 */
++		function GetDisplayText();
++		
++		/*! \brief Liefert Bezeichner f&#252;r BibTeX
++		 *
++		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
++		 *  wird der dazugeh&#246;rige Bezeichner f&#252;r die Literaturart
++		 *  in BibTeX herausgesucht.
++		 *  \pre -
++		 *  \return String mit Bezeichner der Literaturart in
++		 *    BibTeX-Darstellung
++		 *  \remarks Sollte der Wert der Literatur nicht bekannt sein
++		 *    wird &quot;Sonstiges&quot; zur&#252;ckgegeben
++		 */
++		function GetBibtexText();
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/login.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/login.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/login.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,88 @@
++&lt;?php
++	require_once(&quot;include/mitglied.php&quot;);
++
++	/*! \brief Verwaltet Logininformationen
++	 *
++	 *  Verwaltet die aus der sich aktuellen Anmeldung ergebenen Session
++	 *  des Users und der damit entstehenden Rechte
++	 *  \pre Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum 
++	 *    User angelegt werden, um ein Cookie anlegen zu k&#246;nnen.
++	 *  \pre Es sollte kein zweites Objekt vom Typ Login existieren.
++	 *  \pre Datenbankverbindung muss bestehen.
++	 *  \remarks Sollte ein weiteres Objekt vom Typ Login existieren, in
++	 *    welche neue Logininformationen eingetragen werden, wird keine
++	 *    weitere Session angelegt, sondern die alten Informationen in
++	 *    der aktuellen Session &#252;berschrieben.
++	 *  \sa
++	 *  - Mitglied::PasswordHash
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
++	 */
++	class Login
++	{
++		var $Nr = 0; ///&lt; Mitglieds_Nr f&#252;r angemeldetes Mitglied (sonst 0)
++		
++		/*! \brief Liest bzw. Erstellt Session f&#252;r Anmeldedaten
++		 *
++		 *  Liest Daten aus der Session ein. Sollten keine vorhanden
++		 *  sein, dann wird eine neue, leere Session angelegt. Sollten
++		 *  Daten vorhanden sein, wird die Korrektheit &#252;ber die
++		 *  Datenbank (Mitglieder) und die Verbindungsinformationen
++		 *  gepr&#252;ft. Nach dieser Pr&#252;fung werden abh&#228;ngig vom Ausgang
++		 *  die Rechteinformationen gesetzt.\n
++		 *  Werden keine Parameter &#252;bergeben, wird das Klartextpasswort
++		 *  mit Mitglied::PasswordHash gehasht, um diese mit
++		 *  Benutzernamen ($benutzer) gegen die Eintr&#228;ge in Mitglieder
++		 *  zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session
++		 *  mit gehashtem Passwort, Benutzernamen und
++		 *  Verbindungsinformationen erstellt. Sollte ein Fehler 
++		 *  bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte
++		 *  (wird also nicht zum Mitglied). Sonst erh&#228;lt er die Rechte
++		 *  und Mitglieds_Nr aus dem gefundenem Eintrag in Mitglieder.
++		 *  \param[in] $benutzer neuer Benutzername
++		 *  \param[in] $passwort Passwort in Klartext des Nutzers
++		 *  \pre Eine Verbindung zur Datenbank muss bestehen.
++		 *  \pre Der Konstruktor muss vor dem Senden von Inhaltsdaten
++		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.
++		 *  \pre Zum Einloggen mit Daten darf kein Parameter leer sein
++		 */
++		function Login($benutzer = &quot;&quot;, $passwort = &quot;&quot;);
++
++		/*! \brief Entfernt Session
++		 *
++		 *  Die Anmeldedaten und Verbindungsdaten werden in der
++		 *  Session entfernt. Au&#223;erdem werden die Rechte auf Nutzer (0)
++		 *  und Nr auf 0 gesetzt.
++		 *  \pre -
++		 */
++		function Logout();
++
++		/*! \brief Ermittelt ob Administratorrechte vorliegen
++		 *
++		 *  Vergleicht ob die bei der Erstellung des Loginobjekts
++		 *  ermittelten Rechte mindestens den Wert f&#252;r
++		 *  Administratorrechte (&gt;=2) haben.
++		 *  \pre -
++		 *  \retval true wenn Administratorrechte vorliegen
++		 *  \retval false wenn Nutzer- oder Mitgliedsrechte vorliegen
++		 */
++		function IsAdministrator();
++
++		/*! \brief Ermittelt ob mindestens Mitgliedsrechte vorliegen
++		 *
++		 *  Vergleicht ob die bei der Erstellung des Loginobjekts
++		 *  ermittelten Rechte mindestens den Wert f&#252;r
++		 *  Mitgliedsrechte (&gt;=1) haben.
++		 *  \pre -
++		 *  \retval true wenn mindestens Mitgliedsrechte vorliegen
++		 *  \retval false wenn Nutzerrechte vorliegen
++		 */
++		function IsMember();
++	}
++
++	// Globales Loginobjekt erstellen
++	$login = new Login();
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/mitglied.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/mitglied.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/mitglied.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,137 @@
++&lt;?php
++	require_once(&quot;include/login.php&quot;);
++	require_once(&quot;include/kommentar.php&quot;);
++
++	/*! \brief Verwaltet Mitglieder
++	 *
++	 *  Stellt Funktionen zum Entfernen, Hinzuf&#252;gen, &#196;ndern und Auflisten
++	 *  von Mitgliedern bereit.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Kommentar::DeleteAllMember
++	 *  - Login::IsAdministrator
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
++	 */
++	class Mitglied
++	{
++		var $Nr = 0; ///&lt; Identifikationsnummer des Mitglieds
++		var $Login = &quot;&quot;; ///&lt; Benutzername des Mitglieds
++		var $Passwort = &quot;&quot;; ///&lt; Passworthash des Benutzerpassworts
++		var $Rechte = 0; ///&lt; Rechte des Mitglieds (0 - Gast, 1 - Mitglied, 2 - Administrator)
++		var $Vorname = &quot;&quot;; ///&lt; Vorname des Mitglieds
++		var $Nachname = &quot;&quot;; ///&lt; Nachname des Mitglieds
++		var $Email = &quot;&quot;; ///&lt; E-Mail-Adresse des Mitglieds
++		
++		/*! \brief Liest Mitglied ein
++		 *
++		 *  Liest Mitglied mit Mitglied_Nr ($nr)
++		 *  und setzt Felder entsprechend den Daten.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer der zu einlesenden Literatur
++		 */
++		function Mitglied($nr);
++		
++		/*! \brief Generiert Passworthash
++		 *
++		 *  Aus &#252;bergebenes Klartextpasswort wird ein 40 Byte gro&#223;er
++		 *  hexkodierter Hash generiert. Als Hashingalgorithmus wird
++		 *  SHA-1 genutzt
++		 *  \pre -
++		 *  \param[in] $pass zu hashendes Klartextpasswort
++		 */
++		function PasswordHash($pass);
++		
++		/*! \brief Entfernt Mitglied
++		 *
++		 *  Entfernt Mitglied mit Mitgliedsnummer ($nr) aus Mitglieder
++		 *  und l&#246;scht zus&#228;tzlich die Kommentare des Mitglieds in
++		 *  Kommentare
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Mitglied in Mitglieder mit Mitglieds_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Mitglieds_Nr des zu l&#246;schenden Mitglieds
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
++		 */
++		function Delete($nr);
++		
++		/*! \brief Legt  Mitglied an
++		 *
++		 *  F&#252;gt neues Mitglied mit Benutzernamen ($loginname), Passwort
++		 *  ($passwort), Benutzerrechten ($rechte), Vorname ($vorname),
++		 *  Nachname ($nachname), E-Mail-Adresse ($email) in Mitglieder
++		 *  ein. Dazu wird das Passwort noch mit Mitglied::PasswordHash
++		 *  gehasht. Sollte ein Mitglied mit gleichem Login existieren
++		 *  wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein
++		 *  Mitglied mit gleichem Login erlaubt.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $loginname Benutzername des neuen Mitglieds
++		 *  \param[in] $passwort Benutzerpasswort des neuen Mitglieds
++		 *  \param[in] $rechte Rechte des neuen Mitglieds
++		 *     (Benutzer, Administrator)
++		 *  \param[in] $vorname Vorname des neuen Mitglieds
++		 *  \param[in] $nachname Nachname des neuen Mitglieds
++		 *  \param[in] $email E-Mail-Adresse des neuen Mitglieds
++		 *  \retval true Mitglied wurde eingef&#252;gt
++		 *  \retval false Mitglied konnte nicht hinzugef&#252;gt werden
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt.
++		 */
++		function Insert($loginname, $passwort, $rechte, $vorname, $nachname, $email);
++		
++		/*! \brief &#196;ndert ein Mitglied
++		 *
++		 *  &#196;ndert die Daten des Mitglieds mit der Mitglieds_Nr ($nr),
++		 *  in neuen Benutzernamen ($loginname), Passwort ($passwort),
++		 *  Benutzerrechten ($rechte), Vorname ($vorname),
++		 *  Nachname ($nachname), E-Mail-Adresse ($email) in
++		 *  Mitglieder. Wenn $passwort nicht die L&#228;nge 0 hat, wird es 
++		 *  noch mit Mitglied::PasswortHash gehasht. Andernfalls wird
++		 *  das alte Passwort in Mitglieder beibehalten. Sollte ein
++		 *  Mitglied mit gleichem Login existieren wird ein Fehler
++		 *  zur&#252;ckgegeben, da die Datenbank nur ein Mitglied mit
++		 *  gleichem Login erlaubt.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Mitglied in Mitglieder mit Mitglieds_Nr $nr muss
++		 *    existieren
++		 *  \param[in] $nr Mitglieds_Nr des zu ver&#228;ndernden Mitglieds
++		 *  \param[in] $loginname neuer Benutzername des Mitglieds
++		 *  \param[in] $passwort neues Passwort des Mitglieds
++		 *  \param[in] $rechte neuen Rechte des Mitglieds
++		 *    (Benutzer, Administrator)
++		 *  \param[in] $vorname neuer Vorname des Mitglieds
++		 *  \param[in] $nachname neuer Nachname des Mitglieds
++		 *  \param[in] $email neue E-Mail-Adresse des Mitglieds
++		 *  \retval true Mitglied wurde ge&#228;ndert
++		 *  \retval false Mitglied konnte nicht ge&#228;ndert werden
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt, wenn $nr ungleich
++		 *    der eigenen Mitglieds_Nr is.
++		 */
++		function Update($nr, $loginname, $passwort, $rechte, $vorname, $nachname, $email);
++		
++		/*! \brief R&#252;ckgabe einer Liste der Mitglieder
++		 *
++		 *  Liest alle Mitglieder mit Nr, Login, Vorname, Nachname und
++		 *  Email aus Tabelle Mitglieder und gibt die ausgelesenen
++		 *  Objekte in einem Feld zur&#252;ck
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld mit Objekten der Form
++		 *    - Nr
++		 *    - Login
++		 *    - Vorname
++		 *    - Nachname
++		 *    - Email
++		 *  \remarks Ist der Nutzer nicht als Administrator, sondern
++		 *    als Mitglied angemeldet, wird nur der eigene Eintrag
++		 *    zur&#252;ckgegeben. Ist der Nutzer nicht angemeldet werden
++		 *    keine Operationen ausgef&#252;hrt.
++		 */
++		function GetAll();
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/sqldb_mysql.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/sqldb_mysql.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/sqldb_mysql.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,128 @@
++&lt;?php
++	define(&quot;SQLDB&quot;, &quot;mysql&quot;);
++
++	/*! \brief Datenbankzugriff &#252;ber MySQL
++	 *
++	 *  Erlaubt den abstrahierten Zugriff &#252;ber SQL auf eine
++	 *  Datenbank (hier MySQL).
++	 *  \pre -
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 06.06.2006
++	 */
++	class SQLDB
++	{
++		var $db_id = false; ///&lt; Identifikation der aktuellen Datenbankverbindung
++		var $query_result = false; ///&lt; Identifikation der letzten Datenbankabfrage
++		
++
++		/*! \brief &#214;ffnet eine Datenbankverbindung
++		 *
++		 *  Startet eine Verbindung zum Datenbanksystem, je nach
++		 *  gew&#228;hlter Art ($persist), und w&#228;hlt nach erfolgreichem
++		 *  Aufbau eine Datenbank. Treten Fehler beim Aufbau auf, wird
++		 *  SQLDB::$db_id auf false gesetzt.
++		 *  \pre -
++		 *  \param[in] $host Adresse oder IP des MySQL-Servers
++		 *  \param[in] $user Benutzernamen f&#252;r MySQL-Zugriff
++		 *  \param[in] $password Benutzerpasswort f&#252;r MySQL-Zugriff
++		 *  \param[in] $database Auszuw&#228;hlende Datenbank
++		 *  \param[in] $persist Aufbau einer persistenten (geteilten) Verbindung
++		 */
++		function SQLDB($host, $user, $password, $database, $persist = true);
++		
++		/*! \brief Beendet Verbindung
++		 *
++		 *  Beendet die Verbindung zum Datenbankserver, wenn eine nicht
++		 *  persistende Verbindung besteht.
++		 *  \pre -
++		 *  \retval true bei Erfolg
++		 *  \retval false bei Misserfolg
++		 *  \remarks Persistente Verbindungen werden nicht geschlossen
++		 */
++		function Close();
++		
++		/*! \brief Springt auf Datensatz
++		 *
++		 *  L&#228;sst den internen Zeiger auf angegebenen Datensatz der
++		 *  letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit
++		 *  Fetch abfragen.
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
++		 *  \retval true bei Erfolg
++		 *  \retval false bei Misserfolg
++		 */
++		function DataSeek($row_number);
++		
++		/*! \brief Liefert Datensatz als Objekt
++		 *
++		 *  Wandelt aktuellen Datensatz in Objekt um und gibt ihn
++		 *  zur&#252;ck. Nach erfolgreicher Operation wird der
++		 *  interne Zeiger eine Stelle weiter ger&#252;ckt.
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
++		 *  \return bei Erfolg Datensatz als Objekt
++		 *  \retval false bei Misserfolg
++		 */
++		function Fetch();
++		
++		/*! \brief Entfernt Ergebnisse
++		 *
++		 *  Entfernt Datens&#228;tze der letzten Anfrage und gibt deren
++		 *  Speicher frei.
++		 *  \pre -
++		 *  \remarks Funktion wird vor jedem Query() aufgerufen
++		 */
++		function FreeResult();
++		
++		/*! \brief Anzahl zuletzt ge&#228;nderter Datens&#228;tze
++		 *
++		 *  Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE
++		 *  Anweisung ge&#228;nderten Datens&#228;tze.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Anzahl der Datens&#228;tze
++		 *  \remarks F&#252;r gefundene Datens&#228;tze sollte GetNumRows() genutzt werden
++		 */
++		function GetAffectedRows();
++		
++		/*! \brief Liefert Fehlerinformationen
++		 *
++		 *  Liefert Feld mit Fehlernachricht und interner Fehlernummer
++		 *  zur&#252;ck.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
++		 */
++		function GetError();
++
++		/*! \brief Liefert die ID des letzten INSERTS
++		 *
++		 *  Liefert die ID des bei den letzten INSERT angelegten
++		 *  Datensatzes zur&#252;ck
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre INSERT-Query muss gemacht worden sein
++		 *  \return ID des zuletzt hinzugef&#252;gten Datensatzes
++		 *  \retval false bei Misserfolg
++		 */
++		function GetInsertID();
++		
++		/*! \brief Anzahl zuletzt gefundener Datens&#228;tze
++		 *
++		 *  Gibt Anzahl der bei der letzten SELECT-Anweisung
++		 *  gefundenen Datens&#228;tze.
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
++		 *  \return bei Erfolg Anzahl der Datens&#228;tze
++		 *  \retval false bei Misserfolg
++		 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte GetAffectedRows() genutzt werden
++		 */
++		function GetNumRows();
++		
++		/*! \brief Sendet Anfrage an Server
++		 *
++		 *  Sendet eine Anfrage an die aktive Datenbank.
++		 *  Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch abgefragt
++		 *  werden.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $query SQL-Anfrage an den Datenbankserver
++		 *  \retval false wenn ein Fehler in der Anfrage aufgetreten ist
++		 */
++		function Query($query);
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/interfaces/suche.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/suche.php	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/interfaces/suche.php	2006-06-09 19:09:10 UTC (rev 153)
+@@ -0,0 +1,67 @@
++&lt;?php
++	require_once(&quot;include/autor.php&quot;);
++	require_once(&quot;include/literatur.php&quot;);
++
++	/*! \brief Suche Literaturdaten
++	 *
++	 *  Durchsucht die Tabelle Bibliothek und Autoren &#252;ber Volltextsuche,
++	 *  nach Autor und Titel oder nach den 10 zuletzt hinzugef&#252;gten
++	 *  Literatureintr&#228;gen und speichert sie in $Treffer zwischen.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Autor::GetAll
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
++	 */
++	class Suche
++	{
++		/*! \brief gefundene Treffer
++		 *
++		 *  Feld aus gefundenen Trefferobjekten mit Attributen
++		 *   - Nr
++		 *   - Titel
++		 *   - Autor
++		 *   - Verlag
++		 *   - ISBN
++		 */
++		var $Treffer = array();
++
++		/*! \brief Sucht Literatur
++		 *
++		 *  Wenn keine Parameter &#252;bergeben werden:
++		 *  - Sucht in Tabelle Bibliothek nach den 10 zuletzt
++		 *    hinzugef&#252;gten Literatureintr&#228;gen und speichert Nr, Titel,
++		 *    Autor, Verlag und ISBN als Objekt im Feld $Treffer.
++		 *    Sollte ein Fehler auftreten oder bisher keine Eintr&#228;ge
++		 *    vorhanden sein, dann wird $Treffer ein Feld der L&#228;nge 0.
++		 *
++		 *  Wenn ein $suchbegriff &#252;bergeben wird:
++		 *  - Sucht in Tabelle Literatur und Autoren nach dem Auftreten
++		 *    des &#252;bergebenen Textes in  Literatureintr&#228;gen und speichert
++		 *    Nr, Titel, Autor, Verlag und ISBN als Objekt im Feld
++		 *    $Treffer. Sollte ein Fehler auftreten oder keine passenden
++		 *    Eintr&#228;ge vorhanden sein, dann wird $Treffer ein Feld der
++		 *    L&#228;nge 0.
++		 *
++		 *  Wenn $suchbegriff und $autor &#252;bergeben werden:
++		 *  - Sucht in Tabelle Bibliothek und Autoren nach dem Auftreten
++		 *    von $autor in Autor und $suchbegriff im Titel des 
++		 *    Literatureintrags und speichert Nr, Titel, Autor, Verlag
++		 *    als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
++		 *    und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden
++		 *    sein, dann wird $Treffer ein Feld der L&#228;nge 0.
++		 *  - Wird eine kommagetrennte Liste von Autoren als
++		 *    $autor &#252;bergeben, muss in Treffern nur einer der
++		 *    genannten Autoren auftreten.
++		 *
++		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \param[in] $autor String mit Autorname
++		 *  \param[in] $suchbegriff String mit Literaturtitel bzw. wenn
++		 *     einzeln &#252;bergeben Suchtext f&#252;r Volltextsuche
++		 */
++		function Suche($suchbegriff=&quot;&quot;, $autor=&quot;&quot;);
++	}
++?&gt;
+
+Modified: trunk/docs/beleg3/programmdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/programmdokumentation.tex	2006-06-09 18:52:19 UTC (rev 152)
++++ trunk/docs/beleg3/programmdokumentation.tex	2006-06-09 19:09:10 UTC (rev 153)
+@@ -3,8 +3,30 @@
+ \subsection{Klasse Autor}
+ \lstinputlisting{interfaces/autor.php}
+ 
++\subsection{Klasse Kommentar}
++\lstinputlisting{interfaces/kommentar.php}
++
++\subsection{Klasse LiteraturArt}
++\lstinputlisting{interfaces/literaturart.php}
++
++\subsection{Klasse Literatur}
++\lstinputlisting{interfaces/literatur.php}
++
++\subsection{Klasse Login}
++\lstinputlisting{interfaces/login.php}
++
++\subsection{Klasse Mitglied}
++\lstinputlisting{interfaces/mitglied.php}
++
++\subsection{Klasse SQLDB}
++\lstinputlisting{interfaces/sqldb_mysql.php}
++
++\subsection{Klasse Suche}
++\lstinputlisting{interfaces/suche.php}
++
++
++
+ \section{Kommentierte Quelltexte}
+-%nur ein Test
+ \subsection{include/autor.php}
+ \lstinputlisting{sourcecodes/include/autor.php}
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000142.html">[Liman-svn] r152 - in trunk: . design include
+</A></li>
+	<LI>Next message: <A HREF="000144.html">[Liman-svn] r154 - in trunk: . design include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#143">[ date ]</a>
+              <a href="thread.html#143">[ thread ]</a>
+              <a href="subject.html#143">[ subject ]</a>
+              <a href="author.html#143">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

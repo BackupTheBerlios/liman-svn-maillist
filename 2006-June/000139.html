@@ -1,0 +1,360 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r149 - in trunk: . include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r149%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606090841.k598fJNm003947%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000138.html">
+   <LINK REL="Next"  HREF="000140.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r149 - in trunk: . include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r149%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606090841.k598fJNm003947%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r149 - in trunk: . include">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun  9 10:41:19 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000138.html">[Liman-svn] r148 - trunk/include
+</A></li>
+        <LI>Next message: <A HREF="000140.html">[Liman-svn] r150 - in trunk: . design include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#139">[ date ]</a>
+              <a href="thread.html#139">[ thread ]</a>
+              <a href="subject.html#139">[ subject ]</a>
+              <a href="author.html#139">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-09 10:41:16 +0200 (Fri, 09 Jun 2006)
+New Revision: 149
+
+Added:
+   trunk/commentmod.php
+Modified:
+   trunk/include/form_helper.php
+   trunk/include/kommentar.php
+   trunk/lit.php
+Log:
+- Kommentarverwaltung angelegt
+- Berlios-Workaround in Kommentare::Insert (Teil drei)
+
+
+Added: trunk/commentmod.php
+===================================================================
+--- trunk/commentmod.php	2006-06-08 13:08:26 UTC (rev 148)
++++ trunk/commentmod.php	2006-06-09 08:41:16 UTC (rev 149)
+@@ -0,0 +1,85 @@
++&lt;?php
++	if (isset($_GET[&quot;delete&quot;]) === true)
++	{
++		$title = &quot;Kommentar l&#246;schen&quot;;
++	}
++	elseif (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true)
++	{
++		$title = &quot;Kommentar &#228;ndern&quot;;
++	}
++	else
++	{
++		$title = &quot;Kommentar hinzuf&#252;gen&quot;;
++	}
++	//$extracss = &quot;home.css&quot;;
++
++	require_once(&quot;include/header.php&quot;);
++
++	if ($login-&gt;IsMember() === false)
++	{
++		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
++		require_once(&quot;include/footer.php&quot;);
++		die();
++	}
++	elseif ($login-&gt;IsAdministrator() === false)
++	{
++		$_GET[&quot;userid&quot;] = $login-&gt;Nr;
++		$_POST[&quot;userid&quot;] = $login-&gt;Nr;
++	}
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++&lt;?php
++	require_once(&quot;include/kommentar.php&quot;);
++	require_once(&quot;include/form_helper.php&quot;);
++	if (isset($_GET[&quot;delete&quot;]) === true)
++	{
++		if (isset($_POST[&quot;accept&quot;]) === true)
++		{
++			Kommentar::Delete($_POST[&quot;id&quot;]);
++			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde entfernt&lt;/p&gt;&quot;;
++
++			if (empty($_POST[&quot;litid&quot;]) === false)
++			{
++				echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
++			}
++		}
++		else
++		{
++			require_once(&quot;include/form_helper.php&quot;);
++			echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
++			echo &quot;Wollen sie den Kommentar wirklich entfernen?&quot;;
++			echo &quot;&lt;form action=\&quot;commentmod.&quot;.$ext.&quot;?delete\&quot; id=\&quot;commentupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
++			echo form_input(&quot;hidden&quot;, &quot;id&quot;, $_GET[&quot;id&quot;]);
++			echo form_input(&quot;hidden&quot;, &quot;accept&quot;, &quot;true&quot;);
++			if (empty($_GET[&quot;litid&quot;]) === false)
++			{
++				echo form_input(&quot;hidden&quot;, &quot;litid&quot;, $_GET[&quot;litid&quot;]);
++			}
++
++			echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Best&#228;tigen\&quot;&gt;&quot;;
++			echo &quot;&lt;/form&gt;&lt;/div&gt;&quot;;
++		}
++	}
++	elseif  (isset($_GET[&quot;insert&quot;]) === true)
++	{
++		Kommentar::Insert($_POST[&quot;text&quot;], $_POST[&quot;userid&quot;], $_POST[&quot;litid&quot;]);
++		echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde angelegt&lt;/p&gt;&quot;;
++
++		if (empty($_POST[&quot;litid&quot;]) === false)
++		{
++			echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
++		}
++	}
++	elseif (isset($_GET[&quot;update&quot;]) === true)
++	{
++		Kommentar::Update($_POST[&quot;id&quot;], $_POST[&quot;text&quot;]);
++		echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Kommentar wurde ge&#228;ndert&lt;/p&gt;&quot;;
++
++		if (empty($_POST[&quot;litid&quot;]) === false)
++		{
++			echo form_back(&quot;lit.$ext&quot;, $_POST[&quot;litid&quot;]);
++		}
++	}
++?&gt;
++&lt;/div&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/include/form_helper.php
+===================================================================
+--- trunk/include/form_helper.php	2006-06-08 13:08:26 UTC (rev 148)
++++ trunk/include/form_helper.php	2006-06-09 08:41:16 UTC (rev 149)
+@@ -5,6 +5,7 @@
+ 	 *  \param[in] $name ID und Name des Inputfeldes
+ 	 *  \param[in] $value Inhalt des Feldes
+ 	 *  \param[in] $failure ob Feld als fehlerhaft markiert werden soll
++	 *  \return String mit HTML-Form-Input
+ 	 */
+ 	function form_input($type, $name, $value = &quot;&quot;, $failure = false)
+ 	{
+@@ -31,6 +32,7 @@
+ 	 *  \param[in] $name ID und Name der Auswahlfeldes
+ 	 *  \param[in] $value aktuell ausgew&#228;hltes Element der Auswahl
+ 	 *  \param[in] $failure ob Auswahl als fehlerhaft markiert werden soll
++	 *  \return String mit HTML-Form-Select
+ 	 */
+ 	function form_select($options, $name, $value=&quot;&quot;, $failure = false)
+ 	{
+@@ -54,4 +56,28 @@
+ 
+ 		return $str;
+ 	}
++
++	/*! \brief Gibt Formular mit Zur&#252;ckknopf zur&#252;ck
++	 *
++	 *  Erzeugt ein einfaches GET-Formular, dass nur aus einem Zur&#252;ckbutton
++	 *  besteht, der entweder auf eine Seite oder einer Seite mit ID
++	 *  verweist. Die ID wird dabei einfach per verstecktem Feld
++	 *  mit dem Namen id &#252;bergeben.
++	 *  \param[in] $url Seite auf die der Knopf zeigt
++	 *  \param[in] $id ID f&#252;r aufzurufende Seite
++	 *  \return String mit Zur&#252;ck-Button im HTML-Form
++	 */
++	function form_back($url, $id=&quot;&quot;)
++	{
++		$str = &quot;&lt;form action=\&quot;&quot;.htmlspecialchars($url).&quot;\&quot; method=\&quot;get\&quot;&gt;&lt;span&gt;&quot;;
++
++		if (func_num_args() == 2)
++		{
++			$str .= form_input(&quot;hidden&quot;, &quot;id&quot;, $id);
++		}
++		
++		$str .= &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Zur&#252;ck\&quot;&gt;&lt;/span&gt;&lt;/form&gt;&quot;;
++
++		return $str;
++	}
+ ?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-06-08 13:08:26 UTC (rev 148)
++++ trunk/include/kommentar.php	2006-06-09 08:41:16 UTC (rev 149)
+@@ -137,7 +137,8 @@
+ 					FROM &quot;.$db_config['prefix'].&quot;Kommentare AS kommentare
+ 					INNER JOIN  &quot;.$db_config['prefix'].&quot;Mitglieder AS mitglieder
+ 					ON kommentare.Mitglieds_Nr = mitglieder.Mitglieds_Nr
+-					WHERE Literatur_Nr = '$literatur_nr'&quot;;
++					WHERE Literatur_Nr = '$literatur_nr'
++					ORDER BY Nr ASC&quot;;
+ 			$sqldb-&gt;Query($sql);
+ 
+ 			while ($cur = $sqldb-&gt;Fetch())
+@@ -184,7 +185,8 @@
+ 							WHERE Literatur_Nr='$literatur_nr' AND Mitglieds_Nr='$verfasser_nr'&quot;;
+ 					$sqldb-&gt;Query($sqlAlready);
+ 
+-					if (($cur = $sqldb-&gt;Fetch()) === false)
++					$cur = $sqldb-&gt;Fetch();
++					if ($cur === false)
+ 					{
+ 						if (empty($text) === false)
+ 						{
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-06-08 13:08:26 UTC (rev 148)
++++ trunk/lit.php	2006-06-09 08:41:16 UTC (rev 149)
+@@ -87,13 +87,16 @@
+ 	&lt;table id=&quot;litkommentare&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;?php
+-				$nocomment = false; // hat der user schon etwas kommentiert?
++				require_once(&quot;include/form_helper.php&quot;);
++				$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
+ 				for ($i = 0; $i &lt; count($literatur-&gt;Kommentare); $i++)
+ 				{
+ 					$cur = $literatur-&gt;Kommentare[$i];
+ 					if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr)
+ 					{
+-						$nocomment = true;
++						$owncomment-&gt;Text = $cur-&gt;Text;
++						$owncomment-&gt;Nr = $cur-&gt;Nr;
++						
+ 					}
+ 			?&gt;
+ 				&lt;tr&gt;
+@@ -103,30 +106,75 @@
+ 						// Darf der User l&#246;schen?
+ 						if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr || $login-&gt;IsAdministrator() === true)
+ 						{
+-							echo &quot;&lt;span style=\&quot;font-size: xx-small\&quot;&gt;&lt;a href=\&quot;loeschen.php?id=&quot;.$cur-&gt;Nr.&quot;\&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&quot;;
++							echo &quot;&lt;span style=\&quot;font-size: xx-small\&quot;&gt;&quot;;
++							echo &quot;&lt;a href=\&quot;commentmod.php?delete&amp;id=&quot;.$cur-&gt;Nr.&quot;&amp;litid=&quot;.htmlspecialchars($_GET[&quot;id&quot;]).&quot;\&quot;&gt;(l&#246;schen)&lt;/a&gt;&lt;/span&gt;&quot;;
+ 						}
+ 					?&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+-			&lt;?
+-				}
+-
+-				// Soll Kommentar-Hinzuf&#252;gen-Box erscheinen?
+-				if ($login-&gt;IsMember() === true &amp;&amp; 
+-					($login-&gt;IsAdministrator() === true || $nocomment === false))
+-				{
+-			?&gt;
+-				&lt;tr&gt;
+-					&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
+-					&lt;td&gt;
+-					&lt;textarea cols=40 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
+-					&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
+-					&lt;td&gt;&nbsp;&lt;/td&gt;
+-				&lt;/tr&gt;
+ 			&lt;?php
+ 				}
+ 			?&gt;
+-
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
++
++	&lt;?php
++		if ($login-&gt;IsMember() === true)
++		{
++			require_once(&quot;include/form_helper.php&quot;);
++			// Soll Kommentar-Hinzuf&#252;gen-Box erscheinen oder Update-Box?
++			if (empty($owncomment) === true)
++			{
++		?&gt;
++			&lt;form action=&quot;commentmod.&lt;?=$ext;?&gt;?insert=&quot; method=&quot;post&quot;&gt;
++			&lt;span&gt;
++				&lt;?=form_input(&quot;hidden&quot;, &quot;litid&quot;, $_GET[&quot;id&quot;]);?&gt;
++				&lt;?=form_input(&quot;hidden&quot;, &quot;userid&quot;, $login-&gt;Nr);?&gt;
++			&lt;/span&gt;
++			&lt;table id=&quot;litkommentaradd&quot;&gt;
++				&lt;tbody&gt;
++					&lt;tr&gt;
++						&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
++						&lt;td&gt;
++							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;/textarea&gt;
++						&lt;/td&gt;
++					&lt;/tr&gt;
++					&lt;tr&gt;
++						&lt;th scope=&quot;row&quot;&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
++						
++					&lt;/tr&gt;
++				&lt;/tbody&gt;
++			&lt;/table&gt;
++			&lt;/form&gt;
++		&lt;?php
++			}
++			else
++			{
++		?&gt;
++			&lt;form action=&quot;commentmod.&lt;?=$ext;?&gt;?update&quot; method=&quot;post&quot;&gt;
++			&lt;span&gt;
++				&lt;?=form_input(&quot;hidden&quot;, &quot;litid&quot;, $_GET[&quot;id&quot;]);?&gt;
++				&lt;?=form_input(&quot;hidden&quot;, &quot;id&quot;, $owncomment-&gt;Nr);?&gt;
++			&lt;/span&gt;
++			&lt;table id=&quot;litkommentarmod&quot;&gt;
++				&lt;tbody&gt;
++					&lt;tr&gt;
++						&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;text&quot;&gt;Kommentar &#228;ndern:&lt;/label&gt;&lt;/th&gt;	
++						&lt;td&gt;
++							&lt;textarea id=&quot;text&quot; name=&quot;text&quot; cols=40 rows=10&gt;&lt;?=htmlspecialchars($owncomment-&gt;Text);?&gt;&lt;/textarea&gt;
++						&lt;/td&gt;
++					&lt;/tr&gt;
++					&lt;tr&gt;
++						&lt;th scope=&quot;row&quot;&gt;&lt;/th&gt;
++						&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
++						
++					&lt;/tr&gt;
++				&lt;/tbody&gt;
++			&lt;/table&gt;
++			&lt;/form&gt;
++		&lt;?php
++			}
++		}
++	?&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000138.html">[Liman-svn] r148 - trunk/include
+</A></li>
+	<LI>Next message: <A HREF="000140.html">[Liman-svn] r150 - in trunk: . design include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#139">[ date ]</a>
+              <a href="thread.html#139">[ thread ]</a>
+              <a href="subject.html#139">[ subject ]</a>
+              <a href="author.html#139">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

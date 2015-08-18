@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r83 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r83%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605081631.k48GV4qX000672%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000072.html">
+   <LINK REL="Next"  HREF="000074.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r83 - trunk/docs/beleg1</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r83%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605081631.k48GV4qX000672%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r83 - trunk/docs/beleg1">trusch at berlios.de
+       </A><BR>
+    <I>Mon May  8 18:31:04 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000072.html">[Liman-svn] r82 - in trunk: . design include
+</A></li>
+        <LI>Next message: <A HREF="000074.html">[Liman-svn] r84 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-05-08 18:30:59 +0200 (Mon, 08 May 2006)
+New Revision: 83
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-04 14:48:29 UTC (rev 82)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-08 16:30:59 UTC (rev 83)
+@@ -81,18 +81,16 @@
+ 
+ \emph{Bibliothek} &amp; \{Literatur\} \\
+ \hline
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999* \\
+ \hline
+-Art &amp; Zeichenkette20 \\
++Art &amp; ['' Sachbuch'' | '' Zeitschrift '' | '' wissenschaftliche Arbeit '' | ''Lehrbuch ''] \\
+ \hline
+ Titel &amp; Zeichenkette40 \\
+ \hline
+-Autor &amp; Zeichenkette40 \\
++Jahr &amp; gZahl *4stellig*, 0001 $\leq$ Jahr $\leq$ 9999* \\
+ \hline
+-Jahr &amp; gZahl *4stellig* \\
+-\hline
+ Verlag &amp; Zeichenkette40 \\
+ \hline
+ ISBN &amp; Zeichenkette20 \\
+@@ -104,6 +102,15 @@
+ Stichworte &amp; Zeichenkette100 \\
+ \hline\hline
+ 
++\emph{Autoren} &amp; \{Autor\} \\
++\hline
++Autor &amp; @Autor\_Nr + Autorname \\
++\hline
++Autor\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Autor\_Nr $\leq$ 999999* \\
++\hline
++Autorname &amp; Zeichenkette40 \\
++\hline\hline
++
+ \emph{Kommentare} &amp; \{Kommentar\} \\
+ \hline
+ Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr\\
+@@ -117,7 +124,7 @@
+ \hline
+ Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+ \hline
+-Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* \\ 
++Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Mitglieds\_Nr $\leq$ 999999* \\ 
+ \hline
+ Name &amp; Zeichenkette20 \\
+ \hline
+@@ -134,7 +141,7 @@
+ 
+ Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
++Literaturdaten &amp; Art + Titel + Autorname + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext \\
+ \hline
+@@ -165,9 +172,9 @@
+ \hline
+ Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
+ \hline
+-Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Verlag + ISBN\}\\
+ \hline
+-Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
++Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autorname + Verlag + ISBN\}\\
+ \hline
+ Mitgliederliste &amp; \{Mitglieds\_Nr + Name + Vorname\}\\
+ \hline
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-04 14:48:29 UTC (rev 82)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-08 16:30:59 UTC (rev 83)
+@@ -11,16 +11,14 @@
+ \hline\hline
+ \endhead
+ 
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $4 + 20 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 556$ \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $24 + 20 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 546$ \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
+ \hline
+-Art &amp; Zeichenkette20  &amp; $20$\\
++Art &amp; ['' Sachbuch'' | '' Zeitschrift '' | '' wissenschaftliche Arbeit '' | ''Lehrbuch ''] &amp; $24$\\
+ \hline
+ Titel &amp; Zeichenkette40 &amp; $40$ \\
+ \hline
+-Autor &amp; Zeichenkette40 &amp; $40$\\
+-\hline
+ Jahr &amp; gZahl *4stellig* &amp; $2$\\
+ \hline
+ Verlag &amp; Zeichenkette40 &amp; $40$ \\
+@@ -34,6 +32,13 @@
+ Stichworte &amp; Zeichenkette100 &amp; $100$\\
+ \hline\hline
+ 
++Autor &amp; @Autor\_Nr + Autorname &amp; $4 + 40 = 44  $\\
++\hline
++Autor\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Autor\_Nr $\leq$ 999999* &amp; $4$ \\
++\hline
++Autorname &amp; Zeichenkette40 &amp; $40$\\
++\hline\hline
++
+ Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr &amp; $4 + 400 + 4 + 4 = 412 $\\
+ \hline
+ Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* &amp; $4$ \\
+@@ -60,7 +65,7 @@
+ 
+ Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 12 + 13 + 350 = 427 $\\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $20 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 552 $ \\
++Literaturdaten &amp; Art + Titel + Autorname + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $24 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 556 $ \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext &amp; $4 + 4 + 4 = 12 $ \\
+ \hline
+@@ -93,9 +98,9 @@
+ %\hline
+ %Literatur\_Info &amp; Literatur + Kommentare &amp; $ 549 + 412 = 961 $ \textbf{KOMMENTARE = VIELE KOMMENTARE UND NICHT NUR EINER}\\
+ \hline
+-Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Verlag + ISBN\} &amp; $4 + 40 + 40 + 20 = 104$\\
+ \hline
+-Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
++Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autorname + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
+ \hline
+ Mitgliederliste &amp; \{Mitglieds\_Nr + Name + Vorname\} &amp; $4 + 20 + 20 = 44 $\\
+ \hline
+@@ -110,6 +115,7 @@
+ Literatur &amp; {Literatur} &amp; $0*556$ &amp; $50*556=27800$ &amp; $100*556=55600$ \\
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
+ Mitglieder &amp; {Mitglied}  &amp; $0*431$ &amp; $50*431=21550$ &amp; $100*431=43100$ \\
++Autoren &amp; {Autor} &amp; $1*44$ &amp; $2*44=88$ &amp; $5*44=220$ \\ 
+ \hline
+ \end{tabular}
+ 
+@@ -119,10 +125,10 @@
+ Datenfluss &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+ 
+-Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Verlag + ISBN\}  &amp; $0*104$ &amp; $50*104=5200$ &amp; $100*104=10400$ \\
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+ BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*1024$ &amp; $50*1024=51200$ &amp; $100*1024=102400$ \\
+-Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $556 + 0*412=556$ &amp; $556 + 100*412=41756$ &amp; $556 + 200*412=82956$ \\
++Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $546 + 0*412=546$ &amp; $546 + 100*412=41746$ &amp; $546 + 200*412=82946$ \\
+ \hline
+ \end{tabular}
+ 
+@@ -147,5 +153,5 @@
+ 
+ 
+ \section{Operationelle Anforderungen an die Prozesse}
+-Es wird von Antwortzeiten bis zu 5 Sekunden gerechnet. Da die meisten Prozesse auf dem Server verarbeitet werden und der Client diese nur Darstellen muss, 
+-kann von 5 Sekunden ausgegangen werden. 
++Es wird von Antwortzeiten bis zu 2 Sekunden gerechnet. Da die meisten Prozesse auf dem Server verarbeitet werden und der Client diese nur Darstellen muss, 
++kann von 2 Sekunden ausgegangen werden. 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000072.html">[Liman-svn] r82 - in trunk: . design include
+</A></li>
+	<LI>Next message: <A HREF="000074.html">[Liman-svn] r84 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#73">[ date ]</a>
+              <a href="thread.html#73">[ thread ]</a>
+              <a href="subject.html#73">[ subject ]</a>
+              <a href="author.html#73">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

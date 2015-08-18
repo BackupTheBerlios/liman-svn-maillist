@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r91 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r91%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605101623.k4AGNQtG009572%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000080.html">
+   <LINK REL="Next"  HREF="000082.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r91 - trunk/docs/beleg1</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r91%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605101623.k4AGNQtG009572%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r91 - trunk/docs/beleg1">trusch at berlios.de
+       </A><BR>
+    <I>Wed May 10 18:23:26 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000080.html">[Liman-svn] r90 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000082.html">[Liman-svn] r92 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-05-10 18:23:26 +0200 (Wed, 10 May 2006)
+New Revision: 91
+
+Modified:
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-10 15:55:25 UTC (rev 90)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-10 16:23:26 UTC (rev 91)
+@@ -11,7 +11,7 @@
+ \hline\hline
+ \endhead
+ 
+-Literatur &amp; @Literatur\_Nr + Art + Titel + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $24 + 20 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 546$ \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $4 + 24 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 520$ \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
+ \hline
+@@ -112,7 +112,7 @@
+ \hline
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Literatur &amp; {Literatur} &amp; $0*556$ &amp; $50*556=27800$ &amp; $100*556=55600$ \\
++Literatur &amp; {Literatur} &amp; $0*520$ &amp; $50*520=26000$ &amp; $100*520=52000$ \\
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
+ Mitglieder &amp; {Mitglied}  &amp; $0*431$ &amp; $50*431=21550$ &amp; $100*431=43100$ \\
+ Autoren &amp; {Autor} &amp; $1*44$ &amp; $2*44=88$ &amp; $5*44=220$ \\ 
+@@ -128,7 +128,7 @@
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + \{Autorname\} + Verlag + ISBN\}  &amp; $0*104 + 0*40$ &amp; $50*104 + 100*40=9200$ &amp; $100*104 + 500*40=30400$ \\
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + \{Autorname\} + Verlag + ISBN\}  &amp; $0*104 + 0*40$ &amp; $50*104 + 100*40=9200$ &amp; $100*104 + 500*40=30400$ \\
+ BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*1024$ &amp; $50*1024=51200$ &amp; $100*1024=102400$ \\
+-Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $546 + 0*412=546$ &amp; $546 + 100*412=41746$ &amp; $546 + 200*412=82946$ \\
++Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $520 + 0*412=520$ &amp; $520 + 100*412=41720$ &amp; $520 + 200*412=82920$ \\
+ \hline
+ \end{tabular}
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000080.html">[Liman-svn] r90 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000082.html">[Liman-svn] r92 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#81">[ date ]</a>
+              <a href="thread.html#81">[ thread ]</a>
+              <a href="subject.html#81">[ subject ]</a>
+              <a href="author.html#81">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

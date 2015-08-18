@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r64 - in trunk/docs: beleg1 protokoll
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r64%20-%20in%20trunk/docs%3A%20beleg1%20protokoll&In-Reply-To=%3C200604261630.k3QGUuTF030629%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000053.html">
+   <LINK REL="Next"  HREF="000055.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r64 - in trunk/docs: beleg1 protokoll</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r64%20-%20in%20trunk/docs%3A%20beleg1%20protokoll&In-Reply-To=%3C200604261630.k3QGUuTF030629%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r64 - in trunk/docs: beleg1 protokoll">trusch at berlios.de
+       </A><BR>
+    <I>Wed Apr 26 18:30:56 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000053.html">[Liman-svn] r63 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000055.html">[Liman-svn] r65 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-04-26 18:30:50 +0200 (Wed, 26 Apr 2006)
+New Revision: 64
+
+Added:
+   trunk/docs/protokoll/2006_04_26.xhtml
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 15:27:14 UTC (rev 63)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 16:30:50 UTC (rev 64)
+@@ -85,7 +85,7 @@
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999* \\
+ \hline
+-Art &amp; [``Buch'' | ``Artikel'' | ``Handbuch'' | ``Diplomarbeit'' | ``Sonstiges''] \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG}\\
++Art &amp; Zeichenkette20 \\
+ \hline
+ Titel &amp; Zeichenkette40 \\
+ \hline
+@@ -123,13 +123,13 @@
+ \hline
+ Vorname &amp; Zeichenkette20 \\
+ \hline
++E-Mail &amp; Zeichenkette350 \\
++\hline
+ Login &amp; Zeichenkette12 \\
+ \hline
+ Passwort &amp; Zeichenkette12 \\
+ \hline
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] \\
+-\hline
+-E-Mail &amp; Zeichenkette50 \\
+ \hline\hline
+ 
+ Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+@@ -142,7 +142,7 @@
+ \hline
+ Suchbegriff &amp; Zeichenkette100 \\
+ \hline
+-Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} \\
++Exportanfrage &amp; Literatur\_Nr \\
+ \hline\hline
+ 
+ Best&#228;tigung\_BibTeXImport &amp; Literatur\_Nr + Zeichenkette ''Importieren vorgenommen`` \\
+@@ -165,8 +165,6 @@
+ \hline
+ Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
+ \hline
+-Literatur\_Info &amp; Literatur + Kommentare \\
+-\hline
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
+ \hline
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 15:27:14 UTC (rev 63)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 16:30:50 UTC (rev 64)
+@@ -11,11 +11,11 @@
+ \hline\hline
+ \endhead
+ 
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $4 + 13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 549$ \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $4 + 20 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 556$ \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
+ \hline
+-Art &amp; [``Buch'' | ``Artikel'' | ``Handbuch'' | ``Diplomarbeit'' | ``Sonstiges''] \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG}  &amp; $13$\\
++Art &amp; Zeichenkette20  &amp; $20$\\
+ \hline
+ Titel &amp; Zeichenkette40 &amp; $40$ \\
+ \hline
+@@ -39,17 +39,17 @@
+ Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* &amp; $4$ \\
+ \hline
+ Kommentartext &amp; Zeichenkette400 &amp; $400$\\
+-\hline\hline
++\hline
+ 
+-Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 20  + 12 + 12 + 13 + 50 = 131 $\\
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 20  + 12 + 12 + 13 + 350 = 431 $\\
+ \hline
+ Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* &amp; $4$ \\ 
+ \hline
+ Name &amp; Zeichenkette20 &amp; $20$\\
+ \hline
+-Vorname &amp; Zeichenkette20 6 $20$ \\
++Vorname &amp; Zeichenkette20 &amp; $20$ \\
+ \hline
+-E-Mail &amp; Zeichenkette30 &amp; $50$ \\
++E-Mail &amp; Zeichenkette350 &amp; $350$ \\
+ \hline
+ Login &amp; Zeichenkette12 &amp; $12$\\
+ \hline
+@@ -58,17 +58,17 @@
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] &amp; $13$ \\
+ \hline\hline
+ 
+-Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 12 + 13 + 50 = 117 $\\
++Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 12 + 13 + 350 = 427 $\\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 545 $ \\
++Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $20 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 552 $ \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext &amp; $4 + 4 + 4 = 12 $ \\
+ \hline
+-BibTeX-Datei &amp; *Datei im Bibtexformat* &amp; $8$\\
++BibTeX-Datei &amp; *Datei im Bibtexformat* &amp; $1024$\\
+ \hline
+ Suchbegriff &amp; Zeichenkette100 &amp; $100 $ \\
+ \hline
+-Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} &amp; $4 $ \\
++Exportanfrage &amp; Literatur\_Nr &amp; $4 $ \\
+ \hline\hline
+ 
+ Best&#228;tigung\_BibTeXImport &amp; Literatur\_Nr + Zeichenkette ''Importieren vorgenommen`` &amp; $4 + 23 = 27 $\\
+@@ -90,9 +90,9 @@
+ Best&#228;tigung\_Mitglied&#228;ndern &amp; Mitglieds\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` &amp; $4 + 20 = 24$\\
+ \hline
+ Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` &amp; $4 + 19 = 23$\\
++%\hline
++%Literatur\_Info &amp; Literatur + Kommentare &amp; $ 549 + 412 = 961 $ \textbf{KOMMENTARE = VIELE KOMMENTARE UND NICHT NUR EINER}\\
+ \hline
+-Literatur\_Info &amp; Literatur + Kommentare &amp; $ 549 + 412 = 961 $ \textbf{KOMMENTARE = VIELE KOMMENTARE UND NICHT NUR EINER}\\
+-\hline
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
+ \hline
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
+@@ -103,51 +103,46 @@
+ 
+ 
+ \subsection{Speicher (Angaben zum Speicherbedarf in Byte)}
+-TODO:\\
+ \begin{tabular}[ht]{|l|l|l|l|l|}
+ \hline
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Literatur &amp; {Literatur} &amp; $0*549$ &amp; $50*549=26950$ &amp; $100*549=54900$ \\
++Literatur &amp; {Literatur} &amp; $0*556$ &amp; $50*556=27800$ &amp; $100*556=55600$ \\
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
+-Mitglieder &amp; {Mitglied}  &amp; $0*381$ &amp; $50*381=19050$ &amp; $100*381=38100$ \\
++Mitglieder &amp; {Mitglied}  &amp; $0*431$ &amp; $50*431=21550$ &amp; $100*431=43100$ \\
+ \hline
+ \end{tabular}
+ 
+ \subsection{Weitere Datenfl&#252;sse}
+-TODO:\\
+-\begin{tabular}[ht]{|l|p{3.2cm}|l|l|l|}
++\begin{tabular}[ht]{|l|p{4cm}||p{2cm}||p{2cm}||p{2cm}|}
+ \hline
+ Datenfluss &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+ 
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+-BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*8$ &amp; $50*8=400$ &amp; $100*8=800$ \\
+-Revisionsunterlagen &amp;                      &amp;      &amp;            &amp;            \\
+- 
+-\\
++BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*1024$ &amp; $50*1024=51200$ &amp; $100*1024=102400$ \\
++Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $556 + 0*412=556$ &amp; $556 + 100*412=41756$ &amp; $556 + 200*412=82956$ \\
+ \hline
+ \end{tabular}
+ 
+ \subsection{Absch&#228;tzungen}
+-TODO:
+ \begin{itemize}
+  \item \textbf{Gesamtsystem}: Als Nutzungszeit wird von 5 Jahren ausgegangen, wobei die maximale Nutzungszeit, 
+ die an das System gestellt wird, 10 Jahre betr\&quot;agt.
+  \item \textbf{Mitglieder}: Es wird erwartet, dass nicht mehr als 500 Mitglieder den Dienst in Anspruch nehmen werden. Im Durchschnitt wird
+  die Mitgliederzahl etwa 200 betragen.
+ \item \textbf{Leistungen}: Bei einem Stundenaufkommen zwischen 20 und 30 Stunden pro Jahr, kann davon ausgegangen werden, dass jedes 
+-Mitglied in etwa 50 Suchanfragen, 10 Literatureinstellung und 20 Kommentaren abgibt. Die Informationen bleiben erhalten, solange der Dienst existiert.  
+- \item \textbf{Revisionsunterlagen}: Die Revision wird j\&quot;ahrlich vom Administrator durchgef\&quot;uhrt und umfasst normalerweise den Zeitraum seit der letzten Revision.  
++Mitglied in etwa 53 Suchanfragen, 10 Literatureinstellung und 20 Kommentaren abgibt. Die Informationen bleiben erhalten, solange der Dienst existiert.  
++\item \textbf{Exportieren}: In einem Jahr werden ca. 100 bis 150 Exportanfragen pro Mitglied erwartet.
+ \end{itemize}
+ 
+ \subsection{Genauigkeit}
+ Es werden nur Ganzzahlen im ganzen System verarbeitet. Es werden hierbei keine problematische Rechnungen vorgenommen.
+ 
+ \section{Operationelle Anforderungen an die Datenstr&#246;me}
+-Umfangreiche Datenstr\&quot;ome k\&quot;onnen im System nur auftreten, wenn Suchanfragen gestellt, Letzte Literatur aufgerufen, eine BibTex-Datei abgefragt 
+-oder die Revisionsunterlagen abgerufen werden. Diese Datenstr\&quot;ome bewegen sich im Bereich von maximal ..... Megabyte und im Mittel ...... Kilobyte, sodass es selten
++Umfangreiche Datenstr\&quot;ome k\&quot;onnen im System nur auftreten, wenn Suchanfragen gestellt, Letzte Literatur aufgerufen oder eine BibTex-Datei abgefragt wird. 
++Diese Datenstr\&quot;ome bewegen sich im Bereich von maximal 1 Megabyte und im Durchschnitt 30 Kilobyte, sodass es selten
+ zu gr\&quot;o\&quot;seren Datenstr\&quot;omen kommt.
+ 
+ 
+
+Added: trunk/docs/protokoll/2006_04_26.xhtml
+===================================================================
+--- trunk/docs/protokoll/2006_04_26.xhtml	2006-04-26 15:27:14 UTC (rev 63)
++++ trunk/docs/protokoll/2006_04_26.xhtml	2006-04-26 16:30:50 UTC (rev 64)
+@@ -0,0 +1,44 @@
++&#65279;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;<A HREF="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd</A>&quot;&gt;
++&lt;html xmlns=&quot;<A HREF="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</A>&quot; xml:lang=&quot;de&quot;&gt;
++	&lt;head&gt;
++		&lt;title&gt;Protokoll Anfangskonsultation 26.04.2006&lt;/title&gt;
++		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
++		&lt;meta http-equiv=&quot;content-language&quot; content=&quot;de&quot; /&gt;
++		&lt;style type=&quot;text/css&quot;&gt;@import &quot;./protokoll.css&quot;;&lt;/style&gt;
++	&lt;/head&gt;
++	&lt;body&gt;
++		&lt;h1&gt;Literaturverwaltung&lt;/h1&gt;
++		&lt;h2&gt;Sitzungsprotokoll 26.04.2006&lt;/h2&gt;
++
++		&lt;h3&gt;Anwesende&lt;/h3&gt;
++		&lt;ul&gt;
++			&lt;li&gt;Simon Wunderlich&lt;/li&gt;
++			&lt;li&gt;Andreas Tr&#246;ger&lt;/li&gt;
++			&lt;li&gt;Frank Wilhelm&lt;/li&gt;
++			&lt;li&gt;Florian Scharl&lt;/li&gt;
++			&lt;li&gt;Sven Eckelmann&lt;/li&gt;
++		&lt;/ul&gt;
++
++		&lt;h3&gt;Tagesordnung&lt;/h3&gt;
++		&lt;ol&gt;
++			&lt;li&gt;&lt;a href=&quot;#aufteilung&quot;&gt;Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg&lt;/a&gt;&lt;/li&gt;
++		&lt;/ol&gt;
++
++		&lt;div id=&quot;content&quot;&gt;
++			&lt;h3 id=&quot;aufteilung&quot;&gt;Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg&lt;/h3&gt;
++
++			&lt;ul&gt;
++				&lt;li&gt;Es wurden die Erbegnisse der einzelnen Aufgaben des erste Teilbeleg durchgesehen und Korrekturen besprochen.&lt;/li&gt;
++				&lt;li&gt;Weiteren Projektverlauf anhand des Gentt-Diagramms festgelegt.&lt;/li&gt;
++				&lt;li&gt;Aufgrund fehlenden Engagements und dem Vers&#228;umen aller bisherigen Treffen war es notwendig das Mitglied Benedikt Keil aus dem Projektteam zu entfernen. &lt;/li&gt;
++
++			&lt;/ul&gt;
++
++			&lt;p&gt;Chemnitz, 26.04.2006&lt;/p&gt;
++			&lt;dl&gt;
++				&lt;dt&gt;Protokolant&lt;/dt&gt;&lt;dd&gt;Andreas Tr&#246;ger&lt;/dd&gt;
++				&lt;dt&gt;Korrekturen&lt;/dt&gt;&lt;dd&gt;Florian Scharl&lt;/dd&gt;
++			&lt;/dl&gt;
++		&lt;/div&gt;
++	&lt;/body&gt;
++&lt;/html&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000053.html">[Liman-svn] r63 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000055.html">[Liman-svn] r65 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#54">[ date ]</a>
+              <a href="thread.html#54">[ thread ]</a>
+              <a href="subject.html#54">[ subject ]</a>
+              <a href="author.html#54">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

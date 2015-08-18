@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r150 - in trunk: . design include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r150%20-%20in%20trunk%3A%20.%20design%20include/tests&In-Reply-To=%3C200606091524.k59FOIae025571%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000139.html">
+   <LINK REL="Next"  HREF="000141.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r150 - in trunk: . design include/tests</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r150%20-%20in%20trunk%3A%20.%20design%20include/tests&In-Reply-To=%3C200606091524.k59FOIae025571%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r150 - in trunk: . design include/tests">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun  9 17:24:18 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000139.html">[Liman-svn] r149 - in trunk: . include
+</A></li>
+        <LI>Next message: <A HREF="000141.html">[Liman-svn] r151 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#140">[ date ]</a>
+              <a href="thread.html#140">[ thread ]</a>
+              <a href="subject.html#140">[ subject ]</a>
+              <a href="author.html#140">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-09 17:24:16 +0200 (Fri, 09 Jun 2006)
+New Revision: 150
+
+Added:
+   trunk/design/unittest.css
+   trunk/test.php
+Modified:
+   trunk/include/tests/autor.php
+   trunk/include/tests/sqldb_mock.php
+   trunk/include/tests/suche.php
+Log:
+- Tabelle f?\195?\188r die ersten Resultate des Unittests
+
+
+Added: trunk/design/unittest.css
+===================================================================
+--- trunk/design/unittest.css	2006-06-09 08:41:16 UTC (rev 149)
++++ trunk/design/unittest.css	2006-06-09 15:24:16 UTC (rev 150)
+@@ -0,0 +1,20 @@
++#testresults {
++	width: 99%;
++	border: 1px solid black;
++	border-collapse: collapse;
++}
++
++#testresults td {
++	width: 49%;
++	border: 1px solid black;
++	text-align: center;
++}
++
++.uniterror {
++	color: red;
++}
++
++.unitcorrect {
++	color: green;
++	font-weight: bold;
++}
+\ No newline at end of file
+
+Modified: trunk/include/tests/autor.php
+===================================================================
+--- trunk/include/tests/autor.php	2006-06-09 08:41:16 UTC (rev 149)
++++ trunk/include/tests/autor.php	2006-06-09 15:24:16 UTC (rev 150)
+@@ -38,7 +38,7 @@
+ 			$testAutoren = array();
+ 			for( $i = 0; $i &lt; 3; $i++ )
+ 			{
+-				$autor = new stdObject();
++				$autor = new stdClass();
+ 				$autor-&gt;Nr = $i;
+ 				$autor-&gt;Name = &quot;Autor $i&quot;;
+ 				$testAutoren[] = $autor;
+@@ -76,8 +76,8 @@
+ 			$testAutorNamen = &quot;Schon Vorhanden, Wird Hinzugef&#252;gt&quot;;
+ 			
+ 			$testAutoren = array();
+-			$testAutoren[] = new stdObject();
+-			$testAutoren[] = new stdObject();
++			$testAutoren[] = new stdClass();
++			$testAutoren[] = new stdClass();
+ 			
+ 			$testAutoren[0]-&gt;Nr = 1;
+ 			$testAutoren[1]-&gt;Nr = 2;
+@@ -85,7 +85,7 @@
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', $testAutoren[0] );
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', false  );
+ 			$sqldb-&gt;ExpectQuery( 'INSERT INTO.*', 1 );
+-			$sqldb-&gt;ExpectQuery( 'SELECT @@IDENTITY.*', $testAutoren[1] );
++			$sqldb-&gt;ExpectQuery( 'SELECT @@IDENTITY.*', $testAutoren[1] ); /// \todo Das funktioniert weg MySQL3 nicht -&gt; GetInsertID
+ 			
+ 			$autoren = Autor::Split( $testAutorNamen );
+ 			
+
+Modified: trunk/include/tests/sqldb_mock.php
+===================================================================
+--- trunk/include/tests/sqldb_mock.php	2006-06-09 08:41:16 UTC (rev 149)
++++ trunk/include/tests/sqldb_mock.php	2006-06-09 15:24:16 UTC (rev 150)
+@@ -1,4 +1,4 @@
+-&#65279;&lt;?php
++&lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
+ 	
+ 	class SQLDB_Mock
+@@ -6,6 +6,7 @@
+ 		var $query_result = false;
+ 		var $fetch_index = 0;
+ 		var $isOpen = false;
++		var $error_msg = false;
+ 		
+ 		function SQLDB_Mock()
+ 		{
+@@ -87,6 +88,18 @@
+ 
+ 			return $error;
+ 		}
++
++		function GetInsertID()
++		{
++			if ($this-&gt;isOpen)
++			{
++				return rand();
++			}
++			else
++			{
++				return false;
++			}
++		}
+ 		
+ 		function GetNumRows()
+ 		{
+@@ -126,7 +139,6 @@
+ 				$result = array();
+ 				$result[] = $buff;
+ 			}
+-			
+ 			$this-&gt;patterns[] = $pattern;
+ 			$this-&gt;results[] = $result;
+ 		}
+@@ -134,6 +146,7 @@
+ 		function Verify()
+ 		{
+ 			$ret = $this-&gt;error;
++			/// \todo: Wieso darf man nicht auch mal ohne Fehlermeldung auskommen? :(
+ 			if( $ret === false )
+ 			{
+ 				$ret = new ErrorMessage( null, null, &quot;Anzahl Queries&quot;, count($this-&gt;results), $this-&gt;queryCounter );
+@@ -155,12 +168,12 @@
+ 				if( count($this-&gt;patterns) &lt;= $this-&gt;queryCounter )
+ 				{
+ 					$this-&gt;queryCounter++;
+-					this-&gt;error = new ErrorMessage( null, null, &quot;Anzahl an Queries&quot;, count($this-&gt;patterns), $this-&gt;queryCounter );
++					$this-&gt;error = new ErrorMessage( null, null, &quot;Anzahl an Queries&quot;, count($this-&gt;patterns), $this-&gt;queryCounter );
+ 					return false;
+ 				}
+-				else if( !preg_match($this-&gt;patterns[$this-&gt;queryCounter],$query) )
++				elseif( preg_match(&quot;/&quot;.$this-&gt;patterns[$this-&gt;queryCounter].&quot;/&quot;,$query) === false)
+ 				{
+-					this-&gt;error = new ErrorMessage( null, null, &quot;Unerwartete Query&quot;, $this-&gt;patterns[$this-&gt;queryCounter], $query );
++					$this-&gt;error = new ErrorMessage( null, null, &quot;Unerwartete Query&quot;, $this-&gt;patterns[$this-&gt;queryCounter], $query );
+ 					return false;
+ 				}
+ 				
+
+Modified: trunk/include/tests/suche.php
+===================================================================
+--- trunk/include/tests/suche.php	2006-06-09 08:41:16 UTC (rev 149)
++++ trunk/include/tests/suche.php	2006-06-09 15:24:16 UTC (rev 150)
+@@ -9,7 +9,7 @@
+ 		
+ 		function CreateResult( $nr, $titel, $verlag, $isbn )
+ 		{
+-			$result = new stdObject();
++			$result = new stdClass();
+ 			$result-&gt;Nr = $nr;
+ 			$result-&gt;Titel = $titel;
+ 			$result-&gt;Verlag = $verlag;
+@@ -30,11 +30,9 @@
+ 		
+ 		function Setup()
+ 		{
+-			$suche = new Suche();
+-			
+ 			$this-&gt;testHits = array();
+-			$this-&gt;testHits[] = CreateResult( 1, 'Nachtvogel', 'Blanvalet', '3-442-24258-4' );
+-			$this-&gt;testHits[] = CreateResult( 2, 'D&#228;monensommer', 'Blanvalet', '3-422-24257-6' );
++			$this-&gt;testHits[] = SucheTest::CreateResult( 1, 'Nachtvogel', 'Blanvalet', '3-442-24258-4' );
++			$this-&gt;testHits[] = SucheTest::CreateResult( 2, 'D&#228;monensommer', 'Blanvalet', '3-422-24257-6' );
+ 		}
+ 		
+ 		function TearDown()
+@@ -56,7 +54,7 @@
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+ 			
+-			$this-&gt;suche-&gt;LetzteLiteratur();
++			$this-&gt;suche = new Suche();
+ 			
+ 			$result = $sqldb-&gt;Verify();
+ 			
+@@ -86,7 +84,7 @@
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+ 			
+-			$suche-&gt;VolltextSuche( $volltext );
++			$this-&gt;suche = new Suche($volltext);
+ 			
+ 			$result = $sqldb-&gt;Verify();
+ 			
+@@ -118,7 +116,7 @@
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+ 				
+-			$suche-&gt;AutorTitelSuche( $titel, $autor );
++			$this-&gt;suche = new Suche($titel, $autor);
+ 			
+ 			$result = $sqldb-&gt;Verify();
+ 			
+
+Added: trunk/test.php
+===================================================================
+--- trunk/test.php	2006-06-09 08:41:16 UTC (rev 149)
++++ trunk/test.php	2006-06-09 15:24:16 UTC (rev 150)
+@@ -0,0 +1,88 @@
++&lt;?php
++	$title = &quot;Unittest&quot;;
++	$extracss = &quot;unittest.css&quot;;
++
++	require_once(&quot;include/header.php&quot;);
++
++	require_once(&quot;include/tests/sqldb_mock.php&quot;);
++	$sqldb = new SQLDB_Mock();
++
++	function PrintTestResults($results)
++	{
++		if ($results === true)
++		{
++			echo &quot;&lt;td class=\&quot;unitcorrect\&quot;&gt;OK&lt;/td&gt;&quot;;
++		}
++		else
++		{
++			echo &quot;&lt;td class=\&quot;uniterror\&quot;&gt;&quot;;
++			echo nl2br(htmlspecialchars($results-&gt;ToString()));
++			echo &quot;&lt;/td&gt;&quot;;
++		}
++	}
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	
++	&lt;table id=&quot;testresults&quot;&gt;
++		&lt;thead&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;col&quot;&gt;Funktion&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;Resultat&lt;/th&gt;
++			&lt;/tr&gt;
++		&lt;/thead&gt;
++		&lt;tbody&gt;
++			&lt;?php
++				$login-&gt;Level = 2;
++
++				// Autor
++				require_once(&quot;include/autor.php&quot;);
++				require_once(&quot;include/tests/autor.php&quot;);
++				$autortest = new AutorTest();
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Autor::Autor()&lt;/td&gt;&quot;;
++				$autortest-&gt;Setup();
++				PrintTestResults($autortest-&gt;ConstructorTest());
++				$autortest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Autor::GetAll()&lt;/td&gt;&quot;;
++				$autortest-&gt;Setup();
++				PrintTestResults($autortest-&gt;GetAll());
++				$autortest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Autor::Split()&lt;/td&gt;&quot;;
++				$autortest-&gt;Setup();
++				PrintTestResults($autortest-&gt;Split());
++				$autortest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++
++
++				// Suche
++				require_once(&quot;include/suche.php&quot;);
++				require_once(&quot;include/tests/suche.php&quot;);
++				$searchtest = new SucheTest();
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Suche::LetzteLiteratur()&lt;/td&gt;&quot;;
++				$searchtest-&gt;Setup();
++				PrintTestResults($searchtest-&gt;LetzteLiteratur());
++				$searchtest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Suche::VolltextSuche()&lt;/td&gt;&quot;;
++				$searchtest-&gt;Setup();
++				PrintTestResults($searchtest-&gt;VolltextSuche());
++				$searchtest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Suche::AutorTitelSuche()&lt;/td&gt;&quot;;
++				$searchtest-&gt;Setup();
++				PrintTestResults($searchtest-&gt;AutorTitelSuche());
++				$searchtest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++			?&gt;
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++&lt;/div&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000139.html">[Liman-svn] r149 - in trunk: . include
+</A></li>
+	<LI>Next message: <A HREF="000141.html">[Liman-svn] r151 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#140">[ date ]</a>
+              <a href="thread.html#140">[ thread ]</a>
+              <a href="subject.html#140">[ subject ]</a>
+              <a href="author.html#140">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

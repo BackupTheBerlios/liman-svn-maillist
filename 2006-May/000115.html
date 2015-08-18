@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r125 - trunk/docs/beleg2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r125%20-%20trunk/docs/beleg2&In-Reply-To=%3C200605272121.k4RLLfSr017666%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000114.html">
+   <LINK REL="Next"  HREF="000116.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r125 - trunk/docs/beleg2</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r125%20-%20trunk/docs/beleg2&In-Reply-To=%3C200605272121.k4RLLfSr017666%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r125 - trunk/docs/beleg2">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 23:21:41 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000114.html">[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+        <LI>Next message: <A HREF="000116.html">[Liman-svn] r126 - in trunk: db include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 23:21:40 +0200 (Sat, 27 May 2006)
+New Revision: 125
+
+Modified:
+   trunk/docs/beleg2/teilbeleg2.tex
+   trunk/docs/beleg2/user.sty
+Log:
+Zeilenumbruch vor neuer Klassendokumentation
+
+
+Modified: trunk/docs/beleg2/teilbeleg2.tex
+===================================================================
+--- trunk/docs/beleg2/teilbeleg2.tex	2006-05-27 21:04:20 UTC (rev 124)
++++ trunk/docs/beleg2/teilbeleg2.tex	2006-05-27 21:21:40 UTC (rev 125)
+@@ -12,7 +12,10 @@
+ \usepackage{user} % eigene Befehle
+ \usepackage{longtable}
+ \usepackage{floatflt}
++\usepackage{titlesec}
+ 
++\newcommand{\subsectionbreak}{\clearpage}
++
+ \ifpdf
+   \usepackage[ps2pdf]{thumbpdf}
+   \usepackage[pdftex]{hyperref}
+
+Modified: trunk/docs/beleg2/user.sty
+===================================================================
+--- trunk/docs/beleg2/user.sty	2006-05-27 21:04:20 UTC (rev 124)
++++ trunk/docs/beleg2/user.sty	2006-05-27 21:21:40 UTC (rev 125)
+@@ -18,7 +18,6 @@
+   \fi
+ \fi
+ 
+-
+ % Anpassung der &#220;berschriften
+ \setkomafont{chapter}{\bfseries\normalcolor\sffamily\Huge} 
+ \setkomafont{section}{\bfseries\normalcolor\sffamily\huge} 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000114.html">[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+	<LI>Next message: <A HREF="000116.html">[Liman-svn] r126 - in trunk: db include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#115">[ date ]</a>
+              <a href="thread.html#115">[ thread ]</a>
+              <a href="subject.html#115">[ subject ]</a>
+              <a href="author.html#115">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

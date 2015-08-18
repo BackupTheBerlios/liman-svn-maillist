@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r110 - in trunk: . db
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r110%20-%20in%20trunk%3A%20.%20db&In-Reply-To=%3C200605232150.k4NLohc2005555%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000099.html">
+   <LINK REL="Next"  HREF="000101.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r110 - in trunk: . db</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r110%20-%20in%20trunk%3A%20.%20db&In-Reply-To=%3C200605232150.k4NLohc2005555%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r110 - in trunk: . db">lazhur at berlios.de
+       </A><BR>
+    <I>Tue May 23 23:50:43 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000099.html">[Liman-svn] r109 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000101.html">[Liman-svn] r111 - in trunk: docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-23 23:50:42 +0200 (Tue, 23 May 2006)
+New Revision: 110
+
+Added:
+   trunk/db/
+   trunk/db/liman_struktur.sql
+   trunk/db/liman_test.sql
+Log:
+Hinzuf?\195?\188gen von Tabellenstruktur f?\195?\188r Datenbank (nur Struktur und Struktur mit Testdaten)
+
+
+Added: trunk/db/liman_struktur.sql
+===================================================================
+--- trunk/db/liman_struktur.sql	2006-05-23 20:58:05 UTC (rev 109)
++++ trunk/db/liman_struktur.sql	2006-05-23 21:50:42 UTC (rev 110)
+@@ -0,0 +1,82 @@
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Autoren`
++-- 
++
++DROP TABLE IF EXISTS `liman_Autoren`;
++CREATE TABLE IF NOT EXISTS `liman_Autoren` (
++  `Autor_Nr` int(11) NOT NULL auto_increment,
++  `Autorname` varchar(40) NOT NULL,
++  PRIMARY KEY  (`Autor_Nr`),
++  UNIQUE KEY `Autorname` (`Autorname`),
++  FULLTEXT KEY `Autorname_2` (`Autorname`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Bibliothek`
++-- 
++
++DROP TABLE IF EXISTS `liman_Bibliothek`;
++CREATE TABLE IF NOT EXISTS `liman_Bibliothek` (
++  `Literatur_Nr` int(11) NOT NULL auto_increment,
++  `Art` enum('Buch','Artikel','Brosch&#252;re','Protokoll','Anleitung','Diplomarbeit','Dissertation','Techn. Bericht','Unver&#246;ffentlicht','Sonstiges') NOT NULL,
++  `Titel` varchar(40) NOT NULL,
++  `Jahr` year(4) NOT NULL,
++  `Verlag` varchar(40) NOT NULL,
++  `ISBN` varchar(20) NOT NULL,
++  `Beschreibung` text NOT NULL,
++  `Ort` varchar(40) NOT NULL,
++  `Stichworte` varchar(100) NOT NULL,
++  PRIMARY KEY  (`Literatur_Nr`),
++  FULLTEXT KEY `Titel` (`Titel`,`Verlag`,`ISBN`,`Beschreibung`,`Ort`,`Stichworte`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Kommentare`
++-- 
++
++DROP TABLE IF EXISTS `liman_Kommentare`;
++CREATE TABLE IF NOT EXISTS `liman_Kommentare` (
++  `Kommentar_Nr` int(11) NOT NULL auto_increment,
++  `Kommentartext` text NOT NULL,
++  `Literatur_Nr` int(11) NOT NULL,
++  `Mitglieds_Nr` int(11) NOT NULL,
++  PRIMARY KEY  (`Kommentar_Nr`),
++  KEY `Literatur_Nr` (`Literatur_Nr`,`Mitglieds_Nr`),
++  FULLTEXT KEY `Kommentartext` (`Kommentartext`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Literatur_Autor`
++-- 
++
++DROP TABLE IF EXISTS `liman_Literatur_Autor`;
++CREATE TABLE IF NOT EXISTS `liman_Literatur_Autor` (
++  `Autor_Nr` int(11) NOT NULL,
++  `Literatur_Nr` int(11) NOT NULL,
++  KEY `Autor_Nr` (`Autor_Nr`,`Literatur_Nr`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='n-m-Relationstabelle Literatur-Autor';
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Mitglieder`
++-- 
++
++DROP TABLE IF EXISTS `liman_Mitglieder`;
++CREATE TABLE IF NOT EXISTS `liman_Mitglieder` (
++  `Mitglieds_Nr` int(11) NOT NULL auto_increment,
++  `Name` varchar(20) NOT NULL,
++  `Vorname` varchar(20) NOT NULL,
++  `Email` text NOT NULL,
++  `Login` varchar(12) NOT NULL,
++  `Passwort` varchar(40) NOT NULL,
++  `Rechte` enum('Benutzer','Administrator') NOT NULL,
++  PRIMARY KEY  (`Mitglieds_Nr`),
++  UNIQUE KEY `Login` (`Login`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+Added: trunk/db/liman_test.sql
+===================================================================
+--- trunk/db/liman_test.sql	2006-05-23 20:58:05 UTC (rev 109)
++++ trunk/db/liman_test.sql	2006-05-23 21:50:42 UTC (rev 110)
+@@ -0,0 +1,124 @@
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Autoren`
++-- 
++
++DROP TABLE IF EXISTS `liman_Autoren`;
++CREATE TABLE IF NOT EXISTS `liman_Autoren` (
++  `Autor_Nr` int(11) NOT NULL auto_increment,
++  `Autorname` varchar(40) NOT NULL,
++  PRIMARY KEY  (`Autor_Nr`),
++  UNIQUE KEY `Autorname` (`Autorname`),
++  FULLTEXT KEY `Autorname_2` (`Autorname`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- 
++-- Daten f&#252;r Tabelle `liman_Autoren`
++-- 
++
++INSERT INTO `liman_Autoren` (`Autor_Nr`, `Autorname`) VALUES (1, 'Robert Sedgewick'),
++(2, 'Dinu C. Gherman'),
++(3, 'Christian Tismer'),
++(4, 'Bruce Schneier'),
++(5, 'Christian Krause');
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Bibliothek`
++-- 
++
++DROP TABLE IF EXISTS `liman_Bibliothek`;
++CREATE TABLE IF NOT EXISTS `liman_Bibliothek` (
++  `Literatur_Nr` int(11) NOT NULL auto_increment,
++  `Art` enum('Buch','Artikel','Brosch&#252;re','Protokoll','Anleitung','Diplomarbeit','Dissertation','Techn. Bericht','Unver&#246;ffentlicht','Sonstiges') NOT NULL,
++  `Titel` varchar(40) NOT NULL,
++  `Jahr` year(4) NOT NULL,
++  `Verlag` varchar(40) NOT NULL,
++  `ISBN` varchar(20) NOT NULL,
++  `Beschreibung` text NOT NULL,
++  `Ort` varchar(40) NOT NULL,
++  `Stichworte` varchar(100) NOT NULL,
++  PRIMARY KEY  (`Literatur_Nr`),
++  FULLTEXT KEY `Titel` (`Titel`,`Verlag`,`ISBN`,`Beschreibung`,`Ort`,`Stichworte`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- 
++-- Daten f&#252;r Tabelle `liman_Bibliothek`
++-- 
++
++INSERT INTO `liman_Bibliothek` (`Literatur_Nr`, `Art`, `Titel`, `Jahr`, `Verlag`, `ISBN`, `Beschreibung`, `Ort`, `Stichworte`) VALUES (1, 'Buch', 'Algorithmen', 1998, 'Pearson Studium', '3-8273-7032-9', 'Robert Sedgewicks bekanntes Standardwerk stellt die wichtigsten Algorithmen klar und umfassend dar. Von elementaren Datenstrukturen und Algorithmen wie Such- und Sortieralgorithmen schl&#228;gt Sedgewick einen Bogen bis hin zu modernen Ans&#228;tzen und vermittelt dem Leser einen fundierten &#220;berblick &#252;ber die vielf&#228;ltigen M&#246;glichkeiten der Probleml&#246;sung anhand von Datenstrukturen.', 'Bonn ; M&#252;nchen ; Paris [u.a.]', 'AVL, Listen, RB, B&#228;ume,'),
++(2, 'Buch', 'Python - kurz und gut', 2002, 'O''Reilly', '3-89721-240-4', '&quot;Python - kurz und gut&quot; ist eine kompakte Referenz zum schnellen Nachschlagen aller wichtigen Sprachmerkmale und Elemente von Python.', 'K&#246;ln', 'Datentypen, Anweisungen, Funktionen, Objektorientierte Programmierung, &#220;berladungsmethoden, Biblioth'),
++(3, 'Buch', 'Angewandte Kryptographie', 1996, 'Addison-Wesley', '3-89319-854-7', 'Diese zweite Auflage des Klassikers &#252;ber Kryptographie bietet eine umfassenden &#220;berblick &#252;ber die moderne Kyptographie. Programmierer und Datenkommunikations-Fachleute erfahren, wie sie Verfahren zur Ver- und Entschl&#252;sselung von Nachrichten in die Praxis umsetzen. Das Buch beschreibt nicht nur zahlreiche kryptographische Algorithmen, sondern gibt auch praktische Hinweise zur Implementierung kryptographischer Software.', 'M&#252;nchen', 'RSA, XOR, MD5, SHA, Public Key'),
++(4, 'Diplomarbeit', 'Verteilte Datensicherung unter Nutzung v', 2002, '', '', 'Diese Arbeit beschreibt ein Konzept f&#252;r eine verteilte Datensicherung unter Nutzung freier Ressourcen von Arbeitsplatzrechnern. Das vorzustellende System beinhaltet entsprechende Ma&#223;nahmen, um sowohl die Authentizit&#228;t und Vertraulichkeit der zu sichernden Daten zu gew&#228;hrleisten, als auch eine m&#246;glichst hohe Wahrscheinlichkeit f&#252;r die Wiederherstellung zu erreichen.', 'Chemnitz', 'P2P, Datensicherung, Integrit&#228;t');
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Kommentare`
++-- 
++
++DROP TABLE IF EXISTS `liman_Kommentare`;
++CREATE TABLE IF NOT EXISTS `liman_Kommentare` (
++  `Kommentar_Nr` int(11) NOT NULL auto_increment,
++  `Kommentartext` text NOT NULL,
++  `Literatur_Nr` int(11) NOT NULL,
++  `Mitglieds_Nr` int(11) NOT NULL,
++  PRIMARY KEY  (`Kommentar_Nr`),
++  KEY `Literatur_Nr` (`Literatur_Nr`,`Mitglieds_Nr`),
++  FULLTEXT KEY `Kommentartext` (`Kommentartext`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- 
++-- Daten f&#252;r Tabelle `liman_Kommentare`
++-- 
++
++INSERT INTO `liman_Kommentare` (`Kommentar_Nr`, `Kommentartext`, `Literatur_Nr`, `Mitglieds_Nr`) VALUES (1, 'Tolle Dramatik, wirklich fesselnder Storyverlauf, nur das Ende war ein bisschen matt.', 1, 2);
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Literatur_Autor`
++-- 
++
++DROP TABLE IF EXISTS `liman_Literatur_Autor`;
++CREATE TABLE IF NOT EXISTS `liman_Literatur_Autor` (
++  `Autor_Nr` int(11) NOT NULL,
++  `Literatur_Nr` int(11) NOT NULL,
++  KEY `Autor_Nr` (`Autor_Nr`,`Literatur_Nr`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='n-m-Relationstabelle Literatur-Autor';
++
++-- 
++-- Daten f&#252;r Tabelle `liman_Literatur_Autor`
++-- 
++
++INSERT INTO `liman_Literatur_Autor` (`Autor_Nr`, `Literatur_Nr`) VALUES (1, 1),
++(2, 2),
++(3, 2),
++(4, 3),
++(5, 4);
++
++-- --------------------------------------------------------
++
++-- 
++-- Tabellenstruktur f&#252;r Tabelle `liman_Mitglieder`
++-- 
++
++DROP TABLE IF EXISTS `liman_Mitglieder`;
++CREATE TABLE IF NOT EXISTS `liman_Mitglieder` (
++  `Mitglieds_Nr` int(11) NOT NULL auto_increment,
++  `Name` varchar(20) NOT NULL,
++  `Vorname` varchar(20) NOT NULL,
++  `Email` text NOT NULL,
++  `Login` varchar(12) NOT NULL,
++  `Passwort` varchar(40) NOT NULL,
++  `Rechte` enum('Benutzer','Administrator') NOT NULL,
++  PRIMARY KEY  (`Mitglieds_Nr`),
++  UNIQUE KEY `Login` (`Login`)
++) ENGINE=MyISAM DEFAULT CHARSET=utf8;
++
++-- 
++-- Daten f&#252;r Tabelle `liman_Mitglieder`
++-- 
++
++INSERT INTO `liman_Mitglieder` (`Mitglieds_Nr`, `Name`, `Vorname`, `Email`, `Login`, `Passwort`, `Rechte`) VALUES (1, 'Wunderlich', 'Simon', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>', 'siwu', 'c47c25460079d8a87d44175b732f73af2e92', 'Administrator'),
++(2, 'Wurst', 'Hans', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>', 'hans', 'c47c25460079d8a87d44175b732f73af2e92b6d2', 'Benutzer');
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000099.html">[Liman-svn] r109 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000101.html">[Liman-svn] r111 - in trunk: docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#100">[ date ]</a>
+              <a href="thread.html#100">[ thread ]</a>
+              <a href="subject.html#100">[ subject ]</a>
+              <a href="author.html#100">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r39 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r39%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241839.k3OIdQHa017496%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000028.html">
+   <LINK REL="Next"  HREF="000030.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r39 - trunk/docs/beleg1</H1>
+    <B>gregorian at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r39%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241839.k3OIdQHa017496%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r39 - trunk/docs/beleg1">gregorian at berlios.de
+       </A><BR>
+    <I>Mon Apr 24 20:39:26 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000028.html">[Liman-svn] r38 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000030.html">[Liman-svn] r40 - trunk/docs/beleg1/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: gregorian
+Date: 2006-04-24 20:38:54 +0200 (Mon, 24 Apr 2006)
+New Revision: 39
+
+Modified:
+   trunk/docs/beleg1/qualitaetsanforderungen.tex
+Log:
+3 Spezifikation wichtiger Qualit?\195?\164tsanforderungen erg?\195?\164nzt
+
+Modified: trunk/docs/beleg1/qualitaetsanforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/qualitaetsanforderungen.tex	2006-04-24 18:21:07 UTC (rev 38)
++++ trunk/docs/beleg1/qualitaetsanforderungen.tex	2006-04-24 18:38:54 UTC (rev 39)
+@@ -1,15 +1,28 @@
+-\chapter{Spezifikation wichtiger Qualit&#228;tsanforderungen}
+-\section{Benutzerbarkeit}
+-TODO siehe Beispielbeleg S. 24
+-
+-\section{Zuverl&#228;ssigkeit}
+-TODO siehe Beispielbeleg S. 24
+-
+-\section{Integrit&#228;t}
+-TODO siehe Beispielbeleg S. 24
+-
+-\section{Flexibilit&#228;t}
+-TODO siehe Beispielbeleg S. 24
+-
+-\section{Portabilit&#228;t}
+-TODO siehe Beispielbeleg S. 24
+\ No newline at end of file
++\chapter{Spezifikation wichtiger Qualit&#228;tsanforderungen}
++\section{Benutzerbarkeit}
++Im wesentlichen existieren drei Arten von Nutzern: \\
++\\
++\textbf{1. Administrator:} \\
++Er ist im wesentlichen f\&quot;ur die Mitgliedsverwaltung zust\&quot;andig, also das anlegen, \&quot;andern und l\&quot;oschen von Mitgliedseintr\&quot;agen. \\
++Des weiteren k\&quot;ummert er sich mit Hilfe der quelloffenen Basisprogramme um Datensicherungen. Eine gewisse Grundkenntnis im Umgang mit
++besagten Programmen ist also vorrausgesetzt. \\
++\\
++\textbf{2. Mitglied:} \\
++Nachdem man sich in der Literaturverwaltung registriert hat wird man zum Mitglied. Damit er\&quot;offnen sich neue M\&quot;oglichkeiten. \\
++So kann man neue Literatur hinzuf\&quot;ugen, ab\&quot;andern und l\&quot;oschen oder Kommentare \&quot;uber Literatureintr\&quot;age verfassen.\\
++\\
++\textbf{3. Nutzer:} \\
++Wenn man sich nicht registriert ist man in der Gruppe der Nutzer, diese Gruppe hat keine M\&quot;oglichkeit auf den Datenbestand der Literaturverwaltung einzuwirken.\\
++Die Rechte sind auf die Recherche beschr\&quot;ankt, der Nutzer kann also B\&quot;ucher suchen, ausw\&quot;ahlen und sich die Beschreibungen und Kommentare ansehen.
++\section{Zuverl&#228;ssigkeit}
++Eine einfache Bedienoberfl\&quot;ache und klar formulierte Fehlermeldungen erm\&quot;oglichen dem Nutzer bei Fehleingaben schnell auf die entsprechende Situation zu reagieren.\\
++Daten, die gespeichert werden sollen werden erst nach Best\&quot;atigung in den Bestand \&quot;ubernommen, sollte es vor der Best\&quot;atigung zu einem Absturz kommen, muss das Mitglied die Daten erneut eingeben. \\
++Sollte es zur unbeabsichtigten L\&quot;oschung oder Besch\&quot;adigung von Daten kommen, hat der Administrator au\ss erhalb des zu entwicklenden Systems M\&quot;oglichkeiten mit Hilfe des Verwendeten Datenbanksystems diese zu retten.
++\section{Integrit&#228;t}
++Auch wenn aktiv auf den Datenbestand eingewirkt werden kann, so ist dies jedoch ausschlie\ss lich registrierten Mitgliedern m\&quot;oglich solche \&quot;Anderungen vorzunehmen.
++Diese \&quot;Anderungen k\&quot;onnen auch vom Administrator breinigt werden.\\
++Sollte es wiederholt zu sch\&quot;adigenden Eingriffen seitens eines Mitglieds kommen, so ist der Adminstrator berechtigt betreffendes Mitgliedskonto samt aller Mitgliedsdaten zu l\&quot;oschen.
++\section{Flexibilit&#228;t}
++Auch wenn zur Zeit keine Erweiterungen an der Literaturverwaltung geplant sind, ist es aufgrund der Sprache PHP dennoch m\&quot;oglich \&quot;Anderungen vorzunehmen.
++\section{Portabilit&#228;t}
++Aufgrund einer speziellen Konfiguration des Zielsystem in Hinblick auf Web- und SQL-Server, ist das portieren der Literaturverwaltung nicht ohne Weiteres m\&quot;oglich.
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000028.html">[Liman-svn] r38 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000030.html">[Liman-svn] r40 - trunk/docs/beleg1/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#29">[ date ]</a>
+              <a href="thread.html#29">[ thread ]</a>
+              <a href="subject.html#29">[ subject ]</a>
+              <a href="author.html#29">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

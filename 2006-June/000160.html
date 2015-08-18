@@ -1,0 +1,496 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r170 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r170%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606161454.k5GEsFbL021322%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000159.html">
+   <LINK REL="Next"  HREF="000161.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r170 - trunk/docs/beleg3</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r170%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606161454.k5GEsFbL021322%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r170 - trunk/docs/beleg3">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun 16 16:54:15 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000159.html">[Liman-svn] r169 - trunk/docs/protokoll
+</A></li>
+        <LI>Next message: <A HREF="000161.html">[Liman-svn] r171 - in trunk: . docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#160">[ date ]</a>
+              <a href="thread.html#160">[ thread ]</a>
+              <a href="subject.html#160">[ subject ]</a>
+              <a href="author.html#160">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-16 16:54:15 +0200 (Fri, 16 Jun 2006)
+New Revision: 170
+
+Added:
+   trunk/docs/beleg3/interfaces_code.tex
+Modified:
+   trunk/docs/beleg3/Makefile
+   trunk/docs/beleg3/programmdokumentation.tex
+   trunk/docs/beleg3/tests.tex
+   trunk/docs/beleg3/user.sty
+Log:
+- Interfaces und Quellcode zwischenzeitlich bei der Ausgabe entfernt
+- Testmatrix angefangen
+- Erste Tests beschrieben und eingetragen
+
+
+Modified: trunk/docs/beleg3/Makefile
+===================================================================
+--- trunk/docs/beleg3/Makefile	2006-06-15 06:27:08 UTC (rev 169)
++++ trunk/docs/beleg3/Makefile	2006-06-16 14:54:15 UTC (rev 170)
+@@ -1,12 +1,14 @@
+ MAIN = teilbeleg3
+-DEPENDS =	Makefile\
+-		teilbeleg3.tex\
+-		meta.tex\
+-		titel.tex\
+-		anwenderdokumentation.tex\
+-		arbeitsaufgaben.tex\
+-		programmdokumentation.tex\
+-		systemhandbuch.tex
++DEPENDS =	Makefile \
++		teilbeleg3.tex \
++		meta.tex \
++		titel.tex \
++		anwenderdokumentation.tex \
++		arbeitsaufgaben.tex \
++		interfaces_code.tex \
++		programmdokumentation.tex \
++		systemhandbuch.tex \
++		tests.tex
+ 
+ # Standard pdf
+ all: pdf
+
+Added: trunk/docs/beleg3/interfaces_code.tex
+===================================================================
+--- trunk/docs/beleg3/interfaces_code.tex	2006-06-15 06:27:08 UTC (rev 169)
++++ trunk/docs/beleg3/interfaces_code.tex	2006-06-16 14:54:15 UTC (rev 170)
+@@ -0,0 +1,108 @@
++% Klasseninterfaces
++\section{Definition Klasseninterfaces}
++\subsection{Klasse Autor}
++\lstinputlisting{interfaces/autor.php}
++
++\subsection{Klasse Kommentar}
++\lstinputlisting{interfaces/kommentar.php}
++
++\subsection{Klasse LiteraturArt}
++\lstinputlisting{interfaces/literaturart.php}
++
++\subsection{Klasse Literatur}
++\lstinputlisting{interfaces/literatur.php}
++
++\subsection{Klasse Login}
++\lstinputlisting{interfaces/login.php}
++
++\subsection{Klasse Mitglied}
++\lstinputlisting{interfaces/mitglied.php}
++
++\subsection{Klasse SQLDB}
++\lstinputlisting{interfaces/sqldb_mysql.php}
++
++\subsection{Klasse Suche}
++\lstinputlisting{interfaces/suche.php}
++
++% Quelltexte
++\section{Kommentierte Quelltexte}
++\subsection{bibtex.php}
++\lstinputlisting{sourcecodes/bibtex.php}
++
++\subsection{commentmod.php}
++\lstinputlisting{sourcecodes/commentmod.php}
++
++\subsection{index.php}
++\lstinputlisting{sourcecodes/index.php}
++
++\subsection{install.php}
++\lstinputlisting{sourcecodes/install.php}
++
++\subsection{litmod.php}
++\lstinputlisting{sourcecodes/litmod.php}
++
++\subsection{lit.php}
++\lstinputlisting{sourcecodes/lit.php}
++
++\subsection{login.php}
++\lstinputlisting{sourcecodes/login.php}
++
++\subsection{searchmore.php}
++\lstinputlisting{sourcecodes/searchmore.php}
++
++\subsection{search.php}
++\lstinputlisting{sourcecodes/search.php}
++
++\subsection{userlist.php}
++\lstinputlisting{sourcecodes/userlist.php}
++
++\subsection{usermod.php}
++\lstinputlisting{sourcecodes/usermod.php}
++
++\subsection{user.php}
++\lstinputlisting{sourcecodes/user.php}
++
++\subsection{design/liman.css}
++\lstinputlisting{sourcecodes/design/liman.css}
++
++\subsection{include/autor.php}
++\lstinputlisting{sourcecodes/include/autor.php}
++
++\subsection{include/config.php}
++\lstinputlisting{sourcecodes/include/config.php}
++
++\subsection{include/footer.php}
++\lstinputlisting{sourcecodes/include/footer.php}
++
++\subsection{include/form\_helper.php}
++\lstinputlisting{sourcecodes/include/form_helper.php}
++
++\subsection{include/global.php}
++\lstinputlisting{sourcecodes/include/global.php}
++
++\subsection{include/header.php}
++\lstinputlisting{sourcecodes/include/header.php}
++
++\subsection{include/kommentar.php}
++\lstinputlisting{sourcecodes/include/kommentar.php}
++
++\subsection{include/literaturart.php}
++\lstinputlisting{sourcecodes/include/literaturart.php}
++
++\subsection{include/literatur.php}
++\lstinputlisting{sourcecodes/include/literatur.php}
++
++\subsection{include/login.php}
++\lstinputlisting{sourcecodes/include/login.php}
++
++\subsection{include/mitglied.php}
++\lstinputlisting{sourcecodes/include/mitglied.php}
++
++\subsection{include/sqldb\_mysql.php}
++\lstinputlisting{sourcecodes/include/sqldb_mysql.php}
++
++\subsection{include/sqldb.php}
++\lstinputlisting{sourcecodes/include/sqldb.php}
++
++\subsection{include/suche.php}
++\lstinputlisting{sourcecodes/include/suche.php}
+
+Modified: trunk/docs/beleg3/programmdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/programmdokumentation.tex	2006-06-15 06:27:08 UTC (rev 169)
++++ trunk/docs/beleg3/programmdokumentation.tex	2006-06-16 14:54:15 UTC (rev 170)
+@@ -1,113 +1,6 @@
+ \chapter{Programmdokumentation}
+-% Klasseninterfaces
+-\section{Definition Klasseninterfaces}
+-\subsection{Klasse Autor}
+-\lstinputlisting{interfaces/autor.php}
++% W&#228;hrend der Weiteren Arbeiten kurzzeitig deaktiviert
++%\input{interfaces_code}
+ 
+-\subsection{Klasse Kommentar}
+-\lstinputlisting{interfaces/kommentar.php}
+-
+-\subsection{Klasse LiteraturArt}
+-\lstinputlisting{interfaces/literaturart.php}
+-
+-\subsection{Klasse Literatur}
+-\lstinputlisting{interfaces/literatur.php}
+-
+-\subsection{Klasse Login}
+-\lstinputlisting{interfaces/login.php}
+-
+-\subsection{Klasse Mitglied}
+-\lstinputlisting{interfaces/mitglied.php}
+-
+-\subsection{Klasse SQLDB}
+-\lstinputlisting{interfaces/sqldb_mysql.php}
+-
+-\subsection{Klasse Suche}
+-\lstinputlisting{interfaces/suche.php}
+-
+-% Quelltexte
+-\section{Kommentierte Quelltexte}
+-\subsection{bibtex.php}
+-\lstinputlisting{sourcecodes/bibtex.php}
+-
+-\subsection{commentmod.php}
+-\lstinputlisting{sourcecodes/commentmod.php}
+-
+-\subsection{index.php}
+-\lstinputlisting{sourcecodes/index.php}
+-
+-\subsection{install.php}
+-\lstinputlisting{sourcecodes/install.php}
+-
+-\subsection{litmod.php}
+-\lstinputlisting{sourcecodes/litmod.php}
+-
+-\subsection{lit.php}
+-\lstinputlisting{sourcecodes/lit.php}
+-
+-\subsection{login.php}
+-\lstinputlisting{sourcecodes/login.php}
+-
+-\subsection{searchmore.php}
+-\lstinputlisting{sourcecodes/searchmore.php}
+-
+-\subsection{search.php}
+-\lstinputlisting{sourcecodes/search.php}
+-
+-\subsection{userlist.php}
+-\lstinputlisting{sourcecodes/userlist.php}
+-
+-\subsection{usermod.php}
+-\lstinputlisting{sourcecodes/usermod.php}
+-
+-\subsection{user.php}
+-\lstinputlisting{sourcecodes/user.php}
+-
+-\subsection{design/liman.css}
+-\lstinputlisting{sourcecodes/design/liman.css}
+-
+-\subsection{include/autor.php}
+-\lstinputlisting{sourcecodes/include/autor.php}
+-
+-\subsection{include/config.php}
+-\lstinputlisting{sourcecodes/include/config.php}
+-
+-\subsection{include/footer.php}
+-\lstinputlisting{sourcecodes/include/footer.php}
+-
+-\subsection{include/form\_helper.php}
+-\lstinputlisting{sourcecodes/include/form_helper.php}
+-
+-\subsection{include/global.php}
+-\lstinputlisting{sourcecodes/include/global.php}
+-
+-\subsection{include/header.php}
+-\lstinputlisting{sourcecodes/include/header.php}
+-
+-\subsection{include/kommentar.php}
+-\lstinputlisting{sourcecodes/include/kommentar.php}
+-
+-\subsection{include/literaturart.php}
+-\lstinputlisting{sourcecodes/include/literaturart.php}
+-
+-\subsection{include/literatur.php}
+-\lstinputlisting{sourcecodes/include/literatur.php}
+-
+-\subsection{include/login.php}
+-\lstinputlisting{sourcecodes/include/login.php}
+-
+-\subsection{include/mitglied.php}
+-\lstinputlisting{sourcecodes/include/mitglied.php}
+-
+-\subsection{include/sqldb\_mysql.php}
+-\lstinputlisting{sourcecodes/include/sqldb_mysql.php}
+-
+-\subsection{include/sqldb.php}
+-\lstinputlisting{sourcecodes/include/sqldb.php}
+-
+-\subsection{include/suche.php}
+-\lstinputlisting{sourcecodes/include/suche.php}
+-
+-
+ % Tests
+-\input{tests.tex}
+\ No newline at end of file
++\input{tests}
+\ No newline at end of file
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-06-15 06:27:08 UTC (rev 169)
++++ trunk/docs/beleg3/tests.tex	2006-06-16 14:54:15 UTC (rev 170)
+@@ -1,7 +1,123 @@
+ \section{Testplan}
+ \subsection{Testf&#228;lle}
+ 
++TODO: Fall 1 - Unittests
++
++\subsubsection{Fall 2: Installation}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	1. Durchlauf: Alle Speicher sind nicht vorhanden, aber die Datenbank. 2. Durchlauf: Speicher sind vorhanden und mit zuf&#228;lligen Werten gef&#252;llt.
++\item Eingabedaten:\\
++	install.php wird aufgerufen und die verlangten Daten eingegeben.
++\item Erwartete Ereignisse:\
++	Verbindung mit Datenbank wird erstellt, schon vorhandene Speicher gel&#246;scht, Speicher neu angelegt und neuer Administrator angelegt
++\item Systemzustand nach Test:\\
++	Leere Speicher Autoren, Bibliothek, Kommentare und Literatur\_Autoren bestehen. Au&#223;erdem existiert Speicher Mitglieder mit einem Datensatz (Administrator Admin Istrator mit angegebenen Login und gehashtem Passwort)
++\end{enumerate}
++
++\subsubsection{Fall 3: Test des Nutzerinterfaces -- Administrator}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem einloggen als Administrator. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Ausloggen.
++\item Erwartete Ereignisse:\
++	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht.
++\item Systemzustand nach Test:\\
++	Unver&#228;ndert, wie vor dem Test.
++\end{enumerate}
++
++\subsubsection{Fall 4: Test des Nutzerinterfaces -- Benutzer}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem einloggen als Mitglied. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Ausloggen.
++\item Erwartete Ereignisse:\
++	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht. Die Nutzerliste zeigt nur den eigenen Nutzereintrag an. Jegliche Provokation des Systems (L&#246;schen und Hinzuf&#252;gen eines Mitglieds und das Bearbeiten eines fremden Mitglieds) wird abgewiesen bzw. auf die eigenen Nutzerdaten umgeleitet.
++\item Systemzustand nach Test:\\
++	Unver&#228;ndert, wie vor dem Test.
++\end{enumerate}
++
++\subsubsection{Fall 5: Test des Nutzerinterfaces -- Gast}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++\item Eingabedaten:\\
++	Nutzer ist nicht angemeldet. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen.
++\item Erwartete Ereignisse:\
++	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht. Es sind keine Elemente zum Hinzuf&#252;gen, &#196;ndern oder L&#246;schen von Daten vorhanden. Die Nutzerliste zeigt keinen Nutzereintrag an. Jegliche Provokation des Systems (L&#246;schen und Hinzuf&#252;gen, &#196;ndern eines Mitglieds, Kommentars, Literatur) wird abgewiesen.
++\item Systemzustand nach Test:\\
++	Unver&#228;ndert, wie vor dem Test.
++\end{enumerate}
++
++\subsubsection{Fall 6: Anlegen neue Literatur}
++TODO
++
++\subsubsection{Fall 7: &#196;ndern Literatur}
++TODO
++
++\subsubsection{Fall 8: L&#246;schen Literatur}
++TODO
++
++\subsubsection{Fall 9: Anlegen neues Mitglied}
++TODO
++
++\subsubsection{Fall 10: &#196;ndern Mitglied}
++TODO
++
++\subsubsection{Fall 11: L&#246;schen Mitglied}
++TODO
++
++\subsubsection{Fall 12: Anlegen Kommentar}
++TODO
++
++\subsubsection{Fall 13: &#196;ndern Kommentar}
++TODO
++
++\subsubsection{Fall 14: L&#246;schen Kommentar}
++TODO
++
++\subsubsection{Fall 15: L&#246;schen Kommentar -- Administrator}
++TODO
++
++\subsubsection{Fall 16: Volltextsuche}
++TODO
++
++\subsubsection{Fall 17: Erweiterte Suche}
++TODO
++
+ \subsection{Testmatrix}
++\begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
++\hline
++ &amp; \multicolumn{15}{c|}{dabei getestete Systemkomponenten} \\\hline
++	% Titel
++	Testfall &amp; 
++	% grobe ``Module''
++	\multicolumn{1}{R{6em}|}{Nutzerinterface} &amp;
++	\multicolumn{1}{R{6em}|}{Bibliotheksverwaltung} &amp;
++	\multicolumn{1}{R{6em}|}{Kommentarverwaltung} &amp;
++	\multicolumn{1}{R{6em}|}{Literaturinformation} &amp;
++	\multicolumn{1}{R{6em}|}{Mitgliedsverwaltung} &amp;
++	\multicolumn{1}{R{6em}|}{Suchsystem} &amp;
++	% Klassen
++	\multicolumn{1}{R{6em}|}{Autor} &amp;
++	\multicolumn{1}{R{6em}|}{Kommentar} &amp;
++	\multicolumn{1}{R{6em}|}{Literatur} &amp;
++	\multicolumn{1}{R{6em}|}{LiteraturArt} &amp;
++	\multicolumn{1}{R{6em}|}{Login} &amp;
++	\multicolumn{1}{R{6em}|}{Mitglied} &amp;
++	\multicolumn{1}{R{6em}|}{Suche} &amp;
++	\multicolumn{1}{R{6em}|}{SQLDB} &amp;
++	\multicolumn{1}{R{6em}|}{Installation}\\
++\hline\hline
++\endhead
++1 &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;   &amp;  \\\hline
++2 &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x\\\hline
++3 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++4 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++5 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++\end{longtable}
+ 
+ \section{Systemtest}
+ 
+
+Modified: trunk/docs/beleg3/user.sty
+===================================================================
+--- trunk/docs/beleg3/user.sty	2006-06-15 06:27:08 UTC (rev 169)
++++ trunk/docs/beleg3/user.sty	2006-06-16 14:54:15 UTC (rev 170)
+@@ -1,3 +1,6 @@
++\RequirePackage{array}
++\RequirePackage{rotating}
++
+ % Nummer auch vor subsubsection anzeigen
+ \setcounter{secnumdepth}{3}
+ 
+@@ -25,3 +28,9 @@
+     \fi
+   \fi
+ \fi
++
++% Rotierte Spaltenk&#246;pfe
++\newcolumntype{R}[1]{%
++  &gt;{\begin{turn}{90}\begin{minipage}{#1}\footnotesize\raggedright\hspace{0pt}}l%
++  &lt;{\end{minipage}\end{turn}}%
++}
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000159.html">[Liman-svn] r169 - trunk/docs/protokoll
+</A></li>
+	<LI>Next message: <A HREF="000161.html">[Liman-svn] r171 - in trunk: . docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#160">[ date ]</a>
+              <a href="thread.html#160">[ thread ]</a>
+              <a href="subject.html#160">[ subject ]</a>
+              <a href="author.html#160">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

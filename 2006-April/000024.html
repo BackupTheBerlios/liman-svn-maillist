@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r34 - trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r34%20-%20trunk&In-Reply-To=%3C200604241449.k3OEnq3n024391%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r34 - trunk</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r34%20-%20trunk&In-Reply-To=%3C200604241449.k3OEnq3n024391%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r34 - trunk">dotslash at berlios.de
+       </A><BR>
+    <I>Mon Apr 24 16:49:52 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[Liman-svn] r33 - in trunk: . design include
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[Liman-svn] r35 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-04-24 16:49:49 +0200 (Mon, 24 Apr 2006)
+New Revision: 34
+
+Added:
+   trunk/litmod.php
+Removed:
+   trunk/litadd.php
+Modified:
+   trunk/index.php
+   trunk/lit.php
+   trunk/user.php
+   trunk/userlist.php
+Log:
+- mod = add
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/index.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -40,7 +40,7 @@
+ 	&lt;br&gt;
+ 	&lt;hr&gt;
+ 	&lt;br&gt;
+-	&lt;form action=&quot;litadd.php&quot;&gt;
++	&lt;form action=&quot;litmod.php&quot;&gt;
+ 	&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+ 	&lt;/form&gt;
+ 
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/lit.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -57,7 +57,7 @@
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;&Auml;ndern&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;br&gt; &lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;br&gt; &lt;/td&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+
+Deleted: trunk/litadd.php
+===================================================================
+--- trunk/litadd.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/litadd.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -1,47 +0,0 @@
+-&lt;?php
+-	$title = &quot;Hinzuf&uuml;gen&quot;;
+-	//$extracss = &quot;home.css&quot;;
+-
+-	require(&quot;include/header.php&quot;);
+-?&gt;
+-&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;
+-
+-	&lt;table id=&quot;litadd&quot;&gt;
+-		&lt;tbody&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-				&lt;td&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Hinzuf&uuml;gen&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-
+-		&lt;/tbody&gt;
+-	&lt;/table&gt;
+-
+-	&lt;/pre&gt;
+-&lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
+-
+
+Copied: trunk/litmod.php (from rev 33, trunk/litadd.php)
+===================================================================
+--- trunk/litadd.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/litmod.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -0,0 +1,47 @@
++&lt;?php
++	$title = &quot;Literatur bearbeiten/hinzuf&uuml;gen&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;
++
++	&lt;table id=&quot;litadd&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
++				&lt;td&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;&Uuml;bernehmen&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++
++	&lt;/pre&gt;
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/user.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -6,6 +6,7 @@
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;
++	&lt;form action=&quot;usermod.php&quot;&gt;
+ 	
+ 	&lt;table id=&quot;bookdetails&quot;&gt;
+ 		&lt;tbody&gt;
+@@ -28,13 +29,12 @@
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+ 				&lt;td&gt;
+-				&lt;form action=&quot;usermod.php&quot;&gt;
+-				&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;/form&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
+ 				&lt;br&gt; &lt;/td&gt;
+ 			&lt;/tr&gt;
+-
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
++	&lt;/form&gt;
+ &lt;/div&gt;
+ &lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-04-24 14:44:04 UTC (rev 33)
++++ trunk/userlist.php	2006-04-24 14:49:49 UTC (rev 34)
+@@ -37,6 +37,12 @@
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;/form&gt;
++	&lt;br&gt;
++	&lt;hr&gt;
++	&lt;br&gt;
++	&lt;form action=&quot;usermod.php&quot;&gt;
++	&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++	&lt;/form&gt;
+ 
+ 
+ &lt;/div&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[Liman-svn] r33 - in trunk: . design include
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[Liman-svn] r35 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

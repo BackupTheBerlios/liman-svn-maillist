@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r66 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r66%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604261654.k3QGsiBp016707%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000055.html">
+   <LINK REL="Next"  HREF="000057.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r66 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r66%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604261654.k3QGsiBp016707%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r66 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Wed Apr 26 18:54:45 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000055.html">[Liman-svn] r65 - in trunk/docs/beleg1: . visio
+</A></li>
+        <LI>Next message: <A HREF="000057.html">[Liman-svn] r67 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-26 18:54:39 +0200 (Wed, 26 Apr 2006)
+New Revision: 66
+
+Modified:
+   trunk/docs/beleg1/pspec_bibtex.tex
+Log:
+Entferne Interprozesskommunikation aus PSPec BibTeX_importieren
+
+
+Modified: trunk/docs/beleg1/pspec_bibtex.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_bibtex.tex	2006-04-26 16:30:50 UTC (rev 65)
++++ trunk/docs/beleg1/pspec_bibtex.tex	2006-04-26 16:54:39 UTC (rev 66)
+@@ -10,16 +10,25 @@
+ \begin{verbatim}
+  BEGIN
+    Daten := deserialisiere BibTeX_Datei;
+-   
++
+    IF lesen_erfolgreich THEN
+    BEGIN
+-     Literatur_anlegen( Daten )
+-     
+-     IF anlegen_erfolgreich THEN
+-       Setze Best&#228;tigung_BibTeXImport
+-   END
+-   ELSE
+-     Setze Fehler 201
++     Finde in Bibliothek Literatur
++           mit Literatur.Titel = Daten.Titel
++           und Literatur.Autor = Daten.Autor;
++
++     IF gefunden THEN
++     BEGIN
++       Zeige Warnung 201
++       IF not best&#228;tigt THEN
++         Abbrechen
++     END
++   
++     Lege in Bibliothek Literatur mit Daten an
++     Setze Best&#228;tigung_BibTeXImport
++  END
++  ELSE
++    Setze Fehler 202
+  END
+ \end{verbatim}
+ \hrulefill
+@@ -42,7 +51,7 @@
+    IF gefunden THEN
+      BibTeX_Datei := Serialisiere Daten
+    ELSE
+-     Setze Fehler 202
++     Setze Fehler 203
+  END
+ \end{verbatim}
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000055.html">[Liman-svn] r65 - in trunk/docs/beleg1: . visio
+</A></li>
+	<LI>Next message: <A HREF="000057.html">[Liman-svn] r67 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#56">[ date ]</a>
+              <a href="thread.html#56">[ thread ]</a>
+              <a href="subject.html#56">[ subject ]</a>
+              <a href="author.html#56">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

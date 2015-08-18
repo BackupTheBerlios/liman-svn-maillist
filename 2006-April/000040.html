@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r50 - trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r50%20-%20trunk&In-Reply-To=%3C200604251505.k3PF55SN014557%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000039.html">
+   <LINK REL="Next"  HREF="000041.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r50 - trunk</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r50%20-%20trunk&In-Reply-To=%3C200604251505.k3PF55SN014557%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r50 - trunk">dotslash at berlios.de
+       </A><BR>
+    <I>Tue Apr 25 17:05:05 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000039.html">[Liman-svn] r49 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000041.html">[Liman-svn] r51 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-04-25 17:05:04 +0200 (Tue, 25 Apr 2006)
+New Revision: 50
+
+Modified:
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/search.php
+   trunk/user.php
+   trunk/userlist.php
+   trunk/usermod.php
+Log:
+- lit +art,ort,stichworte
+- user +rechte
+- merge ..
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/lit.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -26,6 +26,11 @@
+ 				&lt;td&gt;Pearson Studium&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Verlagsort:&lt;/th&gt;	
++				&lt;td&gt;Bonn ; M&#252;nchen ; Paris [u.a.]&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+ 				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
+ 			&lt;/tr&gt;
+@@ -63,22 +68,19 @@
+ 	&lt;/table&gt;
+ 	&lt;hr&gt;
+ 
+-	&lt;table id=&quot;bookdetails&quot;&gt;
++	&lt;table id=&quot;litdetails&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Simon Wunderlich:&lt;br&gt;&lt;/th&gt;	
++				&lt;th scope=&quot;row&quot;&gt;Hans Wurst:&lt;br&gt;&lt;/th&gt;	
+ 				&lt;td&gt;Tolle Dramatik, wirklich fesselnder Storyverlauf, nur das Ende war ein bisschen matt.&lt;/td&gt;
+ 				&lt;td&gt;&lt;span style=&quot;font-size: 0.6em&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Hans Wurst:&lt;/th&gt;	
+-				&lt;td&gt;Ich fands langweilig.&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
+ 				&lt;td&gt;
+-				&lt;textarea cols=50 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
++				&lt;textarea cols=40 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
+ 				&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&nbsp;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+ 
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/litmod.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -22,10 +22,31 @@
+ 				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Stichworte:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Art:&lt;/th&gt;	
++				&lt;td&gt;&lt;select&gt;
++				&lt;option&gt;Buch&lt;/option&gt;
++				&lt;option&gt;Paper&lt;/option&gt;
++				&lt;option&gt;Hochglanzmagazin&lt;/option&gt;
++				&lt;option&gt;Boulevardmagazin&lt;/option&gt;
++				&lt;/select&gt;
++				&lt;/td&gt;
++			&lt;/tr&gt;
++
++
++			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Verlagsort:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/search.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -1,5 +1,5 @@
+ &lt;?php
+-	$title = &quot;Suchergebnisse f&uuml; \&quot;Algorithmen\&quot;&quot;;
++	$title = &quot;Suchergebnisse f&uuml;r \&quot;Algorithmen\&quot;&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+ 	require(&quot;include/header.php&quot;);
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/user.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -23,6 +23,11 @@
+ 				&lt;td&gt;Wunderlich&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Rechte:&lt;/th&gt;	
++				&lt;td&gt;Administrator&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;E-Mail:&lt;/th&gt;	
+ 				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&lt;/td&gt;
+ 			&lt;/tr&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/userlist.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -42,7 +42,7 @@
+ 	&lt;br&gt;
+ 	&lt;form action=&quot;usermod.php&quot;&gt;
+ 		&lt;div&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++			&lt;input type=&quot;submit&quot; value=&quot;Nutzer hinzuf&uuml;gen&quot;&gt;
+ 		&lt;/div&gt;
+ 	&lt;/form&gt;
+ 
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-04-25 14:56:08 UTC (rev 49)
++++ trunk/usermod.php	2006-04-25 15:05:04 UTC (rev 50)
+@@ -27,6 +27,15 @@
+ 				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Rechte:&lt;/th&gt;	
++				&lt;td&gt;&lt;select&gt;
++				&lt;option&gt;Administrator&lt;/option&gt;
++				&lt;option&gt;Mitarbeiter&lt;/option&gt;
++				&lt;/select&gt;
++				&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Passwort:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000039.html">[Liman-svn] r49 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000041.html">[Liman-svn] r51 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

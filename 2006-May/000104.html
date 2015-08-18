@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r114 - in trunk: docs/beleg2/doxygen include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r114%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605251436.k4PEamrh013749%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000103.html">
+   <LINK REL="Next"  HREF="000105.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r114%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605251436.k4PEamrh013749%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include">lazhur at berlios.de
+       </A><BR>
+    <I>Thu May 25 16:36:48 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000103.html">[Liman-svn] r113 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+        <LI>Next message: <A HREF="000105.html">[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-25 16:36:47 +0200 (Thu, 25 May 2006)
+New Revision: 114
+
+Modified:
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/include/literatur.php
+Log:
+- Literatur dokumentiert
+
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 14:14:46 UTC (rev 113)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 14:36:47 UTC (rev 114)
+@@ -50,7 +50,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet \hyperlink{classLiteratur}{Literatur}. 
+ 
+-TODO \begin{Desc}
++Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren, Hinzuf&#252;gen und &#196;ndern von \hyperlink{classLiteratur}{Literatur} in Bibliothek zur verf&#252;gung. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+@@ -66,7 +66,7 @@
+ 
+ Liest \hyperlink{classLiteratur}{Literatur} ein. 
+ 
+-TODO \begin{Desc}
++Erstellt aus \hyperlink{classLiteratur}{Literatur} in Bibliothek mit Literatur\_\-Nr (\$nr) neues Literaturobjekt. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -85,7 +85,7 @@
+ 
+ L&#246;scht \hyperlink{classLiteratur}{Literatur}. 
+ 
+-TODO \begin{Desc}
++L&#246;scht \hyperlink{classLiteratur}{Literatur} aus Bibliothek mit der Literatur\_\-Nr \$nr. Alle verbundenen Kommentare werden aus Kommentare gel&#246;scht. Au&#223;erdem werden alle nun nicht mehr gebrauchten Autoren in Autoren gel&#246;scht. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -101,7 +101,7 @@
+ 
+ Legt \hyperlink{classLiteratur}{Literatur} an. 
+ 
+-TODO \begin{Desc}
++Legt neue \hyperlink{classLiteratur}{Literatur} in Bibliothek mit den &#252;bergebenen Parametern (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) an. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Autoren\_\-Literatur der \hyperlink{classLiteratur}{Literatur} zugeordnet. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -117,7 +117,7 @@
+ 
+ Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+-TODO \begin{Desc}
++Importiert \hyperlink{classLiteratur}{Literatur} nach Bibliothek aus einem Bib\-Te\-X-formatierten String. Alle Eintr&#228;ge werden dazu nacheinandere eingelesen und umgewandelt, um diese dann in die Datenbank zu schreiben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -133,10 +133,10 @@
+ 
+ Exportiert \hyperlink{classLiteratur}{Literatur} nach \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+-TODO \begin{Desc}
++Exportiert die aktuellen Informationen im Literaturobjekt in das Bib\-Te\-X-Format. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\item[R\&quot;{u}ckgabe:]\$string mit Bib\-Te\-X-Eintrag \end{Desc}
+ \hypertarget{classLiteratur_b613c28476ea28058f8fc2bccb57c923}{
+ \index{Literatur@{Literatur}!Update@{Update}}
+ \index{Update@{Update}!Literatur@{Literatur}}
+@@ -146,7 +146,7 @@
+ 
+ &#196;ndert \hyperlink{classLiteratur}{Literatur}. 
+ 
+-TODO \begin{Desc}
++Entfernt alle zur Literatur\_\-Nr (\$nr) geh&#246;renden Verbindungen in Autor\_\-Literatur um danach die \hyperlink{classLiteratur}{Literatur} mit Literatur\_\-Nr \$nr zu den neuen Werten (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) zu &#228;ndern. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Autoren\_\-Literatur der \hyperlink{classLiteratur}{Literatur} zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in Autoren werden gel&#246;scht. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-25 14:14:46 UTC (rev 113)
++++ trunk/include/literatur.php	2006-05-25 14:36:47 UTC (rev 114)
+@@ -9,7 +9,8 @@
+ 
+ 	/*! \brief Verwaltet Literatur
+ 	 *
+-	 *  TODO
++	 *  Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren,
++	 *  Hinzuf&#252;gen und &#196;ndern von Literatur in Bibliothek zur verf&#252;gung.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Literatur
+@@ -28,7 +29,8 @@
+ 		
+ 		/*! \brief Liest Literatur ein
+ 		 *
+-		 *  TODO
++		 *  Erstellt aus Literatur in Bibliothek mit Literatur_Nr
++		 *  ($nr) neues Literaturobjekt.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer der zu einlesenden Literatur
+ 		 */
+@@ -38,9 +40,10 @@
+ 
+ 		/*! \brief Exportiert Literatur nach BibTeX
+ 		 *
+-		 *  TODO
++		 *  Exportiert die aktuellen Informationen im Literaturobjekt
++		 *  in das BibTeX-Format.
+ 		 *  \pre -
+-		 *  \return TODO
++		 *  \return $string mit BibTeX-Eintrag
+ 		 */
+ 		function ToBibtex()
+ 		{
+@@ -48,7 +51,10 @@
+ 
+ 		/*! \brief L&#246;scht Literatur
+ 		 *
+-		 *  TODO
++		 *  L&#246;scht Literatur aus Bibliothek mit der Literatur_Nr $nr.
++		 *  Alle verbundenen Kommentare werden aus Kommentare gel&#246;scht.
++		 *  Au&#223;erdem werden alle nun nicht mehr gebrauchten Autoren in
++		 *  Autoren gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer der zu l&#246;schenden Literatur
+ 		 */
+@@ -58,7 +64,10 @@
+ 
+ 		/*! \brief Importiert BibTeX
+ 		 *
+-		 *  TODO
++		 *  Importiert Literatur nach Bibliothek aus einem
++		 *  BibTeX-formatierten String. Alle Eintr&#228;ge werden dazu
++		 *  nacheinandere eingelesen und umgewandelt, um diese dann
++		 *  in die Datenbank zu schreiben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $bibtex String mit Inhalt einer BibTeX-Datei
+ 		 */
+@@ -68,7 +77,11 @@
+ 
+ 		/*! \brief Legt Literatur an
+ 		 *
+-		 *  TODO
++		 *  Legt neue Literatur in Bibliothek mit den &#252;bergebenen
++		 *  Parametern ($art, $titel, $jahr, $verlag, $isbn,
++		 *  $beschreibung, $ort, $stichworte) an. Danach werden die
++		 *  Autoren ($autoren) in Autoren geschrieben und mit der
++		 *  Tabelle Autoren_Literatur der Literatur zugeordnet.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+ 		 *  \param[in] $art Bezeichner der Literaturart
+@@ -86,7 +99,14 @@
+ 
+ 		/*! \brief &#196;ndert Literatur
+ 		 *
+-		 *  TODO
++		 *  Entfernt alle zur Literatur_Nr ($nr) geh&#246;renden
++		 *  Verbindungen in Autor_Literatur um danach die Literatur mit
++		 *  Literatur_Nr $nr zu den neuen Werten ($art, $titel, $jahr,
++		 *  $verlag, $isbn, $beschreibung, $ort, $stichworte) zu &#228;ndern.
++		 *  Danach werden die Autoren ($autoren) in Autoren geschrieben
++		 *  und mit der Tabelle Autoren_Literatur der Literatur
++		 *  zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in
++		 *  Autoren werden gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer der zu ver&#228;ndernden Literatur
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000103.html">[Liman-svn] r113 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+	<LI>Next message: <A HREF="000105.html">[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#104">[ date ]</a>
+              <a href="thread.html#104">[ thread ]</a>
+              <a href="subject.html#104">[ subject ]</a>
+              <a href="author.html#104">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

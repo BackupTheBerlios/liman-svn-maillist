@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r185 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r185%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606261728.k5QHSGsJ017343%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000174.html">
+   <LINK REL="Next"  HREF="000176.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r185 - trunk/docs/beleg3</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r185%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606261728.k5QHSGsJ017343%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r185 - trunk/docs/beleg3">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun 26 19:28:16 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000174.html">[Liman-svn] r184 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000176.html">[Liman-svn] r186 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-26 19:28:15 +0200 (Mon, 26 Jun 2006)
+New Revision: 185
+
+Modified:
+   trunk/docs/beleg3/tests.tex
+Log:
+- Systemtest hinzugef?\195?\188gt
+- Zeitplan und Verantwortlichkeiten hinzugef?\195?\188gt
+- Abschlu?\195?\159einsch?\195?\164tzung hinzugef?\195?\188gt
+- Tippfehler in Testf?\195?\164llen korrigiert
+
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-06-24 12:16:37 UTC (rev 184)
++++ trunk/docs/beleg3/tests.tex	2006-06-26 17:28:15 UTC (rev 185)
+@@ -126,7 +126,7 @@
+ \item Systemzustand vor dem Test:\\
+ 	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
+ \item Eingabedaten:\\
+-	Begonnen wird der Test mit dem Anmelden als Administrator. Neues Mitglied wird mit dem Login des Administratos angelegt. Beendet wird der Test mit dem Abmelden.
++	Begonnen wird der Test mit dem Anmelden als Administrator. Neues Mitglied wird mit dem Login des Administrators angelegt. Beendet wird der Test mit dem Abmelden.
+ \item Erwartete Ereignisse:\\
+ 	System gibt Fehlermeldung aus.
+ \item Systemzustand nach Test:\\
+@@ -314,6 +314,42 @@
+ 22 &amp; x &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp; x &amp;  \\\hline
+ \end{longtable}
+ 
++\subsection{Zeitplan und Verantwortlichkeiten}
++Verantwortlich f&#252;r die Vorbereitung, Durchf&#252;hrung und Auswertung der Tests waren Frank Wilhelm und Sven Eckelmann. Abh&#228;ngigkeiten zwischen den einzelnen Testf&#228;llen besteht nicht. Alle Tests wurden mehrfach zwischen 30.04. und 26.06.2006 durchgef&#252;hrt. Ein abschlie&#223;ender Test erfolgte am 26.06.2006.
++
+ \section{Systemtest}
++\begin{longtable}{|c|p{8cm}|c|c|}
++\hline
++	\textbf{Testfall} &amp; 
++	\textbf{Ergebnis} &amp;
++	\textbf{korrekt} &amp;
++	\textbf{nicht korrekt}\\
++\hline\hline
++\endhead
+ 
++ 1 &amp; Alle Klassentests geben ``OK'' zur&#252;ck. &amp; x &amp;  \\\hline
++ 2 &amp; Speicher wurden angelegt bzw. gel&#246;scht und danach neu angelegt. Neuer Administrator ist angelegt. &amp; x &amp;  \\\hline
++ 3 &amp; Anzeige aller Ansichten. Kein Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 4 &amp; Anzeige aller Ansichten, au&#223;er gesperrter Ansichten. Kein Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 5 &amp; Anzeige aller Ansichten, au&#223;er gesperrter Ansichten. Kein Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 6 &amp; Neue Literatur wurde angelegt und wird in Literaturinformation angezeigt. Neue Autoren wurden in Autoren abgelegt und mit Literatur verkn&#252;pft. Kein weiterer Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 7 &amp; Neue Literatur wurde nach Best&#228;tigung angelegt und wird in Literaturinformation angezeigt. Neue Autoren wurden in Autoren abgelegt und mit Literatur verkn&#252;pft. Kein weiterer Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 8 &amp; Literatur wurde ge&#228;ndert und wird in Literaturinformation angezeigt. Neue Autoren wurden in Autoren abgelegt, alte entfernt und neue mit Literatur verkn&#252;pft. Kein weiterer Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++ 9 &amp; Literatur wurde entfernt. Alte Autoren wurden genauso wie ihre Verkn&#252;pfungen entfernt. Kein weiterer Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++10 &amp; Neuer Nutzer wurde angelegt und wird angezeigt. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++11 &amp; Fehler wurde beim Anlegen ausgegeben. Keine Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++12 &amp; Nutzer wurde ge&#228;ndert und wird angezeigt. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++13 &amp; Eigener Nutzer wurde ge&#228;ndert und wird angezeigt. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++14 &amp; Nutzer wurde gel&#246;scht. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++15 &amp; Neuer Kommentar wurde angelegt und wird in Literaturinformation angezeigt. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++16 &amp; Kommentar wurde ge&#228;ndert und wird in Literaturinformation angezeigt. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++17 &amp; Kommentar wurde gel&#246;scht. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++18 &amp; Kommentar wurde gel&#246;scht. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++19 &amp; Literatur wurde entfernt. Alte Autoren wurden genauso wie ihre Verkn&#252;pfungen und Kommentare entfernt. Kein weiterer Speicher wurde ge&#228;ndert. &amp; x &amp;  \\\hline
++20 &amp; Nutzer wurde mit dazugeh&#246;rigen Kommentaren gel&#246;scht. Keine weiteren Speicher wurden ge&#228;ndert. &amp; x &amp;  \\\hline
++21 &amp; Alle gesuchten B&#252;cher wurden gefunden, ausgegeben und k&#246;nnen ausgew&#228;hlt werden. &amp; x &amp;  \\\hline
++22 &amp; Alle gesuchten B&#252;cher wurden gefunden, ausgegeben und k&#246;nnen ausgew&#228;hlt werden. &amp; x &amp;  \\\hline
++\end{longtable}
++
+ \section{Abschlu&#223;einsch&#228;tzung}
++Die beim abschlie&#223;enden Systemtest erhaltenen Ergebnisse stimmen mit den erwarteten Ergebnissen &#252;berein. Durch dies kann der Systemtest als erfolgreich angesehen werden. Die in der Spezifikation gesetzten Anforderungen wurden erf&#252;llt. Das System kann aus diesem Grund als einsatzbereit angesehen werden. Eine vollkommene Fehlerfreiheit kann trotz der Tests nicht garantiert werden.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000174.html">[Liman-svn] r184 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000176.html">[Liman-svn] r186 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#175">[ date ]</a>
+              <a href="thread.html#175">[ thread ]</a>
+              <a href="subject.html#175">[ subject ]</a>
+              <a href="author.html#175">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

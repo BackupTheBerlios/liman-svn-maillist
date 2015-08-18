@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r161 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r161%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606122018.k5CKIYwk005687%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000150.html">
+   <LINK REL="Next"  HREF="000152.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r161 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r161%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606122018.k5CKIYwk005687%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r161 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun 12 22:18:34 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000150.html">[Liman-svn] r160 - in trunk: . include
+</A></li>
+        <LI>Next message: <A HREF="000152.html">[Liman-svn] r162 - trunk/design
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#151">[ date ]</a>
+              <a href="thread.html#151">[ thread ]</a>
+              <a href="subject.html#151">[ subject ]</a>
+              <a href="author.html#151">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-12 22:18:33 +0200 (Mon, 12 Jun 2006)
+New Revision: 161
+
+Added:
+   trunk/install.php
+Modified:
+   trunk/design/liman.css
+   trunk/include/header.php
+Log:
+- install.php hinzugef?\195?\188gt
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-12 18:24:14 UTC (rev 160)
++++ trunk/design/liman.css	2006-06-12 20:18:33 UTC (rev 161)
+@@ -20,6 +20,14 @@
+ 	margin-bottom: 2em;
+ }
+ 
++#installerror {
++	margin: 0;
++	padding: 3px;
++	border-bottom: 1px solid #000000;
++	font-size: 0.8em;
++	background-color: #ffffdc;
++}
++
+ #content h2 {
+ 	padding-bottom: 1em;
+ }
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-06-12 18:24:14 UTC (rev 160)
++++ trunk/include/header.php	2006-06-12 20:18:33 UTC (rev 161)
+@@ -29,6 +29,17 @@
+ 		&lt;link rel=&quot;home&quot; title=&quot;Home&quot; href=&quot;index.&lt;?=$ext;?&gt;&quot;&gt;
+ 	&lt;/head&gt;
+ 	&lt;body id=&quot;liman&quot;&gt;
++		&lt;?php
++			// Gebe Warnung aus, wenn install.php nicht gel&#246;scht wurde und es nicht unterdr&#252;ckt wird
++			if (file_exists(&quot;install.php&quot;) === true &amp;&amp; 
++				((empty($disable_installwarning) === false &amp;&amp; $disable_installwarning === false)
++				|| empty($disable_installwarning) === true))
++			{
++				echo &quot;&lt;div id=\&quot;installerror\&quot;&gt;
++					install.php wurde nicht gel&#246;scht. Erledigen sie dies so schnell wie m&#246;glich
++					&lt;/div&gt;&quot;;
++			}
++		?&gt;
+ 		&lt;div id=&quot;container&quot;&gt;
+ 			&lt;div id=&quot;header&quot;&gt;
+ 				&lt;h1&gt;&lt;span&gt;&lt;acronym title=&quot;Literature Manager&quot;&gt;LiMan&lt;/acronym&gt;&lt;/span&gt;&lt;/h1&gt;
+
+Added: trunk/install.php
+===================================================================
+--- trunk/install.php	2006-06-12 18:24:14 UTC (rev 160)
++++ trunk/install.php	2006-06-12 20:18:33 UTC (rev 161)
+@@ -0,0 +1,323 @@
++&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;<A HREF="http://www.w3.org/TR/html4/strict.dtd">http://www.w3.org/TR/html4/strict.dtd</A>&quot;&gt;
++&lt;html&gt;
++	&lt;head&gt;
++		&lt;title&gt;Install :: LiMan&lt;/title&gt;
++		&lt;link rel=&quot;SHORTCUT ICON&quot; href=&quot;favicon.ico&quot;&gt;
++		&lt;meta name=&quot;description&quot; content=&quot;Literature Manager&quot;&gt;
++		&lt;meta name=&quot;keywords&quot; content=&quot;bibtex, books, literature, database, manager&quot;&gt;
++		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
++		&lt;meta name=&quot;robots&quot; content=&quot;follow&quot;&gt;
++		&lt;meta http-equiv=&quot;content-language&quot; content=&quot;de&quot;&gt;
++		&lt;meta name=&quot;author&quot; content=&quot;Simon Wunderlich&quot;&gt;
++		&lt;link rel=&quot;home&quot; title=&quot;Home&quot; href=&quot;index.php&quot;&gt;
++		&lt;style type=&quot;text/css&quot;&gt;
++			th {
++				width: 10em;
++				text-align: left;
++			}
++			td {
++				width: 20em;
++			}
++
++			.input_text, .input_password {
++				width: 20em;
++			}
++		&lt;/style&gt;
++	&lt;/head&gt;
++	&lt;body id=&quot;liman_install&quot;&gt;
++		&lt;h1&gt;LiMan Installation&lt;/h1&gt;
++&lt;?php
++	if (empty($_POST[&quot;dbms&quot;]) === false)
++	{
++		$db_config['dbms'] = &quot;mysql&quot;;
++
++		if ($_POST[&quot;dbms&quot;] === &quot;MySQL5&quot;)
++		{
++			$enableUTF8 = true;
++		}
++		else
++		{
++			$enableUTF8 = false;
++		}
++	}
++	else
++	{
++		$db_config['dbms'] = &quot;mysql&quot;;
++	}
++
++	if (empty($_POST[&quot;user&quot;]) === false)
++	{
++		$db_config['user'] = $_POST[&quot;user&quot;];
++	}
++	else
++	{
++		$db_config['user'] = &quot;&quot;;
++	}
++
++	if (empty($_POST[&quot;pass&quot;]) === false)
++	{
++		$db_config['pass'] = $_POST[&quot;pass&quot;];
++	}
++	else
++	{
++		$db_config['pass'] = &quot;&quot;;
++	}
++
++	if (empty($_POST[&quot;name&quot;]) === false)
++	{
++		$db_config['name'] = $_POST[&quot;name&quot;];
++	}
++	else
++	{
++		$db_config['name'] = &quot;&quot;;
++	}
++
++	if (empty($_POST[&quot;host&quot;]) === false)
++	{
++		$db_config['host'] = $_POST[&quot;host&quot;];
++	}
++	else
++	{
++		$db_config['host'] = &quot;&quot;;
++	}
++
++	if (empty($_POST[&quot;name&quot;]) === false)
++	{
++		$db_config['name'] = $_POST[&quot;name&quot;];
++	}
++	else
++	{
++		$db_config['name'] = &quot;liman&quot;;
++	}
++
++	if (empty($_POST[&quot;prefix&quot;]) === false)
++	{
++		$db_config['prefix'] = $_POST[&quot;prefix&quot;];
++	}
++	elseif (isset($_GET[&quot;install&quot;]) === true)
++	{
++		$db_config['prefix'] = &quot;&quot;;
++	}
++	else
++	{
++		$db_config['prefix'] = &quot;liman_&quot;;
++	}
++
++	if (empty($_POST[&quot;loginname&quot;]) === false)
++	{
++		$loginname = $_POST[&quot;loginname&quot;];
++	}
++	elseif (isset($_GET[&quot;install&quot;]) === true)
++	{
++		die(&quot;Sie m&#252;ssen ein Loginname angeben&quot;);
++		echo &quot;&lt;/body&gt;&lt;/html&gt;&quot;;
++	}
++	else
++	{
++		$loginname = &quot;admin&quot;;
++	}
++
++	if (empty($_POST[&quot;passwort&quot;]) === false)
++	{
++		$passworthash = sha1($_POST[&quot;passwort&quot;]);
++	}
++	elseif (isset($_GET[&quot;install&quot;]) === true)
++	{
++		$passworthash = &quot;&quot;;
++		die(&quot;Sie m&#252;ssen ein Passwort angeben&quot;);
++		echo &quot;&lt;/body&gt;&lt;/html&gt;&quot;;
++	}
++	else
++	{
++		$passworthash = &quot;&quot;;
++	}
++
++	
++	if (isset($_GET[&quot;install&quot;]) === true)
++	{
++		require_once(&quot;include/sqldb.php&quot;);
++	
++		$sqlDrop[&quot;Autoren&quot;] = &quot;DROP TABLE IF EXISTS `&quot;.$db_config['prefix'].&quot;Autoren`&quot;;
++		$sqlDrop[&quot;Bibliothek&quot;] = &quot;DROP TABLE IF EXISTS `&quot;.$db_config['prefix'].&quot;Bibliothek`&quot;;
++		$sqlDrop[&quot;Kommentare&quot;] = &quot;DROP TABLE IF EXISTS `&quot;.$db_config['prefix'].&quot;Kommentare`&quot;;
++		$sqlDrop[&quot;Literatur_Autor&quot;] = &quot;DROP TABLE IF EXISTS `&quot;.$db_config['prefix'].&quot;Literatur_Autor`&quot;;
++		$sqlDrop[&quot;Mitglieder&quot;] = &quot;DROP TABLE IF EXISTS `&quot;.$db_config['prefix'].&quot;Mitglieder`&quot;;
++	
++		$sqlCreate[&quot;Autoren&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Autoren` (
++			`Autor_Nr` int(11) NOT NULL auto_increment,
++			`Autorname` varchar(40) NOT NULL,
++			PRIMARY KEY  (`Autor_Nr`),
++			UNIQUE KEY `Autorname` (`Autorname`),
++			FULLTEXT KEY `Autorname_2` (`Autorname`)
++			)&quot;;
++	
++		$sqlCreate[&quot;Bibliothek&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Bibliothek` (
++			`Literatur_Nr` int(11) NOT NULL auto_increment,
++			`Art` enum('Buch','Artikel','Brosch&#252;re','Protokoll','Anleitung','Diplomarbeit','Dissertation','Techn. Bericht','Unver&#246;ffentlicht','Sonstiges') NOT NULL,
++			`Titel` varchar(40) NOT NULL,
++			`Jahr` int(11) NOT NULL,
++			`Verlag` varchar(40) NOT NULL,
++			`ISBN` varchar(20) NOT NULL,
++			`Beschreibung` text NOT NULL,
++			`Ort` varchar(40) NOT NULL,
++			`Stichworte` varchar(100) NOT NULL,
++			PRIMARY KEY  (`Literatur_Nr`),
++			FULLTEXT KEY `Titel` (`Titel`,`Verlag`,`ISBN`,`Beschreibung`,`Ort`,`Stichworte`)
++			)&quot;;
++	
++		$sqlCreate[&quot;Kommentare&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Kommentare` (
++			`Kommentar_Nr` int(11) NOT NULL auto_increment,
++			`Kommentartext` text NOT NULL,
++			`Literatur_Nr` int(11) NOT NULL,
++			`Mitglieds_Nr` int(11) NOT NULL,
++			PRIMARY KEY  (`Kommentar_Nr`),
++			KEY `Literatur_Nr` (`Literatur_Nr`,`Mitglieds_Nr`),
++			FULLTEXT KEY `Kommentartext` (`Kommentartext`)
++			)&quot;;
++	
++		$sqlCreate[&quot;Literatur_Autor&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Literatur_Autor` (
++			`Autor_Nr` int(11) NOT NULL,
++			`Literatur_Nr` int(11) NOT NULL,
++			KEY `Autor_Nr` (`Autor_Nr`,`Literatur_Nr`)
++			)&quot;;
++	
++		$sqlCreate[&quot;Mitglieder&quot;] = &quot;CREATE TABLE `&quot;.$db_config['prefix'].&quot;Mitglieder` (
++			`Mitglieds_Nr` int(11) NOT NULL auto_increment,
++			`Name` varchar(20) NOT NULL,
++			`Vorname` varchar(20) NOT NULL,
++			`Email` text NOT NULL,
++			`Login` varchar(12) NOT NULL,
++			`Passwort` varchar(40) NOT NULL,
++			`Rechte` enum('Benutzer','Administrator') NOT NULL,
++			PRIMARY KEY  (`Mitglieds_Nr`),
++			UNIQUE KEY `Login` (`Login`)
++			)&quot;;
++	
++		if ($enableUTF8 === true)
++		{
++			$sqlCreate[&quot;Autoren&quot;] .= &quot; DEFAULT CHARSET=utf8&quot;;
++			$sqlCreate[&quot;Bibliothek&quot;] .= &quot; DEFAULT CHARSET=utf8&quot;;
++			$sqlCreate[&quot;Kommentare&quot;] .= &quot; DEFAULT CHARSET=utf8&quot;;
++			$sqlCreate[&quot;Literatur_Autor&quot;] .= &quot; DEFAULT CHARSET=utf8&quot;;
++			$sqlCreate[&quot;Mitglieder&quot;] .= &quot; DEFAULT CHARSET=utf8&quot;;
++		}
++	
++		$sqlInsertMitglied = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Mitglieder
++				VALUES (NULL, 'Istrator', 'Admin', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">foo at bar.de</A>', '$loginname', '$passworthash', 'Administrator')&quot;;
++	
++		foreach ($sqlDrop as $drop)
++		{
++			if ($sqldb-&gt;Query($drop) === false)
++			{
++				echo &quot;&lt;div class=\&quot;error\&quot;&gt;Es trat ein Fehler bei der Verarbeitung auf:&lt;pre&gt;&quot;;
++				echo htmlspecialchars($drop);
++				echo &quot;&lt;/pre&gt;&lt;/div&gt;&quot;;
++				echo &quot;&lt;/body&gt;&lt;/html&gt;&quot;;
++				die();
++			}
++		}
++	
++		foreach ($sqlCreate as $create)
++		{
++			if ($sqldb-&gt;Query($create) === false)
++			{
++				echo &quot;&lt;div class=\&quot;error\&quot;&gt;Es trat ein Fehler bei der Verarbeitung auf:&lt;pre&gt;&quot;;
++				echo htmlspecialchars($create);
++				echo &quot;&lt;/pre&gt;&lt;/div&gt;&quot;;
++				echo &quot;&lt;/body&gt;&lt;/html&gt;&quot;;
++				die();
++			}
++		}
++	
++		if ($sqldb-&gt;Query($sqlInsertMitglied) === false)
++		{
++			echo &quot;&lt;div class=\&quot;error\&quot;&gt;Es trat ein Fehler bei der Verarbeitung auf:&lt;pre&gt;&quot;;
++			echo htmlspecialchars($sqlInsertMitglied);
++			echo &quot;&lt;/pre&gt;&lt;/div&gt;&quot;;
++			echo &quot;&lt;/body&gt;&lt;/html&gt;&quot;;
++			die();
++		}
++
++		?&gt;
++			&lt;p&gt;Datenbank wurde erfolgreich eingerichtet.&lt;/p&gt;
++			&lt;p&gt;Erstellen sie in ihrem Installationsordner eine Datei mit dem Namen &quot;config.php&quot; und folgendem Inhalt:
++			&lt;pre&gt;
++&lt;?php
++	// Datenbankeinstellungen
++	$db_config['dbms'] = &quot;&lt;?=htmlspecialchars($db_config['dbms']);?&gt;&quot;;
++	$db_config['user'] = &quot;&lt;?=htmlspecialchars($db_config['user']);?&gt;&quot;;
++	$db_config['pass'] = &quot;&lt;?=htmlspecialchars($db_config['pass']);?&gt;&quot;;
++	$db_config['name'] = &quot;&lt;?=htmlspecialchars($db_config['name']);?&gt;&quot;;
++	$db_config['host'] = &quot;&lt;?=htmlspecialchars($db_config['host']);?&gt;&quot;;
++	$db_config['prefix'] = &quot;&lt;?=htmlspecialchars($db_config['prefix']);?&gt;&quot;;
++
++	$ext = &quot;php&quot;;	// Endung der von den Usern abrufbaren Dateien
++	$gz_enable = false; // aktiviere GZIP-Kompression der HTML-Dateien
++?&gt;
++			&lt;/pre&gt;&lt;/p&gt;
++		&lt;?php
++	}
++	else
++	{
++		require_once(&quot;include/form_helper.php&quot;);
++		?&gt;
++		&lt;form id=&quot;installform&quot; action=&quot;install.php?install=&quot; method=&quot;post&quot;&gt;
++		
++		&lt;h2&gt;Datenbankeinstellungen&lt;/h2&gt;
++		&lt;table&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;dbms&quot;&gt;Datenbanksystem&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_select(array(&quot;MySQL3&quot;, &quot;MySQL4&quot;, &quot;MySQL5&quot;), &quot;dbms&quot;, &quot;MySQL5&quot;); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;user&quot;&gt;Benutzername&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;text&quot;, &quot;user&quot;, $db_config[&quot;user&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;pass&quot;&gt;Passwort&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;password&quot;, &quot;pass&quot;); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;host&quot;&gt;Host&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;text&quot;, &quot;host&quot;, $db_config[&quot;host&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;name&quot;&gt;Datenbankname&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;text&quot;, &quot;name&quot;, $db_config[&quot;name&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;prefix&quot;&gt;Prefix&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;text&quot;, &quot;prefix&quot;, $db_config[&quot;prefix&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++		&lt;/table&gt;
++
++
++		&lt;h2&gt;Administratoreinstellungen&lt;/h2&gt;
++		&lt;table&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;loginname&quot;&gt;Loginname&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;text&quot;, &quot;loginname&quot;, $db_config[&quot;loginname&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++			&lt;th scope=&quot;row&quot;&gt;&lt;label for=&quot;passwort&quot;&gt;Passwort&lt;/label&gt;&lt;/th&gt;
++			&lt;td&gt;&lt;?= form_input(&quot;password&quot;, &quot;passwort&quot;, $db_config[&quot;passwort&quot;]); ?&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++		&lt;/table&gt;
++
++		&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;&Uuml;bernehmen&quot;&gt;&lt;/div&gt;
++		&lt;/form&gt;
++		&lt;?php
++	}
++	
++?&gt;
++&lt;/body&gt;&lt;/html&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000150.html">[Liman-svn] r160 - in trunk: . include
+</A></li>
+	<LI>Next message: <A HREF="000152.html">[Liman-svn] r162 - trunk/design
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#151">[ date ]</a>
+              <a href="thread.html#151">[ thread ]</a>
+              <a href="subject.html#151">[ subject ]</a>
+              <a href="author.html#151">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

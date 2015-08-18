@@ -1,0 +1,20 @@
+From lazhur at mail.berlios.de  Wed Nov 15 17:04:59 2006
+From: lazhur at mail.berlios.de (lazhur at BerliOS)
+Date: Wed, 15 Nov 2006 17:04:59 +0100
+Subject: [Liman-svn] r208 - tags
+Message-ID: <200611151604.kAFG4xrr012296@sheep.berlios.de>
+
+Author: lazhur
+Date: 2006-11-15 17:04:59 +0100 (Wed, 15 Nov 2006)
+New Revision: 208
+
+Added:
+   tags/0.1/
+Log:
+Tagging the 0.1 release
+
+
+Copied: tags/0.1 (from rev 207, trunk)
+
+
+

@@ -1,0 +1,2824 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r105 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r105%20-%20in%20trunk%3A%20.%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605221540.k4MFeWdN015427%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000093.html">
+   <LINK REL="Next"  HREF="000096.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r105 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r105%20-%20in%20trunk%3A%20.%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605221540.k4MFeWdN015427%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r105 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon May 22 17:40:32 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000093.html">[Liman-svn] r104 - in trunk: docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000096.html">[Liman-svn] r106 - trunk/docs/beleg2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-22 17:40:17 +0200 (Mon, 22 May 2006)
+New Revision: 105
+
+Modified:
+   trunk/docs/beleg2/Doxyfile
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+   trunk/docs/beleg2/doxygen/classLogin.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/docs/beleg2/visio/LiMan System.vsd
+   trunk/include/autor.php
+   trunk/include/bibtex.php
+   trunk/include/global.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/userlist.php
+Log:
+- Entfernen der ?\195?\188berladenen Funktionen aus UML
+- Hinzuf?\195?\188gen von Login::Nr
+- Genaue Klassenspezifikation f?\195?\188r LiteraturArt, Login, Mitglied, SQLDB, Suche
+- Entfernen ?\195?\188berladener Funktionen
+- Erzeugen neuer &quot;privater&quot; Funktionen f?\195?\188r Suche
+- Dummydaten in Login, Mitglied, Suche
+- Grobe Spezifikation in Autor, Kommentar, Literatur
+
+
+Modified: trunk/docs/beleg2/Doxyfile
+===================================================================
+--- trunk/docs/beleg2/Doxyfile	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/Doxyfile	2006-05-22 15:40:17 UTC (rev 105)
+@@ -60,12 +60,12 @@
+ SORT_MEMBER_DOCS       = YES
+ SORT_BRIEF_DOCS        = NO
+ SORT_BY_SCOPE_NAME     = NO
+-GENERATE_TODOLIST      = YES
+-GENERATE_TESTLIST      = YES
+-GENERATE_BUGLIST       = YES
+-GENERATE_DEPRECATEDLIST= YES
++GENERATE_TODOLIST      = NO
++GENERATE_TESTLIST      = NO
++GENERATE_BUGLIST       = NO
++GENERATE_DEPRECATEDLIST= NO
+ ENABLED_SECTIONS       = 
+-MAX_INITIALIZER_LINES  = 30
++MAX_INITIALIZER_LINES  = 0
+ SHOW_USED_FILES        = NO
+ SHOW_DIRECTORIES       = NO
+ FILE_VERSION_FILTER    = 
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,34 +2,36 @@
+ \subsection{Autor Klassenreferenz}
+ \label{classAutor}\index{Autor@{Autor}}
+ }
+-TODO.  
++Verwaltet Autoren.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classAutor_2302710dd8970853f5d49c62d4586e8f}{Autor} (\$data)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Legt Autorenobjekt an. \item\end{CompactList}\item 
+ \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Clean} ()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Entfernt unn&#246;tige Autoren. \item\end{CompactList}\item 
+ \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Split} (\$autoren)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em Legt neue Autoren aus kommagetrennter Liste an. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}{\$Nr} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classAutor_8602b5705cef83e7c16f4040f9add56d}{\$Name} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}{\$Nr}
++\begin{CompactList}\small\item\em Identifikationsnummer des Autors. \item\end{CompactList}\item 
++\hyperlink{classAutor_8602b5705cef83e7c16f4040f9add56d}{\$Name}
++\begin{CompactList}\small\item\em Name des Autors. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++Verwaltet Autoren. 
+ 
+-TODO 
++TODO \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ 
++
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+ \hypertarget{classAutor_2302710dd8970853f5d49c62d4586e8f}{
+ \index{Autor@{Autor}!Autor@{Autor}}
+@@ -38,14 +40,16 @@
+ \label{classAutor_2302710dd8970853f5d49c62d4586e8f}
+ 
+ 
+-TODO. 
++Legt Autorenobjekt an. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$data}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$data}]Objekt mit Autorendaten der Form\begin{itemize}
++\item Nr\item Name \end{itemize}
++\end{description}
+ \end{Desc}
+ 
+ 
+@@ -57,10 +61,10 @@
+ \label{classAutor_77b27af7e471abe5a404fc92c7319921}
+ 
+ 
+-TODO. 
++Entfernt unn&#246;tige Autoren. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \hypertarget{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{
+ \index{Autor@{Autor}!Split@{Split}}
+ \index{Split@{Split}!Autor@{Autor}}
+@@ -68,35 +72,35 @@
+ \label{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}
+ 
+ 
+-TODO. 
++Legt neue Autoren aus kommagetrennter Liste an. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$autoren}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\item[R\&quot;{u}ckgabe:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+ \hypertarget{classAutor_8602b5705cef83e7c16f4040f9add56d}{
+ \index{Autor@{Autor}!$Name@{\$Name}}
+ \index{$Name@{\$Name}!Autor@{Autor}}
+-\paragraph[\$Name]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Name = 0}\hfill}
++\paragraph[\$Name]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Name}\hfill}
+ \label{classAutor_8602b5705cef83e7c16f4040f9add56d}
+ 
+ 
+-TODO. 
++Name des Autors. 
+ 
+ \hypertarget{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}{
+ \index{Autor@{Autor}!$Nr@{\$Nr}}
+ \index{$Nr@{\$Nr}!Autor@{Autor}}
+-\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Nr = 0}\hfill}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Nr}\hfill}
+ \label{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}
+ 
+ 
+-TODO. 
++Identifikationsnummer des Autors. 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,40 +2,40 @@
+ \subsection{Kommentar Klassenreferenz}
+ \label{classKommentar}\index{Kommentar@{Kommentar}}
+ }
+-TODO.  
++Verwaltet Kommentare.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classKommentar_ea774e2108c754890c602dfdd53d64e1}{Kommentar} (\$data)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Legt Kommentarobjekt an. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}{Delete} (\$nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em L&#246;scht \hyperlink{classKommentar}{Kommentar}. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Delete\-All} (\$literatur\_\-nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}{Insert} (\$data)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classKommentar_074f62a61ba97457894fc52935724116}{Update} (\$text, \$verfasser\_\-nr, \$literatur\_\-nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em L&#246;scht alle zu einer \hyperlink{classLiteratur}{Literatur} geh&#246;renden Kommentare. \item\end{CompactList}\item 
++\hyperlink{classKommentar_6119b3c12a61d8d5a41cded165517914}{Insert} (\$text, \$verfasser\_\-nr, \$literatur\_\-nr)
++\begin{CompactList}\small\item\em Legt \hyperlink{classKommentar}{Kommentar} an. \item\end{CompactList}\item 
++\hyperlink{classKommentar_0b3e20e910493e67b67b747243f04511}{Update} (\$nr, \$text)
++\begin{CompactList}\small\item\em &#196;ndert einen \hyperlink{classKommentar}{Kommentar}. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}{\$Nr} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classKommentar_c9a481413d6ba0c000719ad514bad4b5}{\$Text} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classKommentar_c92b002e40690ee052fec446ff2a0ef6}{\$Verfasser\_\-Nr} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classKommentar_84f0fc10295968adde28169f8df018d9}{\$Verfasser\_\-Name} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}{\$Nr}
++\begin{CompactList}\small\item\em Identifikationsnummer des Kommentars. \item\end{CompactList}\item 
++\hyperlink{classKommentar_c9a481413d6ba0c000719ad514bad4b5}{\$Text}
++\begin{CompactList}\small\item\em Kommentartext. \item\end{CompactList}\item 
++\hyperlink{classKommentar_c92b002e40690ee052fec446ff2a0ef6}{\$Verfasser\_\-Nr}
++\begin{CompactList}\small\item\em Mitglieds\_\-Nr des Verfassers. \item\end{CompactList}\item 
++\hyperlink{classKommentar_84f0fc10295968adde28169f8df018d9}{\$Verfasser\_\-Name}
++\begin{CompactList}\small\item\em Name des Verfassers (Vor- und Nachname). \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++Verwaltet Kommentare. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ 
+@@ -48,14 +48,16 @@
+ \label{classKommentar_ea774e2108c754890c602dfdd53d64e1}
+ 
+ 
+-TODO. 
++Legt Kommentarobjekt an. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$data}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$data}]Objekt mit Kommentardaten der Form\begin{itemize}
++\item Nr\item Text\item Mitglieds\_\-Nr\item Vorname\item Nachname \end{itemize}
++\end{description}
+ \end{Desc}
+ 
+ 
+@@ -67,14 +69,14 @@
+ \label{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}
+ 
+ 
+-TODO. 
++L&#246;scht \hyperlink{classKommentar}{Kommentar}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars \end{description}
+ \end{Desc}
+ \hypertarget{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{
+ \index{Kommentar@{Kommentar}!DeleteAll@{DeleteAll}}
+@@ -83,46 +85,46 @@
+ \label{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}
+ 
+ 
+-TODO. 
++L&#246;scht alle zu einer \hyperlink{classLiteratur}{Literatur} geh&#246;renden Kommentare. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+-\hypertarget{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}{
++\hypertarget{classKommentar_6119b3c12a61d8d5a41cded165517914}{
+ \index{Kommentar@{Kommentar}!Insert@{Insert}}
+ \index{Insert@{Insert}!Kommentar@{Kommentar}}
+-\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Insert (\$ {\em data})}\hfill}
+-\label{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Insert (\$ {\em text}, \$ {\em verfasser\_\-nr}, \$ {\em literatur\_\-nr})}\hfill}
++\label{classKommentar_6119b3c12a61d8d5a41cded165517914}
+ 
+ 
+-TODO. 
++Legt \hyperlink{classKommentar}{Kommentar} an. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$data}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+-\hypertarget{classKommentar_074f62a61ba97457894fc52935724116}{
++\hypertarget{classKommentar_0b3e20e910493e67b67b747243f04511}{
+ \index{Kommentar@{Kommentar}!Update@{Update}}
+ \index{Update@{Update}!Kommentar@{Kommentar}}
+-\paragraph[Update]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Update (\$ {\em text}, \$ {\em verfasser\_\-nr}, \$ {\em literatur\_\-nr})}\hfill}
+-\label{classKommentar_074f62a61ba97457894fc52935724116}
++\paragraph[Update]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Update (\$ {\em nr}, \$ {\em text})}\hfill}
++\label{classKommentar_0b3e20e910493e67b67b747243f04511}
+ 
+ 
+-TODO. 
++&#196;ndert einen \hyperlink{classKommentar}{Kommentar}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$text}]TODO \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]TODO \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars \end{description}
+ \end{Desc}
+ 
+ 
+@@ -130,36 +132,36 @@
+ \hypertarget{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}{
+ \index{Kommentar@{Kommentar}!$Nr@{\$Nr}}
+ \index{$Nr@{\$Nr}!Kommentar@{Kommentar}}
+-\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Nr = 0}\hfill}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Nr}\hfill}
+ \label{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}
+ 
+ 
+-TODO. 
++Identifikationsnummer des Kommentars. 
+ 
+ \hypertarget{classKommentar_c9a481413d6ba0c000719ad514bad4b5}{
+ \index{Kommentar@{Kommentar}!$Text@{\$Text}}
+ \index{$Text@{\$Text}!Kommentar@{Kommentar}}
+-\paragraph[\$Text]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Text = 0}\hfill}
++\paragraph[\$Text]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Text}\hfill}
+ \label{classKommentar_c9a481413d6ba0c000719ad514bad4b5}
+ 
+ 
+-TODO. 
++Kommentartext. 
+ 
+ \hypertarget{classKommentar_84f0fc10295968adde28169f8df018d9}{
+ \index{Kommentar@{Kommentar}!$Verfasser_Name@{\$Verfasser\_\-Name}}
+ \index{$Verfasser_Name@{\$Verfasser\_\-Name}!Kommentar@{Kommentar}}
+-\paragraph[\$Verfasser\_\-Name]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Name = 0}\hfill}
++\paragraph[\$Verfasser\_\-Name]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Name}\hfill}
+ \label{classKommentar_84f0fc10295968adde28169f8df018d9}
+ 
+ 
+-TODO. 
++Name des Verfassers (Vor- und Nachname). 
+ 
+ \hypertarget{classKommentar_c92b002e40690ee052fec446ff2a0ef6}{
+ \index{Kommentar@{Kommentar}!$Verfasser_Nr@{\$Verfasser\_\-Nr}}
+ \index{$Verfasser_Nr@{\$Verfasser\_\-Nr}!Kommentar@{Kommentar}}
+-\paragraph[\$Verfasser\_\-Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Nr = 0}\hfill}
++\paragraph[\$Verfasser\_\-Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Nr}\hfill}
+ \label{classKommentar_c92b002e40690ee052fec446ff2a0ef6}
+ 
+ 
+-TODO. 
++Mitglieds\_\-Nr des Verfassers. 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,56 +2,56 @@
+ \subsection{Literatur Klassenreferenz}
+ \label{classLiteratur}\index{Literatur@{Literatur}}
+ }
+-TODO.  
++Verwaltet \hyperlink{classLiteratur}{Literatur}.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classLiteratur_55626b912da4c041eaf981781ed6c640}{Literatur} (\$nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Liest \hyperlink{classLiteratur}{Literatur} ein. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{To\-Bibtex} ()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Exportiert \hyperlink{classLiteratur}{Literatur} nach \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_f5b265d349df2a9d17079b81d808fa89}{Delete} (\$nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}{Insert} (\$bibtex)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_0379134616374fa2b1bc7b9a761f3970}{Insert} (\$art, \$titel, \$jahr, \$nr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}{Insert} (\$nr, \$art, \$titel, \$jahr, \$nr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em L&#246;scht \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}{Insert\-Bib\-Te\-X} (\$bibtex)
++\begin{CompactList}\small\item\em Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_a4690c2e86e3522c139ed506d3fae4d9}{Insert} (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
++\begin{CompactList}\small\item\em Legt \hyperlink{classLiteratur}{Literatur} an. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_756f0e7b428ea0c04fd4e94b4bc66544}{Update} (\$nr, \$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
++\begin{CompactList}\small\item\em &#196;ndert \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{\$Nr} = 0
++\hyperlink{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{\$Nr}
+ \begin{CompactList}\small\item\em Buchidentifikationsnummer. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{\$Titel} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{\$Titel}
+ \begin{CompactList}\small\item\em Titel der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{\$Jahr} = 0
++\hyperlink{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{\$Jahr}
+ \begin{CompactList}\small\item\em Erscheinungsjahr. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}{\$Verlag} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}{\$Verlag}
+ \begin{CompactList}\small\item\em Verlag/Herausgeber. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_9e3b00766297a68adac423980767dd3c}{\$ISBN} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_9e3b00766297a68adac423980767dd3c}{\$ISBN}
+ \begin{CompactList}\small\item\em ISBN der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}{\$Beschreibung} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}{\$Beschreibung}
+ \begin{CompactList}\small\item\em Bemerkung zur \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_da6c458bb229187efea8e8f144a1d279}{\$Ort} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_da6c458bb229187efea8e8f144a1d279}{\$Ort}
+ \begin{CompactList}\small\item\em Herausgabeort. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}{\$Stichworte} = \char`\&quot;{}\char`\&quot;{}
++\hyperlink{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}{\$Stichworte}
+ \begin{CompactList}\small\item\em Stichworte zum Inhalt der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_fb4d4b1ce29a33a10e3e27d47f31a447}{\$Art}
+ \begin{CompactList}\small\item\em Typ der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_01b311917d78c1dbb346435598ebba64}{\$Autoren} = array()
++\hyperlink{classLiteratur_01b311917d78c1dbb346435598ebba64}{\$Autoren}
+ \begin{CompactList}\small\item\em Feld mit Autoren der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}{\$Kommentare} = array()
++\hyperlink{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}{\$Kommentare}
+ \begin{CompactList}\small\item\em Feld mit Kommentaren der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++Verwaltet \hyperlink{classLiteratur}{Literatur}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ 
+@@ -64,14 +64,14 @@
+ \label{classLiteratur_55626b912da4c041eaf981781ed6c640}
+ 
+ 
+-TODO. 
++Liest \hyperlink{classLiteratur}{Literatur} ein. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ 
+ 
+@@ -83,63 +83,47 @@
+ \label{classLiteratur_f5b265d349df2a9d17079b81d808fa89}
+ 
+ 
+-TODO. 
++L&#246;scht \hyperlink{classLiteratur}{Literatur}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu l&#246;schenden \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+-\hypertarget{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}{
++\hypertarget{classLiteratur_a4690c2e86e3522c139ed506d3fae4d9}{
+ \index{Literatur@{Literatur}!Insert@{Insert}}
+ \index{Insert@{Insert}!Literatur@{Literatur}}
+-\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em nr}, \$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em nr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
+-\label{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
++\label{classLiteratur_a4690c2e86e3522c139ed506d3fae4d9}
+ 
+ 
+-TODO. 
++Legt \hyperlink{classLiteratur}{Literatur} an. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]TODO \item[\mbox{$\leftarrow$} {\em \$art}]TODO \item[\mbox{$\leftarrow$} {\em \$titel}]TODO \item[\mbox{$\leftarrow$} {\em \$jahr}]TODO \item[\mbox{$\leftarrow$} {\em \$nr}]TODO \item[\mbox{$\leftarrow$} {\em \$verlag}]TODO \item[\mbox{$\leftarrow$} {\em \$isbn}]TODO \item[\mbox{$\leftarrow$} {\em \$beschreibung}]TODO \item[\mbox{$\leftarrow$} {\em \$ort}]TODO \item[\mbox{$\leftarrow$} {\em \$stichworte}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$art}]Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]Stichworte \end{description}
+ \end{Desc}
+-\hypertarget{classLiteratur_0379134616374fa2b1bc7b9a761f3970}{
+-\index{Literatur@{Literatur}!Insert@{Insert}}
+-\index{Insert@{Insert}!Literatur@{Literatur}}
+-\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em nr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
+-\label{classLiteratur_0379134616374fa2b1bc7b9a761f3970}
++\hypertarget{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}{
++\index{Literatur@{Literatur}!InsertBibTeX@{InsertBibTeX}}
++\index{InsertBibTeX@{InsertBibTeX}!Literatur@{Literatur}}
++\paragraph[InsertBibTeX]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert\-Bib\-Te\-X (\$ {\em bibtex})}\hfill}
++\label{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}
+ 
+ 
+-TODO. 
++Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$art}]TODO \item[\mbox{$\leftarrow$} {\em \$titel}]TODO \item[\mbox{$\leftarrow$} {\em \$jahr}]TODO \item[\mbox{$\leftarrow$} {\em \$nr}]TODO \item[\mbox{$\leftarrow$} {\em \$verlag}]TODO \item[\mbox{$\leftarrow$} {\em \$isbn}]TODO \item[\mbox{$\leftarrow$} {\em \$beschreibung}]TODO \item[\mbox{$\leftarrow$} {\em \$ort}]TODO \item[\mbox{$\leftarrow$} {\em \$stichworte}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$bibtex}]String mit Inhalt einer Bib\-Te\-X-Datei \end{description}
+ \end{Desc}
+-\hypertarget{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}{
+-\index{Literatur@{Literatur}!Insert@{Insert}}
+-\index{Insert@{Insert}!Literatur@{Literatur}}
+-\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em bibtex})}\hfill}
+-\label{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}
+-
+-
+-TODO. 
+-
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
+-\begin{Desc}
+-\item[Parameter:]
+-\begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$bibtex}]TODO \end{description}
+-\end{Desc}
+ \hypertarget{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{
+ \index{Literatur@{Literatur}!ToBibtex@{ToBibtex}}
+ \index{ToBibtex@{ToBibtex}!Literatur@{Literatur}}
+@@ -147,14 +131,30 @@
+ \label{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}
+ 
+ 
+-TODO. 
++Exportiert \hyperlink{classLiteratur}{Literatur} nach \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+ TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\hypertarget{classLiteratur_756f0e7b428ea0c04fd4e94b4bc66544}{
++\index{Literatur@{Literatur}!Update@{Update}}
++\index{Update@{Update}!Literatur@{Literatur}}
++\paragraph[Update]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Update (\$ {\em nr}, \$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
++\label{classLiteratur_756f0e7b428ea0c04fd4e94b4bc66544}
+ 
+ 
++&#196;ndert \hyperlink{classLiteratur}{Literatur}. 
++
++TODO \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu ver&#228;ndernden \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$art}]neuer Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]neuer Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]neues Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]neuer Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]neue ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]neue Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]neuer Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]neue Stichworte \end{description}
++\end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+ \hypertarget{classLiteratur_fb4d4b1ce29a33a10e3e27d47f31a447}{
+ \index{Literatur@{Literatur}!$Art@{\$Art}}
+@@ -168,7 +168,7 @@
+ \hypertarget{classLiteratur_01b311917d78c1dbb346435598ebba64}{
+ \index{Literatur@{Literatur}!$Autoren@{\$Autoren}}
+ \index{$Autoren@{\$Autoren}!Literatur@{Literatur}}
+-\paragraph[\$Autoren]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Autoren = array()}\hfill}
++\paragraph[\$Autoren]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Autoren}\hfill}
+ \label{classLiteratur_01b311917d78c1dbb346435598ebba64}
+ 
+ 
+@@ -177,7 +177,7 @@
+ \hypertarget{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}{
+ \index{Literatur@{Literatur}!$Beschreibung@{\$Beschreibung}}
+ \index{$Beschreibung@{\$Beschreibung}!Literatur@{Literatur}}
+-\paragraph[\$Beschreibung]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Beschreibung = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Beschreibung]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Beschreibung}\hfill}
+ \label{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}
+ 
+ 
+@@ -186,7 +186,7 @@
+ \hypertarget{classLiteratur_9e3b00766297a68adac423980767dd3c}{
+ \index{Literatur@{Literatur}!$ISBN@{\$ISBN}}
+ \index{$ISBN@{\$ISBN}!Literatur@{Literatur}}
+-\paragraph[\$ISBN]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$ISBN = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$ISBN]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$ISBN}\hfill}
+ \label{classLiteratur_9e3b00766297a68adac423980767dd3c}
+ 
+ 
+@@ -195,7 +195,7 @@
+ \hypertarget{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{
+ \index{Literatur@{Literatur}!$Jahr@{\$Jahr}}
+ \index{$Jahr@{\$Jahr}!Literatur@{Literatur}}
+-\paragraph[\$Jahr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Jahr = 0}\hfill}
++\paragraph[\$Jahr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Jahr}\hfill}
+ \label{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}
+ 
+ 
+@@ -204,7 +204,7 @@
+ \hypertarget{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}{
+ \index{Literatur@{Literatur}!$Kommentare@{\$Kommentare}}
+ \index{$Kommentare@{\$Kommentare}!Literatur@{Literatur}}
+-\paragraph[\$Kommentare]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Kommentare = array()}\hfill}
++\paragraph[\$Kommentare]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Kommentare}\hfill}
+ \label{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}
+ 
+ 
+@@ -213,7 +213,7 @@
+ \hypertarget{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{
+ \index{Literatur@{Literatur}!$Nr@{\$Nr}}
+ \index{$Nr@{\$Nr}!Literatur@{Literatur}}
+-\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Nr = 0}\hfill}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Nr}\hfill}
+ \label{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}
+ 
+ 
+@@ -222,7 +222,7 @@
+ \hypertarget{classLiteratur_da6c458bb229187efea8e8f144a1d279}{
+ \index{Literatur@{Literatur}!$Ort@{\$Ort}}
+ \index{$Ort@{\$Ort}!Literatur@{Literatur}}
+-\paragraph[\$Ort]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Ort = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Ort]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Ort}\hfill}
+ \label{classLiteratur_da6c458bb229187efea8e8f144a1d279}
+ 
+ 
+@@ -231,7 +231,7 @@
+ \hypertarget{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}{
+ \index{Literatur@{Literatur}!$Stichworte@{\$Stichworte}}
+ \index{$Stichworte@{\$Stichworte}!Literatur@{Literatur}}
+-\paragraph[\$Stichworte]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Stichworte = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Stichworte]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Stichworte}\hfill}
+ \label{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}
+ 
+ 
+@@ -240,7 +240,7 @@
+ \hypertarget{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{
+ \index{Literatur@{Literatur}!$Titel@{\$Titel}}
+ \index{$Titel@{\$Titel}!Literatur@{Literatur}}
+-\paragraph[\$Titel]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Titel = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Titel]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Titel}\hfill}
+ \label{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}
+ 
+ 
+@@ -249,7 +249,7 @@
+ \hypertarget{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}{
+ \index{Literatur@{Literatur}!$Verlag@{\$Verlag}}
+ \index{$Verlag@{\$Verlag}!Literatur@{Literatur}}
+-\paragraph[\$Verlag]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Verlag = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Verlag]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Verlag}\hfill}
+ \label{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,25 +2,25 @@
+ \subsection{Literatur\-Art Klassenreferenz}
+ \label{classLiteraturArt}\index{LiteraturArt@{LiteraturArt}}
+ }
+-TODO.  
++Verwaltet Literaturarten.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art} (\$text)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}, interne Namen. \item\end{CompactList}\item 
+ \hyperlink{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{Get\-Display\-Text} ()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che. \item\end{CompactList}\item 
+ \hyperlink{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}{Get\-Bibtex\-Text} ()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em Liefert Bezeichner f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++Verwaltet Literaturarten. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Verwaltet die aus der Datenbank oder Bib\-Te\-X-Datei erhaltenen Informationen zur Art einer \hyperlink{classLiteratur}{Literatur}. Enthaltene Informationen k&#246;nnen wieder als Bib\-Te\-X- oder als der in Datenbank/Benutzeroberfl&#228;che verwendeten Namen zur&#252;ckgegeben werden. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ 
+ 
+ 
+@@ -33,15 +33,17 @@
+ \label{classLiteraturArt_b3312217430531ed7821a46a39c49af7}
+ 
+ 
+-TODO. 
++Importiert \hyperlink{classBibTeX}{Bib\-Te\-X}, interne Namen. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Importiert die in Bib\-Te\-X-Dateien oder in der Datenbank/Benutzeroberfl&#228;chen verwendeten Bezeichner f&#252;r Literaturarten und weist sie einen internen Wert zu. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$text}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$text}]\hyperlink{classBibTeX}{Bib\-Te\-X} oder interner Bezeichner einer Literaturart \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Bezeichner unbekannt, erh&#228;lt die \hyperlink{classLiteratur}{Literatur} die Art \char`\&quot;{}Sonstiges\char`\&quot;{} \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Elementfunktionen}
+@@ -52,12 +54,14 @@
+ \label{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}
+ 
+ 
+-TODO. 
++Liefert Bezeichner f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart in \hyperlink{classBibTeX}{Bib\-Te\-X} herausgesucht. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\item[R\&quot;{u}ckgabe:]String mit Bezeichner der Literaturart in Bib\-Te\-X-Darstellung \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Sollte der Wert der \hyperlink{classLiteratur}{Literatur} nicht bekannt sein wird \char`\&quot;{}Sonstiges\char`\&quot;{} zur&#252;ckgegeben \end{Desc}
+ \hypertarget{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{
+ \index{LiteraturArt@{Literatur\-Art}!GetDisplayText@{GetDisplayText}}
+ \index{GetDisplayText@{GetDisplayText}!LiteraturArt@{Literatur\-Art}}
+@@ -65,9 +69,11 @@
+ \label{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}
+ 
+ 
+-TODO. 
++Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Je nach der bei der Erstellung des Objekts gew&#228;hlten Art, wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart in der Datenbank/Benutzeroberfl&#228;che herausgesucht. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\item[R\&quot;{u}ckgabe:]String mit Bezeichner der Literaturart in Datenbank/Benutzeroberfl&#228;chendarstellung \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Sollte der Wert der \hyperlink{classLiteratur}{Literatur} nicht bekannt sein wird \char`\&quot;{}Sonstiges\char`\&quot;{} zur&#252;ckgegeben \end{Desc}
+
+Modified: trunk/docs/beleg2/doxygen/classLogin.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -8,23 +8,26 @@
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classLogin_4847f3e07e43b540d3339392346f87ff}{Login} ()
+-\begin{CompactList}\small\item\em Liest Session f&#252;r Anmeldedaten ein. \item\end{CompactList}\item 
+-\hyperlink{classLogin_86b5c73ef1fb4bd03f91cc4771c960b7}{Login} (\$benutzer, \$passwort)
+-\begin{CompactList}\small\item\em &#196;ndert Session mit neuen Anmeldedaten. \item\end{CompactList}\item 
++\hyperlink{classLogin_5d83c782459f6389f350666eb102974d}{Login} (\$benutzer=\char`\&quot;{}\char`\&quot;{}, \$passwort=\char`\&quot;{}\char`\&quot;{})
++\begin{CompactList}\small\item\em Liest bzw. Erstellt Session f&#252;r Anmeldedaten. \item\end{CompactList}\item 
+ \hyperlink{classLogin_4cbf74bd382f34e863aec07c3eda0400}{Logout} ()
+ \begin{CompactList}\small\item\em Entfernt Session. \item\end{CompactList}\item 
+ \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Is\-Administrator} ()
+ \begin{CompactList}\small\item\em Ermittelt ob Administratorrechte vorliegen. \item\end{CompactList}\item 
+ \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Is\-Member} ()
+ \begin{CompactList}\small\item\em Ermittelt ob mindestens Mitgliedsrechte vorliegen. \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLogin_227dede2a7c9c25b1e103b32de62d4df}{\$Nr}
++\begin{CompactList}\small\item\em Mitglieds\_\-Nr f&#252;r angemeldetes \hyperlink{classMitglied}{Mitglied} (sonst 0). \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet Logininformationen. 
+ 
+ Verwaltet die aus der sich aktuellen Anmeldung ergebenen Session des Users und der damit entstehenden Rechte \begin{Desc}
+-\item[Vorbedingung:]Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. Es sollte kein zweites Objekt vom Typ \hyperlink{classLogin}{Login} existieren. \end{Desc}
++\item[Vorbedingung:]Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. Es sollte kein zweites Objekt vom Typ \hyperlink{classLogin}{Login} existieren. Datenbankverbindung muss bestehen. \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Sollte ein weiteres Objekt vom Typ \hyperlink{classLogin}{Login} existieren, in welche neue Logininformationen eingetragen werden, wird keine weitere Session angelegt, sondern die alten Informationen in der aktuellen Session &#252;berschrieben. \end{Desc}
+ 
+@@ -32,33 +35,24 @@
+ 
+ 
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classLogin_4847f3e07e43b540d3339392346f87ff}{
++\hypertarget{classLogin_5d83c782459f6389f350666eb102974d}{
+ \index{Login@{Login}!Login@{Login}}
+ \index{Login@{Login}!Login@{Login}}
+-\paragraph[Login]{\setlength{\rightskip}{0pt plus 5cm}Login::Login ()}\hfill}
+-\label{classLogin_4847f3e07e43b540d3339392346f87ff}
++\paragraph[Login]{\setlength{\rightskip}{0pt plus 5cm}Login::Login (\$ {\em benutzer} = {\tt \char`\&quot;{}\char`\&quot;{}}, \$ {\em passwort} = {\tt \char`\&quot;{}\char`\&quot;{}})}\hfill}
++\label{classLogin_5d83c782459f6389f350666eb102974d}
+ 
+ 
+-Liest Session f&#252;r Anmeldedaten ein. 
++Liest bzw. Erstellt Session f&#252;r Anmeldedaten. 
+ 
+-Liest Daten aus der Session ein. Sollten keine vorhanden sein, dann wird eine neue, leere Session angelegt. Sollten Daten vorhanden sein, wird die Korrektheit &#252;ber die Datenbank (Mitglieder) und die Verbindungsinformationen gepr&#252;ft. Nach dieser Pr&#252;fung werden abh&#228;ngig vom Ausgang die Rechteinformationen gesetzt \begin{Desc}
+-\item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen. \end{Desc}
+-\hypertarget{classLogin_86b5c73ef1fb4bd03f91cc4771c960b7}{
+-\index{Login@{Login}!Login@{Login}}
+-\index{Login@{Login}!Login@{Login}}
+-\paragraph[Login]{\setlength{\rightskip}{0pt plus 5cm}Login::Login (\$ {\em benutzer}, \$ {\em passwort})}\hfill}
+-\label{classLogin_86b5c73ef1fb4bd03f91cc4771c960b7}
+-
+-
+-&#196;ndert Session mit neuen Anmeldedaten. 
+-
+-Das Klartextpasswort wird mit \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash} gehasht, um diese mit Benutzernamen (\$benutzer) gegen die Eintr&#228;ge in Mitglieder zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session mit gehashtem Passwort, Benuternamen und Verbindungsinformationen erstellt. Sollte irgendwo ein Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte (wird also nicht zum \hyperlink{classMitglied}{Mitglied}). Sonst erh&#228;lt er die Rechte aus dem gefundenem Eintrag in Mitglieder. \begin{Desc}
+-\item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen. \end{Desc}
+-\begin{Desc}
++Liest Daten aus der Session ein. Sollten keine vorhanden sein, dann wird eine neue, leere Session angelegt. Sollten Daten vorhanden sein, wird die Korrektheit &#252;ber die Datenbank (Mitglieder) und die Verbindungsinformationen gepr&#252;ft. Nach dieser Pr&#252;fung werden abh&#228;ngig vom Ausgang die Rechteinformationen gesetzt.\par
++ Werden keine Parameter &#252;bergeben, wird das Klartextpasswort mit \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash} gehasht, um diese mit Benutzernamen (\$benutzer) gegen die Eintr&#228;ge in Mitglieder zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session mit gehashtem Passwort, Benuternamen und Verbindungsinformationen erstellt. Sollte irgendwo ein Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte (wird also nicht zum \hyperlink{classMitglied}{Mitglied}). Sonst erh&#228;lt er die Rechte und Mitglieds\_\-Nr aus dem gefundenem Eintrag in Mitglieder. \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$benutzer}]neuer Benutzername \item[\mbox{$\leftarrow$} {\em \$passwort}]Passwort in Klartext des Nutzers \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.\par
++ Zum Einloggen mit Daten darf kein Parameter leer sein\end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Elementfunktionen}
+@@ -71,7 +65,7 @@
+ 
+ Ermittelt ob Administratorrechte vorliegen. 
+ 
+-Vergleicht ob die bei der Erstellung des Loginobjekts ermittelten Rechte mindestens den Wert f&#252;r Administratorrechte ($&gt;$=2) haben \begin{Desc}
++Vergleicht ob die bei der Erstellung des Loginobjekts ermittelten Rechte mindestens den Wert f&#252;r Administratorrechte ($&gt;$=2) haben. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+@@ -87,7 +81,7 @@
+ 
+ Ermittelt ob mindestens Mitgliedsrechte vorliegen. 
+ 
+-Vergleicht ob die bei der Erstellung des Loginobjekts ermittelten Rechte mindestens den Wert f&#252;r Mitgliedsrechte ($&gt;$=1) haben \begin{Desc}
++Vergleicht ob die bei der Erstellung des Loginobjekts ermittelten Rechte mindestens den Wert f&#252;r Mitgliedsrechte ($&gt;$=1) haben. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+@@ -103,5 +97,17 @@
+ 
+ Entfernt Session. 
+ 
+-Die Anmeldedaten und Verbindungsdaten werden in der Session entfernt. Au&#223;erdem werden die Rechte auf Gast (0) gesetzt. \begin{Desc}
+-\item[Vorbedingung:]- \end{Desc}
++Die Anmeldedaten und Verbindungsdaten werden in der Session entfernt. Au&#223;erdem werden die Rechte auf Nutzer (0) und Nr auf 0 gesetzt. \begin{Desc}
++\item[Vorbedingung:]-\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classLogin_227dede2a7c9c25b1e103b32de62d4df}{
++\index{Login@{Login}!$Nr@{\$Nr}}
++\index{$Nr@{\$Nr}!Login@{Login}}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Login::\$Nr}\hfill}
++\label{classLogin_227dede2a7c9c25b1e103b32de62d4df}
++
++
++Mitglieds\_\-Nr f&#252;r angemeldetes \hyperlink{classMitglied}{Mitglied} (sonst 0). 
++
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,46 +2,46 @@
+ \subsection{Mitglied Klassenreferenz}
+ \label{classMitglied}\index{Mitglied@{Mitglied}}
+ }
+-TODO.  
++Verwaltet Mitglieder.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Password\-Hash} (\$pass)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Generiert Passworthash. \item\end{CompactList}\item 
+ \hyperlink{classMitglied_c6900c12663e9b228bf9942fc045b8b4}{Delete} (\$nr)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Entfernt \hyperlink{classMitglied}{Mitglied}. \item\end{CompactList}\item 
+ \hyperlink{classMitglied_a856527798258505adf9eb08b79fd9fc}{Insert} (\$login, \$passwort, \$rechte, \$vorname, \$nachname, \$email)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Legt \hyperlink{classMitglied}{Mitglied} an. \item\end{CompactList}\item 
+ \hyperlink{classMitglied_0d173487bebdd0579a70ea007b37b5ec}{Update} (\$nr, \$login, \$passwort, \$rechte, \$vorname, \$nachname, \$email)
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em &#196;ndert ein \hyperlink{classMitglied}{Mitglied}. \item\end{CompactList}\item 
+ \hyperlink{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}{Get\-All} ()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em R&#252;ckgabe einer Liste der Mitglieder. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classMitglied_113efe44273361b7c167c729666ad04c}{\$Nr} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}{\$Login} = \char`\&quot;{}\char`\&quot;{}
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_94f43b65c468ad42ac45be064d015446}{\$Passwort} = \char`\&quot;{}\char`\&quot;{}
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_adadc54a72a46a089ddec43855ba3c7e}{\$Rechte} = 0
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}{\$Vorname} = \char`\&quot;{}\char`\&quot;{}
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_635def9ec266748689397299c7f79d9c}{\$Nachname} = \char`\&quot;{}\char`\&quot;{}
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
+-\hyperlink{classMitglied_4be6b837c482ac912188663380d31122}{\$Email} = \char`\&quot;{}\char`\&quot;{}
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classMitglied_113efe44273361b7c167c729666ad04c}{\$Nr}
++\begin{CompactList}\small\item\em Identifikationsnummer des Mitglieds. \item\end{CompactList}\item 
++\hyperlink{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}{\$Login}
++\begin{CompactList}\small\item\em Benutzername des Mitglieds. \item\end{CompactList}\item 
++\hyperlink{classMitglied_94f43b65c468ad42ac45be064d015446}{\$Passwort}
++\begin{CompactList}\small\item\em Passworthash des Benutzerpassworts. \item\end{CompactList}\item 
++\hyperlink{classMitglied_adadc54a72a46a089ddec43855ba3c7e}{\$Rechte}
++\begin{CompactList}\small\item\em Rechte des Mitglieds (0 - Gast, 1 - \hyperlink{classMitglied}{Mitglied}, 2 - Administrator). \item\end{CompactList}\item 
++\hyperlink{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}{\$Vorname}
++\begin{CompactList}\small\item\em Vorname des Mitglieds. \item\end{CompactList}\item 
++\hyperlink{classMitglied_635def9ec266748689397299c7f79d9c}{\$Nachname}
++\begin{CompactList}\small\item\em Nachname des Mitglieds. \item\end{CompactList}\item 
++\hyperlink{classMitglied_4be6b837c482ac912188663380d31122}{\$Email}
++\begin{CompactList}\small\item\em E-Mail-Adresse des Mitglieds. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++Verwaltet Mitglieder. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Stellt Funktionen zum Entfernen, Hinzuf&#252;gen, &#196;ndern und Auflisten von Mitgliedern bereit. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ 
+@@ -54,14 +54,14 @@
+ \label{classMitglied_c6900c12663e9b228bf9942fc045b8b4}
+ 
+ 
+-TODO. 
++Entfernt \hyperlink{classMitglied}{Mitglied}. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Entfernt \hyperlink{classMitglied}{Mitglied} mit Mitgliedsnummer (\$nr) aus Mitglieder und l&#246;scht zus&#228;tzlich die Kommentare des Mitglieds in Kommentare \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu l&#246;schenden Mitglieds\end{description}
+ \end{Desc}
+ \hypertarget{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}{
+ \index{Mitglied@{Mitglied}!GetAll@{GetAll}}
+@@ -70,12 +70,14 @@
+ \label{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}
+ 
+ 
+-TODO. 
++R&#252;ckgabe einer Liste der Mitglieder. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Liest alle Mitglieder mit Nr, \hyperlink{classLogin}{Login}, Vorname, Nachname und Email aus Mitgliedertabelle und gibt die ausgelesenen Objekte in einem Feld zur&#252;ck \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\item[R\&quot;{u}ckgabe:]Feld mit Objekten der Form\begin{itemize}
++\item Nr\item \hyperlink{classLogin}{Login}\item Vorname\item Nachname\item E-Mail\end{itemize}
++\end{Desc}
+ \hypertarget{classMitglied_a856527798258505adf9eb08b79fd9fc}{
+ \index{Mitglied@{Mitglied}!Insert@{Insert}}
+ \index{Insert@{Insert}!Mitglied@{Mitglied}}
+@@ -83,14 +85,14 @@
+ \label{classMitglied_a856527798258505adf9eb08b79fd9fc}
+ 
+ 
+-TODO. 
++Legt \hyperlink{classMitglied}{Mitglied} an. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++F&#252;gt neues \hyperlink{classMitglied}{Mitglied} mit Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder ein. Dazu wird das Passwort noch mit Mitglied::Passwort\-Hash gehasht. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$login}]TODO \item[\mbox{$\leftarrow$} {\em \$passwort}]TODO \item[\mbox{$\leftarrow$} {\em \$rechte}]TODO \item[\mbox{$\leftarrow$} {\em \$vorname}]TODO \item[\mbox{$\leftarrow$} {\em \$nachname}]TODO \item[\mbox{$\leftarrow$} {\em \$email}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$login}]Benutzername des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]Benutzerpasswort des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]Rechte des neuen Mitglieds (1 - \hyperlink{classMitglied}{Mitglied}, 2 - Passwort) \item[\mbox{$\leftarrow$} {\em \$vorname}]Vorname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]Nachname des neuen Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]E-Mail-Adresse des neuen Mitglieds\end{description}
+ \end{Desc}
+ \hypertarget{classMitglied_9b13db80866c22bf992e73f2eb75e369}{
+ \index{Mitglied@{Mitglied}!PasswordHash@{PasswordHash}}
+@@ -99,14 +101,14 @@
+ \label{classMitglied_9b13db80866c22bf992e73f2eb75e369}
+ 
+ 
+-TODO. 
++Generiert Passworthash. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Aus &#252;bergebenes Klartextpasswort wird ein 40 Byte gro&#223;er hexkodierter Hash generiert. Als Hashingalgorithmus wird SHA-1 genutzt \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$pass}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$pass}]zu hashendes Klartextpasswort \end{description}
+ \end{Desc}
+ \hypertarget{classMitglied_0d173487bebdd0579a70ea007b37b5ec}{
+ \index{Mitglied@{Mitglied}!Update@{Update}}
+@@ -115,14 +117,14 @@
+ \label{classMitglied_0d173487bebdd0579a70ea007b37b5ec}
+ 
+ 
+-TODO. 
++&#196;ndert ein \hyperlink{classMitglied}{Mitglied}. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++&#196;ndert die Daten das Mitglieds mit der Mitglieds\_\-Nr (\$nr), in neuen Benutzernamen (\$login), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder. Wenn \$passwort nicht die L&#228;nge 0 hat, wird es noch mit Mitglied::Passwort\-Hash gehasht. Andernfalls wird das alte Passwort in Mitglieder beibehalten. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em nr}]TODO \item[\mbox{$\leftarrow$} {\em \$login}]TODO \item[\mbox{$\leftarrow$} {\em \$passwort}]TODO \item[\mbox{$\leftarrow$} {\em \$rechte}]TODO \item[\mbox{$\leftarrow$} {\em \$vorname}]TODO \item[\mbox{$\leftarrow$} {\em \$nachname}]TODO \item[\mbox{$\leftarrow$} {\em \$email}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu ver&#228;ndernden Mitglieds \item[\mbox{$\leftarrow$} {\em \$login}]neuer Benutzername des Mitglieds \item[\mbox{$\leftarrow$} {\em \$passwort}]neues Passwort des Mitglieds \item[\mbox{$\leftarrow$} {\em \$rechte}]neuen Rechte des Mitglieds \item[\mbox{$\leftarrow$} {\em \$vorname}]neuer Vorname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$nachname}]neuer Nachname des Mitglieds \item[\mbox{$\leftarrow$} {\em \$email}]neue E-Mail-Adresse des Mitglieds\end{description}
+ \end{Desc}
+ 
+ 
+@@ -130,63 +132,63 @@
+ \hypertarget{classMitglied_4be6b837c482ac912188663380d31122}{
+ \index{Mitglied@{Mitglied}!$Email@{\$Email}}
+ \index{$Email@{\$Email}!Mitglied@{Mitglied}}
+-\paragraph[\$Email]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Email = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Email]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Email}\hfill}
+ \label{classMitglied_4be6b837c482ac912188663380d31122}
+ 
+ 
+-TODO. 
++E-Mail-Adresse des Mitglieds. 
+ 
+ \hypertarget{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}{
+ \index{Mitglied@{Mitglied}!$Login@{\$Login}}
+ \index{$Login@{\$Login}!Mitglied@{Mitglied}}
+-\paragraph[\$Login]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$\hyperlink{classLogin}{Login} = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Login]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$\hyperlink{classLogin}{Login}}\hfill}
+ \label{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}
+ 
+ 
+-TODO. 
++Benutzername des Mitglieds. 
+ 
+ \hypertarget{classMitglied_635def9ec266748689397299c7f79d9c}{
+ \index{Mitglied@{Mitglied}!$Nachname@{\$Nachname}}
+ \index{$Nachname@{\$Nachname}!Mitglied@{Mitglied}}
+-\paragraph[\$Nachname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nachname = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Nachname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nachname}\hfill}
+ \label{classMitglied_635def9ec266748689397299c7f79d9c}
+ 
+ 
+-TODO. 
++Nachname des Mitglieds. 
+ 
+ \hypertarget{classMitglied_113efe44273361b7c167c729666ad04c}{
+ \index{Mitglied@{Mitglied}!$Nr@{\$Nr}}
+ \index{$Nr@{\$Nr}!Mitglied@{Mitglied}}
+-\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nr = 0}\hfill}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nr}\hfill}
+ \label{classMitglied_113efe44273361b7c167c729666ad04c}
+ 
+ 
+-TODO. 
++Identifikationsnummer des Mitglieds. 
+ 
+ \hypertarget{classMitglied_94f43b65c468ad42ac45be064d015446}{
+ \index{Mitglied@{Mitglied}!$Passwort@{\$Passwort}}
+ \index{$Passwort@{\$Passwort}!Mitglied@{Mitglied}}
+-\paragraph[\$Passwort]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Passwort = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Passwort]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Passwort}\hfill}
+ \label{classMitglied_94f43b65c468ad42ac45be064d015446}
+ 
+ 
+-TODO. 
++Passworthash des Benutzerpassworts. 
+ 
+ \hypertarget{classMitglied_adadc54a72a46a089ddec43855ba3c7e}{
+ \index{Mitglied@{Mitglied}!$Rechte@{\$Rechte}}
+ \index{$Rechte@{\$Rechte}!Mitglied@{Mitglied}}
+-\paragraph[\$Rechte]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Rechte = 0}\hfill}
++\paragraph[\$Rechte]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Rechte}\hfill}
+ \label{classMitglied_adadc54a72a46a089ddec43855ba3c7e}
+ 
+ 
+-TODO. 
++Rechte des Mitglieds (0 - Gast, 1 - \hyperlink{classMitglied}{Mitglied}, 2 - Administrator). 
+ 
+ \hypertarget{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}{
+ \index{Mitglied@{Mitglied}!$Vorname@{\$Vorname}}
+ \index{$Vorname@{\$Vorname}!Mitglied@{Mitglied}}
+-\paragraph[\$Vorname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Vorname = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\paragraph[\$Vorname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Vorname}\hfill}
+ \label{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}
+ 
+ 
+-TODO. 
++Vorname des Mitglieds. 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -29,9 +29,9 @@
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}{\$db\_\-id} = 0
++\hyperlink{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}{\$db\_\-id}
+ \begin{CompactList}\small\item\em Identifikation der aktuellen Datenbankverbindung. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_879fa41a3df6664f4ce83960808326ab}{\$query\_\-result} = 0
++\hyperlink{classSQLDB_879fa41a3df6664f4ce83960808326ab}{\$query\_\-result}
+ \begin{CompactList}\small\item\em Identifikation der letzten Datenbankabfrage. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+@@ -39,7 +39,7 @@
+ Datenbankzugriff &#252;ber My\-SQL. 
+ 
+ Erlaubt den abstrahierten Zugriff &#252;ber SQL auf eine Datenbank (hier My\-SQL). \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ 
+ 
+ 
+@@ -54,20 +54,13 @@
+ 
+ &#214;ffnet eine Datenbankverbindung. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Startet eine Verbindung zum Datenbanksystem, je nach gew&#228;hlter Art (\$persist), und w&#228;hlt nach erfolgreichem Aufbau eine Datenbank. Treten Fehler beim Aufbau auf, wird \hyperlink{classSQLDB}{SQLDB}::\$db\_\-id auf false gesetzt. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$host}]Adresse oder IP des My\-SQL-Servers \item[\mbox{$\leftarrow$} {\em \$user}]Benutzernamen f&#252;r My\-SQL-Zugriff \item[\mbox{$\leftarrow$} {\em \$password}]Benutzerpasswort f&#252;r My\-SQL-Zugriff \item[\mbox{$\leftarrow$} {\em \$database}]Auszuw&#228;hlende Datenbank \item[\mbox{$\leftarrow$} {\em \$persist}]Aufbau einer persistenten (geteilten) Verbindung \end{description}
+ \end{Desc}
+-\begin{Desc}
+-\item[R\&quot;{u}ckgabe:]bei Erfolg Kennung der Datenbankverbindung \end{Desc}
+-\begin{Desc}
+-\item[R\&quot;{u}ckgabewerte:]
+-\begin{description}
+-\item[{\em false}]bei Misserfolg \end{description}
+-\end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Elementfunktionen}
+@@ -80,8 +73,8 @@
+ 
+ Beendet Verbindung. 
+ 
+-Beendet die Verbindung zum Datenbankserver \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Beendet die Verbindung zum Datenbankserver, wenn eine nicht persistende Verbindung besteht. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+ \begin{description}
+@@ -99,7 +92,7 @@
+ Springt auf Datensatz. 
+ 
+ L&#228;sst den internen Zeiger auf angegebenen Datensatz der letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit Fetch abfragen. \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss mit einer Abfrage bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+ \begin{description}
+@@ -114,8 +107,8 @@
+ 
+ Liefert Datensatz als Objekt. 
+ 
+-Wandelt aktuellen Datensatz in Objekt um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Wandelt aktuellen Datensatz in Objekt um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss mit einer Abfrage bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]bei Erfolg Datensatz als Objekt \end{Desc}
+ \begin{Desc}
+@@ -132,8 +125,8 @@
+ 
+ Entfernt Ergebnisse. 
+ 
+-Entfernt Datens&#228;tze der letzten Anfrage und gibt deren Speicher frei \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Entfernt Datens&#228;tze der letzten Anfrage und gibt deren Speicher frei. \begin{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Funktion wird vor jedem query aufgerufen \end{Desc}
+ \hypertarget{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}{
+@@ -145,8 +138,8 @@
+ 
+ Anzahl zuletzt ge&#228;nderter Datens&#228;tze. 
+ 
+-Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE Anweisung ge&#228;nderten Datens&#228;tze \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE Anweisung ge&#228;nderten Datens&#228;tze. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
+ \begin{Desc}
+@@ -160,8 +153,8 @@
+ 
+ Liefert Fehlerinformationen. 
+ 
+-Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
+ \hypertarget{classSQLDB_15b181251b309ab55331be29fa33ac9f}{
+@@ -173,11 +166,16 @@
+ 
+ Anzahl zuletzt gefundener Datens&#228;tze. 
+ 
+-Gibt Anzahl der bei der letzten SELECT-Anweisung gefundenen Datens&#228;tze \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Gibt Anzahl der bei der letzten SELECT-Anweisung gefundenen Datens&#228;tze. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss mit einer Abfrage bestehen \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
++\item[R\&quot;{u}ckgabe:]bei Erfolg Anzahl der Datens&#228;tze \end{Desc}
+ \begin{Desc}
++\item[R\&quot;{u}ckgabewerte:]
++\begin{description}
++\item[{\em false}]bei Misserfolg \end{description}
++\end{Desc}
++\begin{Desc}
+ \item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte affected\_\-rows() genutzt werden \end{Desc}
+ \hypertarget{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{
+ \index{SQLDB@{SQLDB}!Query@{Query}}
+@@ -188,22 +186,25 @@
+ 
+ Sendet Anfrage an Server. 
+ 
+-Sendet eine Anfrage an die aktive Datenbank. Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch abgefragt werden \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Sendet eine Anfrage an die aktive Datenbank. Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch abgefragt werden. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$query}]SQL-Anfrage an den Datenbankserver \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]wenn ein Fehler in der Anfrage aufgetreten ist \end{Desc}
++\item[R\&quot;{u}ckgabewerte:]
++\begin{description}
++\item[{\em false}]wenn ein Fehler in der Anfrage aufgetreten ist \end{description}
++\end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+ \hypertarget{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}{
+ \index{SQLDB@{SQLDB}!$db_id@{\$db\_\-id}}
+ \index{$db_id@{\$db\_\-id}!SQLDB@{SQLDB}}
+-\paragraph[\$db\_\-id]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$db\_\-id = 0}\hfill}
++\paragraph[\$db\_\-id]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$db\_\-id}\hfill}
+ \label{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}
+ 
+ 
+@@ -212,7 +213,7 @@
+ \hypertarget{classSQLDB_879fa41a3df6664f4ce83960808326ab}{
+ \index{SQLDB@{SQLDB}!$query_result@{\$query\_\-result}}
+ \index{$query_result@{\$query\_\-result}!SQLDB@{SQLDB}}
+-\paragraph[\$query\_\-result]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$query\_\-result = 0}\hfill}
++\paragraph[\$query\_\-result]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$query\_\-result}\hfill}
+ \label{classSQLDB_879fa41a3df6664f4ce83960808326ab}
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-22 15:40:17 UTC (rev 105)
+@@ -2,77 +2,58 @@
+ \subsection{Suche Klassenreferenz}
+ \label{classSuche}\index{Suche@{Suche}}
+ }
+-TODO.  
++\hyperlink{classSuche}{Suche} Literaturdaten.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{Suche} ()
+-\begin{CompactList}\small\item\em Sucht zuletzt hinzugef&#252;gte \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+-\hyperlink{classSuche_05639fec18bd3193c01aafb08208ec94}{Suche} (\$volltext)
+-\begin{CompactList}\small\item\em Sucht nach \hyperlink{classLiteratur}{Literatur} mit Suchbegriff. \item\end{CompactList}\item 
+-\hyperlink{classSuche_4158769424a462492ac7821a0a30cf08}{Suche} (\$autor, \$titel)
+-\begin{CompactList}\small\item\em Sucht \hyperlink{classLiteratur}{Literatur} mit \hyperlink{classAutor}{Autor} und Titel. \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classSuche_277cd59d3689d6f0875d114be0024935}{Suche} (\$suchbegriff=\char`\&quot;{}\char`\&quot;{}, \$autor=\char`\&quot;{}\char`\&quot;{})
++\begin{CompactList}\small\item\em Sucht \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classSuche_0ee0e1ffb3f79392915fd39934d7140d}{\$Treffer} = array()
+-\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classSuche_0ee0e1ffb3f79392915fd39934d7140d}{\$Treffer}
++\begin{CompactList}\small\item\em gefundene Treffer \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-TODO. 
++\hyperlink{classSuche}{Suche} Literaturdaten. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
++Durchsucht die Literatur- und Autorentabelle &#252;ber Volltextsuche, nach \hyperlink{classAutor}{Autor} und Titel oder nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert sie in \$Treffer zwischen. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+ 
+ 
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{
++\hypertarget{classSuche_277cd59d3689d6f0875d114be0024935}{
+ \index{Suche@{Suche}!Suche@{Suche}}
+ \index{Suche@{Suche}!Suche@{Suche}}
+-\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche ()}\hfill}
+-\label{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}
++\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche (\$ {\em suchbegriff} = {\tt \char`\&quot;{}\char`\&quot;{}}, \$ {\em autor} = {\tt \char`\&quot;{}\char`\&quot;{}})}\hfill}
++\label{classSuche_277cd59d3689d6f0875d114be0024935}
+ 
+ 
+-Sucht zuletzt hinzugef&#252;gte \hyperlink{classLiteratur}{Literatur}. 
++Sucht \hyperlink{classLiteratur}{Literatur}. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
+-\hypertarget{classSuche_05639fec18bd3193c01aafb08208ec94}{
+-\index{Suche@{Suche}!Suche@{Suche}}
+-\index{Suche@{Suche}!Suche@{Suche}}
+-\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche (\$ {\em volltext})}\hfill}
+-\label{classSuche_05639fec18bd3193c01aafb08208ec94}
++Wenn keine Parameter &#252;bergeben werden:\begin{itemize}
++\item Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
+ 
+ 
+-Sucht nach \hyperlink{classLiteratur}{Literatur} mit Suchbegriff. 
++Wenn ein \$suchbegriff &#252;bergeben wird:\begin{itemize}
++\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten des &#252;bergebenen Textes in Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
+-\begin{Desc}
+-\item[Parameter:]
+-\begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$volltext}]TODO \end{description}
+-\end{Desc}
+-\hypertarget{classSuche_4158769424a462492ac7821a0a30cf08}{
+-\index{Suche@{Suche}!Suche@{Suche}}
+-\index{Suche@{Suche}!Suche@{Suche}}
+-\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche (\$ {\em autor}, \$ {\em titel})}\hfill}
+-\label{classSuche_4158769424a462492ac7821a0a30cf08}
+ 
++Wenn \$suchbegriff und \$autor &#252;bergeben werden:\begin{itemize}
++\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten von \$autor in \hyperlink{classAutor}{Autor} und \$suchbegriff im Titel des Literatureintrags und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
+ 
+-Sucht \hyperlink{classLiteratur}{Literatur} mit \hyperlink{classAutor}{Autor} und Titel. 
+ 
+-TODO \begin{Desc}
+-\item[Vorbedingung:]TODO \end{Desc}
+ \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen. \end{Desc}
++\begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$autor}]TODO \item[\mbox{$\leftarrow$} {\em \$titel}]TODO \end{description}
++\item[\mbox{$\leftarrow$} {\em \$autor}]String mit Autorname \item[\mbox{$\leftarrow$} {\em \$suchbegriff}]String mit Literaturtitel bzw. wenn einzeln &#252;bergeben Suchtext f&#252;r Volltextsuche \end{description}
+ \end{Desc}
+ 
+ 
+@@ -80,9 +61,11 @@
+ \hypertarget{classSuche_0ee0e1ffb3f79392915fd39934d7140d}{
+ \index{Suche@{Suche}!$Treffer@{\$Treffer}}
+ \index{$Treffer@{\$Treffer}!Suche@{Suche}}
+-\paragraph[\$Treffer]{\setlength{\rightskip}{0pt plus 5cm}Suche::\$Treffer = array()}\hfill}
++\paragraph[\$Treffer]{\setlength{\rightskip}{0pt plus 5cm}Suche::\$Treffer}\hfill}
+ \label{classSuche_0ee0e1ffb3f79392915fd39934d7140d}
+ 
+ 
+-TODO. 
++gefundene Treffer 
+ 
++Feld aus gefundenen Trefferobjekten mit Attributen\begin{itemize}
++\item Nr\item Titel\item \hyperlink{classAutor}{Autor}\item Verlag\item ISBN \end{itemize}
+
+Modified: trunk/docs/beleg2/visio/LiMan System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/autor.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -3,40 +3,43 @@
+ {
+ 	define(&quot;Autor&quot;, 1);
+ 
+-	/*! \brief TODO
++	/*! \brief Verwaltet Autoren
+ 	 *
+ 	 *  TODO
++	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Autor
+ 	{
+-		var $Nr = 0; ///&lt; TODO
+-		var $Name = 0; ///&lt; TODO
++		var $Nr = 0; ///&lt; Identifikationsnummer des Autors
++		var $Name = 0; ///&lt; Name des Autors
+ 		
+-		/*! \brief TODO
++		/*! \brief Legt Autorenobjekt an
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $data TODO
++		 *  \pre -
++		 *  \param[in] $data Objekt mit Autorendaten der Form
++		 *    - Nr
++		 *    - Name
+ 		 */
+ 		function Autor($data)
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief Entfernt unn&#246;tige Autoren
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
++		 *  \pre Datenbankverbindung muss bestehen
+ 		 */
+ 		function Clean()
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief Legt neue Autoren aus kommagetrennter Liste an
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $autoren TODO
+-		 *  \return TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
++		 *  \return Datenbankverbindung muss bestehen
+ 		 */
+ 		function Split($autoren)
+ 		{
+
+Modified: trunk/include/bibtex.php
+===================================================================
+--- trunk/include/bibtex.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/bibtex.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -1,5 +1,5 @@
+ &lt;?php
+-	/*! \brief Gib &#167;string bis zum ersten Auftreten von $needle aus
++	/*! \brief Gib $string bis zum ersten Auftreten von $needle aus
+ 	 *
+ 	 *  TODO
+ 	 *  \pre TODO
+
+Modified: trunk/include/global.php
+===================================================================
+--- trunk/include/global.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/global.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -70,6 +70,7 @@
+ 
+ 	require($basepath.&quot;include/config.php&quot;);
+ 	require($basepath.&quot;include/sqldb.php&quot;);
++	require($basepath.&quot;include/login.php&quot;);
+ }
+ ?&gt;
+ 
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/kommentar.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -4,67 +4,73 @@
+ 	define(&quot;Kommentar&quot;, 1);
+ 	require_once(&quot;login.php&quot;);
+ 
+-	/*! \brief TODO
++	/*! \brief Verwaltet Kommentare
+ 	 *
+ 	 *  TODO
+-	 *  \pre TODO
++	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Kommentar
+ 	{
+-		var $Nr = 0; ///&lt; TODO
+-		var $Text = 0; ///&lt; TODO
+-		var $Verfasser_Nr = 0; ///&lt; TODO
+-		var $Verfasser_Name = 0; ///&lt; TODO
++		var $Nr = 0; ///&lt; Identifikationsnummer des Kommentars
++		var $Text = 0; ///&lt; Kommentartext
++		var $Verfasser_Nr = 0; ///&lt; Mitglieds_Nr des Verfassers
++		var $Verfasser_Name = 0; ///&lt; Name des Verfassers (Vor- und Nachname)
+ 		
+-		/*! \brief TODO
++		/*! \brief Legt Kommentarobjekt an
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $data TODO
++		 *  \pre -
++		 *  \param[in] $data Objekt mit Kommentardaten der Form
++		 *    - Nr
++		 *    - Text
++		 *    - Mitglieds_Nr
++		 *    - Vorname
++		 *    - Nachname
+ 		 */
+ 		function Kommentar($data)
+ 		{
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief L&#246;scht Kommentar
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $nr TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer des zu l&#246;schenden Kommentars
+ 		 */
+ 		function Delete($nr)
+ 		{
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $literatur_nr TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $literatur_nr Nummer der Literatur
+ 		 */
+ 		function DeleteAll($literatur_nr)
+ 		{
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief Legt Kommentar an
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $data TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $text Text des Kommentars
++		 *  \param[in] $verfasser_nr Mitglieds_Nr des Verfassers
++		 *  \param[in] $literatur_nr Nummer der Literatur
+ 		 */
+-		function Insert($data)
++		function Insert($text, $verfasser_nr, $literatur_nr)
+ 		{
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief &#196;ndert einen Kommentar
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $text TODO
+-		 *  \param[in] $verfasser_nr TODO
+-		 *  \param[in] $literatur_nr TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer des zu ver&#228;ndernden Kommentars
++		 *  \param[in] $text neuer Text des Kommentars
+ 		 */
+-		function Update($text, $verfasser_nr, $literatur_nr)
++		function Update($nr, $text)
+ 		{
+ 		}
+ 	}
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/literatur.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -7,10 +7,10 @@
+ 	require_once(&quot;literaturart.php&quot;);
+ 	require_once(&quot;autor.php&quot;);
+ 
+-	/*! \brief TODO
++	/*! \brief Verwaltet Literatur
+ 	 *
+ 	 *  TODO
+-	 *  \pre TODO
++	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Literatur
+ 	{
+@@ -26,80 +26,78 @@
+ 		var $Autoren = array(); ///&lt; Feld mit Autoren der Literatur
+ 		var $Kommentare = array(); ///&lt; Feld mit Kommentaren der Literatur
+ 		
+-		/*! \brief TODO
++		/*! \brief Liest Literatur ein
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $nr TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer der zu einlesenden Literatur
+ 		 */
+ 		function Literatur($nr)
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief Exportiert Literatur nach BibTeX
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
++		 *  \pre -
+ 		 *  \return TODO
+ 		 */
+ 		function ToBibtex()
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief L&#246;scht Literatur
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $nr TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer der zu l&#246;schenden Literatur
+ 		 */
+ 		function Delete($nr)
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief Importiert BibTeX
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $bibtex TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $bibtex String mit Inhalt einer BibTeX-Datei
+ 		 */
+-		function Insert($bibtex)
++		function InsertBibTeX($bibtex)
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief Legt Literatur an
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $art TODO
+-		 *  \param[in] $titel TODO
+-		 *  \param[in] $jahr TODO
+-		 *  \param[in] $nr TODO
+-		 *  \param[in] $verlag TODO
+-		 *  \param[in] $isbn TODO
+-		 *  \param[in] $beschreibung TODO
+-		 *  \param[in] $ort TODO
+-		 *  \param[in] $stichworte TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $art Bezeichner der Literaturart
++		 *  \param[in] $titel Titel der Literatur
++		 *  \param[in] $jahr Erscheinungsjahr der Literatur
++		 *  \param[in] $verlag Verlag der Literatur
++		 *  \param[in] $isbn ISBN der Literatur
++		 *  \param[in] $beschreibung Beschreibung der Literatur
++		 *  \param[in] $ort Erscheinungsort
++		 *  \param[in] $stichworte Stichworte
+ 		 */
+-		function Insert($art, $titel, $jahr, $nr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
++		function Insert($art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
+ 		}
+ 
+-		/*! \brief TODO
++		/*! \brief &#196;ndert Literatur
+ 		 *
+ 		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $nr TODO
+-		 *  \param[in] $art TODO
+-		 *  \param[in] $titel TODO
+-		 *  \param[in] $jahr TODO
+-		 *  \param[in] $nr TODO
+-		 *  \param[in] $verlag TODO
+-		 *  \param[in] $isbn TODO
+-		 *  \param[in] $beschreibung TODO
+-		 *  \param[in] $ort TODO
+-		 *  \param[in] $stichworte TODO
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Nummer der zu ver&#228;ndernden Literatur
++		 *  \param[in] $art neuer Bezeichner der Literaturart
++		 *  \param[in] $titel neuer Titel der Literatur
++		 *  \param[in] $jahr neues Erscheinungsjahr der Literatur
++		 *  \param[in] $verlag neuer Verlag der Literatur
++		 *  \param[in] $isbn neue ISBN der Literatur
++		 *  \param[in] $beschreibung neue Beschreibung der Literatur
++		 *  \param[in] $ort neuer Erscheinungsort
++		 *  \param[in] $stichworte neue Stichworte
+ 		 */
+-		function Insert($nr, $art, $titel, $jahr, $nr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
++		function Update($nr, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
+ 		}
+ 	}
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/literaturart.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -3,10 +3,13 @@
+ {
+ 	define(&quot;LiteraturArt&quot;, 1);
+ 
+-	/*! \brief TODO
++	/*! \brief Verwaltet Literaturarten
+ 	 *
+-	 *  TODO
+-	 *  \pre TODO
++	 *  Verwaltet die aus der Datenbank oder BibTeX-Datei erhaltenen
++	 *  Informationen zur Art einer Literatur. Enthaltene Informationen
++	 *  k&#246;nnen wieder als BibTeX- oder als der in Datenbank/Benutzeroberfl&#228;che
++	 *  verwendeten Namen zur&#252;ckgegeben werden.
++	 *  \pre -
+ 	 */
+ 	class LiteraturArt
+ 	{
+@@ -25,11 +28,15 @@
+ 		 */
+ 		var $value = 0;
+ 		
+-		/*! \brief TODO
++		/*! \brief Importiert BibTeX, interne Namen
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $text TODO
++		 *  Importiert die in BibTeX-Dateien oder in der
++		 *  Datenbank/Benutzeroberfl&#228;chen verwendeten Bezeichner f&#252;r
++		 *  Literaturarten und weist sie einen internen Wert zu.
++		 *  \pre -
++		 *  \param[in] $text BibTeX oder interner Bezeichner einer Literaturart
++		 *  \remarks Ist der Bezeichner unbekannt, erh&#228;lt die Literatur
++		 *    die Art &quot;Sonstiges&quot;
+ 		 */
+ 		function LiteraturArt($text)
+ 		{
+@@ -90,11 +97,16 @@
+ 			};
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief Liefert Bezeichner f&#252;r Datenbank/Benutzeroberfl&#228;che
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \return TODO
++		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
++		 *  wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart
++		 *  in der Datenbank/Benutzeroberfl&#228;che herausgesucht.
++		 *  \pre -
++		 *  \return String mit Bezeichner der Literaturart in
++		 *    Datenbank/Benutzeroberfl&#228;chendarstellung
++		 *  \remarks Sollte der Wert der Literatur nicht bekannt sein
++		 *    wird &quot;Sonstiges&quot; zur&#252;ckgegeben
+ 		 */
+ 		function GetDisplayText()
+ 		{
+@@ -133,11 +145,16 @@
+ 			};
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief Liefert Bezeichner f&#252;r BibTeX
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \return TODO
++		 *  Je nach der bei der Erstellung des Objekts gew&#228;hlten Art,
++		 *  wird der dazugeh&#246;roge Bezeichner f&#252;r die Literaturart
++		 *  in BibTeX herausgesucht.
++		 *  \pre -
++		 *  \return String mit Bezeichner der Literaturart in
++		 *    BibTeX-Darstellung
++		 *  \remarks Sollte der Wert der Literatur nicht bekannt sein
++		 *    wird &quot;Sonstiges&quot; zur&#252;ckgegeben
+ 		 */
+ 		function GetBibtexText()
+ 		{
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/login.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -10,6 +10,7 @@
+ 	 *  \pre Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum 
+ 	 *    User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. Es sollte
+ 	 *    kein zweites Objekt vom Typ Login existieren.
++	 *    Datenbankverbindung muss bestehen.
+ 	 *  \remarks Sollte ein weiteres Objekt vom Typ Login existieren, in
+ 	 *    welche neue Logininformationen eingetragen werden, wird keine
+ 	 *    weitere Session angelegt, sondern die alten Informationen in
+@@ -23,80 +24,107 @@
+ 		 *   - &gt;=0 Nutzer
+ 		 *  \private
+ 		 */
+-		var $level = 0; 
++		var $Level = 0;
++		var $Nr = 0; ///&lt; Mitglieds_Nr f&#252;r angemeldetes Mitglied (sonst 0)
+ 		
+-		/*! \brief Liest Session f&#252;r Anmeldedaten ein
++		/*! \brief Liest bzw. Erstellt Session f&#252;r Anmeldedaten
+ 		 *
+ 		 *  Liest Daten aus der Session ein. Sollten keine vorhanden
+ 		 *  sein, dann wird eine neue, leere Session angelegt. Sollten
+ 		 *  Daten vorhanden sein, wird die Korrektheit &#252;ber die
+ 		 *  Datenbank (Mitglieder) und die Verbindungsinformationen
+ 		 *  gepr&#252;ft. Nach dieser Pr&#252;fung werden abh&#228;ngig vom Ausgang
+-		 *  die Rechteinformationen gesetzt
+-		 *  \pre Eine Verbindung zur Datenbank muss bestehen.
+-		 *    Der Konstruktor muss vor dem Senden von Inhaltsdaten
+-		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.
+-		 */
+-		function Login()
+-		{
+-		}
+-
+-		/*! \brief &#196;ndert Session mit neuen Anmeldedaten
+-		 *
+-		 *  Das Klartextpasswort wird mit Mitglied::PasswordHash
+-		 *  gehasht, um diese mit Benutzernamen ($benutzer) gegen die
+-		 *  Eintr&#228;ge in Mitglieder zu pr&#252;fen. Ist diese erfolgreich,
+-		 *  wird eine neue Session mit gehashtem Passwort, Benuternamen
+-		 *  und Verbindungsinformationen erstellt. Sollte irgendwo ein
++		 *  die Rechteinformationen gesetzt.\n
++		 *  Werden keine Parameter &#252;bergeben, wird das Klartextpasswort
++		 *  mit Mitglied::PasswordHash gehasht, um diese mit
++		 *  Benutzernamen ($benutzer) gegen die Eintr&#228;ge in Mitglieder
++		 *  zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session
++		 *  mit gehashtem Passwort, Benuternamen und
++		 *  Verbindungsinformationen erstellt. Sollte irgendwo ein
+ 		 *  Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte
+ 		 *  (wird also nicht zum Mitglied). Sonst erh&#228;lt er die Rechte
+-		 *  aus dem gefundenem Eintrag in Mitglieder.
++		 *  und Mitglieds_Nr aus dem gefundenem Eintrag in Mitglieder.
++		 *  \param[in] $benutzer neuer Benutzername
++		 *  \param[in] $passwort Passwort in Klartext des Nutzers
+ 		 *  \pre Eine Verbindung zur Datenbank muss bestehen.
+ 		 *    Der Konstruktor muss vor dem Senden von Inhaltsdaten
+-		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.
+-		 *  \param[in] $benutzer neuer Benutzername
+-		 *  \param[in] $passwort Passwort in Klartext des Nutzers
++		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.\n
++		 *    Zum Einloggen mit Daten darf kein Parameter leer sein
+ 		 */
+-		function Login($benutzer, $passwort)
++		function Login($benutzer = &quot;&quot;, $passwort = &quot;&quot;)
+ 		{
++			if (empty($benutzer) === true || empty($passwort) == true)
++			{
++				/// \todo implementieren (Session einlesen und &#252;berpr&#252;fen
++				$this-&gt;Level = 1;
++				$this-&gt;Nr = 1;
++			}
++			else
++			{
++				/// \todo implementieren (Anmelden und Session erstellen)
++				$this-&gt;Level = 2;
++				$this-&gt;Nr = 1;
++			}
+ 		}
+ 
+ 		/*! \brief Entfernt Session
+ 		 *
+ 		 *  Die Anmeldedaten und Verbindungsdaten werden in der
+-		 *  Session entfernt. Au&#223;erdem werden die Rechte auf Gast (0)
+-		 *  gesetzt.
++		 *  Session entfernt. Au&#223;erdem werden die Rechte auf Nutzer (0)
++		 *  und Nr auf 0 gesetzt.
+ 		 *  \pre -
+ 		 */
+ 		function Logout()
+ 		{
++			/// \todo implementieren
++			$this-&gt;Level = 0;
++			$this-&gt;Nr = 0;
+ 		}
+ 
+ 		/*! \brief Ermittelt ob Administratorrechte vorliegen
+ 		 *
+ 		 *  Vergleicht ob die bei der Erstellung des Loginobjekts
+ 		 *  ermittelten Rechte mindestens den Wert f&#252;r
+-		 *  Administratorrechte (&gt;=2) haben
++		 *  Administratorrechte (&gt;=2) haben.
+ 		 *  \pre -
+ 		 *  \retval true wenn Administratorrechte vorliegen
+ 		 *  \retval false wenn Nutzer- oder Mitgliedsrechte vorliegen
+ 		 */
+ 		function IsAdministrator()
+ 		{
++			if ($this-&gt;Level &gt;= 2)
++			{
++				return true;
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 
+ 		/*! \brief Ermittelt ob mindestens Mitgliedsrechte vorliegen
+ 		 *
+ 		 *  Vergleicht ob die bei der Erstellung des Loginobjekts
+ 		 *  ermittelten Rechte mindestens den Wert f&#252;r
+-		 *  Mitgliedsrechte (&gt;=1) haben
++		 *  Mitgliedsrechte (&gt;=1) haben.
+ 		 *  \pre -
+ 		 *  \retval true wenn mindestens Mitgliedsrechte vorliegen
+ 		 *  \retval false wenn Nutzerrechte vorliegen
+ 		 */
+ 		function IsMember()
+ 		{
++			if ($this-&gt;Level &gt;= 1)
++			{
++				return true;
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 	}
++
++	// Globales Loginobjekt erstellen
++	$login = new Login();
+ }
+ ?&gt;
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/mitglied.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -4,81 +4,125 @@
+ 	define(&quot;Mitglied&quot;, 1);
+ 	require_once(&quot;login.php&quot;);
+ 
+-	/*! \brief TODO
++	/*! \brief Verwaltet Mitglieder
+ 	 *
+-	 *  TODO
+-	 *  \pre TODO
++	 *  Stellt Funktionen zum Entfernen, Hinzuf&#252;gen, &#196;ndern und Auflisten
++	 *  von Mitgliedern bereit.
++	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Mitglied
+ 	{
+-		var $Nr = 0; ///&lt; TODO
+-		var $Login = &quot;&quot;; ///&lt; TODO
+-		var $Passwort = &quot;&quot;; ///&lt; TODO
+-		var $Rechte = 0; ///&lt; TODO
+-		var $Vorname = &quot;&quot;; ///&lt; TODO
+-		var $Nachname = &quot;&quot;; ///&lt; TODO
+-		var $Email = &quot;&quot;; ///&lt; TODO
++		var $Nr = 0; ///&lt; Identifikationsnummer des Mitglieds
++		var $Login = &quot;&quot;; ///&lt; Benutzername des Mitglieds
++		var $Passwort = &quot;&quot;; ///&lt; Passworthash des Benutzerpassworts
++		var $Rechte = 0; ///&lt; Rechte des Mitglieds (0 - Gast, 1 - Mitglied, 2 - Administrator)
++		var $Vorname = &quot;&quot;; ///&lt; Vorname des Mitglieds
++		var $Nachname = &quot;&quot;; ///&lt; Nachname des Mitglieds
++		var $Email = &quot;&quot;; ///&lt; E-Mail-Adresse des Mitglieds
+ 		
+-		/*! \brief TODO
++		/*! \brief Generiert Passworthash
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $pass TODO
++		 *  Aus &#252;bergebenes Klartextpasswort wird ein 40 Byte gro&#223;er
++		 *  hexkodierter Hash generiert. Als Hashingalgorithmus wird
++		 *  SHA-1 genutzt
++		 *  \pre -
++		 *  \param[in] $pass zu hashendes Klartextpasswort
+ 		 */
+ 		function PasswordHash($pass)
+ 		{
+ 			return sha1($pass);
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief Entfernt Mitglied
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $nr TODO
++		 *  Entfernt Mitglied mit Mitgliedsnummer ($nr) aus Mitglieder
++		 *  und l&#246;scht zus&#228;tzlich die Kommentare des Mitglieds in
++		 *  Kommentare
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Mitglieds_Nr des zu l&#246;schenden Mitglieds
+ 		 */
+ 		function Delete($nr)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief Legt  Mitglied an
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $login TODO
+-		 *  \param[in] $passwort TODO
+-		 *  \param[in] $rechte TODO
+-		 *  \param[in] $vorname TODO
+-		 *  \param[in] $nachname TODO
+-		 *  \param[in] $email TODO
++		 *  F&#252;gt neues Mitglied mit Benutzernamen ($login), Passwort
++		 *  ($passwort), Benutzerrechten ($rechte), Vorname ($vorname),
++		 *  Nachname ($nachname), E-Mail-Adresse ($email) in Mitglieder
++		 *  ein. Dazu wird das Passwort noch mit Mitglied::PasswortHash
++		 *  gehasht.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $login Benutzername des neuen Mitglieds
++		 *  \param[in] $passwort Benutzerpasswort des neuen Mitglieds
++		 *  \param[in] $rechte Rechte des neuen Mitglieds
++		 *     (1 - Mitglied, 2 - Passwort)
++		 *  \param[in] $vorname Vorname des neuen Mitglieds
++		 *  \param[in] $nachname Nachname des neuen Mitglieds
++		 *  \param[in] $email E-Mail-Adresse des neuen Mitglieds
+ 		 */
+ 		function Insert($login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief &#196;ndert ein Mitglied
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] nr TODO
+-		 *  \param[in] $login TODO
+-		 *  \param[in] $passwort TODO
+-		 *  \param[in] $rechte TODO
+-		 *  \param[in] $vorname TODO
+-		 *  \param[in] $nachname TODO
+-		 *  \param[in] $email TODO
++		 *  &#196;ndert die Daten das Mitglieds mit der Mitglieds_Nr ($nr),
++		 *  in neuen Benutzernamen ($login), Passwort ($passwort),
++		 *  Benutzerrechten ($rechte), Vorname ($vorname),
++		 *  Nachname ($nachname), E-Mail-Adresse ($email) in
++		 *  Mitglieder. Wenn $passwort nicht die L&#228;nge 0 hat, wird es 
++		 *  noch mit Mitglied::PasswortHash gehasht. Andernfalls wird
++		 *  das alte Passwort in Mitglieder beibehalten.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $nr Mitglieds_Nr des zu ver&#228;ndernden Mitglieds
++		 *  \param[in] $login neuer Benutzername des Mitglieds
++		 *  \param[in] $passwort neues Passwort des Mitglieds
++		 *  \param[in] $rechte neuen Rechte des Mitglieds
++		 *  \param[in] $vorname neuer Vorname des Mitglieds
++		 *  \param[in] $nachname neuer Nachname des Mitglieds
++		 *  \param[in] $email neue E-Mail-Adresse des Mitglieds
+ 		 */
+ 		function Update($nr, $login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
++			/// \todo implementieren
+ 		}
+ 		
+-		/*! \brief TODO
++		/*! \brief R&#252;ckgabe einer Liste der Mitglieder
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \return TODO
++		 *  Liest alle Mitglieder mit Nr, Login, Vorname, Nachname und
++		 *  Email aus Mitgliedertabelle und gibt die ausgelesenen
++		 *  Objekte in einem Feld zur&#252;ck
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld mit Objekten der Form
++		 *    - Nr
++		 *    - Login
++		 *    - Vorname
++		 *    - Nachname
++		 *    - E-Mail
+ 		 */
+ 		function GetAll()
+ 		{
++			/// \todo implementieren
++			$members = array();
++
++			$cur1-&gt;Nr = 1;
++			$cur1-&gt;Login = &quot;siwu&quot;;
++			$cur1-&gt;Vorname = &quot;Simon&quot;;
++			$cur1-&gt;Nachname = &quot;Wunderlich&quot;;
++			$cur1-&gt;Email = &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot;;
++			$members[] = $cur1;
++
++			$cur2-&gt;Nr = 2;
++			$cur2-&gt;Login = &quot;hans&quot;;
++			$cur2-&gt;Vorname = &quot;Hans&quot;;
++			$cur2-&gt;Nachname = &quot;Wurst&quot;;
++			$cur2-&gt;Email = &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>&quot;;
++			$members[] = $cur2;
++
++			return $members;
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/sqldb_mysql.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -8,35 +8,29 @@
+ 	 *
+ 	 *  Erlaubt den abstrahierten Zugriff &#252;ber SQL auf eine
+ 	 *  Datenbank (hier MySQL).
+-	 *  \pre TODO
++	 *  \pre -
+ 	 */
+ 	class SQLDB
+ 	{
+-		var $db_id = 0; ///&lt; Identifikation der aktuellen Datenbankverbindung
+-		var $query_result = 0; ///&lt; Identifikation der letzten Datenbankabfrage
++		var $db_id = false; ///&lt; Identifikation der aktuellen Datenbankverbindung
++		var $query_result = false; ///&lt; Identifikation der letzten Datenbankabfrage
+ 		
+ 
+ 		/*! \brief &#214;ffnet eine Datenbankverbindung
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
++		 *  Startet eine Verbindung zum Datenbanksystem, je nach
++		 *  gew&#228;hlter Art ($persist), und w&#228;hlt nach erfolgreichem
++		 *  Aufbau eine Datenbank. Treten Fehler beim Aufbau auf, wird
++		 *  SQLDB::$db_id auf false gesetzt.
++		 *  \pre -
+ 		 *  \param[in] $host Adresse oder IP des MySQL-Servers
+ 		 *  \param[in] $user Benutzernamen f&#252;r MySQL-Zugriff
+ 		 *  \param[in] $password Benutzerpasswort f&#252;r MySQL-Zugriff
+ 		 *  \param[in] $database Auszuw&#228;hlende Datenbank
+ 		 *  \param[in] $persist Aufbau einer persistenten (geteilten) Verbindung
+-		 *  \return bei Erfolg Kennung der Datenbankverbindung
+-		 *  \retval false bei Misserfolg
+ 		 */
+ 		function SQLDB($host, $user, $password, $database, $persist = true)
+ 		{
+-			if (empty($database) === true)
+-			{
+-				// keine Datenbank angegeben
+-				$this-&gt;db_id = false;
+-				return false;
+-			}
+-
+ 			if ($persist == true)
+ 			{
+ 				$this-&gt;db_id = @mysql_pconnect($host, $user, $password);
+@@ -48,29 +42,42 @@
+ 			
+ 			if ($this-&gt;db_id !== false)
+ 			{
+-				if (@mysql_select_db($database, $this-&gt;db_id))
++				if (@mysql_select_db($database, $this-&gt;db_id) === false)
+ 				{
+-					// Verbindung aufgebaut und Datenbank ausgew&#228;hlt
+-					return $this-&gt;db_id;
++					// Verbindung aufgebaut und Datenbank nicht ausgew&#228;hlt
++					@mysql_close($this-&gt;db_id);
++					$this-&gt;db_id = false;
+ 				}
+ 			}
+-
+-			// Verbindungsaufbau funktionierte nicht
+-			$this-&gt;db_id = false;
+-			return  false;
++			else
++			{
++				// Verbindungsaufbau funktionierte nicht
++				$this-&gt;db_id = false;
++			}
+ 		}
+ 		
+ 		/*! \brief Beendet Verbindung
+ 		 *
+-		 *  Beendet die Verbindung zum Datenbankserver
+-		 *  \pre TODO
++		 *  Beendet die Verbindung zum Datenbankserver, wenn eine nicht
++		 *  persistende Verbindung besteht.
++		 *  \pre -
+ 		 *  \retval true bei Erfolg
+ 		 *  \retval false bei Misserfolg
+ 		 *  \remarks Persistente Verbindungen werden nicht geschlossen
+ 		 */
+ 		function Close()
+ 		{
+-			return @mysql_close($this-&gt;db_id);
++			if ($this-&gt;db_id !== false)
++			{
++				$this-&gt;FreeResult();
++				return @mysql_close($this-&gt;db_id);
++			}
++			else
++			{
++				// keine Verbindung endet immer im geschlossenem
++				// Zustand
++				return true;
++			}
+ 		}
+ 		
+ 		/*! \brief Springt auf Datensatz
+@@ -78,97 +85,150 @@
+ 		 *  L&#228;sst den internen Zeiger auf angegebenen Datensatz der
+ 		 *  letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit
+ 		 *  Fetch abfragen.
+-		 *  \pre TODO
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
+ 		 *  \retval true bei Erfolg
+ 		 *  \retval false bei Misserfolg
+ 		 */
+ 		function DataSeek($row_number)
+ 		{
+-			return @mysql_data_seek($this-&gt;query_result, $row_number);
++			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
++			{
++				return @mysql_data_seek($this-&gt;query_result, $row_number);
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief Liefert Datensatz als Objekt
+ 		 *
+ 		 *  Wandelt aktuellen Datensatz in Objekt um und gibt ihn
+ 		 *  zur&#252;ck. Nach erfolgreicher Operation wird der
+-		 *  interne Zeiger eine Stelle weiter ger&#252;ckt
+-		 *  \pre TODO
++		 *  interne Zeiger eine Stelle weiter ger&#252;ckt.
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
+ 		 *  \return bei Erfolg Datensatz als Objekt
+ 		 *  \retval false bei Misserfolg
+ 		 */
+ 		function Fetch()
+ 		{
+-			return @mysql_fetch_object($this-&gt;query_result);
++			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
++			{
++				return @mysql_fetch_object($this-&gt;query_result);
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief Entfernt Ergebnisse
+ 		 *
+ 		 *  Entfernt Datens&#228;tze der letzten Anfrage und gibt deren
+-		 *  Speicher frei
+-		 *  \pre TODO
++		 *  Speicher frei.
++		 *  \pre -
+ 		 *  \remarks Funktion wird vor jedem query aufgerufen
+ 		 */
+ 		function FreeResult()
+ 		{
+-			$ret = @mysql_free_result($this-&gt;query_result);
+-			unset($this-&gt;query_result);
+-			return $ret;
++			if ($this-&gt;query_result !== false)
++			{
++				return @mysql_free_result($this-&gt;query_result);;
++			}
++			else
++			{
++				// keine Resultate enden immer mit leeren
++				// Resultaten
++				return true;
++			}
+ 		}
+ 		
+ 		/*! \brief Anzahl zuletzt ge&#228;nderter Datens&#228;tze
+ 		 *
+ 		 *  Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE
+-		 *  Anweisung ge&#228;nderten Datens&#228;tze
+-		 *  \pre TODO
++		 *  Anweisung ge&#228;nderten Datens&#228;tze.
++		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Anzahl der Datens&#228;tze
+ 		 *  \remarks F&#252;r gefundene Datens&#228;tze sollte num_rows() genutzt werden
+ 		 */
+ 		function GetAffectedRows()
+ 		{
+-			return @mysql_affected_rows($this-&gt;db_id);
++			if ($this-&gt;db_id !== false)
++			{
++				return @mysql_affected_rows($this-&gt;db_id);
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief Liefert Fehlerinformationen
+ 		 *
+ 		 *  Liefert Array mit Fehlernachricht und interner Fehlernummer
+-		 *  zur&#252;ck
+-		 *  \pre TODO
++		 *  zur&#252;ck.
++		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
+ 		 */
+ 		function GetError()
+ 		{
+ 			$error = array();
+-			$error['msg'] = @mysql_error($query_result);
+-			$error['code'] = @mysql_errno($query_result);
++			if ($this-&gt;db_id !== false)
++			{
++				$error['msg'] = @mysql_error($this-&gt;db_id);
++				$error['code'] = @mysql_errno($this-&gt;db_id);
++				
++			}
++			else
++			{
++				$error['msg'] = &quot;Keine Verbindung vorhanden&quot;;
++				$error['code'] = 0;
++			}
++
+ 			return $error;
+ 		}
+ 		
+ 		/*! \brief Anzahl zuletzt gefundener Datens&#228;tze
+ 		 *
+ 		 *  Gibt Anzahl der bei der letzten SELECT-Anweisung
+-		 *  gefundenen Datens&#228;tze
+-		 *  \pre TODO
+-		 *  \return Anzahl der Datens&#228;tze
++		 *  gefundenen Datens&#228;tze.
++		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
++		 *  \return bei Erfolg Anzahl der Datens&#228;tze
++		 *  \retval false bei Misserfolg
+ 		 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte affected_rows() genutzt werden
+ 		 */
+ 		function GetNumRows()
+ 		{
+-			return @mysql_num_rows($this-&gt;query_result);
++			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
++			{
++				return @mysql_num_rows($this-&gt;query_result);
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief Sendet Anfrage an Server
+ 		 *
+ 		 *  Sendet eine Anfrage an die aktive Datenbank.
+ 		 *  Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch abgefragt
+-		 *  werden
+-		 *  \pre TODO
++		 *  werden.
++		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $query SQL-Anfrage an den Datenbankserver
+-		 *  \return wenn ein Fehler in der Anfrage aufgetreten ist
++		 *  \retval false wenn ein Fehler in der Anfrage aufgetreten ist
+ 		 */
+ 		function Query($query)
+ 		{
+-			$this-&gt;free_result();
+-			return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
++			if ($this-&gt;db_id !== false)
++			{
++				$this-&gt;free_result();
++				return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/include/suche.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -4,44 +4,164 @@
+ 	define(&quot;Suche&quot;, 1);
+ 	require_once(&quot;literatur.php&quot;);
+ 
+-	/*! \brief TODO
++	/*! \brief Suche Literaturdaten
+ 	 *
+-	 *  TODO
+-	 *  \pre TODO
++	 *  Durchsucht die Literatur- und Autorentabelle &#252;ber Volltextsuche,
++	 *  nach Autor und Titel oder nach den 10 zuletzt hinzugef&#252;gten
++	 *  Literatureintr&#228;gen und speichert sie in $Treffer zwischen.
++	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Suche
+ 	{
+-		var $Treffer = array(); ///&lt; TODO
+-		
++		/*! \brief gefundene Treffer
++		 *
++		 *  Feld aus gefundenen Trefferobjekten mit Attributen
++		 *   - Nr
++		 *   - Titel
++		 *   - Autor
++		 *   - Verlag
++		 *   - ISBN
++		 */
++		var $Treffer = array();
++
+ 		/*! \brief Sucht zuletzt hinzugef&#252;gte Literatur
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
++		 *  Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten
++		 *  Literatureintr&#228;gen und speichert Nr, Titel, Autor, Verlag
++		 *  und ISBN als als Objekt im Feld $Treffer. Sollte ein Fehler
++		 *  auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann
++		 *  wird $Treffer ein Feld der L&#228;nge 0.
++		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \private
+ 		 */
+-		function Suche()
++		function LetzteLiteratur()
+ 		{
++			/// \todo implementieren
++			$this-&gt;Treffer = array();
++			$cur1-&gt;Nr = 1;
++			$cur1-&gt;Titel = &quot;Algorithmen&quot;;
++			$cur1-&gt;Autor = &quot;Sedgewick&quot;;
++			$cur1-&gt;Verlag = &quot;Pearson Studium&quot;;
++			$cur1-&gt;ISBN = &quot;3-8273-7032-9&quot;;
++			$this-&gt;Treffer[] = $cur1;
++
++			$cur2-&gt;Nr = 2;
++			$cur2-&gt;Titel = &quot;Python - kurz und gut&quot;;
++			$cur2-&gt;Autor = &quot;Mark Lutz&quot;;
++			$cur2-&gt;Verlag = &quot;O'Reilly&quot;;
++			$cur2-&gt;ISBN = &quot;3-89721-240-4&quot;;
++			$this-&gt;Treffer[] = $cur2;
+ 		}
+-		
++
+ 		/*! \brief Sucht nach Literatur mit Suchbegriff
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $volltext TODO
++		 *  Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  des &#252;bergebenen Textes in  Literatureintr&#228;gen und speichert
++		 *  Nr, Titel, Autor, Verlag und ISBN als als Objekt im Feld
++		 *  $Treffer. Sollte ein Fehler auftreten oder keine passenden
++		 *  Eintr&#228;ge vorhanden sein, dann wird $Treffer ein Feld der
++		 *  L&#228;nge 0.
++		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \param[in] $volltext Suchtext
++		 *  \private
+ 		 */
+-		function Suche($volltext)
++		function VolltextSuche($volltext)
+ 		{
++			/// \todo implementieren
++			$this-&gt;Treffer = array();
++			$cur1-&gt;Nr = 1;
++			$cur1-&gt;Titel = &quot;Algorithmen&quot;;
++			$cur1-&gt;Autor = &quot;Sedgewick&quot;;
++			$cur1-&gt;Verlag = &quot;Pearson Studium&quot;;
++			$cur1-&gt;ISBN = &quot;3-8273-7032-9&quot;;
++			$this-&gt;Treffer[] = $cur1;
++
++			$cur2-&gt;Nr = 3;
++			$cur2-&gt;Titel = &quot;Angewandte Kryptographie&quot;;
++			$cur2-&gt;Autor = &quot;Bruce Schneier&quot;;
++			$cur2-&gt;Verlag = &quot;Addison-Wesley&quot;;
++			$cur2-&gt;ISBN = &quot;3-89319-854-7&quot;;
++			$this-&gt;Treffer[] = $cur2;
+ 		}
+ 		
+ 		/*! \brief Sucht Literatur mit Autor und Titel
+ 		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $autor TODO
+-		 *  \param[in] $titel TODO
++		 *  Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  von $autor in Autor und $titel im Titel des Literatureintrags
++		 *  und speichert Nr, Titel, Autor, Verlag und ISBN der Treffer
++		 *  als als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
++		 *  oder keine passenden Eintr&#228;ge vorhanden sein, dann wird
++		 *  $Treffer ein Feld der L&#228;nge 0.
++		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \param[in] $autor String mit Autorname
++		 *  \param[in] $titel String mit Literaturtitel
++		 *  \private
+ 		 */
+-		function Suche($autor, $titel)
++		function AutorTitelSuche($autor, $titel)
+ 		{
++			/// \todo implementieren
++			$this-&gt;Treffer = array();
++			$cur1-&gt;Nr = 2;
++			$cur1-&gt;Titel = &quot;Python - kurz und gut&quot;;
++			$cur1-&gt;Autor = &quot;Mark Lutz&quot;;
++			$cur1-&gt;Verlag = &quot;O'Reilly&quot;;
++			$cur1-&gt;ISBN = &quot;3-89721-240-4&quot;;
++			$this-&gt;Treffer[] = $cur1;
++
++			$cur2-&gt;Nr = 3;
++			$cur2-&gt;Titel = &quot;Angewandte Kryptographie&quot;;
++			$cur2-&gt;Autor = &quot;Bruce Schneier&quot;;
++			$cur2-&gt;Verlag = &quot;Addison-Wesley&quot;;
++			$cur2-&gt;ISBN = &quot;3-89319-854-7&quot;;
++			$this-&gt;Treffer[] = $cur2;
+ 		}
++
++		
++		/*! \brief Sucht Literatur
++		 *
++		 *  Wenn keine Parameter &#252;bergeben werden:
++		 *  - Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten
++		 *    Literatureintr&#228;gen und speichert Nr, Titel, Autor, Verlag
++		 *    und ISBN als als Objekt im Feld $Treffer. Sollte ein Fehler
++		 *    auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann
++		 *    wird $Treffer ein Feld der L&#228;nge 0.
++		 *
++		 *  Wenn ein $suchbegriff &#252;bergeben wird:
++		 *  - Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *    des &#252;bergebenen Textes in  Literatureintr&#228;gen und speichert
++		 *    Nr, Titel, Autor, Verlag und ISBN als als Objekt im Feld
++		 *    $Treffer. Sollte ein Fehler auftreten oder keine passenden
++		 *    Eintr&#228;ge vorhanden sein, dann wird $Treffer ein Feld der
++		 *    L&#228;nge 0.
++		 *
++		 *  Wenn $suchbegriff und $autor &#252;bergeben werden:
++		 *  - Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *    von $autor in Autor und $suchbegriff im Titel des 
++		 *    Literatureintrags und speichert Nr, Titel, Autor, Verlag
++		 *    als als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
++		 *    und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden
++		 *    sein, dann wird $Treffer ein Feld der L&#228;nge 0.
++		 *
++		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \param[in] $autor String mit Autorname
++		 *  \param[in] $suchbegriff String mit Literaturtitel bzw. wenn
++		 *     einzeln &#252;bergeben Suchtext f&#252;r Volltextsuche
++		 */
++		function Suche($suchbegriff=&quot;&quot;, $autor=&quot;&quot;)
++		{
++			switch (func_num_args())
++			{
++			case 0:
++				$this-&gt;LetzteLiteratur();
++				break;
++			case 1:
++				$this-&gt;VolltextSuche($suchbegriff);
++				break;
++			case 2:
++				$this-&gt;AutorTitelSuche($autor, $suchbegriff);
++				break;
++			}
++		}
+ 	}
+ }
+ ?&gt;
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/index.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -17,24 +17,22 @@
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+ 		&lt;tbody&gt;
+-			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=123&quot;&gt;Algorithmen&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Sedgewick&lt;/td&gt;
+-				&lt;td&gt;Pearson Studium&lt;/td&gt;
+-				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=456&quot;&gt;Python - kurz und gut&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Mark Lutz&lt;/td&gt;
+-				&lt;td&gt;O'Reilly&lt;/td&gt;
+-				&lt;td&gt;3-89721-240-4&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=456&quot;&gt;Angewandte Kryptographie&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Bruce Schneier&lt;/td&gt;
+-				&lt;td&gt;Addison-Wesley&lt;/td&gt;
+-				&lt;td&gt;3-89319-854-7&lt;/td&gt;
+-			&lt;/tr&gt;
++			&lt;?php
++				require_once(&quot;include/suche.php&quot;);
++				$search = new Suche();
++				for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++				{
++					$cur = $search-&gt;Treffer[$i];
++			?&gt;
++				&lt;tr&gt;
++					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;?php
++				}
++			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;br&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-05-20 22:41:18 UTC (rev 104)
++++ trunk/userlist.php	2006-05-22 15:40:17 UTC (rev 105)
+@@ -11,29 +11,42 @@
+ 		&lt;thead&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;col&quot;&gt;Login&lt;/th&gt;
+-				&lt;th scope=&quot;col&quot;&gt;Vorame&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;Vorname&lt;/th&gt;
+ 				&lt;th scope=&quot;col&quot;&gt;Nachname&lt;/th&gt;
+ 				&lt;th scope=&quot;col&quot;&gt;E-Mail&lt;/th&gt;
+ 				&lt;th scope=&quot;col&quot;&gt;Aktionen&lt;/th&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+ 		&lt;tbody&gt;
++			&lt;?php
++				/// \todo richtig implementieren
++				require_once(&quot;include/mitglied.php&quot;);
++				$members = Mitglied::GetAll();
++				for ($i = 0; $i &lt; count($members); $i++)
++				{
++					$cur = $members[$i];
++			?&gt;
+ 			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=123&quot;&gt;siwu&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Simon&lt;/td&gt;
+-				&lt;td&gt;Wunderlich&lt;/td&gt;
+-				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&lt;/td&gt;
+-				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Details&quot;&gt;
+-					&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
+-					&lt;/td&gt;
++				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Login); ?&gt;&lt;/a&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Vorname); ?&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Nachname); ?&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Email); ?&gt;&lt;/td&gt;
++				&lt;td&gt;
++					&lt;?php
++						if ($login-&gt;IsAdministrator() === true || $login-&gt;Nr == $cur-&gt;Nr)
++						{
++							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Bearbeiten\&quot;&gt;&quot;;
++						}
++						else
++						{
++							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Details\&quot;&gt;&quot;;
++						}
++					?&gt;
++				&lt;/td&gt;
+ 			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=456&quot;&gt;hans&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Hans&lt;/td&gt;
+-				&lt;td&gt;Wurst&lt;/td&gt;
+-				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>&lt;/td&gt;
+-				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Details&quot;&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
++			&lt;?php
++				}
++			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;/form&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000093.html">[Liman-svn] r104 - in trunk: docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000096.html">[Liman-svn] r106 - trunk/docs/beleg2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#95">[ date ]</a>
+              <a href="thread.html#95">[ thread ]</a>
+              <a href="subject.html#95">[ subject ]</a>
+              <a href="author.html#95">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

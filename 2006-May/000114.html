@@ -1,0 +1,1397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r124%20-%20in%20trunk%3A%20.%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605272104.k4RL4dvW016211%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000113.html">
+   <LINK REL="Next"  HREF="000115.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r124%20-%20in%20trunk%3A%20.%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605272104.k4RL4dvW016211%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 23:04:39 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000113.html">[Liman-svn] r123 - trunk/include
+</A></li>
+        <LI>Next message: <A HREF="000115.html">[Liman-svn] r125 - trunk/docs/beleg2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 23:04:20 +0200 (Sat, 27 May 2006)
+New Revision: 124
+
+Removed:
+   trunk/docs/beleg2/klasse_literatur.tex
+Modified:
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/teilbeleg2.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/mitglied.php
+   trunk/lit.php
+   trunk/user.php
+   trunk/usermod.php
+Log:
+- Literatur (bis auf BibTeX-Import) implementiert
+- Berechtigung zum schreiben in Datenbank in Klassen abgefangen
+- Kommentar::GetAll hinzugef?\195?\188gt
+- Importlisten hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -32,7 +32,7 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
+ \end{Desc}
+ 
+ 
+@@ -71,6 +71,8 @@
+ 
+ Entfernt aus Autoren alle Autoren, die keine Verbindung (Literatur\_\-Autor-Tabelle) mehr mit \hyperlink{classLiteratur}{Literatur} haben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ \hypertarget{classAutor_79cd90084cab240919a5daecf39156a7}{
+ \index{Autor@{Autor}!GetAll@{GetAll}}
+ \index{GetAll@{GetAll}!Autor@{Autor}}
+@@ -80,7 +82,7 @@
+ 
+ Gibt Autoren zu bestimmter \hyperlink{classLiteratur}{Literatur} zur&#252;ck. 
+ 
+-Liest alle Autoren die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Bibliothek aus und gibt sie als Feld des Typs \hyperlink{classAutor}{Autor} zur&#252;ck. \begin{Desc}
++Liest alle Autoren die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classAutor}{Autor} zur&#252;ck. \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nr einer \hyperlink{classLiteratur}{Literatur} mit Autoren \end{description}
+@@ -107,6 +109,8 @@
+ \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit Autor\_\-Nr der Autoren \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -16,6 +16,8 @@
+ \begin{CompactList}\small\item\em L&#246;scht alle zu einer \hyperlink{classLiteratur}{Literatur} geh&#246;renden Kommentare. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{Delete\-All\-Member} (\$member\_\-nr)
+ \begin{CompactList}\small\item\em L&#246;scht alle zu einem \hyperlink{classMitglied}{Mitglied} geh&#246;renden Kommentare. \item\end{CompactList}\item 
++\hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Get\-All} (\$literatur\_\-nr)
++\begin{CompactList}\small\item\em Gibt Kommentare zu bestimmter \hyperlink{classLiteratur}{Literatur} zur&#252;ck. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_6119b3c12a61d8d5a41cded165517914}{Insert} (\$text, \$verfasser\_\-nr, \$literatur\_\-nr)
+ \begin{CompactList}\small\item\em Legt \hyperlink{classKommentar}{Kommentar} an. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_0b3e20e910493e67b67b747243f04511}{Update} (\$nr, \$text)
+@@ -37,10 +39,10 @@
+ Verwaltet Kommentare. 
+ 
+ Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur- bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen $\ast$\end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
+ \end{Desc}
+ 
+ 
+@@ -84,6 +86,8 @@
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu l&#246;schenden Kommentars \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator angemeldet, werden keine Operationen ausgef&#252;hrt, wenn Mitglieds\_\-Nr des Kommentars ungleich der eigenen Mitglieds\_\-Nr ist. Ist der Nutzer nicht angemeldet, werden keine Operationen ausgef&#252;hrt \end{Desc}
+ \hypertarget{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{
+ \index{Kommentar@{Kommentar}!DeleteAll@{DeleteAll}}
+ \index{DeleteAll@{DeleteAll}!Kommentar@{Kommentar}}
+@@ -100,6 +104,8 @@
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ \hypertarget{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{
+ \index{Kommentar@{Kommentar}!DeleteAllMember@{DeleteAllMember}}
+ \index{DeleteAllMember@{DeleteAllMember}!Kommentar@{Kommentar}}
+@@ -116,6 +122,26 @@
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
++\hypertarget{classKommentar_33d65db8c526c50017a5fa029bc04416}{
++\index{Kommentar@{Kommentar}!GetAll@{GetAll}}
++\index{GetAll@{GetAll}!Kommentar@{Kommentar}}
++\paragraph[GetAll]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Get\-All (\$ {\em literatur\_\-nr})}\hfill}
++\label{classKommentar_33d65db8c526c50017a5fa029bc04416}
++
++
++Gibt Kommentare zu bestimmter \hyperlink{classLiteratur}{Literatur} zur&#252;ck. 
++
++Liest alle Kommentare die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classKommentar}{Kommentar} zur&#252;ck. \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nr einer \hyperlink{classLiteratur}{Literatur} mit Kommentaren \end{description}
++\end{Desc}
++\begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]Feld vom Typ \hyperlink{classKommentar}{Kommentar} \end{Desc}
+ \hypertarget{classKommentar_6119b3c12a61d8d5a41cded165517914}{
+ \index{Kommentar@{Kommentar}!Insert@{Insert}}
+ \index{Insert@{Insert}!Kommentar@{Kommentar}}
+@@ -125,13 +151,15 @@
+ 
+ Legt \hyperlink{classKommentar}{Kommentar} an. 
+ 
+-Legt einen neuen \hyperlink{classKommentar}{Kommentar} mit Text (\$text) zu einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) vom einem Verfasser (\$verfasser\_\-nr) an. Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss \$verfasser\_\-nr gleich der aktuellen Nummer des Logins sein. \begin{Desc}
++Legt einen neuen \hyperlink{classKommentar}{Kommentar} mit Text (\$text) zu einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) vom einem Verfasser (\$verfasser\_\-nr) an. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss \$verfasser\_\-nr gleich der aktuellen Nummer des Logins sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ \hypertarget{classKommentar_0b3e20e910493e67b67b747243f04511}{
+ \index{Kommentar@{Kommentar}!Update@{Update}}
+ \index{Update@{Update}!Kommentar@{Kommentar}}
+@@ -141,13 +169,15 @@
+ 
+ &#196;ndert einen \hyperlink{classKommentar}{Kommentar}. 
+ 
+-&#196;ndert in Kommentare den Text des Kommentars mit \$nr in \$text. Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss die aktuelle Nummer des Mitglieds gleich der Mitglieds\_\-Nr des Kommentars in Kommentare sein. \begin{Desc}
++&#196;ndert in Kommentare den Text des Kommentars mit \$nr in \$text. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss die aktuelle Nummer des Mitglieds gleich der Mitglieds\_\-Nr des Kommentars in Kommentare sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -52,6 +52,10 @@
+ 
+ Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren, Hinzuf&#252;gen und &#196;ndern von \hyperlink{classLiteratur}{Literatur} in Bibliothek zur Verf&#252;gung. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[Importiert:]\begin{itemize}
++\item \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Autor::Clean}\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Autor::Split}\item \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Kommentar::Delete\-All}\item \hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Kommentar::Get\-All}\item \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art::Literatur\-Art}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\end{Desc}
+ 
+ 
+ 
+@@ -71,7 +75,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur}\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ 
+ 
+@@ -90,8 +94,10 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu l&#246;schenden \hyperlink{classLiteratur}{Literatur}\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu l&#246;schenden \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als \hyperlink{classMitglied}{Mitglied} angemeldet, werden keine Operationen ausgef&#252;hrt \end{Desc}
+ \hypertarget{classLiteratur_3347551316e8f73659fc6f32ac6095df}{
+ \index{Literatur@{Literatur}!Insert@{Insert}}
+ \index{Insert@{Insert}!Literatur@{Literatur}}
+@@ -106,8 +112,10 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]Stichworte\end{description}
++\item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]Stichworte \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als \hyperlink{classMitglied}{Mitglied} angemeldet, werden keine Operationen ausgef&#252;hrt \end{Desc}
+ \hypertarget{classLiteratur_d466a307b1971ee736e1d4ba9342dc55}{
+ \index{Literatur@{Literatur}!InsertBibTeX@{InsertBibTeX}}
+ \index{InsertBibTeX@{InsertBibTeX}!Literatur@{Literatur}}
+@@ -136,7 +144,7 @@
+ Exportiert die aktuellen Informationen im Literaturobjekt in das Bib\-Te\-X-Format. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]\$string mit Bib\-Te\-X-Eintrag\end{Desc}
++\item[R\&quot;{u}ckgabe:]\$string mit Bib\-Te\-X-Eintrag \end{Desc}
+ \hypertarget{classLiteratur_b613c28476ea28058f8fc2bccb57c923}{
+ \index{Literatur@{Literatur}!Update@{Update}}
+ \index{Update@{Update}!Literatur@{Literatur}}
+@@ -151,8 +159,10 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu ver&#228;ndernden \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]neuer Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]neuer Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]neues Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]neuer Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]neue ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]neue Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]neuer Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]neue Stichworte\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu ver&#228;ndernden \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \item[\mbox{$\leftarrow$} {\em \$art}]neuer Bezeichner der Literaturart \item[\mbox{$\leftarrow$} {\em \$titel}]neuer Titel der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$jahr}]neues Erscheinungsjahr der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$verlag}]neuer Verlag der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$isbn}]neue ISBN der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$beschreibung}]neue Beschreibung der \hyperlink{classLiteratur}{Literatur} \item[\mbox{$\leftarrow$} {\em \$ort}]neuer Erscheinungsort \item[\mbox{$\leftarrow$} {\em \$stichworte}]neue Stichworte \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als \hyperlink{classMitglied}{Mitglied} angemeldet, werden keine Operationen ausgef&#252;hrt \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -44,6 +44,10 @@
+ 
+ Stellt Funktionen zum Entfernen, Hinzuf&#252;gen, &#196;ndern und Auflisten von Mitgliedern bereit. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[Importiert:]\begin{itemize}
++\item \hyperlink{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{Kommentar::Delete\-All\-Member}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\end{Desc}
+ 
+ 
+ 
+@@ -63,7 +67,7 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur}\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nummer der zu einlesenden \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ 
+ 
+@@ -82,8 +86,10 @@
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu l&#246;schenden Mitglieds\end{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Mitglieds\_\-Nr des zu l&#246;schenden Mitglieds \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator angemeldet, werden keine Operationen ausgef&#252;hrt \end{Desc}
+ \hypertarget{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}{
+ \index{Mitglied@{Mitglied}!GetAll@{GetAll}}
+ \index{GetAll@{GetAll}!Mitglied@{Mitglied}}
+@@ -97,8 +103,10 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit Objekten der Form\begin{itemize}
+-\item Nr\item \hyperlink{classLogin}{Login}\item Vorname\item Nachname\item Email\end{itemize}
++\item Nr\item \hyperlink{classLogin}{Login}\item Vorname\item Nachname\item Email \end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator, sondern als \hyperlink{classMitglied}{Mitglied} angemeldet, wird nur der eigene Eintrag zur&#252;ckgegeben. Ist der Nutzer nicht angemeldet werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ \hypertarget{classMitglied_a856527798258505adf9eb08b79fd9fc}{
+ \index{Mitglied@{Mitglied}!Insert@{Insert}}
+ \index{Insert@{Insert}!Mitglied@{Mitglied}}
+@@ -118,8 +126,10 @@
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+ \begin{description}
+-\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde eingef&#252;gt \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht hinzugef&#252;gt werden\end{description}
++\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde eingef&#252;gt \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht hinzugef&#252;gt werden \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator angemeldet, werden keine Operationen ausgef&#252;hrt. \end{Desc}
+ \hypertarget{classMitglied_9b13db80866c22bf992e73f2eb75e369}{
+ \index{Mitglied@{Mitglied}!PasswordHash@{PasswordHash}}
+ \index{PasswordHash@{PasswordHash}!Mitglied@{Mitglied}}
+@@ -155,8 +165,10 @@
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabewerte:]
+ \begin{description}
+-\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde ge&#228;ndert \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht ge&#228;ndert werden\end{description}
++\item[{\em true}]\hyperlink{classMitglied}{Mitglied} wurde ge&#228;ndert \item[{\em false}]\hyperlink{classMitglied}{Mitglied} konnte nicht ge&#228;ndert werden \end{description}
+ \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Ist der Nutzer nicht als Administrator angemeldet, werden keine Operationen ausgef&#252;hrt, wenn \$nr ungleich der eigenen Mitglieds\_\-Nr is. \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Deleted: trunk/docs/beleg2/klasse_literatur.tex
+===================================================================
+--- trunk/docs/beleg2/klasse_literatur.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/klasse_literatur.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -1,31 +0,0 @@
+-\subsection{Klasse Literatur}
+-
+-\setlength\LTleft{0pt}
+-\setlength\LTright{0pt}
+-\begin{longtable}{@{\extracolsep{\fill}}llll}
+-\hline\hline
+-\textbf{\large Klasse:}     &amp; Mitglied &amp; \textbf{Bearbeiter:}     &amp; TODO\\
+-\textbf{Bezeichner:} &amp; Mitglied &amp; \textbf{&#196;nderungsstand:} &amp; 1.5.2006\\
+-\textbf{Kurzbeschreibung:} &amp; \multicolumn{3}{l}{Blablabla...blublbulblablabl} \\
+-%
+-\textbf{Methoden}    &amp; insert \\
+-                     &amp; delete \\
+-                     &amp; \dots
+-\dotfill
+-\\[1.0em]\hline
+-% Methode Insert
+-\textbf{\large insert}      &amp;         &amp; \textbf{Typ:}             &amp; Methode\\
+-\textbf{Parameter:}   &amp; \multicolumn{3}{l}{%
+-	\begin{tabular}{llll}
+-	Bezeichner &amp; Typ &amp; Format &amp; Bedeutung\\
+-	\hline
+-	Vname      &amp; in  &amp; mixed  &amp; Vorname des Mitglieds\\
+-	\dots
+-	\end{tabular}
+-}\\
+-\textbf{Voraussetzung:}&amp; keine \\
+-\textbf{Inhalt:} &amp; \multicolumn{3}{l}{Blablabla...blublbulblablabl} \\
+-\\[1.0em]\hline
+-% Methode Blablub
+-\dots
+-\end{longtable}
+
+Modified: trunk/docs/beleg2/teilbeleg2.tex
+===================================================================
+--- trunk/docs/beleg2/teilbeleg2.tex	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/docs/beleg2/teilbeleg2.tex	2006-05-27 21:04:20 UTC (rev 124)
+@@ -1,5 +1,3 @@
+-%TODO Gr&#246;&#223;e der &#220;berschriften anpassen (sonst unleserlich)
+-
+ \documentclass[a4paper,twoside,bigheadings]{scrreprt}
+ 
+ \usepackage[ngerman]{babel}
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/include/autor.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -9,6 +9,7 @@
+ 	 *  mehr benutzter Autoren bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
++	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
+ 	 */
+@@ -37,23 +38,28 @@
+ 		 *  Entfernt aus Autoren alle Autoren, die keine Verbindung
+ 		 *  (Literatur_Autor-Tabelle) mehr mit Literatur haben.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
+ 		 */
+ 		function Clean()
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$sql = &quot;DELETE autoren, connect
+-					FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+-					LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+-					ON autoren.Autor_Nr = connect.Autor_Nr
+-					WHERE connect.Autor_Nr is NULL&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;DELETE autoren, connect
++						FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++						LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++						ON autoren.Autor_Nr = connect.Autor_Nr
++						WHERE connect.Autor_Nr is NULL&quot;;
++				$sqldb-&gt;Query($sql);
++			}
+ 		}
+ 
+ 		/*! \brief Gibt Autoren zu bestimmter Literatur zur&#252;ck
+ 		 *
+ 		 *  Liest alle Autoren die einer Literatur ($nr) zugeordnet
+-		 *  sind aus Bibliothek aus und gibt sie als Feld des Typs
++		 *  sind aus Kommentare aus und gibt sie als Feld des Typs
+ 		 *  Autor zur&#252;ck.
+ 		 *  \param[in] $literatur_nr Nr einer Literatur mit Autoren
+ 		 *  \pre Datenbankverbindung muss bestehen
+@@ -90,33 +96,39 @@
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+ 		 *  \return Feld mit Autor_Nr der Autoren
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
+ 		 */
+ 		function Split($autoren)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 			
+-			$authorNames = array();
+ 			$authorNumbers = array();
+-			$authorNames = split( &quot;,&quot;, $autoren );
++
++			if ($login-&gt;IsMember() === true)
++			{
++				$authorNames = array();
++				$authorNames = split( &quot;,&quot;, $autoren );
+ 			
+-			for( $i = 0; $i &lt; count($authorNames); $i++ )
+-			{
+-				$sqlSelect = &quot;SELECT Autor_Nr AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+-						      WHERE Autorname = '&quot;.trim($authorNames[$i]).&quot;'&quot;;
+-				$sqldb-&gt;Query( $sqlSelect );
+-				
+-				if( $cur = $sqldb-&gt;Fetch() )
++				for( $i = 0; $i &lt; count($authorNames); $i++ )
+ 				{
+-					$authorNumbers[] = $cur-&gt;Nr;
++					$sqlSelect = &quot;SELECT Autor_Nr AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++							WHERE Autorname = '&quot;.trim($authorNames[$i]).&quot;'&quot;;
++					$sqldb-&gt;Query( $sqlSelect );
++					
++					if( $cur = $sqldb-&gt;Fetch() )
++					{
++						$authorNumbers[] = $cur-&gt;Nr;
++					}
++					else
++					{
++						$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($authorNames[$i]).&quot;')&quot;;
++						$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren&quot;;
++						$sqldb-&gt;Query( $sqlInsert );
++						$sqldb-&gt;Query( $sqlIdentity );
++						$authorNumbers[] = $sqldb-&gt;Fetch()-&gt;Nr;
++					}
+ 				}
+-				else
+-				{
+-					$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($authorNames[$i]).&quot;')&quot;;
+-					$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren&quot;;
+-					$sqldb-&gt;Query( $sqlInsert );
+-					$sqldb-&gt;Query( $sqlIdentity );
+-					$authorNumbers[] = $sqldb-&gt;Fetch()-&gt;Nr;
+-				}
+ 			}
+ 			
+ 			return $authorNumbers;
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/include/kommentar.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -9,7 +9,10 @@
+ 	 *  Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren
+ 	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur-
+ 	 *  bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden.
+-	 *  \pre Datenbankverbindung muss bestehen *  \sa
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Login::IsAdministrator
++	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
+ 	 */
+@@ -46,15 +49,30 @@
+ 		 *  $nr.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer des zu l&#246;schenden Kommentars
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt, wenn Mitglieds_Nr
++		 *    des Kommentars ungleich der eigenen Mitglieds_Nr ist.
++		 *    Ist der Nutzer nicht angemeldet, werden keine Operationen
++		 *    ausgef&#252;hrt
+ 		 */
+ 		function Delete($nr)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+-					WHERE Kommentar_Nr = '$nr'
+-					LIMIT 1&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsAdministrator() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++						WHERE Kommentar_Nr = '$nr'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++			}
++			elseif ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++						WHERE Kommentar_Nr = '$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++			}
+ 		}
+ 		
+ 		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
+@@ -63,14 +81,19 @@
+ 		 *  mit der Literaturnummer ($literatur_nr) verbunden sind.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $literatur_nr Nummer der Literatur
++		 *  \remarks Ist Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
+ 		 */
+ 		function DeleteAll($literatur_nr)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+-					WHERE Literatur_Nr = '$literatur_nr'&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++						WHERE Literatur_Nr = '$literatur_nr'&quot;;
++				$sqldb-&gt;Query($sql);
++			}
+ 		}
+ 
+ 		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
+@@ -79,56 +102,109 @@
+ 		 *  mit der Mitglieds_Nr ($member_nr) verbunden sind.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $member_nr Nummer eines Mitglieds
++		 *  \remarks Ist der Nutzer nicht als Administrator eingeloggt,
++		 *    werden keine Operationen ausgef&#252;hrt.
+ 		 */
+ 		function DeleteAllMember($member_nr)
+ 		{
++			global $db_config, $sqldb, $login;
++
++			if ($login-&gt;IsAdministrator === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
++						WHERE Mitglieds_Nr = '$member_nr'&quot;;
++				$sqldb-&gt;Query($sql);
++			}
++		}
++
++		/*! \brief Gibt Kommentare zu bestimmter Literatur zur&#252;ck
++		 *
++		 *  Liest alle Kommentare die einer Literatur ($nr) zugeordnet
++		 *  sind aus Kommentare aus und gibt sie als Feld des Typs
++		 *  Kommentar zur&#252;ck.
++		 *  \param[in] $literatur_nr Nr einer Literatur mit Kommentaren
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld vom Typ Kommentar
++		 */
++		function GetAll($literatur_nr)
++		{
+ 			global $db_config, $sqldb;
+ 
+-			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Kommentare
+-					WHERE Mitglieds_Nr = '$member_nr'&quot;;
++			$authors = array();
++			$sql = &quot;SELECT  Kommentar_Nr AS Nr, Kommentartext AS Text, mitglieder.Mitglieds_Nr AS Mitglieds_Nr, Vorname, Name AS Nachname
++					FROM &quot;.$db_config['prefix'].&quot;Kommentare AS kommentare
++					INNER JOIN  &quot;.$db_config['prefix'].&quot;Mitglieder AS mitglieder
++					ON kommentare.Mitglieds_Nr = mitglieder.Mitglieds_Nr
++					WHERE Literatur_Nr = '$literatur_nr'&quot;;
+ 			$sqldb-&gt;Query($sql);
++
++			while ($cur = $sqldb-&gt;Fetch())
++			{
++				$authors[] = new Kommentar($cur);
++			}
++			return $authors;
+ 		}
+ 		
+ 		/*! \brief Legt Kommentar an
+ 		 *
+ 		 *  Legt einen neuen Kommentar mit Text ($text) zu einer
+ 		 *  Literatur ($literatur_nr) vom einem Verfasser 
+-		 *  ($verfasser_nr) an. Ist das aktuelle Mitglied kein 
+-		 *  Administrator, dann muss $verfasser_nr gleich der aktuellen
+-		 *  Nummer des Logins sein.
++		 *  ($verfasser_nr) an.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $text Text des Kommentars
+ 		 *  \param[in] $verfasser_nr Mitglieds_Nr des Verfassers
+ 		 *  \param[in] $literatur_nr Nummer der Literatur
++		 *  \remarks Ist das aktuelle Mitglied kein 
++		 *  Administrator, dann muss $verfasser_nr gleich der aktuellen
++		 *  Nummer des Logins sein. Ist der Nutzer nicht eingeloggt,
++		 *  werden keine Operationen ausgef&#252;hrt.
+ 		 */
+ 		function Insert($text, $verfasser_nr, $literatur_nr)
+ 		{
+ 			global $db_config, $sqldb;
+ 
+-			$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
+-					VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsAdministrator() === true ||
++				($login-&gt;IsMember() === true &amp;&amp; $verfasser_nr == $login-&gt;Nr))
++			{
++				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++						VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
++				$sqldb-&gt;Query($sql);
++			}
+ 		}
+ 		
+ 		/*! \brief &#196;ndert einen Kommentar
+ 		 *
+ 		 *  &#196;ndert in Kommentare den Text des Kommentars mit $nr
+-		 *  in $text. Ist das aktuelle Mitglied kein Administrator,
+-		 *  dann muss die aktuelle Nummer des Mitglieds gleich der
+-		 *  Mitglieds_Nr des Kommentars in Kommentare sein.
++		 *  in $text.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer des zu ver&#228;ndernden Kommentars
+ 		 *  \param[in] $text neuer Text des Kommentars
++		 *  \remarks Ist das aktuelle Mitglied kein Administrator,
++		 *  dann muss die aktuelle Nummer des Mitglieds gleich der
++		 *  Mitglieds_Nr des Kommentars in Kommentare sein. Ist der
++		 *  Nutzer nicht eingeloggt, werden keine Operationen
++		 *  ausgef&#252;hrt.
+ 		 */
+ 		function Update($nr, $text)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
+-					SET Kommentartext='$text'
+-					WHERE Kommentar_Nr='$nr'
+-					LIMIT 1&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsAdministrator() === true)
++			{
++				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
++						SET Kommentartext='$text'
++						WHERE Kommentar_Nr='$nr'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++			}
++			elseif ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
++						SET Kommentartext='$text'
++						WHERE Kommentar_Nr='$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++			}
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/include/literatur.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -12,6 +12,17 @@
+ 	 *  Stellt Funktionen zum Abruf, Exportieren, L&#246;schen, Importieren,
+ 	 *  Hinzuf&#252;gen und &#196;ndern von Literatur in Bibliothek zur Verf&#252;gung.
+ 	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Autor::Clean
++	 *  - Autor::GetAll
++	 *  - Autor::Split
++	 *  - Kommentar::DeleteAll
++	 *  - Kommentar::GetAll
++	 *  - LiteraturArt::LiteraturArt
++	 *  - Login::IsAdministrator
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
+ 	 */
+ 	class Literatur
+ 	{
+@@ -36,7 +47,26 @@
+ 		 */
+ 		function Literatur($nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++			$sql = &quot;SELECT Literatur_Nr, Art, Titel, Jahr, Verlag, ISBN, Beschreibung, Ort, Stichworte
++					FROM &quot;.$db_config['prefix'].&quot;Bibliothek
++					WHERE Literatur_Nr='$nr'
++					LIMIT 1&quot;;
++			$sqldb-&gt;Query($sql);
++			if ($cur = $sqldb-&gt;Fetch())
++			{
++				$this-&gt;Nr = $cur-&gt;Literatur_Nr;
++				$this-&gt;Art = new LiteraturArt($cur-&gt;Art);
++				$this-&gt;Titel = $cur-&gt;Titel;
++				$this-&gt;Jahr = $cur-&gt;Jahr;
++				$this-&gt;Verlag = $cur-&gt;Verlag;
++				$this-&gt;ISBN = $cur-&gt;ISBN;
++				$this-&gt;Beschreibung = $cur-&gt;Beschreibung;
++				$this-&gt;Ort = $cur-&gt;Ort;
++				$this-&gt;Stichworte = $cur-&gt;Stichworte;
++				$this-&gt;Autoren = Autor::GetAll($nr);
++				$this-&gt;Kommentare = Kommentar::GetAll($nr);
++			}
+ 		}
+ 
+ 		/*! \brief Exportiert Literatur nach BibTeX
+@@ -48,7 +78,50 @@
+ 		 */
+ 		function ToBibtex()
+ 		{
+-			/// \todo implementieren
++			$str = &quot;@&quot;.$this-&gt;Art-&gt;GetBibtexText().&quot;{&quot;.$this-&gt;Art-&gt;GetBibtexText().$this-&gt;Nr;
++				
++			if (!empty($this-&gt;Titel))
++			{
++				$str .= &quot;,\n\ttitle = \&quot;&quot;.addslashes($this-&gt;Titel).&quot;\&quot;&quot;;
++			}
++
++			if (count($this-&gt;Autoren) &gt; 0)
++			{
++				$autorlist = &quot;&quot;;
++				for ($j = 0; $j &lt; count($this-&gt;Autoren); $j++)
++				{
++					if ($j != 0)
++					{
++						$autorlist .= &quot; and &quot;;
++					}
++					$autorlist .= $this-&gt;Autoren[$j]-&gt;Name;
++				}
++
++				$str .= &quot;,\n\tauthor = \&quot;&quot;.addslashes($autorlist).&quot;\&quot;&quot;;
++			}
++
++			if (!empty($this-&gt;Jahr))
++			{
++				$str .= &quot;,\n\tyear = \&quot;&quot;.addslashes($this-&gt;Jahr).&quot;\&quot;&quot;;
++			}
++
++			if (!empty($this-&gt;Verlag))
++			{
++				$str .= &quot;,\n\tpublisher = \&quot;&quot;.addslashes($this-&gt;Verlag).&quot;\&quot;&quot;;
++			}
++
++			if (!empty($this-&gt;ISBN))
++			{
++				$str .= &quot;,\n\tisbn = \&quot;&quot;.addslashes($this-&gt;ISBN).&quot;\&quot;&quot;;
++			}
++
++			if (!empty($this-&gt;Ort))
++			{
++				$str .= &quot;,\n\taddress = \&quot;&quot;.addslashes($this-&gt;Ort).&quot;\&quot;&quot;;
++			}
++			
++			$str .= &quot;\n}\n&quot;;
++			return $str;
+ 		}
+ 
+ 		/*! \brief L&#246;scht Literatur
+@@ -59,10 +132,28 @@
+ 		 *  Autoren gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer der zu l&#246;schenden Literatur
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
+ 		 */
+ 		function Delete($nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb, $login;
++
++			if ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Bibliothek
++						WHERE Literatur_Nr = '$nr'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor
++						WHERE Literatur_Nr = '$nr'&quot;;
++				$sqldb-&gt;Query($sql);
++
++				Autor::Clean();
++
++				Kommentar::DeleteAll($nr);
++			}
+ 		}
+ 
+ 		/*! \brief Importiert BibTeX
+@@ -96,10 +187,34 @@
+ 		 *  \param[in] $beschreibung Beschreibung der Literatur
+ 		 *  \param[in] $ort Erscheinungsort
+ 		 *  \param[in] $stichworte Stichworte
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
+ 		 */
+ 		function Insert($autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb, $login;
++
++			if ($login-&gt;IsAdministrator() === true)
++			{
++				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Bibliothek
++						VALUES (NULL, '$art', '$titel', '$jahr', '$verlag', '$isbn', '$beschreibung', '$ort', '$stichworte')&quot;;
++				$sqldb-&gt;Query($sql);
++
++				$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Bibliothek&quot;;
++				$sqldb-&gt;Query($sqlIdentity);
++
++				if ($identity = $sqldb-&gt;Fetch())
++				{
++					$nr = $identity-&gt;Nr;
++					$autorlist = Autor::Split($autoren);
++					for ($i = 0; $i &lt; count($autorlist); $i++)
++					{
++						$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Literatur_Autor
++							VALUES ('&quot;.$autorlist[$i].&quot;', '$nr')&quot;;
++						$sqldb-&gt;Query($sql);
++					}
++				}
++			}
+ 		}
+ 
+ 		/*! \brief &#196;ndert Literatur
+@@ -123,10 +238,35 @@
+ 		 *  \param[in] $beschreibung neue Beschreibung der Literatur
+ 		 *  \param[in] $ort neuer Erscheinungsort
+ 		 *  \param[in] $stichworte neue Stichworte
++		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
+ 		 */
+ 		function Update($nr, $autoren, $art, $titel, $jahr, $verlag, $isbn, $beschreibung, $ort, $stichworte)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb, $login;
++
++			if ($login-&gt;IsAdministrator() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor
++						WHERE Literatur_Nr='$nr'&quot;;
++				$sqldb-&gt;Query($sql);
++
++				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Bibliothek
++							SET Art='$art', Titel='$titel', Jahr='$jahr', Verlag='$verlag', ISBN='$isbn', Beschreibung='$beschreibung', Ort='$ort', Stichworte='$stichworte'
++							WHERE Literatur_Nr='$nr'
++							LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++
++				$autorlist = Autor::Split($autoren);
++				for ($i = 0; $i &lt; count($autorlist); $i++)
++				{
++					$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Literatur_Autor
++						VALUES ('&quot;.$autorlist[$i].&quot;', '$nr')&quot;;
++					$sqldb-&gt;Query($sql);
++				}
++
++				Autor::Clean();
++			}
+ 		}
+ 	}
+ }
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/include/literaturart.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -71,7 +71,7 @@
+ 				break;
+ 
+ 			case &quot;Diplomarbeit&quot;:
+-			case &quot;mastersthesis&quot;:
++			case &quot;masterthesis&quot;:
+ 				$this-&gt;value = 6;
+ 				break;
+ 
+@@ -176,7 +176,7 @@
+ 				return &quot;manual&quot;;
+ 
+ 			case 6:
+-				return &quot;mastersthesis&quot;;
++				return &quot;masterthesis&quot;;
+ 
+ 			case 7:
+ 				return &quot;phdthesis&quot;;
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/include/mitglied.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -3,6 +3,7 @@
+ {
+ 	define(&quot;Mitglied&quot;, 1);
+ 	require_once(&quot;include/login.php&quot;);
++	require_once(&quot;include/kommentar.php&quot;);
+ 
+ 	/*! \brief Verwaltet Mitglieder
+ 	 *
+@@ -10,6 +11,9 @@
+ 	 *  von Mitgliedern bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
++	 *  - Kommentar::DeleteAllMember
++	 *  - Login::IsAdministrator
++	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
+ 	 */
+@@ -35,6 +39,7 @@
+ 			global $db_config, $sqldb;
+ 			$sql = &quot;SELECT Mitglieds_Nr, Login, Passwort, Rechte, Vorname, Name, Email
+ 					FROM &quot;.$db_config['prefix'].&quot;Mitglieder
++					WHERE Mitglieds_Nr='$nr'
+ 					LIMIT 1&quot;;
+ 			$sqldb-&gt;Query($sql);
+ 			
+@@ -81,15 +86,22 @@
+ 		 *  Kommentare
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Mitglieds_Nr des zu l&#246;schenden Mitglieds
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt
+ 		 */
+ 		function Delete($nr)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Mitglieder
+-					WHERE Mitglieds_Nr = '$nr'
+-					LIMIT 1&quot;;
+-			$sqldb-&gt;Query($sql);
++			if ($login-&gt;IsAdministrator() === true)
++			{
++				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Mitglieder
++						WHERE Mitglieds_Nr = '$nr'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++
++				Kommentar::DeleteAllMember($nr);
++			}
+ 		}
+ 		
+ 		/*! \brief Legt  Mitglied an
+@@ -111,31 +123,40 @@
+ 		 *  \param[in] $email E-Mail-Adresse des neuen Mitglieds
+ 		 *  \retval true Mitglied wurde eingef&#252;gt
+ 		 *  \retval false Mitglied konnte nicht hinzugef&#252;gt werden
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt.
+ 		 */
+ 		function Insert($login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$rechtestring = &quot;&quot;;
+-			switch ($rechte)
++			if ($login-&gt;IsAdministrator() === true)
+ 			{
+-			case 2:
+-				$rechtestring = &quot;Administrator&quot;;
+-				break;
+-			default:
+-			case 1:
+-				$rechtestring = &quot;Benutzer&quot;;
+-				break;
++				$rechtestring = &quot;&quot;;
++				switch ($rechte)
++				{
++				case 2:
++					$rechtestring = &quot;Administrator&quot;;
++					break;
++				default:
++				case 1:
++					$rechtestring = &quot;Benutzer&quot;;
++					break;
++				}
++	
++				$passworthash = Mitglied::PasswordHash($passwort);
++				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Mitglieder
++						VALUES (NULL, '$nachname', '$vorname', '$email', '$login', '$passworthash', '$rechtestring')&quot;;
++				
++				if ($sqldb-&gt;Query($sql) !== false)
++				{
++					return true;
++				}
++				else
++				{
++					return false;
++				}
+ 			}
+-
+-			$passworthash = Mitglied::PasswordHash($passwort);
+-			$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Mitglieder
+-					VALUES (NULL, '$nachname', '$vorname', '$email', '$login', '$passworthash', '$rechtestring')&quot;;
+-			
+-			if ($sqldb-&gt;Query($sql) !== false)
+-			{
+-				return true;
+-			}
+ 			else
+ 			{
+ 				return false;
+@@ -164,47 +185,57 @@
+ 		 *  \param[in] $email neue E-Mail-Adresse des Mitglieds
+ 		 *  \retval true Mitglied wurde ge&#228;ndert
+ 		 *  \retval false Mitglied konnte nicht ge&#228;ndert werden
++		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
++		 *    werden keine Operationen ausgef&#252;hrt, wenn $nr ungleich
++		 *    der eigenen Mitglieds_Nr is.
+ 		 */
+ 		function Update($nr, $login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+-			$rechtestring = &quot;&quot;;
+-			switch ($rechte)
++			if ($login-&gt;IsAdministrator() === true || $nr == $login-&gt;Nr)
+ 			{
+-			case 2:
+-				$rechtestring = &quot;Administrator&quot;;
+-				break;
+-			default:
+-			case 1:
+-				$rechtestring = &quot;Benutzer&quot;;
+-				break;
++				$rechtestring = &quot;&quot;;
++				switch ($rechte)
++				{
++				case 2:
++					$rechtestring = &quot;Administrator&quot;;
++					break;
++				default:
++				case 1:
++					$rechtestring = &quot;Benutzer&quot;;
++					break;
++				}
++	
++				$sql = &quot;&quot;;
++				if (empty($passwort) === true)
++				{
++					
++					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
++							SET Login='$login', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
++							WHERE Mitglieds_Nr='$nr'
++							LIMIT 1&quot;;
++				}
++				else
++				{
++					$passworthash = Mitglied::PasswordHash($passwort);
++					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
++							SET Login='$login', Passwort='$passworthash', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
++							WHERE Mitglieds_Nr='$nr'
++							LIMIT 1&quot;;
++				}
++	
++				if ($sqldb-&gt;Query($sql) !== false)
++				{
++					return true;
++				}
++				else
++				{
++					return false;
++				}
+ 			}
+-
+-			$sql = &quot;&quot;;
+-			if (empty($passwort) === true)
+-			{
+-				
+-				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
+-						SET Login='$login', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
+-						WHERE Mitglieds_Nr='$nr'
+-						LIMIT 1&quot;;
+-			}
+ 			else
+ 			{
+-				$passworthash = Mitglied::PasswordHash($passwort);
+-				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
+-						SET Login='$login', Passwort='$passworthash', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
+-						WHERE Mitglieds_Nr='$nr'
+-						LIMIT 1&quot;;
+-			}
+-
+-			if ($sqldb-&gt;Query($sql) !== false)
+-			{
+-				return true;
+-			}
+-			else
+-			{
+ 				return false;
+ 			}
+ 		}
+@@ -221,21 +252,41 @@
+ 		 *    - Vorname
+ 		 *    - Nachname
+ 		 *    - Email
++		 *  \remarks Ist der Nutzer nicht als Administrator, sondern
++		 *    als Mitglied angemeldet, wird nur der eigene Eintrag
++		 *    zur&#252;ckgegeben. Ist der Nutzer nicht angemeldet werden
++		 *    keine Operationen ausgef&#252;hrt.
+ 		 */
+ 		function GetAll()
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+ 			$members = array();
+-			
+-			$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
+-					FROM &quot;.$db_config['prefix'].&quot;Mitglieder&quot;;
+-			$sqldb-&gt;Query($sql);
+-			
+-			while ($cur = $sqldb-&gt;Fetch())
++
++			if ($login-&gt;IsAdministrator() === true)
+ 			{
+-				$members[] = $cur;
++				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
++						FROM &quot;.$db_config['prefix'].&quot;Mitglieder&quot;;
++				$sqldb-&gt;Query($sql);
++				
++				while ($cur = $sqldb-&gt;Fetch())
++				{
++					$members[] = $cur;
++				}
+ 			}
++			elseif ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
++						FROM &quot;.$db_config['prefix'].&quot;Mitglieder
++						WHERE Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
++						LIMIT 1&quot;;
++				$sqldb-&gt;Query($sql);
++				
++				if ($cur = $sqldb-&gt;Fetch())
++				{
++					$members[] = $cur;
++				}
++			}
+ 
+ 			return $members;
+ 		}
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/lit.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -3,6 +3,17 @@
+ 	//$extracss = &quot;home.css&quot;;
+ 
+ 	require_once(&quot;include/header.php&quot;);
++	require_once(&quot;include/literatur.php&quot;);
++
++	$literatur;
++	if (isset($_GET[&quot;id&quot;]))
++	{
++		$literatur = new Literatur($_GET[&quot;id&quot;]);
++	}
++	else
++	{
++		$literatur = new Literatur(0);
++	}
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;hr&gt;
+@@ -11,53 +22,48 @@
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
+-				&lt;td&gt;Algorithmen&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($literatur-&gt;Titel); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
+-				&lt;td&gt;Sedgewick&lt;/td&gt;
++				&lt;td&gt;&lt;?php
++					$autorlist = &quot;&quot;;
++					for ($j = 0; $j &lt; count($literatur-&gt;Autoren); $j++)
++					{
++						if ($j != 0)
++						{
++							$autorlist .= &quot;, &quot;;
++						}
++						$autorlist .= $literatur-&gt;Autoren[$j]-&gt;Name;
++					}
++					echo htmlspecialchars($autorlist);
++				?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
+-				&lt;td&gt;1998&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($literatur-&gt;Jahr); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
+-				&lt;td&gt;Pearson Studium&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($literatur-&gt;Verlag); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Verlagsort:&lt;/th&gt;	
+-				&lt;td&gt;Bonn ; M&#252;nchen ; Paris [u.a.]&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($literatur-&gt;Ort); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+-				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
++				&lt;td&gt;&lt;?=htmlspecialchars($literatur-&gt;ISBN); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-				&lt;td&gt;Robert Sedgewicks bekanntes Standardwerk stellt die wichtigsten Algorithmen klar und umfassend dar. Von elementaren Datenstrukturen und Algorithmen wie Such- und Sortieralgorithmen schl&#228;gt Sedgewick einen Bogen bis hin zu modernen Ans&#228;tzen und vermittelt dem Leser einen fundierten &#220;berblick &#252;ber die vielf&#228;ltigen M&#246;glichkeiten der Probleml&#246;sung anhand von Datenstrukturen.&lt;/td&gt;
++				&lt;th scope=&quot;row&quot;&gt;Beschreibung:&lt;/th&gt;	
++				&lt;td&gt;&lt;?=nl2br(htmlspecialchars($literatur-&gt;Beschreibung)); ?&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Bibtex:&lt;/th&gt;	
+ 				&lt;td&gt;
+-				&lt;pre&gt;&lt;?php
+-					require_once($basepath.&quot;include/bibtex.php&quot;);
+-					$example = &quot; aber trotzdem wird dieses kaputte dokument nicht falsch erkannt
+-						@article{     lin1973,
+-									author = \&quot;Sedgewick\&quot;,
+-									title = \&quot;Algorithmen\&quot;,
+-									year = 1998
+-								}&quot;;
+-					if (($asd = BibTeX::parse($example)) !== false)
+-					{
+-						foreach($asd as $d)
+-						{
+-							echo htmlspecialchars($d-&gt;toString());
+-						}
+-					}
+-					?&gt;
+-				&lt;/pre&gt;
++					&lt;pre&gt;&lt;?= htmlspecialchars($literatur-&gt;ToBibtex()); ?&gt;&lt;/pre&gt;
+ 				&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+@@ -70,12 +76,20 @@
+ 
+ 	&lt;table id=&quot;litkommentare&quot;&gt;
+ 		&lt;tbody&gt;
++			&lt;?php
++				for ($i = 0; $i &lt; count($literatur-&gt;Kommentare); $i++)
++				{
++					$cur = $literatur-&gt;Kommentare[$i];
++			?&gt;
++				&lt;tr&gt;
++					&lt;th scope=&quot;row&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Verfasser_Name);?&gt;:&lt;/th&gt;	
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;?
++				}
++			?&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Hans Wurst:&lt;br&gt;&lt;/th&gt;	
+-				&lt;td&gt;Tolle Dramatik, wirklich fesselnder Storyverlauf, nur das Ende war ein bisschen matt.&lt;/td&gt;
+-				&lt;td&gt;&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
+ 				&lt;td&gt;
+ 				&lt;textarea cols=40 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
+@@ -83,9 +97,6 @@
+ 				&lt;td&gt;&nbsp;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+-
+-
+-
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ &lt;/div&gt;
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/user.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -42,4 +42,3 @@
+ 	&lt;/form&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+-
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-05-27 12:56:04 UTC (rev 123)
++++ trunk/usermod.php	2006-05-27 21:04:20 UTC (rev 124)
+@@ -56,5 +56,3 @@
+ 	&lt;/form&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+-
+-
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000113.html">[Liman-svn] r123 - trunk/include
+</A></li>
+	<LI>Next message: <A HREF="000115.html">[Liman-svn] r125 - trunk/docs/beleg2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#114">[ date ]</a>
+              <a href="thread.html#114">[ thread ]</a>
+              <a href="subject.html#114">[ subject ]</a>
+              <a href="author.html#114">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

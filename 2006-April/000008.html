@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r19 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r19%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604211638.k3LGc4ka029198%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000010.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r19 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r19%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604211638.k3LGc4ka029198%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r19 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Apr 21 18:38:04 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[Liman-svn] r18 - in trunk/docs/beleg1: . visio
+</A></li>
+        <LI>Next message: <A HREF="000010.html">[Liman-svn] r20 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-21 18:37:33 +0200 (Fri, 21 Apr 2006)
+New Revision: 19
+
+Added:
+   trunk/docs/beleg1/tuclogo.pdf
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/titel.tex
+Log:
+Added tuclogo to titlepage
+Added dfd's to &quot;funktionelle_anforderung.tex&quot;
+Changed &quot;Ereignistabelle&quot; to look like the dfd's
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-21 15:28:21 UTC (rev 18)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-21 16:37:33 UTC (rev 19)
+@@ -7,64 +7,58 @@
+ 
+ \subsubsection{Ereignistabelle}
+ %wenn die Tabellen zu lang werden -&gt; longtable
++N = Nutzer, M = registriertes Mitglied, A = Administrator \\
++M kann zus&#228;tzlich zu seinen, alle Ereignisse von N ausl&#246;sen. A kann ebenso alle Ereignisse von M und N ausl&#246;sen.
+ 
+-\begin{tabular}[ht]{|l|l|l|l|}
++\begin{tabular}[ht]{|c|p{9.0em}|p{10.5em}|l|}
+ \hline
+ Nr &amp; Ereignis &amp; Datenflu&#223; im System &amp; Antwort des Systems \\
+ \hline\hline
+-1. &amp; Administrator: &amp; Benutzerdaten &amp; Best\&quot;atigung\_Benutzer\&quot;anderung \\
+-   &amp; erg\&quot;anzt Benutzer&amp; &amp; \\
+-   &amp; ver\&quot;andert Benutzer&amp; &amp; \\	
+-   &amp; l\&quot;oscht Benutzer&amp; &amp; \\	
+-\hline
+-2. &amp; Benutzer: &amp; Literaturdaten &amp; Best\&quot;atigung\_Literatur\&quot;anderung \\
+-   &amp; erg\&quot;anzt Literatur &amp; &amp;  \\
+-   &amp; ver\&quot;andert Literatur &amp; &amp;  \\
+-   &amp; l\&quot;oscht Literatur &amp; &amp;  \\
+-\hline
+-3. &amp; Benutzer: &amp; Kommentardaten &amp; Best\&quot;atigung\_Kommentar\&quot;anderung \\
+-   &amp; erg\&quot;anzt Kommentar &amp; &amp; \\
+-   &amp; ver\&quot;andert Kommentar &amp; &amp;\\
+-   &amp; l\&quot;oscht Kommentar &amp; &amp; \\
+-\hline
+-4. &amp; Gast sucht Literatur&amp; Suchbegriff &amp; Suchergebnis \\
+-\hline
+-5. &amp; Gast w\&quot;ahlt Literatur &amp; Literaturnummer &amp; Literaturdaten \&amp; Kommentare \\
+-\hline
+-6. &amp; Gast exportiert Literatur &amp; Exportanfrage &amp; Literaturdaten in BibTex \\
+-\hline
++1. &amp; N sucht Buch &amp; Suchbegriff &amp; Suchtreffer \\\hline
++2. &amp; N w&#228;hlt Buch &amp; Buchnummer &amp; Buchdaten Kommentare \\\hline
++3. &amp; N exportiert Buch &amp; Exportanfrage &amp;  BibTeX-Datei \\\hline
++4. &amp; M legt Buch an &amp; Buchdaten &amp; Best&#228;tigung\_Buchanlegen \\\hline
++5. &amp; M &#228;ndert Buch &amp; Buchdaten + Buchnummer &amp; Best&#228;tigung\_Buch&#228;ndern\\\hline
++6. &amp; M l&#246;scht Buch &amp; Buchnummer &amp; Best&#228;tigung\_Buchl&#246;schen \\\hline
++7. &amp; M legt Kommentar an &amp; Kommentardaten &amp; Best&#228;tigung\_Kommentaranlegen \\\hline
++8. &amp; M &#228;ndert Kommentar &amp; Kommentardaten + Kommentarnumme &amp; Best&#228;tigung\_Kommentar&#228;ndern \\\hline
++9. &amp; M l&#246;scht Kommentar &amp; Kommentarnummer &amp; Best&#228;tigung\_Kommentarl&#246;schen \\\hline
++10.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
++11.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
++12.&amp; A &#228;ndert Mitglied &amp; Mitgliedsdaten + Mitgliedsnummer &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
++13.&amp; A l&#246;scht Mitglied &amp; Mitgliedsnummer &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
++14.&amp; A ruft Mitglieder ab &amp; - &amp; Mitgliederliste \\\hline
+ \end{tabular}
+ 
+ \subsubsection{Kontextdiagramm}
+ 
+ %\includegraphics[scale=0.5]{kontextdiagramm}
+-\centerline{\includegraphics[scale=0.5]{kontextdiagramm}}
++\includegraphics[scale=0.75]{kontextdiagramm}
+ 
+ \subsection{Verhaltensmodell}
+ \subsubsection{Grobes Verhaltensmodell (vergr&#246;bertes prim&#228;res Verhaltensmodell)}
+-TODO
+-%\includegraphics[scale=0.5]{verhaltensmodell_grob}
++\includegraphics[scale=0.70]{grobes_verhaltensmodell}
+ 
+ \subsubsection{Prim&#228;res Verhaltensmodell}
+-\paragraph{Teilmodell blabla}
+-TODO
+-%\includegraphics[scale=0.5]{erhaltensmodell_blabla}
++\paragraph{Teilmodell BibTeX}
++\includegraphics[scale=1.0]{teilmodell_bibtex}
+ 
+-\paragraph{Teilmodell bloblo}
+-TODO
+-%\includegraphics[scale=0.5]{verhaltensmodell_bloblo}
+ 
+-\subsubsection{Verfeinerungen der Prozesse des prim&#228;ren Verhaltensmodells}
+-\paragraph{Verfeinerung zum Prozess: ieeekks}
+-TODO
+-%\includegraphics[scale=0.5]{prozess_ieeekks}
++\paragraph{Teilmodell Buchinformation}
++\includegraphics[scale=1.0]{teilmodell_buchinformation}
+ 
+-\paragraph{Verfeinerung zum Prozess: arrgghhh}
+-TODO
+-%\includegraphics[scale=0.5]{prozess_arrgghhh}
++\paragraph{Teilmodell Buchverwaltung}
++\includegraphics[scale=0.85]{teilmodell_buchverwaltung}
+ 
++\paragraph{Teilmodell Kommentarverwaltung}
++\includegraphics[scale=0.85]{teilmodell_kommentarverwaltung}
++
++\paragraph{Teilmodell Mitgliederverwaltung}
++\includegraphics[scale=0.85]{teilmodell_mitgliederverwaltung}
++\newpage
++
+ \subsubsection{Datenkatalog}
+-\begin{tabular}[ht]{|l|l|}
++\begin{tabular}[ht]{|l|p{8.5cm}|}
+ \hline
+ Element &amp; Strukturbeschreibung \\
+ \hline\hline
+@@ -124,7 +118,7 @@
+ \hline
+ Suchergebnis &amp; Literatur\_Nr + Titel \\
+ \hline
+-Bibtexdatei &amp; *Datei im Bibtexformat* \\
++BibTeX-Datei &amp; *Datei im Bibtexformat* \\
+ \hline
+ 
+ \end{tabular}
+
+Modified: trunk/docs/beleg1/titel.tex
+===================================================================
+--- trunk/docs/beleg1/titel.tex	2006-04-21 15:28:21 UTC (rev 18)
++++ trunk/docs/beleg1/titel.tex	2006-04-21 16:37:33 UTC (rev 19)
+@@ -2,7 +2,9 @@
+ % Autoren wie in Vorlage hinbekommt, bitte &#228;ndern
+ 
+ \begin{titlepage}
+-	\begin{center}
++	\begin{center}\sffamily
++		\vspace{15mm}
++		\includegraphics{tuclogo}
+ 		\vfill
+ 		{% Kopf des Titels
+ 			\large Softwarepraktikum 2006\\[1.5ex]
+
+Added: trunk/docs/beleg1/tuclogo.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/tuclogo.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[Liman-svn] r18 - in trunk/docs/beleg1: . visio
+</A></li>
+	<LI>Next message: <A HREF="000010.html">[Liman-svn] r20 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,931 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r116 - in trunk: . db docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r116%20-%20in%20trunk%3A%20.%20db%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605252204.k4PM4vpe032233%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000105.html">
+   <LINK REL="Next"  HREF="000107.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r116 - in trunk: . db docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r116%20-%20in%20trunk%3A%20.%20db%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605252204.k4PM4vpe032233%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r116 - in trunk: . db docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Fri May 26 00:04:57 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000105.html">[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+        <LI>Next message: <A HREF="000107.html">[Liman-svn] r117 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-26 00:04:30 +0200 (Fri, 26 May 2006)
+New Revision: 116
+
+Modified:
+   trunk/db/liman_test.sql
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLogin.tex
+   trunk/docs/beleg2/systemarchitektur.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/autor.php
+   trunk/include/global.php
+   trunk/include/header.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/search.php
+   trunk/searchmore.php
+   trunk/user.php
+   trunk/userlist.php
+   trunk/usermod.php
+Log:
+- Login und Suche implementiert
+- Autor::GetAll implementiert
+- Usage Suche -&gt; Autor hinzugef?\195?\188gt
+- require -&gt; require_once
+
+
+Modified: trunk/db/liman_test.sql
+===================================================================
+--- trunk/db/liman_test.sql	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/db/liman_test.sql	2006-05-25 22:04:30 UTC (rev 116)
+@@ -121,4 +121,4 @@
+ -- 
+ 
+ INSERT INTO `liman_Mitglieder` (`Mitglieds_Nr`, `Name`, `Vorname`, `Email`, `Login`, `Passwort`, `Rechte`) VALUES (1, 'Wunderlich', 'Simon', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>', 'siwu', 'c47c25460079d8a87d44175b732f73af2e92', 'Administrator'),
+-(2, 'Wurst', 'Hans', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>', 'hans', 'c47c25460079d8a87d44175b732f73af2e92b6d2', 'Benutzer');
++(2, 'Wurst', 'Hans', '<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>', 'hans', 'c47c25460079d8a87d44175b732f73af2e92', 'Benutzer');
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-25 22:04:30 UTC (rev 116)
+@@ -65,7 +65,7 @@
+ 
+ Entfernt unn&#246;tige Autoren. 
+ 
+-Entfernt aus Autoren alle Autoren, die keine Verbindung (Autoren\_\-Literatur-Tabelle) mehr mit \hyperlink{classLiteratur}{Literatur} haben. \begin{Desc}
++Entfernt aus Autoren alle Autoren, die keine Verbindung (Literatur\_\-Autoren-Tabelle) mehr mit \hyperlink{classLiteratur}{Literatur} haben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \hypertarget{classAutor_79cd90084cab240919a5daecf39156a7}{
+ \index{Autor@{Autor}!GetAll@{GetAll}}
+@@ -84,7 +84,7 @@
+ \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Feld vom Typ \hyperlink{classAutor}{Autor}\end{Desc}
++\item[R\&quot;{u}ckgabe:]Feld vom Typ \hyperlink{classAutor}{Autor} \end{Desc}
+ \hypertarget{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{
+ \index{Autor@{Autor}!Split@{Split}}
+ \index{Split@{Split}!Autor@{Autor}}
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-25 22:04:30 UTC (rev 116)
+@@ -101,7 +101,7 @@
+ 
+ Legt \hyperlink{classLiteratur}{Literatur} an. 
+ 
+-Legt neue \hyperlink{classLiteratur}{Literatur} in Bibliothek mit den &#252;bergebenen Parametern (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) an. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Autoren\_\-Literatur der \hyperlink{classLiteratur}{Literatur} zugeordnet. \begin{Desc}
++Legt neue \hyperlink{classLiteratur}{Literatur} in Bibliothek mit den &#252;bergebenen Parametern (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) an. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Literatur\_\-Autoren der \hyperlink{classLiteratur}{Literatur} zugeordnet. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -146,7 +146,7 @@
+ 
+ &#196;ndert \hyperlink{classLiteratur}{Literatur}. 
+ 
+-Entfernt alle zur Literatur\_\-Nr (\$nr) geh&#246;renden Verbindungen in Autor\_\-Literatur um danach die \hyperlink{classLiteratur}{Literatur} mit Literatur\_\-Nr \$nr zu den neuen Werten (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) zu &#228;ndern. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Autoren\_\-Literatur der \hyperlink{classLiteratur}{Literatur} zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in Autoren werden gel&#246;scht. \begin{Desc}
++Entfernt alle zur Literatur\_\-Nr (\$nr) geh&#246;renden Verbindungen in Autor\_\-Literatur um danach die \hyperlink{classLiteratur}{Literatur} mit Literatur\_\-Nr \$nr zu den neuen Werten (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) zu &#228;ndern. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Literatur\_\-Autoren der \hyperlink{classLiteratur}{Literatur} zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in Autoren werden gel&#246;scht. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+
+Modified: trunk/docs/beleg2/doxygen/classLogin.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-25 22:04:30 UTC (rev 116)
+@@ -52,7 +52,7 @@
+ \end{Desc}
+ \begin{Desc}
+ \item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.\par
+- Zum Einloggen mit Daten darf kein Parameter leer sein\end{Desc}
++ Zum Einloggen mit Daten darf kein Parameter leer sein \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Elementfunktionen}
+@@ -98,7 +98,7 @@
+ Entfernt Session. 
+ 
+ Die Anmeldedaten und Verbindungsdaten werden in der Session entfernt. Au&#223;erdem werden die Rechte auf Nutzer (0) und Nr auf 0 gesetzt. \begin{Desc}
+-\item[Vorbedingung:]-\end{Desc}
++\item[Vorbedingung:]- \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/systemarchitektur.tex
+===================================================================
+--- trunk/docs/beleg2/systemarchitektur.tex	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/docs/beleg2/systemarchitektur.tex	2006-05-25 22:04:30 UTC (rev 116)
+@@ -1,2 +1,2 @@
+ \section{Entwurf der Systemarchitektur} 
+-\includegraphics[scale=0.68]{LiMan_System}
+\ No newline at end of file
++\includegraphics[scale=0.65]{LiMan_System}
+\ No newline at end of file
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/autor.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -25,12 +25,14 @@
+ 		 */
+ 		function Autor($data)
+ 		{
++			$this-&gt;Nr = $data-&gt;Nr;
++			$this-&gt;Name = $data-&gt;Name;
+ 		}
+ 
+ 		/*! \brief Entfernt unn&#246;tige Autoren
+ 		 *
+ 		 *  Entfernt aus Autoren alle Autoren, die keine Verbindung
+-		 *  (Autoren_Literatur-Tabelle) mehr mit Literatur haben.
++		 *  (Literatur_Autoren-Tabelle) mehr mit Literatur haben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 */
+ 		function Clean()
+@@ -48,9 +50,19 @@
+ 		 */
+ 		function GetAll($literatur_nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
+ 			$authors = array();
+-
++			$sql = &quot;SELECT  autoren.Autor_Nr AS Nr, Autorname AS Name
++					FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++					INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++					ON connect.Autor_Nr = autoren.Autor_Nr
++					WHERE Literatur_Nr = '$literatur_nr'&quot;;
++			$sqldb-&gt;Query($sql);
++			while ($cur = $sqldb-&gt;Fetch())
++			{
++				$authors[] = new Autor($cur);
++			}
+ 			return $authors;
+ 		}
+ 
+
+Modified: trunk/include/global.php
+===================================================================
+--- trunk/include/global.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/global.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -3,6 +3,11 @@
+ {
+ 	define(&quot;global&quot;, 1);
+ 	
++	if (empty($basepath))
++	{
++		$basepath = &quot;./&quot;;
++	}
++
+ 	// Benutze Backslashes, wenn dies nicht automatisch gemacht wird
+ 	if( !get_magic_quotes_gpc())
+ 	{
+@@ -68,9 +73,8 @@
+ 		return $str;
+ 	}
+ 
+-	require($basepath.&quot;include/config.php&quot;);
+-	require($basepath.&quot;include/sqldb.php&quot;);
+-	require($basepath.&quot;include/login.php&quot;);
++	require_once($basepath.&quot;include/config.php&quot;);
++	require_once($basepath.&quot;include/sqldb.php&quot;);
++	require_once($basepath.&quot;include/login.php&quot;);
+ }
+-?&gt;
+-
++?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/header.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -1,15 +1,16 @@
+ &lt;?php
++	
+ 	ob_start('ob_gzhandler'); 
+ 	header(&quot;Content-Language: de&quot;);
+ 
+ 	header(&quot;Content-type: text/html; charset=UTF-8&quot;);
+-	
++
+ 	if (empty($basepath))
+                 $basepath = &quot;./&quot;;
+ 	elseif (isset($_GET[&quot;basepath&quot;]) || isset($_POST[&quot;basepath&quot;]))
+ 		die(&quot;Don't send basepath with request&quot;);
+ 
+-	require($basepath.&quot;include/global.php&quot;);
++	require_once($basepath.&quot;include/global.php&quot;);
+ ?&gt;
+ &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;<A HREF="http://www.w3.org/TR/html4/strict.dtd">http://www.w3.org/TR/html4/strict.dtd</A>&quot;&gt;
+ &lt;html&gt;
+@@ -46,7 +47,7 @@
+ 
+ 				&lt;div id=&quot;search&quot;&gt;
+ 					&lt;h2&gt;&lt;span&gt;Suchen&lt;/span&gt;&lt;/h2&gt;
+-					&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot;&gt;
++					&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot; method=&quot;post&quot;&gt;
+ 						&lt;div&gt;
+ 						&lt;input name=&quot;search&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+ 						&lt;input value=&quot;Suche&quot; type=&quot;submit&quot;&gt;
+@@ -57,13 +58,29 @@
+ 
+ 				&lt;div id=&quot;loginbox&quot;&gt;
+ 					&lt;h2&gt;&lt;span&gt;Einloggen&lt;/span&gt;&lt;/h2&gt;
+-					&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot;&gt;
+-						&lt;div&gt;
+-						&lt;label for=&quot;login&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;login&quot; name=&quot;login&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-						&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
+-						&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+-						&lt;/div&gt;
+-					&lt;/form&gt;
++					&lt;?php
++						if ($login-&gt;IsMember() === false)
++						{
++					?&gt;
++						&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
++							&lt;div&gt;
++							&lt;label for=&quot;login&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;login&quot; name=&quot;login&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++							&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
++							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
++							&lt;/div&gt;
++						&lt;/form&gt;
++					&lt;?php
++						}
++						else
++						{
++					?&gt;
++						&lt;form action=&quot;login.&lt;?=$ext;?&gt;?logout&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
++							&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;Logout&quot;&gt;
++							&lt;/div&gt;
++						&lt;/form&gt;
++					&lt;?php
++						}
++					?&gt;
+ 				&lt;/div&gt;
+ 			&lt;/div&gt;
+ 
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/kommentar.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ if(!defined(&quot;Kommentar&quot;))
+ {
+ 	define(&quot;Kommentar&quot;, 1);
+-	require_once(&quot;login.php&quot;);
++	require_once(&quot;include/login.php&quot;);
+ 
+ 	/*! \brief Verwaltet Kommentare
+ 	 *
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/literatur.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,10 +2,10 @@
+ if(!defined(&quot;Literatur&quot;))
+ {
+ 	define(&quot;Literatur&quot;, 1);
+-	require_once(&quot;login.php&quot;);
+-	require_once(&quot;kommentar.php&quot;);
+-	require_once(&quot;literaturart.php&quot;);
+-	require_once(&quot;autor.php&quot;);
++	require_once(&quot;include/login.php&quot;);
++	require_once(&quot;include/kommentar.php&quot;);
++	require_once(&quot;include/literaturart.php&quot;);
++	require_once(&quot;include/autor.php&quot;);
+ 
+ 	/*! \brief Verwaltet Literatur
+ 	 *
+@@ -81,7 +81,7 @@
+ 		 *  Parametern ($art, $titel, $jahr, $verlag, $isbn,
+ 		 *  $beschreibung, $ort, $stichworte) an. Danach werden die
+ 		 *  Autoren ($autoren) in Autoren geschrieben und mit der
+-		 *  Tabelle Autoren_Literatur der Literatur zugeordnet.
++		 *  Tabelle Literatur_Autoren der Literatur zugeordnet.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+ 		 *  \param[in] $art Bezeichner der Literaturart
+@@ -104,7 +104,7 @@
+ 		 *  Literatur_Nr $nr zu den neuen Werten ($art, $titel, $jahr,
+ 		 *  $verlag, $isbn, $beschreibung, $ort, $stichworte) zu &#228;ndern.
+ 		 *  Danach werden die Autoren ($autoren) in Autoren geschrieben
+-		 *  und mit der Tabelle Autoren_Literatur der Literatur
++		 *  und mit der Tabelle Literatur_Autoren der Literatur
+ 		 *  zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in
+ 		 *  Autoren werden gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/login.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,6 +2,7 @@
+ if(!defined(&quot;Login&quot;))
+ {
+ 	define(&quot;Login&quot;, 1);
++	require_once(&quot;include/mitglied.php&quot;);
+ 
+ 	/*! \brief Verwaltet Logininformationen
+ 	 *
+@@ -53,17 +54,65 @@
+ 		 */
+ 		function Login($benutzer = &quot;&quot;, $passwort = &quot;&quot;)
+ 		{
+-			if (empty($benutzer) === true || empty($passwort) == true)
++			global $db_config, $sqldb;
++
++			@session_start();
++
++			$this-&gt;Level = 0;
++			$this-&gt;Nr = 0;
++
++			// Neue Session starten?
++			if (empty($benutzer) === false &amp;&amp; empty($passwort) === false)
+ 			{
+-				/// \todo implementieren (Session einlesen und &#252;berpr&#252;fen
+-				$this-&gt;Level = 1;
+-				$this-&gt;Nr = 1;
++				session_register(&quot;benutzer&quot;);
++				session_register(&quot;passwort&quot;);
++				session_register(&quot;ip&quot;);
++
++				$_SESSION[&quot;benutzer&quot;] = $benutzer;
++				$_SESSION[&quot;passwort&quot;] = Mitglied::PasswordHash($passwort);
++				$_SESSION[&quot;ip&quot;] = $_SERVER['REMOTE_ADDR'];
++				
+ 			}
+-			else
++
++			// Korrekt eingeloggt?
++			if (isset($_SESSION[&quot;ip&quot;]) &amp;&amp; $_SESSION[&quot;ip&quot;] == $_SERVER['REMOTE_ADDR'] &amp;&amp;
++				!empty($_SESSION[&quot;benutzer&quot;]) &amp;&amp; !empty($_SESSION[&quot;passwort&quot;]))
+ 			{
+-				/// \todo implementieren (Anmelden und Session erstellen)
+-				$this-&gt;Level = 2;
+-				$this-&gt;Nr = 1;
++				// Hole, Nr, Passwort und Rechte zu Loginnamen
++				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Passwort AS passwort, Rechte
++					FROM &quot;.$db_config['prefix'].&quot;Mitglieder AS members
++					WHERE members.Login = '&quot;.$_SESSION[&quot;benutzer&quot;].&quot;'
++					LIMIT 1&quot;;
++			
++				$sqldb-&gt;Query($sql);
++				if ($line = $sqldb-&gt;Fetch())
++				{
++					if ($line-&gt;passwort === $_SESSION[&quot;passwort&quot;])
++					{
++						$this-&gt;Nr = $line-&gt;Nr;
++						switch ($line-&gt;Rechte)
++						{
++						case &quot;Administrator&quot;:
++							$this-&gt;Level = 2;
++							break;
++						case &quot;Benutzer&quot;:
++							$this-&gt;Level = 1;
++							break;
++						default:
++							$this-&gt;Level = 0;
++						}
++					}
++					else
++					{
++						// Falsche Passwort
++						$this-&gt;Logout();
++					}
++				}
++				else
++				{
++					// Benutzername nicht gefunden
++					$this-&gt;Logout();
++				}
+ 			}
+ 		}
+ 
+@@ -76,7 +125,8 @@
+ 		 */
+ 		function Logout()
+ 		{
+-			/// \todo implementieren
++			session_unset();
++			session_destroy();
+ 			$this-&gt;Level = 0;
+ 			$this-&gt;Nr = 0;
+ 		}
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/mitglied.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ if(!defined(&quot;Mitglied&quot;))
+ {
+ 	define(&quot;Mitglied&quot;, 1);
+-	require_once(&quot;login.php&quot;);
++	require_once(&quot;include/login.php&quot;);
+ 
+ 	/*! \brief Verwaltet Mitglieder
+ 	 *
+
+Modified: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/sqldb.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -3,7 +3,7 @@
+ 	{
+ 		default:
+ 		case &quot;mysql&quot;:
+-			require($basepath.&quot;include/sqldb_mysql.php&quot;);
++			require_once($basepath.&quot;include/sqldb_mysql.php&quot;);
+ 			break;
+ 	}
+ 	
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/sqldb_mysql.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -222,7 +222,7 @@
+ 		{
+ 			if ($this-&gt;db_id !== false)
+ 			{
+-				$this-&gt;free_result();
++				$this-&gt;FreeResult();
+ 				return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
+ 			}
+ 			else
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/include/suche.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,8 @@
+ if(!defined(&quot;Suche&quot;))
+ {
+ 	define(&quot;Suche&quot;, 1);
+-	require_once(&quot;literatur.php&quot;);
++	require_once(&quot;include/autor.php&quot;);
++	require_once(&quot;include/literatur.php&quot;);
+ 
+ 	/*! \brief Suche Literaturdaten
+ 	 *
+@@ -36,21 +37,32 @@
+ 		 */
+ 		function LetzteLiteratur()
+ 		{
+-			/// \todo implementieren
++			global $sqldb, $db_config;
++
++			$sql = &quot;SELECT Literatur_Nr AS Nr, Titel, Verlag, ISBN
++					FROM &quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
++					ORDER BY `Literatur_Nr` DESC
++					LIMIT 10&quot;;
++			$sqldb-&gt;Query($sql);
++
+ 			$this-&gt;Treffer = array();
+-			$cur1-&gt;Nr = 1;
+-			$cur1-&gt;Titel = &quot;Algorithmen&quot;;
+-			$cur1-&gt;Autor = &quot;Sedgewick&quot;;
+-			$cur1-&gt;Verlag = &quot;Pearson Studium&quot;;
+-			$cur1-&gt;ISBN = &quot;3-8273-7032-9&quot;;
+-			$this-&gt;Treffer[] = $cur1;
++			while ($cur = $sqldb-&gt;Fetch())
++			{
++				// Kommagetrennte Autorenliste erstellen
++				$authors = Autor::GetAll($cur-&gt;Nr);
++				$autorlist = &quot;&quot;;
++				for ($i = 0; $i &lt; count($authors); $i++)
++				{
++					if ($i != 0)
++					{
++						$autorlist .= &quot;, &quot;;
++					}
++					$autorlist .= $authors[$i]-&gt;Name;
++				}
++				$cur-&gt;Autor = $autorlist;
+ 
+-			$cur2-&gt;Nr = 2;
+-			$cur2-&gt;Titel = &quot;Python - kurz und gut&quot;;
+-			$cur2-&gt;Autor = &quot;Mark Lutz&quot;;
+-			$cur2-&gt;Verlag = &quot;O'Reilly&quot;;
+-			$cur2-&gt;ISBN = &quot;3-89721-240-4&quot;;
+-			$this-&gt;Treffer[] = $cur2;
++				$this-&gt;Treffer[] = $cur;
++			}
+ 		}
+ 
+ 		/*! \brief Sucht nach Literatur mit Suchbegriff
+@@ -67,21 +79,39 @@
+ 		 */
+ 		function VolltextSuche($volltext)
+ 		{
+-			/// \todo implementieren
++			global $sqldb, $db_config;
+ 			$this-&gt;Treffer = array();
+-			$cur1-&gt;Nr = 1;
+-			$cur1-&gt;Titel = &quot;Algorithmen&quot;;
+-			$cur1-&gt;Autor = &quot;Sedgewick&quot;;
+-			$cur1-&gt;Verlag = &quot;Pearson Studium&quot;;
+-			$cur1-&gt;ISBN = &quot;3-8273-7032-9&quot;;
+-			$this-&gt;Treffer[] = $cur1;
+ 
+-			$cur2-&gt;Nr = 3;
+-			$cur2-&gt;Titel = &quot;Angewandte Kryptographie&quot;;
+-			$cur2-&gt;Autor = &quot;Bruce Schneier&quot;;
+-			$cur2-&gt;Verlag = &quot;Addison-Wesley&quot;;
+-			$cur2-&gt;ISBN = &quot;3-89319-854-7&quot;;
+-			$this-&gt;Treffer[] = $cur2;
++			$volltext = trim($volltext);
++			if (empty($volltext) === false)
++			{
++				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
++						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
++							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
++						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++						ON connect.Autor_Nr = autoren.Autor_Nr
++						WHERE MATCH (Titel, Verlag, ISBN, Beschreibung, Ort, Stichworte) AGAINST ('$volltext')
++						OR MATCH (Autorname) AGAINST ('$volltext')&quot;;
++				$sqldb-&gt;Query($sql);
++				while ($cur = $sqldb-&gt;Fetch())
++				{
++					// Kommagetrennte Autorenliste erstellen
++					$authors = Autor::GetAll($cur-&gt;Nr);
++					$autorlist = &quot;&quot;;
++					for ($i = 0; $i &lt; count($authors); $i++)
++					{
++						if ($i != 0)
++						{
++							$autorlist .= &quot;, &quot;;
++						}
++						$autorlist .= $authors[$i]-&gt;Name;
++					}
++					$cur-&gt;Autor = $autorlist;
++	
++					$this-&gt;Treffer[] = $cur;
++				}
++			}
+ 		}
+ 		
+ 		/*! \brief Sucht Literatur mit Autor und Titel
+@@ -93,27 +123,47 @@
+ 		 *  oder keine passenden Eintr&#228;ge vorhanden sein, dann wird
+ 		 *  $Treffer ein Feld der L&#228;nge 0.
+ 		 *  \pre Datenbankverbindung muss bestehen.
++		 *  \param[in] $titel String mit Literaturtitel
+ 		 *  \param[in] $autor String mit Autorname
+-		 *  \param[in] $titel String mit Literaturtitel
+ 		 *  \private
+ 		 */
+-		function AutorTitelSuche($autor, $titel)
++		function AutorTitelSuche($titel, $autor)
+ 		{
+-			/// \todo implementieren
++			global $sqldb, $db_config;
+ 			$this-&gt;Treffer = array();
+-			$cur1-&gt;Nr = 2;
+-			$cur1-&gt;Titel = &quot;Python - kurz und gut&quot;;
+-			$cur1-&gt;Autor = &quot;Mark Lutz&quot;;
+-			$cur1-&gt;Verlag = &quot;O'Reilly&quot;;
+-			$cur1-&gt;ISBN = &quot;3-89721-240-4&quot;;
+-			$this-&gt;Treffer[] = $cur1;
+ 
+-			$cur2-&gt;Nr = 3;
+-			$cur2-&gt;Titel = &quot;Angewandte Kryptographie&quot;;
+-			$cur2-&gt;Autor = &quot;Bruce Schneier&quot;;
+-			$cur2-&gt;Verlag = &quot;Addison-Wesley&quot;;
+-			$cur2-&gt;ISBN = &quot;3-89319-854-7&quot;;
+-			$this-&gt;Treffer[] = $cur2;
++			$titel = trim($titel);
++			$autor = trim($autor);
++			if (empty($titel) === false || !empty($autor) === false)
++			{
++				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
++						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
++							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
++						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++						ON connect.Autor_Nr = autoren.Autor_Nr
++						WHERE bibliothek.Titel like '%&quot;.$titel.&quot;%' AND
++							autoren.Autorname like '%&quot;.$autor.&quot;%'&quot;;
++				$sqldb-&gt;Query($sql);
++
++				while ($cur = $sqldb-&gt;Fetch())
++				{
++					// Kommagetrennte Autorenliste erstellen
++					$authors = Autor::GetAll($cur-&gt;Nr);
++					$autorlist = &quot;&quot;;
++					for ($i = 0; $i &lt; count($authors); $i++)
++					{
++						if ($i != 0)
++						{
++							$autorlist .= &quot;, &quot;;
++						}
++						$autorlist .= $authors[$i]-&gt;Name;
++					}
++					$cur-&gt;Autor = $autorlist;
++	
++					$this-&gt;Treffer[] = $cur;
++				}
++			}
+ 		}
+ 
+ 		
+@@ -158,7 +208,7 @@
+ 				$this-&gt;VolltextSuche($suchbegriff);
+ 				break;
+ 			case 2:
+-				$this-&gt;AutorTitelSuche($autor, $suchbegriff);
++				$this-&gt;AutorTitelSuche($suchbegriff, $autor);
+ 				break;
+ 			}
+ 		}
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/index.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Literaturliste&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	
+@@ -46,4 +46,4 @@
+ 
+ 
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/lit.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Literaturdetails&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;hr&gt;
+@@ -42,7 +42,7 @@
+ 				&lt;th scope=&quot;row&quot;&gt;Bibtex:&lt;/th&gt;	
+ 				&lt;td&gt;
+ 				&lt;pre&gt;&lt;?php
+-					require($basepath.&quot;include/bibtex.php&quot;);
++					require_once($basepath.&quot;include/bibtex.php&quot;);
+ 					$example = &quot; aber trotzdem wird dieses kaputte dokument nicht falsch erkannt
+ 						@article{     lin1973,
+ 									author = \&quot;Sedgewick\&quot;,
+@@ -89,4 +89,4 @@
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/litmod.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Literatur bearbeiten/hinzuf&uuml;gen&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;
+@@ -62,5 +62,5 @@
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/search.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Suchergebnisse f&uuml;r \&quot;Algorithmen\&quot;&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	
+@@ -17,12 +17,23 @@
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+ 		&lt;tbody&gt;
+-			&lt;tr&gt;
+-				&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=123&quot;&gt;Algorithmen&lt;/a&gt;&lt;/td&gt;
+-				&lt;td&gt;Sedgewick&lt;/td&gt;
+-				&lt;td&gt;Pearson Studium&lt;/td&gt;
+-				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
+-			&lt;/tr&gt;
++			&lt;?php
++				require_once(&quot;include/suche.php&quot;);
++				/// \todo richtig implementieren
++				$search = new Suche(&quot;  python &quot;);
++				for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++				{
++					$cur = $search-&gt;Treffer[$i];
++			?&gt;
++				&lt;tr&gt;
++					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;?php
++				}
++			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;br&gt;
+@@ -36,5 +47,5 @@
+ 
+ 
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/searchmore.php
+===================================================================
+--- trunk/searchmore.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/searchmore.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Erweiterte Suche&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;&lt;br&gt;
+@@ -39,6 +39,6 @@
+ 
+ 
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+ 
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/user.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Nutzerdetails&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;
+@@ -41,5 +41,5 @@
+ 	&lt;/table&gt;
+ 	&lt;/form&gt;
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/userlist.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Nutzer&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;
+@@ -61,5 +61,5 @@
+ 
+ 
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-05-25 15:02:20 UTC (rev 115)
++++ trunk/usermod.php	2006-05-25 22:04:30 UTC (rev 116)
+@@ -2,7 +2,7 @@
+ 	$title = &quot;Nutzer bearbeiten/hinzuf&uuml;gen&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
+-	require(&quot;include/header.php&quot;);
++	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;br&gt;
+@@ -55,6 +55,6 @@
+ 	&lt;/table&gt;
+ 	&lt;/form&gt;
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000105.html">[Liman-svn] r115 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+	<LI>Next message: <A HREF="000107.html">[Liman-svn] r117 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#106">[ date ]</a>
+              <a href="thread.html#106">[ thread ]</a>
+              <a href="subject.html#106">[ subject ]</a>
+              <a href="author.html#106">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

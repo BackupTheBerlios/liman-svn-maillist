@@ -1,0 +1,229 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r111 - in trunk: docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r111%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251209.k4PC9UKr019362%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000100.html">
+   <LINK REL="Next"  HREF="000102.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r111 - in trunk: docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r111%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251209.k4PC9UKr019362%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r111 - in trunk: docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Thu May 25 14:09:30 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000100.html">[Liman-svn] r110 - in trunk: . db
+</A></li>
+        <LI>Next message: <A HREF="000102.html">[Liman-svn] r112 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#101">[ date ]</a>
+              <a href="thread.html#101">[ thread ]</a>
+              <a href="subject.html#101">[ subject ]</a>
+              <a href="author.html#101">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-25 14:08:46 +0200 (Thu, 25 May 2006)
+New Revision: 111
+
+Modified:
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/visio/LiMan System.vsd
+   trunk/include/autor.php
+Log:
+- GetAll zu Autor hinzugef?\195?\188gt (UML+Quelltext)
+- Autor dokumentiert
+
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-23 21:50:42 UTC (rev 110)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-25 12:08:46 UTC (rev 111)
+@@ -12,6 +12,8 @@
+ \begin{CompactList}\small\item\em Legt Autorenobjekt an. \item\end{CompactList}\item 
+ \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Clean} ()
+ \begin{CompactList}\small\item\em Entfernt unn&#246;tige Autoren. \item\end{CompactList}\item 
++\hyperlink{classAutor_073e31faa28a51d6992e6bed20326a07}{Get\-All} (\$nr)
++\begin{CompactList}\small\item\em R&#252;ckgabe eines Feldes von Autoren. \item\end{CompactList}\item 
+ \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Split} (\$autoren)
+ \begin{CompactList}\small\item\em Legt neue Autoren aus kommagetrennter Liste an. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+@@ -26,7 +28,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet Autoren. 
+ 
+-TODO \begin{Desc}
++Stellt Funktionen zum Hinzuf&#252;gen von Autoren und Bereinigen nicht mehr benutzter Autoren bereit. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+@@ -42,7 +44,7 @@
+ 
+ Legt Autorenobjekt an. 
+ 
+-TODO \begin{Desc}
++Legt ein neues Autorenobjekt aus einem Objekt mit den Attributen Nr und Name an. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -63,8 +65,26 @@
+ 
+ Entfernt unn&#246;tige Autoren. 
+ 
+-TODO \begin{Desc}
++Entfernt aus Autoren alle Autoren, die keine Verbindung (Autoren\_\-Literatur-Tabelle) mehr mit \hyperlink{classLiteratur}{Literatur} haben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\hypertarget{classAutor_073e31faa28a51d6992e6bed20326a07}{
++\index{Autor@{Autor}!GetAll@{GetAll}}
++\index{GetAll@{GetAll}!Autor@{Autor}}
++\paragraph[GetAll]{\setlength{\rightskip}{0pt plus 5cm}Autor::Get\-All (\$ {\em nr})}\hfill}
++\label{classAutor_073e31faa28a51d6992e6bed20326a07}
++
++
++R&#252;ckgabe eines Feldes von Autoren. 
++
++Liest alle Autoren die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Bibliothek aus und gibt sie als Feld des Typs \hyperlink{classAutor}{Autor} zur&#252;ck. \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[\mbox{$\leftarrow$} {\em \$nr}]Nr einer \hyperlink{classLiteratur}{Literatur} mit Autoren \end{description}
++\end{Desc}
++\begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]Feld vom Typ \hyperlink{classAutor}{Autor}\end{Desc}
+ \hypertarget{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{
+ \index{Autor@{Autor}!Split@{Split}}
+ \index{Split@{Split}!Autor@{Autor}}
+@@ -74,7 +94,7 @@
+ 
+ Legt neue Autoren aus kommagetrennter Liste an. 
+ 
+-TODO \begin{Desc}
++Teilt die kommagetrennte Liste von Autoren in einzelne Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob diese schon in der Datenbank existieren. Sollten diese schon existieren, dann wird Autor\_\-Nr ausgelesen und zum Feld hinzugef&#252;gt. Sollten diese noch nicht existieren, werden sie hinzugef&#252;gt und die neuen Autor\_\-Nr zum Feld hinzugef&#252;gt. Das komplette Feld vom Typ Autor\_\-Nr wird zur&#252;ckgegeben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -82,7 +102,7 @@
+ \item[\mbox{$\leftarrow$} {\em \$autoren}]String mit kommagetrennter Liste von Autoren \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Datenbankverbindung muss bestehen \end{Desc}
++\item[R\&quot;{u}ckgabe:]Feld mit Autor\_\-Nr der Autoren \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/visio/LiMan System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-23 21:50:42 UTC (rev 110)
++++ trunk/include/autor.php	2006-05-25 12:08:46 UTC (rev 111)
+@@ -5,7 +5,8 @@
+ 
+ 	/*! \brief Verwaltet Autoren
+ 	 *
+-	 *  TODO
++	 *  Stellt Funktionen zum Hinzuf&#252;gen von Autoren und Bereinigen nicht
++	 *  mehr benutzter Autoren bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Autor
+@@ -15,7 +16,8 @@
+ 		
+ 		/*! \brief Legt Autorenobjekt an
+ 		 *
+-		 *  TODO
++		 *  Legt ein neues Autorenobjekt aus einem Objekt mit den
++		 *  Attributen Nr und Name an.
+ 		 *  \pre -
+ 		 *  \param[in] $data Objekt mit Autorendaten der Form
+ 		 *    - Nr
+@@ -27,19 +29,44 @@
+ 
+ 		/*! \brief Entfernt unn&#246;tige Autoren
+ 		 *
+-		 *  TODO
++		 *  Entfernt aus Autoren alle Autoren, die keine Verbindung
++		 *  (Autoren_Literatur-Tabelle) mehr mit Literatur haben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 */
+ 		function Clean()
+ 		{
+ 		}
+ 
++		/*! \brief R&#252;ckgabe eines Feldes von Autoren
++		 *
++		 *  Liest alle Autoren die einer Literatur ($nr) zugeordnet
++		 *  sind aus Bibliothek aus und gibt sie als Feld des Typs
++		 *  Autor zur&#252;ck.
++		 *  \param[in] $nr Nr einer Literatur mit Autoren
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld vom Typ Autor
++		 */
++		function GetAll($nr)
++		{
++			/// \todo implementieren
++			$authors = array();
++
++			//return $authors;
++		}
++
+ 		/*! \brief Legt neue Autoren aus kommagetrennter Liste an
+ 		 *
+-		 *  TODO
++		 *  Teilt die kommagetrennte Liste von Autoren in einzelne
++		 *  Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob
++		 *  diese schon in der Datenbank existieren. Sollten diese
++		 *  schon existieren, dann wird Autor_Nr ausgelesen und zum
++		 *  Feld hinzugef&#252;gt. Sollten diese noch nicht existieren,
++		 *  werden sie hinzugef&#252;gt und die neuen Autor_Nr zum Feld
++		 *  hinzugef&#252;gt. Das komplette Feld vom Typ Autor_Nr wird
++		 *  zur&#252;ckgegeben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+-		 *  \return Datenbankverbindung muss bestehen
++		 *  \return Feld mit Autor_Nr der Autoren
+ 		 */
+ 		function Split($autoren)
+ 		{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000100.html">[Liman-svn] r110 - in trunk: . db
+</A></li>
+	<LI>Next message: <A HREF="000102.html">[Liman-svn] r112 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#101">[ date ]</a>
+              <a href="thread.html#101">[ thread ]</a>
+              <a href="subject.html#101">[ subject ]</a>
+              <a href="author.html#101">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

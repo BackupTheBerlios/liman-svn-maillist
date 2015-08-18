@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r130 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r130%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605302027.k4UKRLOj020656%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000119.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r130 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r130%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605302027.k4UKRLOj020656%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r130 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Tue May 30 22:27:21 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000119.html">[Liman-svn] r129 - trunk/include
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#120">[ date ]</a>
+              <a href="thread.html#120">[ thread ]</a>
+              <a href="subject.html#120">[ subject ]</a>
+              <a href="author.html#120">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-30 22:27:01 +0200 (Tue, 30 May 2006)
+New Revision: 130
+
+Added:
+   trunk/docs/beleg2/systemarchitektur.dot
+   trunk/docs/beleg2/systemarchitektur.eps
+   trunk/docs/beleg2/systemarchitektur.pdf
+Modified:
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/klassenspezifikation.tex
+   trunk/docs/beleg2/systemarchitektur.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+Log:
+Erster Versuch zur Grafik Systemarchitektur
+
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-30 20:27:01 UTC (rev 130)
+@@ -32,7 +32,7 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classAutor_2302710dd8970853f5d49c62d4586e8f}{Autor::Autor}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
++\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
+ \begin{Desc}
+ \item[Autor:]Frank Wilhelm \end{Desc}
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-30 20:27:01 UTC (rev 130)
+@@ -42,7 +42,7 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classKommentar_ea774e2108c754890c602dfdd53d64e1}{Kommentar::Kommentar}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
++\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
+ \begin{Desc}
+ \item[Autor:]Frank Wilhelm \end{Desc}
+
+Modified: trunk/docs/beleg2/klassenspezifikation.tex
+===================================================================
+--- trunk/docs/beleg2/klassenspezifikation.tex	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/docs/beleg2/klassenspezifikation.tex	2006-05-30 20:27:01 UTC (rev 130)
+@@ -1,4 +1,7 @@
+ \section{Klassenspezifikation}
++\subsection{Klassendiagramm}
++\includegraphics[scale=0.65]{LiMan_System}
++
+ \input{doxygen/classAutor}
+ \input{doxygen/classKommentar}
+ \input{doxygen/classLiteratur}
+
+Added: trunk/docs/beleg2/systemarchitektur.dot
+===================================================================
+--- trunk/docs/beleg2/systemarchitektur.dot	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/docs/beleg2/systemarchitektur.dot	2006-05-30 20:27:01 UTC (rev 130)
+@@ -0,0 +1,82 @@
++digraph G
++{
++	ranksep=1;
++	concentrate=true;
++	ratio=fill;
++	size=&quot;10,5&quot;
++	subgraph LiMan
++	{
++		node [shape=box];
++		rank = min;
++
++		Literaturverwaltung
++	}
++
++	subgraph Prozesse
++	{
++		node [shape=box];
++		rank = same;
++
++		Bibliotheksverwaltung
++		Kommentarverwaltung
++		Mitgliedsverwaltung
++		Literaturinformation
++		Suchen
++	}
++
++	subgraph Klassen
++	{
++		node [shape=box];
++		edge [weight=100, minlen=0, constraint=false]
++		rank = same;
++		
++		LiteraturArt
++		Autor
++		Kommentar
++		Literatur
++		Mitglied
++		Suche
++
++		// Klassen untereinander
++		Literatur -&gt; Autor
++		Literatur -&gt; Kommentar
++		Literatur -&gt; LiteraturArt
++		Mitglied -&gt; Kommentar
++	
++		Suche -&gt; Autor
++	}
++
++	subgraph Datenbank
++	{
++		node [shape=box];
++		rank = max;
++
++		SQLDB
++	}
++
++
++	// LiMan zu Prozesse
++	Literaturverwaltung -&gt; Bibliotheksverwaltung
++	Literaturverwaltung -&gt; Kommentarverwaltung
++	Literaturverwaltung -&gt; Mitgliedsverwaltung
++	Literaturverwaltung -&gt; Literaturinformation
++	Literaturverwaltung -&gt; Suchen
++
++	// Prozesse zu Klassen
++	Bibliotheksverwaltung -&gt; Literatur
++
++	Literaturinformation -&gt; Literatur
++
++	Kommentarverwaltung -&gt; Kommentar
++
++	Mitgliedsverwaltung -&gt; Mitglied
++
++	Suchen -&gt; Suche
++
++	// Klassen auf Datenbank
++	Autor -&gt; SQLDB
++	Kommentar -&gt; SQLDB
++	Literatur -&gt; SQLDB
++	Mitglied -&gt; SQLDB
++	Suche -&gt; SQLDB
++}
+\ No newline at end of file
+
+Added: trunk/docs/beleg2/systemarchitektur.eps
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg2/systemarchitektur.eps
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg2/systemarchitektur.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg2/systemarchitektur.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Modified: trunk/docs/beleg2/systemarchitektur.tex
+===================================================================
+--- trunk/docs/beleg2/systemarchitektur.tex	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/docs/beleg2/systemarchitektur.tex	2006-05-30 20:27:01 UTC (rev 130)
+@@ -1,2 +1,5 @@
+ \section{Entwurf der Systemarchitektur} 
+-\includegraphics[scale=0.65]{LiMan_System}
+\ No newline at end of file
++\includegraphics[scale=0.56]{systemarchitektur}
++
++Aus Gr&#252;nden der &#220;bersichtlichkeit wurde die Login-Hilfsklasse entfernt. Eine komplette &#220;bersicht &#252;ber die Klassen inklusive der Login-Hilfsklasse ist im Klassendiagramm m&#246;glich.
++\clearpage
+\ No newline at end of file
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/include/autor.php	2006-05-30 20:27:01 UTC (rev 130)
+@@ -5,7 +5,6 @@
+ 	 *  mehr benutzter Autoren bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
+-	 *  - Autor::Autor
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-30 15:54:03 UTC (rev 129)
++++ trunk/include/kommentar.php	2006-05-30 20:27:01 UTC (rev 130)
+@@ -8,7 +8,6 @@
+ 	 *  bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
+-	 *  - Kommentar::Kommentar
+ 	 *  - Login::IsAdministrator
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000119.html">[Liman-svn] r129 - trunk/include
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#120">[ date ]</a>
+              <a href="thread.html#120">[ thread ]</a>
+              <a href="subject.html#120">[ subject ]</a>
+              <a href="author.html#120">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r113 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r113%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251415.k4PEFHDD010789%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000102.html">
+   <LINK REL="Next"  HREF="000104.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r113 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r113%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20docs/beleg2/visio%20include&In-Reply-To=%3C200605251415.k4PEFHDD010789%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r113 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include">lazhur at berlios.de
+       </A><BR>
+    <I>Thu May 25 16:15:17 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000102.html">[Liman-svn] r112 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+        <LI>Next message: <A HREF="000104.html">[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-25 16:14:46 +0200 (Thu, 25 May 2006)
+New Revision: 113
+
+Modified:
+   trunk/docs/beleg2/LiMan_System.eps
+   trunk/docs/beleg2/LiMan_System.pdf
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/visio/LiMan_System.vsd
+   trunk/include/kommentar.php
+Log:
+- Kommentare dokumentiert
+- DeleteAllMember hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg2/LiMan_System.eps
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/LiMan_System.pdf
+===================================================================
+(Binary files differ)
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-25 13:50:07 UTC (rev 112)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-25 14:14:46 UTC (rev 113)
+@@ -14,6 +14,8 @@
+ \begin{CompactList}\small\item\em L&#246;scht \hyperlink{classKommentar}{Kommentar}. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Delete\-All} (\$literatur\_\-nr)
+ \begin{CompactList}\small\item\em L&#246;scht alle zu einer \hyperlink{classLiteratur}{Literatur} geh&#246;renden Kommentare. \item\end{CompactList}\item 
++\hyperlink{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{Delete\-All\-Member} (\$member\_\-nr)
++\begin{CompactList}\small\item\em L&#246;scht alle zu einem \hyperlink{classMitglied}{Mitglied} geh&#246;renden Kommentare. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_6119b3c12a61d8d5a41cded165517914}{Insert} (\$text, \$verfasser\_\-nr, \$literatur\_\-nr)
+ \begin{CompactList}\small\item\em Legt \hyperlink{classKommentar}{Kommentar} an. \item\end{CompactList}\item 
+ \hyperlink{classKommentar_0b3e20e910493e67b67b747243f04511}{Update} (\$nr, \$text)
+@@ -34,7 +36,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet Kommentare. 
+ 
+-TODO \begin{Desc}
++Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur- bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ 
+ 
+@@ -50,7 +52,7 @@
+ 
+ Legt Kommentarobjekt an. 
+ 
+-TODO \begin{Desc}
++Legt ein neues Kommentarobjekt aus einem Objekt mit den Attributen Nr, Text, Verfasser\_\-Nr und Verfasser\_\-Name an. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -71,7 +73,7 @@
+ 
+ L&#246;scht \hyperlink{classKommentar}{Kommentar}. 
+ 
+-TODO \begin{Desc}
++L&#246;scht einen \hyperlink{classKommentar}{Kommentar} aus Kommentare mit der Kommentar\_\-Nr \$nr. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -87,13 +89,29 @@
+ 
+ L&#246;scht alle zu einer \hyperlink{classLiteratur}{Literatur} geh&#246;renden Kommentare. 
+ 
+-TODO \begin{Desc}
++L&#246;scht alle Kommentare aus Kommentare, die mit \hyperlink{classLiteratur}{Literatur} mit der Literaturnummer (\$literatur\_\-nr) verbunden sind. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
++\hypertarget{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{
++\index{Kommentar@{Kommentar}!DeleteAllMember@{DeleteAllMember}}
++\index{DeleteAllMember@{DeleteAllMember}!Kommentar@{Kommentar}}
++\paragraph[DeleteAllMember]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Delete\-All\-Member (\$ {\em member\_\-nr})}\hfill}
++\label{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}
++
++
++L&#246;scht alle zu einem \hyperlink{classMitglied}{Mitglied} geh&#246;renden Kommentare. 
++
++L&#246;scht alle Kommentare aus Kommentare, die mit Kommentaren mit der Kommentarnummer (\$kommentar\_\-nr) verbunden sind. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[\mbox{$\leftarrow$} {\em \$member\_\-nr}]Nummer eines Mitglieds \end{description}
++\end{Desc}
+ \hypertarget{classKommentar_6119b3c12a61d8d5a41cded165517914}{
+ \index{Kommentar@{Kommentar}!Insert@{Insert}}
+ \index{Insert@{Insert}!Kommentar@{Kommentar}}
+@@ -103,7 +121,7 @@
+ 
+ Legt \hyperlink{classKommentar}{Kommentar} an. 
+ 
+-TODO \begin{Desc}
++Legt einen neuen \hyperlink{classKommentar}{Kommentar} mit Text (\$text) zu einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) vom einem Verfasser (\$verfasser\_\-nr) an. Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss \$verfasser\_\-nr gleich der aktuellen Nummer des Logins sein. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -119,7 +137,7 @@
+ 
+ &#196;ndert einen \hyperlink{classKommentar}{Kommentar}. 
+ 
+-TODO \begin{Desc}
++&#196;ndert in Kommentare den Text des Kommentars mit \$nr in \$text. Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss die aktuelle Nummer des Mitglieds gleich der Mitglieds\_\-Nr des Kommentars in Kommentare sein. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+
+Modified: trunk/docs/beleg2/visio/LiMan_System.vsd
+===================================================================
+(Binary files differ)
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-25 13:50:07 UTC (rev 112)
++++ trunk/include/kommentar.php	2006-05-25 14:14:46 UTC (rev 113)
+@@ -6,7 +6,9 @@
+ 
+ 	/*! \brief Verwaltet Kommentare
+ 	 *
+-	 *  TODO
++	 *  Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren
++	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur-
++	 *  bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 */
+ 	class Kommentar
+@@ -18,7 +20,8 @@
+ 		
+ 		/*! \brief Legt Kommentarobjekt an
+ 		 *
+-		 *  TODO
++		 *  Legt ein neues Kommentarobjekt aus einem Objekt mit den
++		 *  Attributen Nr, Text, Verfasser_Nr und Verfasser_Name an.
+ 		 *  \pre -
+ 		 *  \param[in] $data Objekt mit Kommentardaten der Form
+ 		 *    - Nr
+@@ -33,7 +36,8 @@
+ 		
+ 		/*! \brief L&#246;scht Kommentar
+ 		 *
+-		 *  TODO
++		 *  L&#246;scht einen Kommentar aus Kommentare mit der Kommentar_Nr
++		 *  $nr.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer des zu l&#246;schenden Kommentars
+ 		 */
+@@ -43,17 +47,33 @@
+ 		
+ 		/*! \brief L&#246;scht alle zu einer Literatur geh&#246;renden Kommentare
+ 		 *
+-		 *  TODO
++		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Literatur
++		 *  mit der Literaturnummer ($literatur_nr) verbunden sind.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $literatur_nr Nummer der Literatur
+ 		 */
+ 		function DeleteAll($literatur_nr)
+ 		{
+ 		}
++
++		/*! \brief L&#246;scht alle zu einem Mitglied geh&#246;renden Kommentare
++		 *
++		 *  L&#246;scht alle Kommentare aus Kommentare, die mit Kommentaren
++		 *  mit der Kommentarnummer ($kommentar_nr) verbunden sind.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $member_nr Nummer eines Mitglieds
++		 */
++		function DeleteAllMember($member_nr)
++		{
++		}
+ 		
+ 		/*! \brief Legt Kommentar an
+ 		 *
+-		 *  TODO
++		 *  Legt einen neuen Kommentar mit Text ($text) zu einer
++		 *  Literatur ($literatur_nr) vom einem Verfasser 
++		 *  ($verfasser_nr) an. Ist das aktuelle Mitglied kein 
++		 *  Administrator, dann muss $verfasser_nr gleich der aktuellen
++		 *  Nummer des Logins sein.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $text Text des Kommentars
+ 		 *  \param[in] $verfasser_nr Mitglieds_Nr des Verfassers
+@@ -65,7 +85,10 @@
+ 		
+ 		/*! \brief &#196;ndert einen Kommentar
+ 		 *
+-		 *  TODO
++		 *  &#196;ndert in Kommentare den Text des Kommentars mit $nr
++		 *  in $text. Ist das aktuelle Mitglied kein Administrator,
++		 *  dann muss die aktuelle Nummer des Mitglieds gleich der
++		 *  Mitglieds_Nr des Kommentars in Kommentare sein.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $nr Nummer des zu ver&#228;ndernden Kommentars
+ 		 *  \param[in] $text neuer Text des Kommentars
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000102.html">[Liman-svn] r112 - in trunk: docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+	<LI>Next message: <A HREF="000104.html">[Liman-svn] r114 - in trunk: docs/beleg2/doxygen include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#103">[ date ]</a>
+              <a href="thread.html#103">[ thread ]</a>
+              <a href="subject.html#103">[ subject ]</a>
+              <a href="author.html#103">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r36 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r36%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241640.k3OGeW4O028329%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000025.html">
+   <LINK REL="Next"  HREF="000027.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r36 - trunk/docs/beleg1</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r36%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241640.k3OGeW4O028329%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r36 - trunk/docs/beleg1">dotslash at berlios.de
+       </A><BR>
+    <I>Mon Apr 24 18:40:32 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000025.html">[Liman-svn] r35 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000027.html">[Liman-svn] r37 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-04-24 18:40:16 +0200 (Mon, 24 Apr 2006)
+New Revision: 36
+
+Added:
+   trunk/docs/beleg1/index.png
+   trunk/docs/beleg1/lit.png
+   trunk/docs/beleg1/navigation.png
+   trunk/docs/beleg1/search.png
+   trunk/docs/beleg1/user.png
+   trunk/docs/beleg1/usermod.png
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+Log:
+- nutzerschnittstelle
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-24 14:57:04 UTC (rev 35)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-24 16:40:16 UTC (rev 36)
+@@ -179,20 +179,59 @@
+ \input{pspec_mitgliederverwaltung}
+ 
+ \subsection{Definition der Nutzerschnittstelle}
+-TODO (Generell, Fargestaltung)
+ 
++Durch das Websystem ist die Nutzerschnittstelle beschr&quot;ankt auf die Darstellung im Browser. Dadurch kann die Darstellung
++leicht bei verschiedenen Browser und Betriebssystemen variieren. Die Eingabefelder und Kn&quot;opfe werden im Stil des 
++Betriebssystems dargestellt, sodass der Benutzer stets seine gewohnte Umgebung vorfinden kann. Ebenso kann man mittels der Optionen
++des Browser Schriftgr&quot;osse und andere visuelle Einstellungen ver&quot;andern. Das Grundlayout bleibt jedoch immer erhalten
++und richtet sich unter anderem auch nach der Gr&quot;osse des ge&quot;offneten Browserfensters.\\
++\\
++Das Layout teilt sich in einen Navigations/Uebersichtsteil auf der linken Seite der unabh&quot;angig von der Auswahl immer
++zu sehen ist. Hier findet sich die Navigation, die Suchmaske fuer die Suchfunktion sowie Authentifikationsmaske zum Login.
++Auf der rechten, gr&quot;osseren Seite befindet sich der Inhalt der aktuell aufgerufenen Funktion.\\
++\\
++Die Benutzung beginnt gew&quot;ohnlich auf der Literaturliste (Startseite), jede Seite kann aber &quot;uber direkte
++Ansteuerung mittels der Addresszeile des Browser oder auch Bookmarks abgerufen werden.\\
++
+ \subsubsection{Ein- und Ausgabeger&#228;te}
+ F&quot;ur die Eingabe wird ein vernetzter PC mit Tastatur und Maus vorrausgesetzt.\\
+ Die Ausgabe erfolgt stets &quot;uber einen Farbmonitor.
++\newpage
++\subsubsection{Navigationsleiste}
++\includegraphics[scale=0.6]{navigation.png} 
+ 
+-\paragraph{Legende zur Layoutdarstellung}
+-TODO Siehe Beispielbeleg S. 11
++Diese Leiste findet man unabh&quot;angig vom Inhalt immer auf der linken Seite.
++Unter {\bf Navigation} findet man die Unterpunkte &quot;Literatur&quot; und &quot;Nutzer&quot;, die zu den entsprechenden Listen f&quot;uhren.\\
++\\
++{\bf Suchen} erlaubt die Eingabe eines Suchbegriffes, mit dem Knopf &quot;Suche&quot; wird der Vorgang gestartet. 
++Das Ergebnis findet sich dann im Inhaltsbereich auf der rechten Seite.\\
++\\
++Zum {\bf Einloggen} gibt man seinen Nutzerkennzeichen und Passwort ein. Ist man bereits eingeloggt, ist hier der Nutzerstatus
++und die M&quot;oglichkeit zum Ausloggen zu finden.
++\subsubsection{Startseite, Literaturliste}
++\includegraphics[scale=0.6]{index.png}
+ 
+-\paragraph{Grundfenster}
+-TODO
++Hier ist die verf&quot;ugbare Literatur aufgelistet. Durch Klicken der Titel gelangt man zur Detailansicht f&quot;ur 
++das jeweilige Buch. Mit dem Knopf am Ende der Liste (und entsprechenden Rechten) kann man Literatur hinzufuegen.
+ 
+-\paragraph{Men&#252;s}
+-TODO
++\subsubsection{Literaturdetails}
++\includegraphics[scale=0.6]{lit.png}
+ 
+-\paragraph{Fenster irgendwas}
+-TODO
++Alle verf&quot;ugbaren Information zum Buch werden hier aufgelistet. Hat man entsprechende Privilegien kann man auch
++Bearbeiten/l&quot;oschen oder Kommentare hinzufuegen/l&quot;oschen.
++
++\subsubsection{Suchergebnisse}
++\includegraphics[scale=0.6]{search.png}
++
++Das Ergebnis der Suche ist eine Literaturliste und wird entsprechend genauso bedient.
++
++\subsubsection{Nutzerliste}
++\includegraphics[scale=0.6]{user.png}
++
++Hier werden alle Nutzer des Systems angezeigt, je nach Privelegien k&quot;onnen auch die eigenen Daten oder andere
++Daten modifiziert oder hinzugef&quot;ugt werden.
++
++\subsubsection{Nutzer bearbeiten/hinzuf&quot;ugen}
++\includegraphics[scale=0.6]{usermod.png}
++
++Hier werden nutzerspezifische Daten und das Passwort ge&quot;andert.
+
+Added: trunk/docs/beleg1/index.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/index.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+Added: trunk/docs/beleg1/lit.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/lit.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+Added: trunk/docs/beleg1/navigation.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/navigation.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+Added: trunk/docs/beleg1/search.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/search.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+Added: trunk/docs/beleg1/user.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/user.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+Added: trunk/docs/beleg1/usermod.png
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg1/usermod.png
+___________________________________________________________________
+Name: svn:mime-type
+   + image/x-png
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000025.html">[Liman-svn] r35 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000027.html">[Liman-svn] r37 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#26">[ date ]</a>
+              <a href="thread.html#26">[ thread ]</a>
+              <a href="subject.html#26">[ subject ]</a>
+              <a href="author.html#26">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

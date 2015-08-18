@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r198 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r198%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606280845.k5S8jHVk021129%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000187.html">
+   <LINK REL="Next"  HREF="000189.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r198 - trunk/docs/beleg3</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r198%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606280845.k5S8jHVk021129%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r198 - trunk/docs/beleg3">lazhur at berlios.de
+       </A><BR>
+    <I>Wed Jun 28 10:45:17 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000187.html">[Liman-svn] r197 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000189.html">[Liman-svn] r199 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#188">[ date ]</a>
+              <a href="thread.html#188">[ thread ]</a>
+              <a href="subject.html#188">[ subject ]</a>
+              <a href="author.html#188">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-28 10:45:02 +0200 (Wed, 28 Jun 2006)
+New Revision: 198
+
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/programmdokumentation.tex
+   trunk/docs/beleg3/systemhandbuch.tex
+Log:
+- Quellcode wieder in Teilbeleg3 aktiviert
+- Tippfehler in Anwenderdokumentation entfernt
+- Systemhandbuch mit TODOs erweitert und mysqldump-Hinweis hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-28 07:36:56 UTC (rev 197)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-28 08:45:02 UTC (rev 198)
+@@ -112,7 +112,7 @@
+ \begin{center}
+ \includegraphics[scale=0.8]{import1}\\
+ \end{center}
+-Nachdem man die BibTeX-Datei ausgew&quot;ahlt hat, dr&quot;uckt man noch den Button 'Imprtieren' und ein neuer Literatureintrag wurde get&quot;atigt.\\[0.4cm]
++Nachdem man die BibTeX-Datei ausgew&quot;ahlt hat, dr&quot;uckt man noch den Button 'Importieren' und ein neuer Literatureintrag wurde get&quot;atigt.\\[0.4cm]
+ Die zweite M&quot;oglichkeit ist die direkte Eingabe der BibTeX-Beschreibung in das Memo-Feld im zweiten, unteren Segment des Import-Formulars.\\
+ Folgendes Bild zeigt ein Beispiel:\\
+ \includegraphics[scale=0.8]{import2}\\
+@@ -124,15 +124,15 @@
+ M&quot;ochte man einen Literatureintrag &quot;andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun&quot;achst die Literaturtabelle anzeigen lassen, danach den zu &quot;andernden Eintrag ausw&quot;ahlen und den Button 'Bearbeiten' dr&quot;ucken.\\
+ \includegraphics[scale=0.8]{bearb1}\\
+ Anschlie&quot;send erscheint ein Formular &quot;ahnlich dem Formular 'Literatur erstellen' nur stehen bereits Literatur-Information in den Feldern.
+-Im folgenden Bild wollen wir eine &quot;Anderung an unserem erstellten Literatur-Titel 'BibTeX kurzgefasst' vornehmen, wir wollen die ISBN bon 9-99999-999-9 in 0-00000-000-0 &quot;andern und Verlag in SwP umbenennen:\\
++Im folgenden Bild wollen wir eine &quot;Anderung an unserem erstellten Literatur-Titel 'BibTeX kurzgefasst' vornehmen, wir wollen die ISBN von 9-99999-999-9 in 0-00000-000-0 &quot;andern und Verlag in SwP umbenennen:\\
+ \includegraphics[scale=0.8]{bearb2}\\
+-Anschlie&quot;send noch '&quot;Uebernehmen' dr&quot;ucken und unsere Literaturdaten wurden ge&quot;andert. Best&quot;atigt wird die &quot;Anderung durch folgende Meldung:\\
++Anschlie&quot;send noch '&quot;Ubernehmen' dr&quot;ucken und unsere Literaturdaten wurden ge&quot;andert. Best&quot;atigt wird die &quot;Anderung durch folgende Meldung:\\
+ \includegraphics[scale=0.8]{bearb3}\\
+ 
+ \subsection{Wie l&quot;osche ich eine Literatur?}
+ Ist es n&quot;otig einen Literatureintrag zu l&quot;oschen, so w&quot;ahlt man ihn wie auch beim 'Bearbeiten' in der Literaturliste aus, l&quot;asst sich also die betreffenden Literaturdetails anzeigen, und bet&quot;atigt den Button 'L&quot;oschen':\\
+ \includegraphics[scale=0.8]{del_lit}\\
+-Daraufhin erscheint die Aufforderung den L&quot;oschvorgang zu best&quot;atigen. Sollten man es sich anders &quot;uberlegt haben, so bet&quot;atigt man NICHT den Best&quot;atigen-Button sonder verl&quot;asst &quot;uber das seitliche Men&quot;u den L&quot;oschprozess.\\
++Daraufhin erscheint die Aufforderung den L&quot;oschvorgang zu best&quot;atigen. Sollten man es sich anders &quot;uberlegt haben, so bet&quot;atigt man NICHT den Best&quot;atigen-Button sondern verl&quot;asst &quot;uber das seitliche Men&quot;u oder den Zur&#252;ck-Knopf des Browsers den L&quot;oschprozess.\\
+ Sollte man sich sicher sein, dass man den Eintrag l&quot;oschen will, so klickt man auf den Button 'Best&quot;atigen':\\
+ \includegraphics[scale=0.8]{sure}\\
+ 
+@@ -168,6 +168,6 @@
+ Wie man leicht erkennen kann, hat man als Mitglied jediglich das Recht die eigenen Nutzerdaten zu sehen und zu &quot;andern.\\
+ Bet&quot;atigt man nun den Button 'Bearbeiten' so erh&quot;alt man Zugang zu den eigenen Mitgliedsinformationen.\\
+ \includegraphics[scale=0.8]{nutzer2}\\
+-M&quot;ochte man beispielsweise seine E-Mail-Adresse &quot;andern, l&quot;oscht man einfach die alte Adresse raus und schreibt seine neue hinein, danach best&quot;atigt man mit dem Button '&quot;Ubernehmen'.\\
++M&quot;ochte man beispielsweise seine E-Mail-Adresse &quot;andern, l&quot;oscht man einfach die alte Adresse raus und schreibt seine neue hinein. Danach best&quot;atigt man mit dem Button '&quot;Ubernehmen'.\\
+ Jedes Mitglied kann alle eigenen Daten, bis auf die 'Rechte', auf diese Wiese &quot;andern. Allerdings ist das &quot;Andern der Rechte einzig und allein Administratoren &quot;uberlassen.\\
+ Danach erscheint eine Best&quot;atigung &quot;uber die &quot;Anderung der Nutzerdaten.\\
+
+Modified: trunk/docs/beleg3/programmdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/programmdokumentation.tex	2006-06-28 07:36:56 UTC (rev 197)
++++ trunk/docs/beleg3/programmdokumentation.tex	2006-06-28 08:45:02 UTC (rev 198)
+@@ -1,6 +1,6 @@
+ \chapter{Programmdokumentation}
+ % W&#228;hrend der Weiteren Arbeiten kurzzeitig deaktiviert
+-%\input{interfaces_code}
++\input{interfaces_code}
+ 
+ % Tests
+ \input{tests}
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-28 07:36:56 UTC (rev 197)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-06-28 08:45:02 UTC (rev 198)
+@@ -97,10 +97,6 @@
+ \hline
+ include/sqldb\_mysql.php &amp; Startet eine Verbindung zum Datenbanksystem her und w&quot;ahlt eine Datenbank &amp; 7212\\
+ \hline
+-design/liman.css &amp; Stylesheets &amp; 2097\\
+-\hline
+-design/unittest.css &amp; Stylesheets &amp; 246\\
+-\hline
+ \end{longtable}
+ 
+ 
+@@ -108,8 +104,7 @@
+ 
+ 
+ Es wird empfohlen, regelm&quot;a&quot;sig eine Sicherung der Datenbank anzulegen. Das System bietet diese Funktion nicht direkt an,
+-sondern verweist auf das Programm phpMyAdmin. Um es zu starten, rufen sie die Datei ............ in Ihrem Installationsverzeichnis auf.
+-Zust&quot;andig f&quot;ur die Sicherung der Datenbank ist der Link &quot;Exportieren&quot; in der Datenbankansicht. 
++sondern verweist auf das Programm phpMyAdmin (\pdfurl{<A HREF="http://www.phpmyadmin.net/">http://www.phpmyadmin.net/</A>}). Zust&quot;andig f&quot;ur die Sicherung der Datenbank ist der Link ``Exportieren'' in der Datenbankansicht.
+ 
+ {TODO Screenshot}
+ 
+@@ -124,3 +119,11 @@
+ Ausgabe auf dem Bildschirm wiedergegeben. 
+ Falls sie &quot;ofters Sicherungen anlegt, ist eine weitere Option &quot;ZIP / GZIP Komprimieren&quot; sehr praktisch. Wenn Sie dies ausw&quot;ahlen wird die Datei mit ZIP 
+ komprimiert.
++
++Eine weitere M&#246;glichkeit, besonders f&#252;r die automatisierte Sicherung der Datenbank, bietet das Programm mysqldump, welches ein Teil der MySQL-Anwendungen ist. Eine genau Erkl&#228;rung &#252;ber die Funktionsweise von mysqldump ist in den Handb&#252;chern zu MySQL enthalten (\pdfurl{<A HREF="http://www.mysql.com/doc/de/mysqldump.html">http://www.mysql.com/doc/de/mysqldump.html</A>}).
++
++{TODO Was tun, wenn der Webserver ``Could not connect to SQL server. Please inform Webmaster'' bringt?}
++
++{TODO Was tun, wenn Daten nie geschrieben/ge&#228;ndert/gel&#246;scht werden?}
++
++{TODO Was tun, wenn User nach dem einloggen direkt wieder ausgeloggt werden?}
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000187.html">[Liman-svn] r197 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000189.html">[Liman-svn] r199 - trunk/docs/protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#188">[ date ]</a>
+              <a href="thread.html#188">[ thread ]</a>
+              <a href="subject.html#188">[ subject ]</a>
+              <a href="author.html#188">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

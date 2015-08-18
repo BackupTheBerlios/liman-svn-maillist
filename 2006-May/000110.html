@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r120 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r120%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200605271015.k4RAFZMh030663%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000109.html">
+   <LINK REL="Next"  HREF="000111.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r120 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r120%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200605271015.k4RAFZMh030663%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r120 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 12:15:35 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000109.html">[Liman-svn] r119 - trunk/include
+</A></li>
+        <LI>Next message: <A HREF="000111.html">[Liman-svn] r121 - in trunk: docs/beleg2 docs/beleg2/doxygen include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#110">[ date ]</a>
+              <a href="thread.html#110">[ thread ]</a>
+              <a href="subject.html#110">[ subject ]</a>
+              <a href="author.html#110">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 12:15:35 +0200 (Sat, 27 May 2006)
+New Revision: 120
+
+Modified:
+   trunk/design/liman.css
+   trunk/include/autor.php
+   trunk/include/header.php
+   trunk/lit.php
+Log:
+- Fehlende $ vor Variablennamen in Autor hinzugef?\195?\188gt
+- IE6-CSS-Probleme (Schrift und Tabellenverschiebungen) behoben
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-05-27 10:01:23 UTC (rev 119)
++++ trunk/design/liman.css	2006-05-27 10:15:35 UTC (rev 120)
+@@ -76,7 +76,8 @@
+ 
+ 
+ #searchresult, #userlist {
+-	width: 100%;
++	
++	width: 99%;
+ 	border: 1px solid black;
+ 	border-collapse: collapse;
+ }
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-27 10:01:23 UTC (rev 119)
++++ trunk/include/autor.php	2006-05-27 10:15:35 UTC (rev 120)
+@@ -39,7 +39,7 @@
+ 		{
+ 			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Autoren as autoren
+ 					WHERE (0 = (SELECT COUNT(*) FROM &quot;.$db_config['prefix'].&quot;Literatur_Autoren WHERE (AutorNr = autoren.ID)))&quot;;
+-			sqldb-&gt;Query($sql);
++			$sqldb-&gt;Query($sql);
+ 		}
+ 
+ 		/*! \brief R&#252;ckgabe eines Feldes von Autoren
+@@ -91,13 +91,13 @@
+ 			$authorNumbers = array();
+ 			$authorNames = split( &quot;,&quot;, $autoren );
+ 			
+-			for( $i = 0; i &lt; count($authorNames); i++ )
++			for( $i = 0; i &lt; count($authorNames); $i++ )
+ 			{
+ 				$sqlSelect = &quot;SELECT Autor_Nr AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						      WHERE Autorname = '&quot;.trim($authorNames[i]).&quot;'&quot;;
+-				sqldb-&gt;Query( $sqlSelect );
++				$sqldb-&gt;Query( $sqlSelect );
+ 				
+-				if( $cur = sqldb-&gt;Fetch() )
++				if( $cur = $sqldb-&gt;Fetch() )
+ 				{
+ 					$authorNumbers[] = $cur-&gt;Nr;
+ 				}
+@@ -105,9 +105,9 @@
+ 				{
+ 					$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES ('&quot;.trim($authorNames[i]).&quot;')&quot;;
+ 					$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren&quot;;
+-					sqldb-&gt;Query( $sqlInsert );
+-					sqldb-&gt;Query( $sqlIdentity );
+-					$authorNumbers[] = sqldb-&gt;Fetch()-&gt;Nr;
++					$sqldb-&gt;Query( $sqlInsert );
++					$sqldb-&gt;Query( $sqlIdentity );
++					$authorNumbers[] = $sqldb-&gt;Fetch()-&gt;Nr;
+ 				}
+ 			}
+ 			
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-05-27 10:01:23 UTC (rev 119)
++++ trunk/include/header.php	2006-05-27 10:15:35 UTC (rev 120)
+@@ -51,7 +51,7 @@
+ 						&lt;div&gt;
+ 						&lt;input name=&quot;search&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+ 						&lt;input value=&quot;Suche&quot; type=&quot;submit&quot;&gt;
+-						&lt;span style=&quot;font-size: 0.6em&quot;&gt;&lt;a href=&quot;searchmore.php&quot;&gt;Erweiterte Suche&lt;/a&gt;&lt;/span&gt;
++						&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;searchmore.php&quot;&gt;Erweiterte Suche&lt;/a&gt;&lt;/span&gt;
+ 						&lt;/div&gt;
+ 					&lt;/form&gt;
+ 				&lt;/div&gt;
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-05-27 10:01:23 UTC (rev 119)
++++ trunk/lit.php	2006-05-27 10:15:35 UTC (rev 120)
+@@ -73,7 +73,7 @@
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Hans Wurst:&lt;br&gt;&lt;/th&gt;	
+ 				&lt;td&gt;Tolle Dramatik, wirklich fesselnder Storyverlauf, nur das Ende war ein bisschen matt.&lt;/td&gt;
+-				&lt;td&gt;&lt;span style=&quot;font-size: 0.6em&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000109.html">[Liman-svn] r119 - trunk/include
+</A></li>
+	<LI>Next message: <A HREF="000111.html">[Liman-svn] r121 - in trunk: docs/beleg2 docs/beleg2/doxygen include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#110">[ date ]</a>
+              <a href="thread.html#110">[ thread ]</a>
+              <a href="subject.html#110">[ subject ]</a>
+              <a href="author.html#110">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

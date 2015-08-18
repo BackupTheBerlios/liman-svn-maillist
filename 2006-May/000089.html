@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r99 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r99%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605171551.k4HFpZuJ024596%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000088.html">
+   <LINK REL="Next"  HREF="000090.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r99 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r99%20-%20trunk/docs/beleg1&In-Reply-To=%3C200605171551.k4HFpZuJ024596%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r99 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Wed May 17 17:51:35 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000088.html">[Liman-svn] r98 - trunk/docs/beleg2/visio
+</A></li>
+        <LI>Next message: <A HREF="000090.html">[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-17 17:51:34 +0200 (Wed, 17 May 2006)
+New Revision: 99
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+   trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+   trunk/docs/beleg1/teilbeleg1.tex
+Log:
+- Teilbeleg 1 einseitig (bessere Betrachtung am Bildschirm)
+- Auf SHA1-basierte Passworthashes umgestellt
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-17 15:02:34 UTC (rev 98)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-17 15:51:34 UTC (rev 99)
+@@ -134,7 +134,7 @@
+ \hline
+ Login &amp; Zeichenkette12 \\
+ \hline
+-Passwort &amp; Zeichenkette12 \\
++Passwort &amp; Zeichenkette40 \\
+ \hline
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] \\
+ \hline\hline
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-17 15:02:34 UTC (rev 98)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-17 15:51:34 UTC (rev 99)
+@@ -46,7 +46,7 @@
+ Kommentartext &amp; Zeichenkette400 &amp; $400$\\
+ \hline\hline
+ 
+-Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 20  + 12 + 12 + 13 + 350 = 431 $\\
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 20  + 12 + 40 + 13 + 350 = 459 $\\
+ \hline
+ Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* &amp; $4$ \\ 
+ \hline
+@@ -58,12 +58,12 @@
+ \hline
+ Login &amp; Zeichenkette12 &amp; $12$\\
+ \hline
+-Passwort &amp; Zeichenkette12 &amp; $12$\\
++Passwort &amp; Zeichenkette40 &amp; $40$\\
+ \hline
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] &amp; $13$ \\
+ \hline\hline
+ 
+-Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 12 + 13 + 350 = 427 $\\
++Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 40 + 13 + 350 = 455 $\\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext &amp; $4 + 4 + 4 = 12 $ \\
+ \hline
+@@ -106,7 +106,7 @@
+ \hline\hline
+ Literatur &amp; {Literatur} &amp; $0*512$ &amp; $50*512=25600$ &amp; $100*512=51200$ \\
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
+-Mitglieder &amp; {Mitglied}  &amp; $0*431$ &amp; $50*431=21550$ &amp; $100*431=43100$ \\
++Mitglieder &amp; {Mitglied}  &amp; $0*459$ &amp; $50*459=22950$ &amp; $100*459=45900$ \\
+ Autoren &amp; {Autor} &amp; $1*44$ &amp; $2*44=88$ &amp; $5*44=220$ \\ 
+ \hline
+ \end{tabular}
+
+Modified: trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-05-17 15:02:34 UTC (rev 98)
++++ trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-05-17 15:51:34 UTC (rev 99)
+@@ -30,6 +30,7 @@
+ \textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein. Es darf keinen anderes Mitglied mit gleichen Login geben (von Datenbank abgefangen).
+ \begin{verbatim}
+  BEGIN
++   Bestimme Hash des Passworts
+    Lege in Mitglieder Mitglied mit Mitgliedsdaten an
+ 
+    IF gefunden THEN
+@@ -53,6 +54,7 @@
+ \textbf{Voraussetzung}: Benutzer ist angemeldet. Mitglied.Mitglieds\_Nr ist die Nummer des aktuell angemeldeten Nutzers (au&#223;er er ist Administrator)
+ \begin{verbatim}
+   BEGIN
++   Bestimme Hash des Passworts, wenn ge&#228;ndert
+    Setze in Mitglieder Mitglied_Eintrag
+          mit Mitglied_Eintrag.Mitglieds_Nr = Mitglied.Mitglieds_Nr
+          auf Mitglied;
+
+Modified: trunk/docs/beleg1/teilbeleg1.tex
+===================================================================
+--- trunk/docs/beleg1/teilbeleg1.tex	2006-05-17 15:02:34 UTC (rev 98)
++++ trunk/docs/beleg1/teilbeleg1.tex	2006-05-17 15:51:34 UTC (rev 99)
+@@ -1,4 +1,4 @@
+-\documentclass[a4paper,twoside]{scrreprt}
++\documentclass[a4paper]{scrreprt}
+ 
+ \usepackage[ngerman]{babel}
+ \usepackage[utf8]{inputenc}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000088.html">[Liman-svn] r98 - trunk/docs/beleg2/visio
+</A></li>
+	<LI>Next message: <A HREF="000090.html">[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#89">[ date ]</a>
+              <a href="thread.html#89">[ thread ]</a>
+              <a href="subject.html#89">[ subject ]</a>
+              <a href="author.html#89">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

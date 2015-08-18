@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r145 - in trunk/include: . tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r145%20-%20in%20trunk/include%3A%20.%20tests&In-Reply-To=%3C200606071825.k57IPjbg001887%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000134.html">
+   <LINK REL="Next"  HREF="000136.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r145 - in trunk/include: . tests</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r145%20-%20in%20trunk/include%3A%20.%20tests&In-Reply-To=%3C200606071825.k57IPjbg001887%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r145 - in trunk/include: . tests">fwilhelm at berlios.de
+       </A><BR>
+    <I>Wed Jun  7 20:25:45 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000134.html">[Liman-svn] r144 - trunk/docs/protokoll
+</A></li>
+        <LI>Next message: <A HREF="000136.html">[Liman-svn] r146 - in trunk/include: . tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#135">[ date ]</a>
+              <a href="thread.html#135">[ thread ]</a>
+              <a href="subject.html#135">[ subject ]</a>
+              <a href="author.html#135">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-06-07 20:25:41 +0200 (Wed, 07 Jun 2006)
+New Revision: 145
+
+Added:
+   trunk/include/tests/
+   trunk/include/tests/errormessage.php
+   trunk/include/tests/suche.php
+Log:
+ErrorMessage f?\195?\188r UnitTests,
+UnitTest f?\195?\188r Suche
+
+Added: trunk/include/tests/errormessage.php
+===================================================================
+--- trunk/include/tests/errormessage.php	2006-06-07 18:19:16 UTC (rev 144)
++++ trunk/include/tests/errormessage.php	2006-06-07 18:25:41 UTC (rev 145)
+@@ -0,0 +1,40 @@
++&lt;?php
++	class ErrorMessage
++	{
++		var $Unit = false;
++		var $Test = false;
++		var $Message;
++		var $Expected;
++		var $Actual;
++		
++		function ErrorMessage( $unit, $test, $message, $expected, $actual )
++		{
++			if( $unit != null )
++				$this-&gt;Unit = $unit;
++			if( $test != null )
++				$this-&gt;Test = $test;
++			$this-&gt;Message = $message;
++			$this-&gt;Expected = $expected;
++			$this-&gt;Actual = $actual; 
++		}
++		
++		function ToString()
++		{
++			$testcase = &quot;&quot;;
++			if( $this-&gt;Test !== false )
++			{
++				if( $this-&gt;Unit !== false )
++				{
++					$testcase = &quot; von &quot;.$this-&gt;Unit.&quot;.&quot;.$this-&gt;Test;
++				}
++				else
++				{
++					$testcase = &quot; von &quot;.$this-&gt;Test;
++				}
++			}
++			
++			return &quot;Test&quot;.$testcase.&quot; Fehlgeschlagen. Grund: &quot;.$this-&gt;Message.
++			       &quot; - Erwartet: &lt;&quot;.$this-&gt;Expected.&quot;&gt; Ist: &lt;&quot;.$this-&gt;Actual.&quot;&gt;&quot;;
++		}
++	}
++?&gt;
+
+Added: trunk/include/tests/suche.php
+===================================================================
+--- trunk/include/tests/suche.php	2006-06-07 18:19:16 UTC (rev 144)
++++ trunk/include/tests/suche.php	2006-06-07 18:25:41 UTC (rev 145)
+@@ -0,0 +1,146 @@
++&lt;?php
++	require_once(&quot;include/tests/errormessage.php&quot;);
++	
++	
++	class SucheTest
++	{
++		var $suche;
++		
++		function Setup()
++		{
++			$suche = new Suche();
++		}
++		
++		function TearDown()
++		{
++			global $sqldb;
++			
++			$sqldb-&gt;Verify();
++		}
++		
++		function LetzteLiteratur()
++		{
++			global $sqldb;
++			
++			$testHits = array();
++			$testHits[] = 1;
++			$testHits[] = 2;
++			$sqldb-&gt;ExpectQuery( '.*SELECT Literatur_Nr.*Bibliothek.*LIMIT.*', $testHits );
++			
++			// keine Autoren, Autor::GetAll soll in Autor Unit getestet werden
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
++			}
++			
++			$this-&gt;suche-&gt;LetzteLiteratur();
++			
++			$result = $sqldb-&gt;Verify();
++			
++			if( $result !== true )
++			{
++				$result-&gt;Unit = &quot;Suche&quot;;
++				$result-&gt;Test = &quot;LetzteLiteratur&quot;;
++				return $result;
++			}
++			
++			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
++				{
++					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
++				}
++			}
++			
++			return true;
++		}
++		
++		function VolltextSuche()
++		{
++			global $sqldb;
++			
++			$volltext = 'Pr&#228;dikat';
++			
++			$testHits = array();
++			$testHits[] = 1;
++			$testHits[] = 2;
++			
++			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*MATCH.*AGAINST.*', $testHits );
++			
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
++			}
++			
++			$suche-&gt;VolltextSuche( $volltext );
++			
++			$result = $sqldb-&gt;Verify();
++			
++			if( $result !== true )
++			{
++				$result-&gt;Unit = &quot;Suche&quot;;
++				$result-&gt;Test = &quot;LetzteLiteratur&quot;;
++				return $result;
++			}
++			
++			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
++				{
++					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
++				}
++			}
++			
++			return true;
++		}
++		
++		function AutorTitelSuche()
++		{
++			global $sqldb;
++			
++			$titel = 'Ein Titel';
++			$autor = 'Niemand';
++			
++			$testHits = array();
++			$testHits[] = 1;
++			$testHits[] = 2;
++			
++			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*LIKE.*', $testHits );
++			
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
++			}
++				
++			$suche-&gt;AutorTitelSuche( $titel, $autor );
++			
++			$result = $sqldb-&gt;Verify();
++			
++			if( $result !== true )
++			{
++				$result-&gt;Unit = &quot;Suche&quot;;
++				$result-&gt;Test = &quot;LetzteLiteratur&quot;;
++				return $result;
++			}
++			
++			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			
++			for( $i = 0; $i &lt; count($testHits); $i++ )
++			{
++				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
++				{
++					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
++				}
++			}
++			
++			return true;
++		}
++	}
++?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000134.html">[Liman-svn] r144 - trunk/docs/protokoll
+</A></li>
+	<LI>Next message: <A HREF="000136.html">[Liman-svn] r146 - in trunk/include: . tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#135">[ date ]</a>
+              <a href="thread.html#135">[ thread ]</a>
+              <a href="subject.html#135">[ subject ]</a>
+              <a href="author.html#135">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,1309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r100%20-%20in%20trunk/docs%3A%20beleg1%20beleg2%20beleg2/doxygen%20beleg2/visio&In-Reply-To=%3C200605171914.k4HJES6K015557%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000089.html">
+   <LINK REL="Next"  HREF="000091.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r100%20-%20in%20trunk/docs%3A%20beleg1%20beleg2%20beleg2/doxygen%20beleg2/visio&In-Reply-To=%3C200605171914.k4HJES6K015557%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r100 - in trunk/docs: beleg1 beleg2 beleg2/doxygen beleg2/visio">lazhur at berlios.de
+       </A><BR>
+    <I>Wed May 17 21:14:28 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000089.html">[Liman-svn] r99 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000091.html">[Liman-svn] r101 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-17 21:14:01 +0200 (Wed, 17 May 2006)
+New Revision: 100
+
+Added:
+   trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/docs/beleg2/klassenspezifikation.tex
+   trunk/docs/beleg2/visio/LiMan System.vsd
+Log:
+- Methoden zu Klassen hinzugef?\195?\188gt
+- switches f?\195?\188r LiteraturArt geschrieben
+- Funktionen von SQLDB angepasst und in Klassendiagramm erg?\195?\164nzt
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -144,6 +144,7 @@
+ Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+ \hline
+ Literaturdaten &amp; Art + Titel + Autorennamen + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
++\hline
+ LiteraturdatenID &amp; Literatur\_Nr + Literaturdaten \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext \\
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -105,8 +105,11 @@
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+ Literatur &amp; {Literatur} &amp; $0*512$ &amp; $50*512=25600$ &amp; $100*512=51200$ \\
++\hline
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
++\hline
+ Mitglieder &amp; {Mitglied}  &amp; $0*459$ &amp; $50*459=22950$ &amp; $100*459=45900$ \\
++\hline
+ Autoren &amp; {Autor} &amp; $1*44$ &amp; $2*44=88$ &amp; $5*44=220$ \\ 
+ \hline
+ \end{tabular}
+@@ -118,11 +121,17 @@
+ \hline\hline
+ 
+ Autorennamen &amp; \{Autorname\} &amp; $1*40=0$ &amp; $2*40=80$ &amp; $5*40=200$\\
++\hline
+ Literaturdaten &amp; Art + Titel + Autorennamen + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $24 + 40 + 1*40 + 2 + 40 + 20 + 250 + 40 + 100 = 556 $ &amp; $24 + 40 + 2*40 + 2 + 40 + 20 + 250 + 40 + 100=596$ &amp; $24 + 40 + 5*40 + 2 + 40 + 20 + 250 + 40 + 100 = 716 $  \\
++\hline
+ LiteraturdatenID &amp; Literatur\_Nr + Literaturdaten &amp; $4 + 556 = 560 $ &amp; $4 + 596 = 600$ &amp; $4 + 716 = 720 $  \\
++\hline
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Autorennamen + Verlag + ISBN\} &amp; $0*(4 + 40 + 1*40 + 40 + 20) = 0$ &amp; $50*(4 + 40 + 2*40 + 40 + 20) = 9200$ &amp; $100*(4 + 40 + 5*40 + 40 + 20) = 30400$\\
++\hline
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autorennamen + Verlag + ISBN\} &amp; $0*(4 + 40 + 1*40 + 40 + 20) = 0$ &amp; $50*(4 + 40 + 2*40 + 40 + 20)=9200$ &amp; $100*(4 + 40 + 5*40 + 40 + 20)=30400$\\
++\hline
+ BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*1024$ &amp; $50*1024=51200$ &amp; $100*1024=102400$ \\
++\hline
+ Literatur\_Info &amp; \{Literatur + Kommentare\} &amp; $512 + 0*412=512$ &amp; $512 + 100*412=41712$ &amp; $512 + 200*412=82912$ \\
+ \hline
+ \end{tabular}
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,50 +2,95 @@
+ \subsection{Autor Klassenreferenz}
+ \label{classAutor}\index{Autor@{Autor}}
+ }
+-blabla  
++TODO.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classAutor_28111338918ed4358ca4adc2cc694b23}{Autor} ()
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classAutor_2302710dd8970853f5d49c62d4586e8f}{Autor} (\$data)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Clean} ()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Split} (\$autoren)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classAutor_2dc163422acc9a6161ae97d2301ddba0}{\$blabla} = 0
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}{\$Nr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classAutor_8602b5705cef83e7c16f4040f9add56d}{\$Name} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-blabla 
++TODO. 
+ 
++TODO 
+ 
+ 
++
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classAutor_28111338918ed4358ca4adc2cc694b23}{
++\hypertarget{classAutor_2302710dd8970853f5d49c62d4586e8f}{
+ \index{Autor@{Autor}!Autor@{Autor}}
+ \index{Autor@{Autor}!Autor@{Autor}}
+-\paragraph[Autor]{\setlength{\rightskip}{0pt plus 5cm}Autor::Autor ()}\hfill}
+-\label{classAutor_28111338918ed4358ca4adc2cc694b23}
++\paragraph[Autor]{\setlength{\rightskip}{0pt plus 5cm}Autor::Autor (\$ {\em data})}\hfill}
++\label{classAutor_2302710dd8970853f5d49c62d4586e8f}
+ 
+ 
+-blabla 
++TODO. 
+ 
+-\begin{Desc}
++TODO \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[{\em \$blabla}]blabla \end{description}
++\item[{\em \$data}]TODO \end{description}
+ \end{Desc}
+ 
+ 
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classAutor_77b27af7e471abe5a404fc92c7319921}{
++\index{Autor@{Autor}!Clean@{Clean}}
++\index{Clean@{Clean}!Autor@{Autor}}
++\paragraph[Clean]{\setlength{\rightskip}{0pt plus 5cm}Autor::Clean ()}\hfill}
++\label{classAutor_77b27af7e471abe5a404fc92c7319921}
++
++
++TODO. 
++
++TODO \hypertarget{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{
++\index{Autor@{Autor}!Split@{Split}}
++\index{Split@{Split}!Autor@{Autor}}
++\paragraph[Split]{\setlength{\rightskip}{0pt plus 5cm}Autor::Split (\$ {\em autoren})}\hfill}
++\label{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$autoren}]TODO \end{description}
++\end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classAutor_2dc163422acc9a6161ae97d2301ddba0}{
+-\index{Autor@{Autor}!$blabla@{\$blabla}}
+-\index{$blabla@{\$blabla}!Autor@{Autor}}
+-\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$blabla = 0}\hfill}
+-\label{classAutor_2dc163422acc9a6161ae97d2301ddba0}
++\hypertarget{classAutor_8602b5705cef83e7c16f4040f9add56d}{
++\index{Autor@{Autor}!$Name@{\$Name}}
++\index{$Name@{\$Name}!Autor@{Autor}}
++\paragraph[\$Name]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Name = 0}\hfill}
++\label{classAutor_8602b5705cef83e7c16f4040f9add56d}
+ 
+ 
+-blabla 
++TODO. 
+ 
++\hypertarget{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}{
++\index{Autor@{Autor}!$Nr@{\$Nr}}
++\index{$Nr@{\$Nr}!Autor@{Autor}}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$Nr = 0}\hfill}
++\label{classAutor_23e64634d5dc31b41b7ee9c49b9ea6b9}
++
++
++TODO. 
++
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,50 +2,152 @@
+ \subsection{Kommentar Klassenreferenz}
+ \label{classKommentar}\index{Kommentar@{Kommentar}}
+ }
+-blabla  
++TODO.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classKommentar_850b68328808c92ed5b2b30bfa12f311}{Kommentar} ()
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classKommentar_ea774e2108c754890c602dfdd53d64e1}{Kommentar} (\$data)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}{Delete} (\$nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Delete\-All} (\$literatur\_\-nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}{Insert} (\$data)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_074f62a61ba97457894fc52935724116}{Update} (\$text, \$verfasser\_\-nr, \$literatur\_\-nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classKommentar_fdf104e05a476d5c31598067b7f8f17d}{\$blabla} = 0
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}{\$Nr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_c9a481413d6ba0c000719ad514bad4b5}{\$Text} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_c92b002e40690ee052fec446ff2a0ef6}{\$Verfasser\_\-Nr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classKommentar_84f0fc10295968adde28169f8df018d9}{\$Verfasser\_\-Name} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-blabla 
++TODO. 
+ 
++TODO 
+ 
+ 
++
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classKommentar_850b68328808c92ed5b2b30bfa12f311}{
++\hypertarget{classKommentar_ea774e2108c754890c602dfdd53d64e1}{
+ \index{Kommentar@{Kommentar}!Kommentar@{Kommentar}}
+ \index{Kommentar@{Kommentar}!Kommentar@{Kommentar}}
+-\paragraph[Kommentar]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Kommentar ()}\hfill}
+-\label{classKommentar_850b68328808c92ed5b2b30bfa12f311}
++\paragraph[Kommentar]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Kommentar (\$ {\em data})}\hfill}
++\label{classKommentar_ea774e2108c754890c602dfdd53d64e1}
+ 
+ 
+-blabla 
++TODO. 
+ 
+-\begin{Desc}
++TODO \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[{\em \$blabla}]blabla \end{description}
++\item[{\em \$data}]TODO \end{description}
+ \end{Desc}
+ 
+ 
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}{
++\index{Kommentar@{Kommentar}!Delete@{Delete}}
++\index{Delete@{Delete}!Kommentar@{Kommentar}}
++\paragraph[Delete]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Delete (\$ {\em nr})}\hfill}
++\label{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$nr}]TODO \end{description}
++\end{Desc}
++\hypertarget{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{
++\index{Kommentar@{Kommentar}!DeleteAll@{DeleteAll}}
++\index{DeleteAll@{DeleteAll}!Kommentar@{Kommentar}}
++\paragraph[DeleteAll]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Delete\-All (\$ {\em literatur\_\-nr})}\hfill}
++\label{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$literatur\_\-nr}]TODO \end{description}
++\end{Desc}
++\hypertarget{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}{
++\index{Kommentar@{Kommentar}!Insert@{Insert}}
++\index{Insert@{Insert}!Kommentar@{Kommentar}}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Insert (\$ {\em data})}\hfill}
++\label{classKommentar_2cafefbbb7bddd9bc63ebe37bebcac1d}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$data}]TODO \end{description}
++\end{Desc}
++\hypertarget{classKommentar_074f62a61ba97457894fc52935724116}{
++\index{Kommentar@{Kommentar}!Update@{Update}}
++\index{Update@{Update}!Kommentar@{Kommentar}}
++\paragraph[Update]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Update (\$ {\em text}, \$ {\em verfasser\_\-nr}, \$ {\em literatur\_\-nr})}\hfill}
++\label{classKommentar_074f62a61ba97457894fc52935724116}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$text}]TODO \item[{\em \$verfasser\_\-nr}]TODO \item[{\em \$literatur\_\-nr}]TODO \end{description}
++\end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classKommentar_fdf104e05a476d5c31598067b7f8f17d}{
+-\index{Kommentar@{Kommentar}!$blabla@{\$blabla}}
+-\index{$blabla@{\$blabla}!Kommentar@{Kommentar}}
+-\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$blabla = 0}\hfill}
+-\label{classKommentar_fdf104e05a476d5c31598067b7f8f17d}
++\hypertarget{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}{
++\index{Kommentar@{Kommentar}!$Nr@{\$Nr}}
++\index{$Nr@{\$Nr}!Kommentar@{Kommentar}}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Nr = 0}\hfill}
++\label{classKommentar_1b0a3cfcb9fc7075f985cc8067ab1982}
+ 
+ 
+-blabla 
++TODO. 
+ 
++\hypertarget{classKommentar_c9a481413d6ba0c000719ad514bad4b5}{
++\index{Kommentar@{Kommentar}!$Text@{\$Text}}
++\index{$Text@{\$Text}!Kommentar@{Kommentar}}
++\paragraph[\$Text]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Text = 0}\hfill}
++\label{classKommentar_c9a481413d6ba0c000719ad514bad4b5}
++
++
++TODO. 
++
++\hypertarget{classKommentar_84f0fc10295968adde28169f8df018d9}{
++\index{Kommentar@{Kommentar}!$Verfasser_Name@{\$Verfasser\_\-Name}}
++\index{$Verfasser_Name@{\$Verfasser\_\-Name}!Kommentar@{Kommentar}}
++\paragraph[\$Verfasser\_\-Name]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Name = 0}\hfill}
++\label{classKommentar_84f0fc10295968adde28169f8df018d9}
++
++
++TODO. 
++
++\hypertarget{classKommentar_c92b002e40690ee052fec446ff2a0ef6}{
++\index{Kommentar@{Kommentar}!$Verfasser_Nr@{\$Verfasser\_\-Nr}}
++\index{$Verfasser_Nr@{\$Verfasser\_\-Nr}!Kommentar@{Kommentar}}
++\paragraph[\$Verfasser\_\-Nr]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$Verfasser\_\-Nr = 0}\hfill}
++\label{classKommentar_c92b002e40690ee052fec446ff2a0ef6}
++
++
++TODO. 
++
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,50 +2,242 @@
+ \subsection{Literatur Klassenreferenz}
+ \label{classLiteratur}\index{Literatur@{Literatur}}
+ }
+-blabla  
++TODO.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classLiteratur_a647da0a0e560f17321c76207e5f5a03}{Literatur} ()
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classLiteratur_55626b912da4c041eaf981781ed6c640}{Literatur} (\$nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{To\-Bibtex} ()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_f5b265d349df2a9d17079b81d808fa89}{Delete} (\$nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}{Insert} (\$bibtex)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_0379134616374fa2b1bc7b9a761f3970}{Insert} (\$art, \$titel, \$jahr, \$nr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}{Insert} (\$nr, \$art, \$titel, \$jahr, \$nr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}{\$blabla} = 0
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{\$Nr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{\$Titel} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{\$Jahr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}{\$Verlag} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_9e3b00766297a68adac423980767dd3c}{\$ISBN} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}{\$Beschreibung} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_da6c458bb229187efea8e8f144a1d279}{\$Ort} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}{\$Stichworte} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_fb4d4b1ce29a33a10e3e27d47f31a447}{\$Art}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_01b311917d78c1dbb346435598ebba64}{\$Autoren} = array()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}{\$Kommentare} = array()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-blabla 
++TODO. 
+ 
++TODO 
+ 
+ 
++
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classLiteratur_a647da0a0e560f17321c76207e5f5a03}{
++\hypertarget{classLiteratur_55626b912da4c041eaf981781ed6c640}{
+ \index{Literatur@{Literatur}!Literatur@{Literatur}}
+ \index{Literatur@{Literatur}!Literatur@{Literatur}}
+-\paragraph[Literatur]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Literatur ()}\hfill}
+-\label{classLiteratur_a647da0a0e560f17321c76207e5f5a03}
++\paragraph[Literatur]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Literatur (\$ {\em nr})}\hfill}
++\label{classLiteratur_55626b912da4c041eaf981781ed6c640}
+ 
+ 
+-blabla 
++TODO. 
+ 
+-\begin{Desc}
++TODO \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[{\em \$blabla}]blabla \end{description}
++\item[{\em \$nr}]TODO \end{description}
+ \end{Desc}
+ 
+ 
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classLiteratur_f5b265d349df2a9d17079b81d808fa89}{
++\index{Literatur@{Literatur}!Delete@{Delete}}
++\index{Delete@{Delete}!Literatur@{Literatur}}
++\paragraph[Delete]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Delete (\$ {\em nr})}\hfill}
++\label{classLiteratur_f5b265d349df2a9d17079b81d808fa89}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$nr}]TODO \end{description}
++\end{Desc}
++\hypertarget{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}{
++\index{Literatur@{Literatur}!Insert@{Insert}}
++\index{Insert@{Insert}!Literatur@{Literatur}}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em nr}, \$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em nr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
++\label{classLiteratur_6d2064fd0c0be78e10f992396dfd43a4}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$nr}]TODO \item[{\em \$art}]TODO \item[{\em \$titel}]TODO \item[{\em \$jahr}]TODO \item[{\em \$nr}]TODO \item[{\em \$verlag}]TODO \item[{\em \$isbn}]TODO \item[{\em \$beschreibung}]TODO \item[{\em \$ort}]TODO \item[{\em \$stichworte}]TODO \end{description}
++\end{Desc}
++\hypertarget{classLiteratur_0379134616374fa2b1bc7b9a761f3970}{
++\index{Literatur@{Literatur}!Insert@{Insert}}
++\index{Insert@{Insert}!Literatur@{Literatur}}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em art}, \$ {\em titel}, \$ {\em jahr}, \$ {\em nr}, \$ {\em verlag}, \$ {\em isbn}, \$ {\em beschreibung}, \$ {\em ort}, \$ {\em stichworte})}\hfill}
++\label{classLiteratur_0379134616374fa2b1bc7b9a761f3970}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$art}]TODO \item[{\em \$titel}]TODO \item[{\em \$jahr}]TODO \item[{\em \$nr}]TODO \item[{\em \$verlag}]TODO \item[{\em \$isbn}]TODO \item[{\em \$beschreibung}]TODO \item[{\em \$ort}]TODO \item[{\em \$stichworte}]TODO \end{description}
++\end{Desc}
++\hypertarget{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}{
++\index{Literatur@{Literatur}!Insert@{Insert}}
++\index{Insert@{Insert}!Literatur@{Literatur}}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Insert (\$ {\em bibtex})}\hfill}
++\label{classLiteratur_fbaac222c1150d9a6250119aedd83ea5}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$bibtex}]TODO \end{description}
++\end{Desc}
++\hypertarget{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{
++\index{Literatur@{Literatur}!ToBibtex@{ToBibtex}}
++\index{ToBibtex@{ToBibtex}!Literatur@{Literatur}}
++\paragraph[ToBibtex]{\setlength{\rightskip}{0pt plus 5cm}Literatur::To\-Bibtex ()}\hfill}
++\label{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}{
+-\index{Literatur@{Literatur}!$blabla@{\$blabla}}
+-\index{$blabla@{\$blabla}!Literatur@{Literatur}}
+-\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$blabla = 0}\hfill}
+-\label{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}
++\hypertarget{classLiteratur_fb4d4b1ce29a33a10e3e27d47f31a447}{
++\index{Literatur@{Literatur}!$Art@{\$Art}}
++\index{$Art@{\$Art}!Literatur@{Literatur}}
++\paragraph[\$Art]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Art}\hfill}
++\label{classLiteratur_fb4d4b1ce29a33a10e3e27d47f31a447}
+ 
+ 
+-blabla 
++TODO. 
+ 
++\hypertarget{classLiteratur_01b311917d78c1dbb346435598ebba64}{
++\index{Literatur@{Literatur}!$Autoren@{\$Autoren}}
++\index{$Autoren@{\$Autoren}!Literatur@{Literatur}}
++\paragraph[\$Autoren]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Autoren = array()}\hfill}
++\label{classLiteratur_01b311917d78c1dbb346435598ebba64}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}{
++\index{Literatur@{Literatur}!$Beschreibung@{\$Beschreibung}}
++\index{$Beschreibung@{\$Beschreibung}!Literatur@{Literatur}}
++\paragraph[\$Beschreibung]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Beschreibung = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_6769ff8b353d2f789125f009b4dcfdc0}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_9e3b00766297a68adac423980767dd3c}{
++\index{Literatur@{Literatur}!$ISBN@{\$ISBN}}
++\index{$ISBN@{\$ISBN}!Literatur@{Literatur}}
++\paragraph[\$ISBN]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$ISBN = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_9e3b00766297a68adac423980767dd3c}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{
++\index{Literatur@{Literatur}!$Jahr@{\$Jahr}}
++\index{$Jahr@{\$Jahr}!Literatur@{Literatur}}
++\paragraph[\$Jahr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Jahr = 0}\hfill}
++\label{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}{
++\index{Literatur@{Literatur}!$Kommentare@{\$Kommentare}}
++\index{$Kommentare@{\$Kommentare}!Literatur@{Literatur}}
++\paragraph[\$Kommentare]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Kommentare = array()}\hfill}
++\label{classLiteratur_ebcaeb5c38ce2677a14189da511fa663}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{
++\index{Literatur@{Literatur}!$Nr@{\$Nr}}
++\index{$Nr@{\$Nr}!Literatur@{Literatur}}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Nr = 0}\hfill}
++\label{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_da6c458bb229187efea8e8f144a1d279}{
++\index{Literatur@{Literatur}!$Ort@{\$Ort}}
++\index{$Ort@{\$Ort}!Literatur@{Literatur}}
++\paragraph[\$Ort]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Ort = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_da6c458bb229187efea8e8f144a1d279}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}{
++\index{Literatur@{Literatur}!$Stichworte@{\$Stichworte}}
++\index{$Stichworte@{\$Stichworte}!Literatur@{Literatur}}
++\paragraph[\$Stichworte]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Stichworte = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_aa77f0f697d4bcf72279aadedd91ddff}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{
++\index{Literatur@{Literatur}!$Titel@{\$Titel}}
++\index{$Titel@{\$Titel}!Literatur@{Literatur}}
++\paragraph[\$Titel]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Titel = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}
++
++
++TODO. 
++
++\hypertarget{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}{
++\index{Literatur@{Literatur}!$Verlag@{\$Verlag}}
++\index{$Verlag@{\$Verlag}!Literatur@{Literatur}}
++\paragraph[\$Verlag]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$Verlag = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classLiteratur_5f591208e5d21bb81e6c51484e2a60e0}
++
++
++TODO. 
++
+
+Added: trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -0,0 +1,82 @@
++\hypertarget{classLiteraturArt}{
++\subsection{Literatur\-Art Klassenreferenz}
++\label{classLiteraturArt}\index{LiteraturArt@{LiteraturArt}}
++}
++TODO.  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art} (\$text)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{Get\-Display\-Text} ()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}{Get\-Bibtex\-Text} ()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLiteraturArt_19f3a40cb917b8abeeffb90a6a1900b3}{\$value} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++TODO. 
++
++TODO 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{
++\index{LiteraturArt@{Literatur\-Art}!LiteraturArt@{LiteraturArt}}
++\index{LiteraturArt@{LiteraturArt}!LiteraturArt@{Literatur\-Art}}
++\paragraph[LiteraturArt]{\setlength{\rightskip}{0pt plus 5cm}Literatur\-Art::Literatur\-Art (\$ {\em text})}\hfill}
++\label{classLiteraturArt_b3312217430531ed7821a46a39c49af7}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$text}]TODO \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}{
++\index{LiteraturArt@{Literatur\-Art}!GetBibtexText@{GetBibtexText}}
++\index{GetBibtexText@{GetBibtexText}!LiteraturArt@{Literatur\-Art}}
++\paragraph[GetBibtexText]{\setlength{\rightskip}{0pt plus 5cm}Literatur\-Art::Get\-Bibtex\-Text ()}\hfill}
++\label{classLiteraturArt_01e1a2acd95df1ae0bb22e57b70a63de}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\hypertarget{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}{
++\index{LiteraturArt@{Literatur\-Art}!GetDisplayText@{GetDisplayText}}
++\index{GetDisplayText@{GetDisplayText}!LiteraturArt@{Literatur\-Art}}
++\paragraph[GetDisplayText]{\setlength{\rightskip}{0pt plus 5cm}Literatur\-Art::Get\-Display\-Text ()}\hfill}
++\label{classLiteraturArt_43f747a6c5d840a22ddcd7e46d27cba0}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classLiteraturArt_19f3a40cb917b8abeeffb90a6a1900b3}{
++\index{LiteraturArt@{Literatur\-Art}!$value@{\$value}}
++\index{$value@{\$value}!LiteraturArt@{Literatur\-Art}}
++\paragraph[\$value]{\setlength{\rightskip}{0pt plus 5cm}Literatur\-Art::\$value = 0}\hfill}
++\label{classLiteraturArt_19f3a40cb917b8abeeffb90a6a1900b3}
++
++
++TODO. 
++
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,50 +2,179 @@
+ \subsection{Mitglied Klassenreferenz}
+ \label{classMitglied}\index{Mitglied@{Mitglied}}
+ }
+-blabla  
++TODO.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classMitglied_a5e881881d7fa340611898aaea939cb3}{Mitglied} ()
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Password\-Hash} (\$pass)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_c6900c12663e9b228bf9942fc045b8b4}{Delete} (\$nr)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_a856527798258505adf9eb08b79fd9fc}{Insert} (\$login, \$passwort, \$rechte, \$vorname, \$nachname, \$email)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_0d173487bebdd0579a70ea007b37b5ec}{Update} (\$nr, \$login, \$passwort, \$rechte, \$vorname, \$nachname, \$email)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}{Get\-All} ()
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}{\$blabla} = 0
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classMitglied_113efe44273361b7c167c729666ad04c}{\$Nr} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}{\$Login} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_94f43b65c468ad42ac45be064d015446}{\$Passwort} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_adadc54a72a46a089ddec43855ba3c7e}{\$Rechte} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}{\$Vorname} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_635def9ec266748689397299c7f79d9c}{\$Nachname} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classMitglied_4be6b837c482ac912188663380d31122}{\$Email} = \char`\&quot;{}\char`\&quot;{}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-blabla 
++TODO. 
+ 
++TODO 
+ 
+ 
+-\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classMitglied_a5e881881d7fa340611898aaea939cb3}{
+-\index{Mitglied@{Mitglied}!Mitglied@{Mitglied}}
+-\index{Mitglied@{Mitglied}!Mitglied@{Mitglied}}
+-\paragraph[Mitglied]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Mitglied ()}\hfill}
+-\label{classMitglied_a5e881881d7fa340611898aaea939cb3}
+ 
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classMitglied_c6900c12663e9b228bf9942fc045b8b4}{
++\index{Mitglied@{Mitglied}!Delete@{Delete}}
++\index{Delete@{Delete}!Mitglied@{Mitglied}}
++\paragraph[Delete]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Delete (\$ {\em nr})}\hfill}
++\label{classMitglied_c6900c12663e9b228bf9942fc045b8b4}
+ 
+-blabla 
+ 
+-\begin{Desc}
++TODO. 
++
++TODO \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[{\em \$blabla}]blabla \end{description}
++\item[{\em \$nr}]TODO \end{description}
+ \end{Desc}
++\hypertarget{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}{
++\index{Mitglied@{Mitglied}!GetAll@{GetAll}}
++\index{GetAll@{GetAll}!Mitglied@{Mitglied}}
++\paragraph[GetAll]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Get\-All ()}\hfill}
++\label{classMitglied_70ce63c9c9a7159966dc9e80a7f726a2}
+ 
+ 
++TODO. 
++
++TODO \begin{Desc}
++\item[R\&quot;{u}ckgabe:]TODO \end{Desc}
++\hypertarget{classMitglied_a856527798258505adf9eb08b79fd9fc}{
++\index{Mitglied@{Mitglied}!Insert@{Insert}}
++\index{Insert@{Insert}!Mitglied@{Mitglied}}
++\paragraph[Insert]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Insert (\$ {\em login}, \$ {\em passwort}, \$ {\em rechte}, \$ {\em vorname}, \$ {\em nachname}, \$ {\em email})}\hfill}
++\label{classMitglied_a856527798258505adf9eb08b79fd9fc}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$login}]TODO \item[{\em \$passwort}]TODO \item[{\em \$rechte}]TODO \item[{\em \$vorname}]TODO \item[{\em \$nachname}]TODO \item[{\em \$email}]TODO \end{description}
++\end{Desc}
++\hypertarget{classMitglied_9b13db80866c22bf992e73f2eb75e369}{
++\index{Mitglied@{Mitglied}!PasswordHash@{PasswordHash}}
++\index{PasswordHash@{PasswordHash}!Mitglied@{Mitglied}}
++\paragraph[PasswordHash]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Password\-Hash (\$ {\em pass})}\hfill}
++\label{classMitglied_9b13db80866c22bf992e73f2eb75e369}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$pass}]TODO \end{description}
++\end{Desc}
++\hypertarget{classMitglied_0d173487bebdd0579a70ea007b37b5ec}{
++\index{Mitglied@{Mitglied}!Update@{Update}}
++\index{Update@{Update}!Mitglied@{Mitglied}}
++\paragraph[Update]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Update (\$ {\em nr}, \$ {\em login}, \$ {\em passwort}, \$ {\em rechte}, \$ {\em vorname}, \$ {\em nachname}, \$ {\em email})}\hfill}
++\label{classMitglied_0d173487bebdd0579a70ea007b37b5ec}
++
++
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em nr}]TODO \item[{\em \$login}]TODO \item[{\em \$passwort}]TODO \item[{\em \$rechte}]TODO \item[{\em \$vorname}]TODO \item[{\em \$nachname}]TODO \item[{\em \$email}]TODO \end{description}
++\end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}{
+-\index{Mitglied@{Mitglied}!$blabla@{\$blabla}}
+-\index{$blabla@{\$blabla}!Mitglied@{Mitglied}}
+-\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$blabla = 0}\hfill}
+-\label{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}
++\hypertarget{classMitglied_4be6b837c482ac912188663380d31122}{
++\index{Mitglied@{Mitglied}!$Email@{\$Email}}
++\index{$Email@{\$Email}!Mitglied@{Mitglied}}
++\paragraph[\$Email]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Email = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classMitglied_4be6b837c482ac912188663380d31122}
+ 
+ 
+-blabla 
++TODO. 
+ 
++\hypertarget{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}{
++\index{Mitglied@{Mitglied}!$Login@{\$Login}}
++\index{$Login@{\$Login}!Mitglied@{Mitglied}}
++\paragraph[\$Login]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$\hyperlink{classLogin}{Login} = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classMitglied_626ee2f2551cc2840bdeac6a04491b2e}
++
++
++TODO. 
++
++\hypertarget{classMitglied_635def9ec266748689397299c7f79d9c}{
++\index{Mitglied@{Mitglied}!$Nachname@{\$Nachname}}
++\index{$Nachname@{\$Nachname}!Mitglied@{Mitglied}}
++\paragraph[\$Nachname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nachname = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classMitglied_635def9ec266748689397299c7f79d9c}
++
++
++TODO. 
++
++\hypertarget{classMitglied_113efe44273361b7c167c729666ad04c}{
++\index{Mitglied@{Mitglied}!$Nr@{\$Nr}}
++\index{$Nr@{\$Nr}!Mitglied@{Mitglied}}
++\paragraph[\$Nr]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Nr = 0}\hfill}
++\label{classMitglied_113efe44273361b7c167c729666ad04c}
++
++
++TODO. 
++
++\hypertarget{classMitglied_94f43b65c468ad42ac45be064d015446}{
++\index{Mitglied@{Mitglied}!$Passwort@{\$Passwort}}
++\index{$Passwort@{\$Passwort}!Mitglied@{Mitglied}}
++\paragraph[\$Passwort]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Passwort = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classMitglied_94f43b65c468ad42ac45be064d015446}
++
++
++TODO. 
++
++\hypertarget{classMitglied_adadc54a72a46a089ddec43855ba3c7e}{
++\index{Mitglied@{Mitglied}!$Rechte@{\$Rechte}}
++\index{$Rechte@{\$Rechte}!Mitglied@{Mitglied}}
++\paragraph[\$Rechte]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Rechte = 0}\hfill}
++\label{classMitglied_adadc54a72a46a089ddec43855ba3c7e}
++
++
++TODO. 
++
++\hypertarget{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}{
++\index{Mitglied@{Mitglied}!$Vorname@{\$Vorname}}
++\index{$Vorname@{\$Vorname}!Mitglied@{Mitglied}}
++\paragraph[\$Vorname]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$Vorname = \char`\&quot;{}\char`\&quot;{}}\hfill}
++\label{classMitglied_157424daca1ecda5b6f6a3e0f24ecfce}
++
++
++TODO. 
++
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -10,23 +10,21 @@
+ \item 
+ \hyperlink{classSQLDB_069ba0502ed4bfedb72768a03ff6854d}{SQLDB} (\$host, \$user, \$password, \$database, \$persist=true)
+ \begin{CompactList}\small\item\em &#214;ffnet eine Datenbankverbindung. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{affected\_\-rows} ()
+-\begin{CompactList}\small\item\em Anzahl zuletzt ge&#228;nderter Datens&#228;tze. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_8c4f10efb418445877d7263412a082fa}{close} ()
++\hyperlink{classSQLDB_0e82206260d6fc4d0eaec32022125048}{Close} ()
+ \begin{CompactList}\small\item\em Beendet Verbindung. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}{data\_\-seek} (\$row\_\-number)
++\hyperlink{classSQLDB_0766b746a81684e014c235db35818e54}{Data\-Seek} (\$row\_\-number)
+ \begin{CompactList}\small\item\em Springt auf Datensatz. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_c889958653ffbf14922988e1dcbe014b}{error} ()
+-\begin{CompactList}\small\item\em Liefert Fehlerinformationen. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_43fa0105050768eba0ded5bd2f736709}{fetch\_\-object} ()
++\hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{Fetch} ()
+ \begin{CompactList}\small\item\em Liefert Datensatz als Objekt. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}{fetch\_\-row} ()
+-\begin{CompactList}\small\item\em Liefert Datensatz als Feld. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_8168b4df39a17186620e4777c7413a44}{free\_\-result} ()
++\hyperlink{classSQLDB_e7da8a2f993c4bb91167a150e07e8b52}{Free\-Result} ()
+ \begin{CompactList}\small\item\em Entfernt Ergebnisse. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{num\_\-rows} ()
++\hyperlink{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}{Get\-Affected\-Rows} ()
++\begin{CompactList}\small\item\em Anzahl zuletzt ge&#228;nderter Datens&#228;tze. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_efc9afe11649d6cdae21575717ec3436}{Get\-Error} ()
++\begin{CompactList}\small\item\em Liefert Fehlerinformationen. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_15b181251b309ab55331be29fa33ac9f}{Get\-Num\-Rows} ()
+ \begin{CompactList}\small\item\em Anzahl zuletzt gefundener Datens&#228;tze. \item\end{CompactList}\item 
+-\hyperlink{classSQLDB_9a5af86138a3bb12ba443318a26103a1}{query} (\$query)
++\hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{Query} (\$query)
+ \begin{CompactList}\small\item\em Sendet Anfrage an Server. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+@@ -64,110 +62,99 @@
+ 
+ 
+ \subsubsection{Dokumentation der Elementfunktionen}
+-\hypertarget{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{
+-\index{SQLDB@{SQLDB}!affected_rows@{affected\_\-rows}}
+-\index{affected_rows@{affected\_\-rows}!SQLDB@{SQLDB}}
+-\paragraph[affected\_\-rows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::affected\_\-rows ()}\hfill}
+-\label{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}
++\hypertarget{classSQLDB_0e82206260d6fc4d0eaec32022125048}{
++\index{SQLDB@{SQLDB}!Close@{Close}}
++\index{Close@{Close}!SQLDB@{SQLDB}}
++\paragraph[Close]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Close ()}\hfill}
++\label{classSQLDB_0e82206260d6fc4d0eaec32022125048}
+ 
+ 
+-Anzahl zuletzt ge&#228;nderter Datens&#228;tze. 
+-
+-Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE Anweisung ge&#228;nderten Datens&#228;tze \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
+-\begin{Desc}
+-\item[Bemerkungen:]F&#252;r gefundene Datens&#228;tze sollte \hyperlink{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{num\_\-rows()} genutzt werden \end{Desc}
+-\hypertarget{classSQLDB_8c4f10efb418445877d7263412a082fa}{
+-\index{SQLDB@{SQLDB}!close@{close}}
+-\index{close@{close}!SQLDB@{SQLDB}}
+-\paragraph[close]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::close ()}\hfill}
+-\label{classSQLDB_8c4f10efb418445877d7263412a082fa}
+-
+-
+ Beendet Verbindung. 
+ 
+ Beendet die Verbindung zum Datenbankserver \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Bei Erfolg true, im Fehlerfall false \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Persistente Verbindungen werden nicht geschlossen \end{Desc}
+-\hypertarget{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}{
+-\index{SQLDB@{SQLDB}!data_seek@{data\_\-seek}}
+-\index{data_seek@{data\_\-seek}!SQLDB@{SQLDB}}
+-\paragraph[data\_\-seek]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::data\_\-seek (\$ {\em row\_\-number})}\hfill}
+-\label{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}
++\hypertarget{classSQLDB_0766b746a81684e014c235db35818e54}{
++\index{SQLDB@{SQLDB}!DataSeek@{DataSeek}}
++\index{DataSeek@{DataSeek}!SQLDB@{SQLDB}}
++\paragraph[DataSeek]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Data\-Seek (\$ {\em row\_\-number})}\hfill}
++\label{classSQLDB_0766b746a81684e014c235db35818e54}
+ 
+ 
+ Springt auf Datensatz. 
+ 
+-L&#228;sst den internen Zeiger auf angegebenen Datensatz der letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit fetch\_\-$\ast$ abfragen. \begin{Desc}
++L&#228;sst den internen Zeiger auf angegebenen Datensatz der letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit Fetch abfragen. \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Bei Erfolg true, im Fehlerfall false \end{Desc}
+-\hypertarget{classSQLDB_c889958653ffbf14922988e1dcbe014b}{
+-\index{SQLDB@{SQLDB}!error@{error}}
+-\index{error@{error}!SQLDB@{SQLDB}}
+-\paragraph[error]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::error ()}\hfill}
+-\label{classSQLDB_c889958653ffbf14922988e1dcbe014b}
++\hypertarget{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{
++\index{SQLDB@{SQLDB}!Fetch@{Fetch}}
++\index{Fetch@{Fetch}!SQLDB@{SQLDB}}
++\paragraph[Fetch]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Fetch ()}\hfill}
++\label{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}
+ 
+ 
+-Liefert Fehlerinformationen. 
+-
+-Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
+-\hypertarget{classSQLDB_43fa0105050768eba0ded5bd2f736709}{
+-\index{SQLDB@{SQLDB}!fetch_object@{fetch\_\-object}}
+-\index{fetch_object@{fetch\_\-object}!SQLDB@{SQLDB}}
+-\paragraph[fetch\_\-object]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::fetch\_\-object ()}\hfill}
+-\label{classSQLDB_43fa0105050768eba0ded5bd2f736709}
+-
+-
+ Liefert Datensatz als Objekt. 
+ 
+ Wandelt aktuellen Datensatz in Objekt um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Bei Erfolg Datensatz als Objekt, sonst false \end{Desc}
+-\hypertarget{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}{
+-\index{SQLDB@{SQLDB}!fetch_row@{fetch\_\-row}}
+-\index{fetch_row@{fetch\_\-row}!SQLDB@{SQLDB}}
+-\paragraph[fetch\_\-row]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::fetch\_\-row ()}\hfill}
+-\label{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}
++\hypertarget{classSQLDB_e7da8a2f993c4bb91167a150e07e8b52}{
++\index{SQLDB@{SQLDB}!FreeResult@{FreeResult}}
++\index{FreeResult@{FreeResult}!SQLDB@{SQLDB}}
++\paragraph[FreeResult]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Free\-Result ()}\hfill}
++\label{classSQLDB_e7da8a2f993c4bb91167a150e07e8b52}
+ 
+ 
+-Liefert Datensatz als Feld. 
+-
+-Wandelt aktuellen Datensatz in Feld um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Bei Erfolg Datensatz als Feld, sonst false \end{Desc}
+-\hypertarget{classSQLDB_8168b4df39a17186620e4777c7413a44}{
+-\index{SQLDB@{SQLDB}!free_result@{free\_\-result}}
+-\index{free_result@{free\_\-result}!SQLDB@{SQLDB}}
+-\paragraph[free\_\-result]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::free\_\-result ()}\hfill}
+-\label{classSQLDB_8168b4df39a17186620e4777c7413a44}
+-
+-
+ Entfernt Ergebnisse. 
+ 
+ Entfernt Datens&#228;tze der letzten Anfrage und gibt deren Speicher frei \begin{Desc}
+ \item[Bemerkungen:]Funktion wird vor jedem query aufgerufen \end{Desc}
+-\hypertarget{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{
+-\index{SQLDB@{SQLDB}!num_rows@{num\_\-rows}}
+-\index{num_rows@{num\_\-rows}!SQLDB@{SQLDB}}
+-\paragraph[num\_\-rows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::num\_\-rows ()}\hfill}
+-\label{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}
++\hypertarget{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}{
++\index{SQLDB@{SQLDB}!GetAffectedRows@{GetAffectedRows}}
++\index{GetAffectedRows@{GetAffectedRows}!SQLDB@{SQLDB}}
++\paragraph[GetAffectedRows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Get\-Affected\-Rows ()}\hfill}
++\label{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}
+ 
+ 
++Anzahl zuletzt ge&#228;nderter Datens&#228;tze. 
++
++Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE Anweisung ge&#228;nderten Datens&#228;tze \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]F&#252;r gefundene Datens&#228;tze sollte num\_\-rows() genutzt werden \end{Desc}
++\hypertarget{classSQLDB_efc9afe11649d6cdae21575717ec3436}{
++\index{SQLDB@{SQLDB}!GetError@{GetError}}
++\index{GetError@{GetError}!SQLDB@{SQLDB}}
++\paragraph[GetError]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Get\-Error ()}\hfill}
++\label{classSQLDB_efc9afe11649d6cdae21575717ec3436}
++
++
++Liefert Fehlerinformationen. 
++
++Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
++\hypertarget{classSQLDB_15b181251b309ab55331be29fa33ac9f}{
++\index{SQLDB@{SQLDB}!GetNumRows@{GetNumRows}}
++\index{GetNumRows@{GetNumRows}!SQLDB@{SQLDB}}
++\paragraph[GetNumRows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Get\-Num\-Rows ()}\hfill}
++\label{classSQLDB_15b181251b309ab55331be29fa33ac9f}
++
++
+ Anzahl zuletzt gefundener Datens&#228;tze. 
+ 
+ Gibt Anzahl der bei der letzten SELECT-Anweisung gefundenen Datens&#228;tze \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte \hyperlink{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{affected\_\-rows()} genutzt werden \end{Desc}
+-\hypertarget{classSQLDB_9a5af86138a3bb12ba443318a26103a1}{
+-\index{SQLDB@{SQLDB}!query@{query}}
+-\index{query@{query}!SQLDB@{SQLDB}}
+-\paragraph[query]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::query (\$ {\em query})}\hfill}
+-\label{classSQLDB_9a5af86138a3bb12ba443318a26103a1}
++\item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte affected\_\-rows() genutzt werden \end{Desc}
++\hypertarget{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{
++\index{SQLDB@{SQLDB}!Query@{Query}}
++\index{Query@{Query}!SQLDB@{SQLDB}}
++\paragraph[Query]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::Query (\$ {\em query})}\hfill}
++\label{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}
+ 
+ 
+ Sendet Anfrage an Server. 
+ 
+-Sendet eine Anfrage an die aktive Datenbank. Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit fetch\_\-field, fetch\_\-object und fetch\_\-row abgefragt werden \begin{Desc}
++Sendet eine Anfrage an die aktive Datenbank. Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit Fetch abgefragt werden \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[{\em \$query}]SQL-Anfrage an den Datenbankserver \end{description}
+
+Modified: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,26 +2,32 @@
+ \subsection{Suche Klassenreferenz}
+ \label{classSuche}\index{Suche@{Suche}}
+ }
+-blabla  
++TODO.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{Suche} ()
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classSuche_05639fec18bd3193c01aafb08208ec94}{Suche} (\$volltext)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\item 
++\hyperlink{classSuche_4158769424a462492ac7821a0a30cf08}{Suche} (\$autor, \$titel)
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ \subsubsection*{\&quot;{O}ffentliche Attribute}
+ \begin{CompactItemize}
+ \item 
+-\hyperlink{classSuche_4c132138ff7a8f08e3b9fddb540254bb}{\$blabla} = 0
+-\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\hyperlink{classSuche_0ee0e1ffb3f79392915fd39934d7140d}{\$Treffer} = 0
++\begin{CompactList}\small\item\em TODO. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-blabla 
++TODO. 
+ 
++TODO 
+ 
+ 
++
+ \subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+ \hypertarget{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{
+ \index{Suche@{Suche}!Suche@{Suche}}
+@@ -30,22 +36,45 @@
+ \label{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}
+ 
+ 
+-blabla 
++TODO. 
+ 
+-\begin{Desc}
++TODO \hypertarget{classSuche_05639fec18bd3193c01aafb08208ec94}{
++\index{Suche@{Suche}!Suche@{Suche}}
++\index{Suche@{Suche}!Suche@{Suche}}
++\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche (\$ {\em volltext})}\hfill}
++\label{classSuche_05639fec18bd3193c01aafb08208ec94}
++
++
++TODO. 
++
++TODO \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+-\item[{\em \$blabla}]blabla \end{description}
++\item[{\em \$volltext}]TODO \end{description}
+ \end{Desc}
++\hypertarget{classSuche_4158769424a462492ac7821a0a30cf08}{
++\index{Suche@{Suche}!Suche@{Suche}}
++\index{Suche@{Suche}!Suche@{Suche}}
++\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche (\$ {\em autor}, \$ {\em titel})}\hfill}
++\label{classSuche_4158769424a462492ac7821a0a30cf08}
+ 
+ 
++TODO. 
++
++TODO \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$autor}]TODO \item[{\em \$titel}]TODO \end{description}
++\end{Desc}
++
++
+ \subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classSuche_4c132138ff7a8f08e3b9fddb540254bb}{
+-\index{Suche@{Suche}!$blabla@{\$blabla}}
+-\index{$blabla@{\$blabla}!Suche@{Suche}}
+-\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Suche::\$blabla = 0}\hfill}
+-\label{classSuche_4c132138ff7a8f08e3b9fddb540254bb}
++\hypertarget{classSuche_0ee0e1ffb3f79392915fd39934d7140d}{
++\index{Suche@{Suche}!$Treffer@{\$Treffer}}
++\index{$Treffer@{\$Treffer}!Suche@{Suche}}
++\paragraph[\$Treffer]{\setlength{\rightskip}{0pt plus 5cm}Suche::\$Treffer = 0}\hfill}
++\label{classSuche_0ee0e1ffb3f79392915fd39934d7140d}
+ 
+ 
+-blabla 
++TODO. 
+ 
+
+Modified: trunk/docs/beleg2/klassenspezifikation.tex
+===================================================================
+--- trunk/docs/beleg2/klassenspezifikation.tex	2006-05-17 15:51:34 UTC (rev 99)
++++ trunk/docs/beleg2/klassenspezifikation.tex	2006-05-17 19:14:01 UTC (rev 100)
+@@ -2,6 +2,7 @@
+ \input{doxygen/classAutor}
+ \input{doxygen/classKommentar}
+ \input{doxygen/classLiteratur}
++\input{doxygen/classLiteraturArt}
+ \input{doxygen/classLogin}
+ \input{doxygen/classMitglied}
+ \input{doxygen/classSuche}
+
+Modified: trunk/docs/beleg2/visio/LiMan System.vsd
+===================================================================
+(Binary files differ)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000089.html">[Liman-svn] r99 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000091.html">[Liman-svn] r101 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#90">[ date ]</a>
+              <a href="thread.html#90">[ thread ]</a>
+              <a href="subject.html#90">[ subject ]</a>
+              <a href="author.html#90">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r25 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r25%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604231406.k3NE6wK9004957%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000014.html">
+   <LINK REL="Next"  HREF="000016.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r25 - trunk/docs/beleg1</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r25%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604231406.k3NE6wK9004957%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r25 - trunk/docs/beleg1">dotslash at berlios.de
+       </A><BR>
+    <I>Sun Apr 23 16:06:58 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000014.html">[Liman-svn] r24 - in trunk/docs/beleg1: . visio
+</A></li>
+        <LI>Next message: <A HREF="000016.html">[Liman-svn] r26 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-04-23 16:06:58 +0200 (Sun, 23 Apr 2006)
+New Revision: 25
+
+Modified:
+   trunk/docs/beleg1/basismaschine_umgebung.tex
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+Log:
+- basismaschine
+- produktbeschreibung (entwurf?)
+
+Modified: trunk/docs/beleg1/basismaschine_umgebung.tex
+===================================================================
+--- trunk/docs/beleg1/basismaschine_umgebung.tex	2006-04-23 12:04:56 UTC (rev 24)
++++ trunk/docs/beleg1/basismaschine_umgebung.tex	2006-04-23 14:06:58 UTC (rev 25)
+@@ -1,21 +1,47 @@
+ \chapter{Basismaschine und Entwicklungsumgebung}
+ \section{Basismaschine}
+ \subsection{Hardwarekonfiguration}
+-TODO siehe Beispielbeleg S. 25\\
+-Als notwendige Minimalausstattung des f&#252;r den Betrieb des Systems erforderlichen PCs werden angesehen:
++F&quot;ur {\bf Webserver} wird folgende Ausstattung ben&quot;otigt:
+ \begin{itemize}
+- \item Basis-PC
+- \item Nadeldrucker
++ \item Server (Monitor)
++ \item Breitband-Netzwerk (z.B. SDSL, Ethernet)
++ \item 5 MB Festplattenspeicher
+ \end{itemize}
++Als notwendige Minimalausstattung des f&#252;r den {\bf Nutzer-PC} wird vorgeschlagen:
++\begin{itemize}
++ \item Basis-PC (Tastatur, Maus, 15&quot; Farbmonitor)
++ \item Netzwerk (z.B. Modem, Ethernet)
++\end{itemize}
++Da die Nutzung des Systems komplett Serverseitig funktioniert wird auf dem Nutzer-PC kein Festplattenspeicher verbraucht, da die
++Bedienung komplett &quot;uber den Webbrowser erfolgt. Eine schnelle CPU und eine breitbandige Netzwerkverbindung
++kann den Arbeitskomfort zus&quot;atzlich verbessern.
+ 
+ 
+ \subsection{Betriebssystem}
+-TODO siehe Beispielbeleg S. 25
++Webserver:
++\begin{itemize}
++\item Unix oder Unix-kompatibel
++\end{itemize}
++Nutzer-PC:
++\begin{itemize}
++\item Windows ab Windows 95
++\item Linux oder Unix-kompatibel
++\item MacOS
++\item PalmOS
++\end{itemize}
+ 
+-
+ \subsection{Sonstige Basissoftware}
+-TODO siehe Beispielbeleg S. 25
++Webserver:
++\begin{itemize}
++\item MySQL 5.0
++\item Apache 2.0
++\item PHP 5.1
++\end{itemize}
++Nutzer-PC:
++\begin{itemize}
++\item Webbrowser, z.B. Firefox, Konqueror, Opera, Internet Explorer
++\end{itemize}
+ 
+ 
+ \section{Entwicklungsumgebung}
+-TODO siehe Beispielbeleg S. 26
+\ No newline at end of file
++Es wird ein normaler Texteditor verwendet (z.b. vim, emacs).
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-23 12:04:56 UTC (rev 24)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-23 14:06:58 UTC (rev 25)
+@@ -1,7 +1,20 @@
+ \chapter{Spezifikation der funktionellen Anforderungen}
+ \section{Produktbeschreibung}
+-TODO: Blablabla, alles wichtig und ganz toll
++Das Literaturverwaltungssystem LiMan unterst&quot;utzt Autoren bei
++ihrer Recherche durch ein intuitives Suchsystem. &quot;Uber eine einfach
++gehaltene Oberfl&quot;ache werden alle Nutzungs- und Administrationsvorg&quot;ange
++abgewickelt. Durch das Websystem ist der Nutzer unabh&quot;angig von Betriebssystem 
++und Position.
++\subsubsection{Nutzungsumgebung}
++Das System wird auf einem Webserver im Intranet oder 
++Internet installiert, w&quot;ahrend die Nutzer von ihren PCs mit
++einem Webbrowser darauf zugreifen.
++\subsubsection{Nutzergruppe}
++Es gibt 3 Nutzerebenen. Leser k&quot;onnen suchen und recherchieren,
++registrierte Nutzer d&quot;urfen B&quot;ucher hinzufuegen und kommentieren, und Administratoren
++d&quot;urfen ausserdem noch Nutzer verwalten.
+ 
++
+ \section{Funktionelle Anforderungen}
+ \subsection{Umgebungsmodell}
+ 
+@@ -169,7 +182,8 @@
+ TODO (Generell, Fargestaltung)
+ 
+ \subsubsection{Ein- und Ausgabeger&#228;te}
+-TODO Siehe Beispielbeleg S. 11
++F&quot;ur die Eingabe wird ein vernetzter PC mit Tastatur und Maus vorrausgesetzt.\\
++Die Ausgabe erfolgt stets &quot;uber einen Farbmonitor.
+ 
+ \paragraph{Legende zur Layoutdarstellung}
+ TODO Siehe Beispielbeleg S. 11
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000014.html">[Liman-svn] r24 - in trunk/docs/beleg1: . visio
+</A></li>
+	<LI>Next message: <A HREF="000016.html">[Liman-svn] r26 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#15">[ date ]</a>
+              <a href="thread.html#15">[ thread ]</a>
+              <a href="subject.html#15">[ subject ]</a>
+              <a href="author.html#15">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r181 - in trunk: docs/beleg3 include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r181%20-%20in%20trunk%3A%20docs/beleg3%20include/tests&In-Reply-To=%3C200606241036.k5OAaEOM027939%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000170.html">
+   <LINK REL="Next"  HREF="000172.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r181 - in trunk: docs/beleg3 include/tests</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r181%20-%20in%20trunk%3A%20docs/beleg3%20include/tests&In-Reply-To=%3C200606241036.k5OAaEOM027939%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r181 - in trunk: docs/beleg3 include/tests">lazhur at berlios.de
+       </A><BR>
+    <I>Sat Jun 24 12:36:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000170.html">[Liman-svn] r180 - in trunk: docs/beleg3 include/tests
+</A></li>
+        <LI>Next message: <A HREF="000172.html">[Liman-svn] r182 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#171">[ date ]</a>
+              <a href="thread.html#171">[ thread ]</a>
+              <a href="subject.html#171">[ subject ]</a>
+              <a href="author.html#171">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-24 12:36:13 +0200 (Sat, 24 Jun 2006)
+New Revision: 181
+
+Modified:
+   trunk/docs/beleg3/tests.tex
+   trunk/include/tests/mitglied.php
+Log:
+- Beschreibung f?\195?\188r Systemzustand in Unittests hinzugef?\195?\188gt
+- Fehlenden Parameter in MitgliedTest::Insert f?\195?\188r ExpectQuery hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-06-24 10:18:53 UTC (rev 180)
++++ trunk/docs/beleg3/tests.tex	2006-06-24 10:36:13 UTC (rev 181)
+@@ -4,7 +4,7 @@
+ \subsubsection{Fall 1: Unit Tests}
+ \begin{enumerate}
+ \item Systemzustand vor dem Test:\\
+-	TODO: H&#252;bsche Formulierung f&#252;r: egal, wird nicht benutzt
++	Alle Speicher sind vom System entkoppelt. Je nach Test werden spezielle, virtuelle Speicher angelegt, die auf den jeweiligen Test zugeschnitten sind. Allgemein werden dazu f&#252;r Abfragen, &#196;nderungs- und L&#246;schaktionen statische Datens&#228;tze erstellt, die als Resultate behandelt werden. F&#252;r Einf&#252;geaktionen werden leere virtuelle Speicher angenommen.
+ \item Eingabedaten:\\
+ 	test.php wird aufgerufen. Sonstige Eingaben werden fest im Code der Tests durchgef&#252;hrt.
+ \item Erwartete Ereignisse:\\
+
+Modified: trunk/include/tests/mitglied.php
+===================================================================
+--- trunk/include/tests/mitglied.php	2006-06-24 10:18:53 UTC (rev 180)
++++ trunk/include/tests/mitglied.php	2006-06-24 10:36:13 UTC (rev 181)
+@@ -106,7 +106,7 @@
+ 			$login-&gt;Level = 2;		// Test mit Admin-Rechten
+ 			
+ 			$sqldb-&gt;ExpectQuery( 'DELETE FROM.*Mitglieder.*WHERE', 1 );	// Mitglied l&#246;schen
+-			$sqldb-&gt;ExpectQuery( &quot;DELETE FROM.*Kommentare.*WHERE Mitglieds_Nr = '1'&quot; );	// Kommentare aufr&#228;umen
++			$sqldb-&gt;ExpectQuery( &quot;DELETE FROM.*Kommentare.*WHERE Mitglieds_Nr = '1'&quot;, false );	// Kommentare aufr&#228;umen
+ 			
+ 			Mitglied::Delete( 1 );
+ 			$dbResult = $sqldb-&gt;Verify();
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000170.html">[Liman-svn] r180 - in trunk: docs/beleg3 include/tests
+</A></li>
+	<LI>Next message: <A HREF="000172.html">[Liman-svn] r182 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#171">[ date ]</a>
+              <a href="thread.html#171">[ thread ]</a>
+              <a href="subject.html#171">[ subject ]</a>
+              <a href="author.html#171">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

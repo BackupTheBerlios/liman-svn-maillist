@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r53 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r53%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604251643.k3PGhAaZ031665%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000042.html">
+   <LINK REL="Next"  HREF="000044.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r53 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r53%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604251643.k3PGhAaZ031665%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r53 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Tue Apr 25 18:43:10 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000042.html">[Liman-svn] r52 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000044.html">[Liman-svn] r54 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-25 18:43:06 +0200 (Tue, 25 Apr 2006)
+New Revision: 53
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+Korrekturen in Datenkatalog und Rechnungen zum Datenkatalog
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 16:30:17 UTC (rev 52)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 16:43:06 UTC (rev 53)
+@@ -80,7 +80,7 @@
+ 
+ \emph{Bibliothek} &amp; \{Literatur\} \\
+ \hline
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999* \\
+ \hline
+@@ -129,7 +129,7 @@
+ 
+ Mitgliedsdaten &amp; Name + Login + Passwort + Rechte \\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte \\
++Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext \\
+ \hline
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 16:30:17 UTC (rev 52)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 16:43:06 UTC (rev 53)
+@@ -11,7 +11,7 @@
+ \hline\hline
+ %\endhead
+ 
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte &amp; $4 + 13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 539$ \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $4 + 13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 549$ \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
+ \hline
+@@ -56,7 +56,7 @@
+ 
+ Mitgliedsdaten &amp; Name + Login + Passwort + Rechte &amp; $20 + 12 + 12 + 13 = 57 $\\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte &amp; $13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 535 $ \\
++Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 545 $ \\
+ \hline
+ Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext &amp; $4 + 4 + 4 = 12 $ \\
+ \hline
+@@ -87,7 +87,7 @@
+ \hline
+ Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` &amp; $4 + 19 = 23$\\
+ \hline
+-Literatur\_Info &amp; Literatur + Kommentare &amp; $ 539 + 412 = 951 $ \\
++Literatur\_Info &amp; Literatur + Kommentare &amp; $ 549 + 412 = 961 $ \textbf{KOMMENTARE = VIELE KOMMENTARE UND NICHT NUR EINER}\\
+ \hline
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Art + Beschreibung\} &amp; $4 + 40 + 13 + 250 = 307$\\
+ \hline
+@@ -102,7 +102,7 @@
+ \hline
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Literatur &amp; {Literatur} &amp; $0*539$ &amp; $50*539=26950$ &amp; $100*539=53900$ \\
++Literatur &amp; {Literatur} &amp; $0*549$ &amp; $50*549=26950$ &amp; $100*549=54900$ \\
+ Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
+ Mitglieder &amp; {Mitglied}  &amp; $0*61$ &amp; $50*61=3050$ &amp; $100*61=6100$ \\
+ \hline
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000042.html">[Liman-svn] r52 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000044.html">[Liman-svn] r54 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

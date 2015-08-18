@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r155 - in trunk: . include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r155%20-%20in%20trunk%3A%20.%20include/tests&In-Reply-To=%3C200606112053.k5BKrcDo025520%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000144.html">
+   <LINK REL="Next"  HREF="000146.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r155 - in trunk: . include/tests</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r155%20-%20in%20trunk%3A%20.%20include/tests&In-Reply-To=%3C200606112053.k5BKrcDo025520%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r155 - in trunk: . include/tests">fwilhelm at berlios.de
+       </A><BR>
+    <I>Sun Jun 11 22:53:38 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000144.html">[Liman-svn] r154 - in trunk: . design include
+</A></li>
+        <LI>Next message: <A HREF="000146.html">[Liman-svn] r156 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#145">[ date ]</a>
+              <a href="thread.html#145">[ thread ]</a>
+              <a href="subject.html#145">[ subject ]</a>
+              <a href="author.html#145">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-06-11 22:53:38 +0200 (Sun, 11 Jun 2006)
+New Revision: 155
+
+Added:
+   trunk/include/tests/kommentar.php
+   trunk/include/tests/literatur.php
+   trunk/include/tests/mitglied.php
+Modified:
+   trunk/include/tests/autor.php
+   trunk/include/tests/errormessage.php
+   trunk/include/tests/sqldb_mock.php
+   trunk/test.php
+Log:
+Unit-Tests f?\195?\188r Kommentar, Mitglied und Literatur erstellt (nicht fertig),
+Fehler bei SQLDB_Mock::Verify behoben,
+ErrorMessage keine Anzeige der Werte wenn Expected == Actual,
+test.php verfollst?\195?\164ndigt
+
+Modified: trunk/include/tests/autor.php
+===================================================================
+--- trunk/include/tests/autor.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/autor.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -1,4 +1,4 @@
+-&lt;?php
++&#65279;&lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
+ 	
+ 	class AutorTest
+@@ -85,18 +85,19 @@
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', $testAutoren[0] );
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', false  );
+ 			$sqldb-&gt;ExpectQuery( 'INSERT INTO.*', 1 );
+-			$sqldb-&gt;ExpectQuery( 'SELECT @@IDENTITY.*', $testAutoren[1] ); /// \todo Das funktioniert weg MySQL3 nicht -&gt; GetInsertID
+ 			
+ 			$autoren = Autor::Split( $testAutorNamen );
++
++			$result = $sqldb-&gt;Verify();
++			if( $result !== false )
++			{
++				$result-&gt;Unit = 'Autor';
++				$result-&gt;Test = 'Split';
++				return $result;
++			}
+ 			
+ 			if( count($autoren) != count($testAutoren) )
+ 				return new ErrorMessage( 'Autor', 'Split', 'Anzahl Autoren', count($testAutoren), count($autoren) );
+-				
+-			for( $i = 0; $i &lt; count($autoren); $i++ )
+-			{
+-				if( $autoren[$i]-&gt;Nr != $testAutoren[$i]-&gt;Nr )
+-					return new ErrorMessage( 'Autor', 'Split', &quot;Autor[$i]-&gt;Nr&quot;, $testAutoren[$i]-&gt;Nr, $autoren[$i]-&gt;Nr );
+-			}
+ 			
+ 			return true;
+ 		}
+
+Modified: trunk/include/tests/errormessage.php
+===================================================================
+--- trunk/include/tests/errormessage.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/errormessage.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -33,8 +33,11 @@
+ 				}
+ 			}
+ 			
+-			return &quot;Test&quot;.$testcase.&quot; Fehlgeschlagen. Grund: &quot;.$this-&gt;Message.
+-			       &quot; - Erwartet: &lt;&quot;.$this-&gt;Expected.&quot;&gt; Ist: &lt;&quot;.$this-&gt;Actual.&quot;&gt;&quot;;
++			$values = &quot;&quot;;
++			if( $this-&gt;Actual != $this-&gt;Expected )
++				$values = &quot; - Erwartet: &lt;&quot;.$this-&gt;Expected.&quot;&gt; Ist: &lt;&quot;.$this-&gt;Actual.&quot;&gt;&quot;;
++			
++			return &quot;Test&quot;.$testcase.&quot; Fehlgeschlagen. Grund: &quot;.$this-&gt;Message.$values;
+ 		}
+ 	}
+ ?&gt;
+
+Added: trunk/include/tests/kommentar.php
+===================================================================
+--- trunk/include/tests/kommentar.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/kommentar.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -0,0 +1,58 @@
++&lt;?php
++	require_once(&quot;include/tests/errormessage.php&quot;);
++	
++	class KommentarTest
++	{
++		function Setup()
++		{
++		}
++		
++		function TearDown()
++		{
++			global $sqldb;
++			
++			$sqldb-&gt;Verify();
++		}
++		
++		function ConstructorTest()
++		{
++			$testData = new stdObject();
++			$testData-&gt;Nr = 1;
++			$testData-&gt;Text = &quot;Das ist ein Kommentar&quot;;
++			$testData-&gt;Mitglieds_Nr = 2;
++			$testData-&gt;Vorname = &quot;Max&quot;;
++			$testData-&gt;Nachname = &quot;Mustermann&quot;;
++			
++			$kommentar = new Kommentar($testData);
++			
++			if( $testData-&gt;Nr != $kommentar-&gt;Nr )
++				return new ErrorMessage( 'Kommentar', 'ctor', 'Kommentarnummer falsch', $testData-&gt;Nr, $kommentar-&gt;Nr );
++				
++			if( $testData-&gt;Text != $kommentar-&gt;Text )
++				return new ErrorMessage( 'Kommentar', 'ctor', 'Kommenttext falsch', $testData-&gt;Text, $kommentar-&gt;Text );
++				
++			if( $testData-&gt;Mitglieds_Nr != $kommentar-&gt;Verfasser_Nr )
++				return new ErrorMessage( 'Kommentar', 'ctor', 'Verfassernummer falsch', $testData-&gt;Mitglieds_Nr, $kommentar-&gt;Verfasser_Nr );
++				
++			if( $testData-&gt;Vorname.&quot; &quot;.$testData-&gt;Nachname != $kommentar-&gt;Verfasser_Name )
++				return new ErrorMessage( 'Kommentar', 'ctor', 'Verfassername falsch', $testData-&gt;Vorname.&quot; &quot;.$testData-&gt;Nachname, $kommentar-&gt;Verfasser_Name );
++				
++			return true; 
++		}
++		
++		function GetAll()
++		{
++			return new ErrorMessage( 'Kommentar', 'GetAll', 'Test nicht implementiert', null, null  );
++		}
++		
++		function Insert()
++		{
++			return new ErrorMessage( 'Kommentar', 'Insert', 'Test nicht implementiert', null, null  );
++		}
++		
++		function Update()
++		{
++			return new ErrorMessage( 'Kommentar', 'Update', 'Test nicht implementiert', null, null  );
++		}
++	}
++?&gt;
+
+Added: trunk/include/tests/literatur.php
+===================================================================
+--- trunk/include/tests/literatur.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/literatur.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -0,0 +1,42 @@
++&lt;?php
++	require_once(&quot;include/tests/errormessage.php&quot;);
++	
++	class LiteraturTest
++	{
++		function Setup()
++		{
++		}
++		
++		function TearDown()
++		{
++			global $sqldb;
++			
++			$sqldb-&gt;Verify();
++		}
++		
++		function ConstructorTest()
++		{
++			return new ErrorMessage( 'Literatur', 'ctor', 'Test nicht implementiert', null, null );
++		}
++		
++		function Insert()
++		{
++			return new ErrorMessage( 'Literatur', 'Insert', 'Test nicht implementiert', null, null );
++		}
++		
++		function Update()
++		{
++			return new ErrorMessage( 'Literatur', 'Update', 'Test nicht implementiert', null, null );
++		}
++		
++		function InsertBibtex()
++		{
++			return new ErrorMessage( 'Literatur', 'InsertBibtex', 'Test nicht implementiert', null, null );
++		}
++		
++		function ToBibtex()
++		{
++			return new ErrorMessage( 'Literatur', 'ToBibtex', 'Test nicht implementiert', null, null );
++		}
++	}
++?&gt;
+
+Added: trunk/include/tests/mitglied.php
+===================================================================
+--- trunk/include/tests/mitglied.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/mitglied.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -0,0 +1,66 @@
++&lt;?php
++	require_once(&quot;include/tests/errormessage.php&quot;);
++	
++	class MitgliedTest
++	{
++		function Setup()
++		{
++		}
++		
++		function TearDown()
++		{
++			global $sqldb;
++			
++			$sqldb-&gt;Verify();
++		}
++		
++		function ConstructorTest()
++		{
++			global $sqldb;
++			
++			$testData = new stdObject();
++			$testData-&gt;Nr = 1;
++			$testData-&gt;Login = &quot;Maximator&quot;;
++			$testData-&gt;Passwort = Mitglied::PasswordHash(&quot;passwort&quot;);
++			$testData-&gt;Vorname = &quot;Max&quot;;
++			$testData-&gt;Nachname = &quot;Mustermann&quot;;
++			$testData-&gt;Email != &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;;
++			$testData-&gt;Rechte = &quot;Benutzer&quot;;
++			
++			$sqldb-&gt;ExpectQuery(&quot;SELECT.*FROM.*Mitglieder.*WHERE.*Mitglieds_Nr.*LIMIT 1&quot;, $testData );
++			
++			$mitglied = new Mitglied(1);
++			
++			$result = $sqldb-&gt;Verify();
++			if( $result !== true )
++			{
++				$result-&gt;Unit = 'Mitglied';
++				$result-&gt;Test = 'ctor';
++				return $result;
++			}
++			
++			if( $mitglied-&gt;Nr != $testData-&gt;Mitglieds_Nr )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Mitgliedsnummer falsch', $testData-&gt;Mitglieds_Nr, $mitglied-&gt;Mitglieds_Nr );
++				
++			if( $mitglied-&gt;Login != $testData-&gt;Login )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Login falsch', $testData-&gt;Login, $mitglied-&gt;Login );
++			
++			if( $mitglied-&gt;Passwort != $testData-&gt;Passwort )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Passwort falsch', $testData-&gt;Passwort, $mitglied-&gt;Passwort );
++				
++			if( $mitglied-&gt;Vorname != $testData-&gt;Vorname )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Vorname falsch', $testData-&gt;Vorname, $mitglied-&gt;Vorname );
++				
++			if( $mitglied-&gt;Nachname != $testData-&gt;Name )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Name falsch', $testData-&gt;Name, $mitglied-&gt;Name );
++				
++			if( $mitglied-&gt;Email != $testData-&gt;Email )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Email falsch', $testData-&gt;Email, $mitglied-&gt;Email );
++				
++			if( $mitglied-&gt;Rechte != 1 )
++				return new ErrorMessage( 'Mitglied', 'ctor', 'Email falsch', 1, $mitglied-&gt;Rechte );
++				
++			return true;
++		}
++	}
++?&gt;
+
+Modified: trunk/include/tests/sqldb_mock.php
+===================================================================
+--- trunk/include/tests/sqldb_mock.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/include/tests/sqldb_mock.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -1,4 +1,4 @@
+-&lt;?php
++&#65279;&lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
+ 	
+ 	class SQLDB_Mock
+@@ -147,12 +147,13 @@
+ 		{
+ 			$ret = $this-&gt;error;
+ 			/// \todo: Wieso darf man nicht auch mal ohne Fehlermeldung auskommen? :(
+-			if( $ret === false )
++			if( ($ret === false) &amp;&amp; (count($this-&gt;results) != $this-&gt;queryCounter) )
+ 			{
+ 				$ret = new ErrorMessage( null, null, &quot;Anzahl Queries&quot;, count($this-&gt;results), $this-&gt;queryCounter );
+ 			}
+ 			
+ 			// reset
++			$this-&gt;error = false;
+ 			$this-&gt;error_msg = false;
+ 			$this-&gt;patterns = array();
+ 			$this-&gt;results = array();
+
+Modified: trunk/test.php
+===================================================================
+--- trunk/test.php	2006-06-10 10:34:12 UTC (rev 154)
++++ trunk/test.php	2006-06-11 20:53:38 UTC (rev 155)
+@@ -81,6 +81,80 @@
+ 				$searchtest-&gt;TearDown();
+ 				echo &quot;&lt;/tr&gt;&quot;;
+ 				
++				// Kommentar
++				require_once(&quot;include/kommentar.php&quot;);
++				require_once(&quot;include/tests/kommentar.php&quot;);
++				$kommentarTest = new KommentarTest();
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Kommentar::Kommentar()&lt;/td&gt;&quot;;
++				$kommentarTest-&gt;Setup();
++				PrintTestResults($kommentarTest-&gt;ConstructorTest());
++				$kommentarTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Kommentar::GetAll()&lt;/td&gt;&quot;;
++				$kommentarTest-&gt;Setup();
++				PrintTestResults($kommentarTest-&gt;GetAll());
++				$kommentarTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Kommentar::Insert()&lt;/td&gt;&quot;;
++				$kommentarTest-&gt;Setup();
++				PrintTestResults($kommentarTest-&gt;Insert());
++				$kommentarTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Kommentar::Update()&lt;/td&gt;&quot;;
++				$kommentarTest-&gt;Setup();
++				PrintTestResults($kommentarTest-&gt;Update());
++				$kommentarTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				// Literatur
++				require_once(&quot;include/literatur.php&quot;);
++				require_once(&quot;include/tests/literatur.php&quot;);
++				$literaturTest = new LiteraturTest();
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Literatur()&lt;/td&gt;&quot;;
++				$literaturTest-&gt;Setup();
++				PrintTestResults($literaturTest-&gt;ConstructorTest());
++				$literaturTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Insert()&lt;/td&gt;&quot;;
++				$literaturTest-&gt;Setup();
++				PrintTestResults($literaturTest-&gt;Insert());
++				$literaturTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Update()&lt;/td&gt;&quot;;
++				$literaturTest-&gt;Setup();
++				PrintTestResults($literaturTest-&gt;Update());
++				$literaturTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::InsertBibtex()&lt;/td&gt;&quot;;
++				$literaturTest-&gt;Setup();
++				PrintTestResults($literaturTest-&gt;InsertBibtex());
++				$literaturTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::ToBibtex()&lt;/td&gt;&quot;;
++				$literaturTest-&gt;Setup();
++				PrintTestResults($literaturTest-&gt;ToBibtex());
++				$literaturTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				// Mitglied
++				require_once(&quot;include/mitglied.php&quot;);
++				require_once(&quot;include/tests/mitglied.php&quot;);
++				$mitgliedTest = new MitgliedTest();
++
++				echo &quot;&lt;tr&gt;&lt;td&gt;Mitglied::Mitglied()&lt;/td&gt;&quot;;
++				$mitgliedTest-&gt;Setup();
++				PrintTestResults($mitgliedTest-&gt;ConstructorTest());
++				$mitgliedTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
+ 			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000144.html">[Liman-svn] r154 - in trunk: . design include
+</A></li>
+	<LI>Next message: <A HREF="000146.html">[Liman-svn] r156 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#145">[ date ]</a>
+              <a href="thread.html#145">[ thread ]</a>
+              <a href="subject.html#145">[ subject ]</a>
+              <a href="author.html#145">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

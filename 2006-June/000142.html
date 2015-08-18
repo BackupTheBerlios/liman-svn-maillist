@@ -1,0 +1,633 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r152 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r152%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606091852.k59IqrM4010046%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000141.html">
+   <LINK REL="Next"  HREF="000143.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r152 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r152%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606091852.k59IqrM4010046%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r152 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun  9 20:52:53 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000141.html">[Liman-svn] r151 - trunk
+</A></li>
+        <LI>Next message: <A HREF="000143.html">[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-09 20:52:19 +0200 (Fri, 09 Jun 2006)
+New Revision: 152
+
+Added:
+   trunk/bibtex.php
+Removed:
+   trunk/include/bibtex.php
+Modified:
+   trunk/design/liman.css
+   trunk/include/literatur.php
+   trunk/index.php
+   trunk/search.php
+   trunk/searchmore.php
+Log:
+- BibTeX-Importer aus BibTeX-Klasse eingebaut
+- alte BibTeX-Klasse entfernt
+- flexibel skalierende Suchfelder in erweiterter Suche
+
+
+Added: trunk/bibtex.php
+===================================================================
+--- trunk/bibtex.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/bibtex.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -0,0 +1,96 @@
++&lt;?php
++	$title = &quot;BibTeX Importieren&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require_once(&quot;include/header.php&quot;);
++
++	if ($login-&gt;IsMember() === false)
++	{
++		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
++		require_once(&quot;include/footer.php&quot;);
++		die();
++	}
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++&lt;?php
++	if (empty($_FILES[&quot;bibtexfile&quot;]) === true &amp;&amp; empty($_POST[&quot;bibtextext&quot;]) === true)
++	{
++	?&gt;
++	&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtexfileform&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
++	&lt;fieldset&gt;
++   		 &lt;legend&gt;&lt;b&gt;BibTeX-Datei importieren&lt;/b&gt;&lt;/legend&gt;
++	
++	
++		&lt;table class=&quot;bibteximport&quot;&gt;
++			&lt;tbody&gt;
++				&lt;tr&gt;
++					&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;Datei:&lt;/label&gt;&lt;/th&gt;
++					&lt;td&gt;&lt;input class=&quot;input_file&quot; type=&quot;file&quot; id=&quot;bibtexfile&quot; name=&quot;bibtexfile&quot;&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++				&lt;tr&gt;
++					&lt;th&gt;&lt;/th&gt;
++					&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;/tbody&gt;
++		&lt;/table&gt;
++	&lt;/fieldset&gt;
++	&lt;/form&gt;
++
++	&lt;hr&gt;
++	
++	&lt;form action=&quot;bibtex.&lt;?=$ext;?&gt;&quot; id=&quot;bibtextextform&quot; method=&quot;post&quot;&gt;
++	&lt;fieldset&gt;
++   		&lt;legend&gt;&lt;b&gt;BibTeX importieren&lt;/b&gt;&lt;/legend&gt;
++		&lt;table class=&quot;bibteximport&quot;&gt;
++			&lt;tbody&gt;
++				&lt;tr&gt;
++					&lt;th scope=row&gt;&lt;label for=&quot;bibtextext&quot;&gt;BibTeX:&lt;/label&gt;&lt;/th&gt;
++					&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;bibtextext&quot; id=&quot;bibtextext&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++				&lt;tr&gt;
++					&lt;th&gt;&lt;/th&gt;
++					&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Importieren&quot;&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;/tbody&gt;
++		&lt;/table&gt;
++	&lt;/fieldset&gt;
++	&lt;/form&gt;
++	&lt;?php
++	}
++	else
++	{
++		$bibtex = &quot;&quot;;
++		if (empty($_FILES[&quot;bibtexfile&quot;]) === false)
++		{
++			$bibtex = file_get_contents($_FILES[&quot;bibtexfile&quot;][&quot;tmp_name&quot;]);
++		}
++		elseif (empty($_POST[&quot;bibtextext&quot;]) === false)
++		{
++			$bibtex = stripslashes($_POST[&quot;bibtextext&quot;]);
++		}
++
++		if ($bibtex === false || empty($bibtex) === true)
++		{
++			echo &quot;&lt;div id=\&quot;error\&quot;&gt;Konnte nichts zum importieren lesen&lt;/div&gt;&quot;;
++		}
++		else
++		{
++			require_once(&quot;include/literatur.php&quot;);
++			$imported = Literatur::InsertBibTeX($bibtex);
++
++			switch ($imported)
++			{
++			case 0:
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Keine Literatur wurde importiert&lt;/p&gt;&quot;;
++				break;
++			case 1:
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Ein Literatureintrag wurde importiert&lt;/p&gt;&quot;;
++				break;
++			default:
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;$imported Literatureintr&#228;ge wurden importiert&lt;/p&gt;&quot;;
++			}
++		}
++	}
++	?&gt;
++&lt;/div&gt;
++&lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/design/liman.css	2006-06-09 18:52:19 UTC (rev 152)
+@@ -92,6 +92,7 @@
+ }
+ 
+ #content .input_text,
++#content .input_file,
+ #content .input_password,
+ #content form textarea {
+ 	width: 99%;
+
+Deleted: trunk/include/bibtex.php
+===================================================================
+--- trunk/include/bibtex.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/include/bibtex.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -1,218 +0,0 @@
+-&lt;?php
+-	/*! \brief Gib $string bis zum ersten Auftreten von $needle aus
+-	 *
+-	 *  TODO
+-	 *  \pre TODO
+-	 *  \param[in] $string zu lesende String
+-	 *  \param[in] $needle zu findende String
+-	 *  \param[in] $offset Offset des als erstes zu bearbeidende Buchstabens
+-	 *  \return Array aus Position des Fundes und Teilstring bis (aber nicht einschlie&#223;lich) gefundenem $needle
+-	 *  \remarks Gibt boolean false zur&#252;ck, wenn needle nicht gefunden werden kann
+-	 */
+-	function strtill($string, $needle , $offset = 0)
+-	{
+-		if (($pos = strpos($string, $needle, $offset)) !== false)
+-		{
+-			return array($pos, substr($string, $offset, $pos-$offset));
+-		}
+-		else
+-		{
+-			return false;
+-		}
+-	}
+-
+-	/*! \brief BibTeX Parser und Exporter
+-	 *
+-	 *  TODO
+-	 *  \pre TODO
+-	 *  \note Das sollte mit Buch verschmolzen werden
+-	 */
+-	class BibTeX
+-	{
+-		var $type; ///&lt; Typ der Literatur
+-		var $id; ///&lt; Buchidentifikationsnummer
+-		var $title; ///&lt; Titel der Literatur
+-		var $author; ///&lt; Autoren der Literatur
+-		var $year; ///&lt; Erscheinungsjahr
+-		var $publisher; ///&lt; Verlag/Herausgeber
+-		var $isbn; ///&lt; ISBN der Literatur
+-		var $annote; ///&lt; Bemerkung zur Literatur
+-		
+-		
+-		/*! \brief Konstruktor
+-		 * 
+-		 *  Erstellt eine leere Literaturangabe
+-		 *  \pre TODO
+-		 */
+-		function BibTeX()
+-		{
+-			$type = &quot;book&quot;;
+-			$id = &quot;&quot;;
+-			$title = &quot;&quot;;
+-			$author = &quot;&quot;;
+-			$year = &quot;&quot;;
+-			$publisher = &quot;&quot;;
+-			$isbn = &quot;&quot;;
+-			$annote = &quot;&quot;;
+-		}
+-
+-		/*! \brief Parser f&#252;r BibTeX
+-		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \param[in] $string Zu &quot;parsende&quot; String
+-		 *  \return Array von BibTeX
+-		 *  \remarks $string wird nicht exakt auf Fehler untersucht und gegebenenfalls versuchen zu ignorieren
+-		 *  \remarks Gibt boolean false zur&#252;ck, wenn nichts gefunden werden kann
+-		 */
+-		function parse($string)
+-		{
+-			$allowed_entries = array('book', 'article', 'booklet',
+-					'conference', 'inbook', 'incollection', 'inproceedings', 'manual',
+-					'mastersthesis', 'misc', 'phdthesis', 'proceedings', 'techreport',
+-					'unpublished');
+-			$allowed_fields = array('author', 'title', 'publisher', 'year', 'ISBN');
+-
+-			// Funktioniert nicht bei Argumenten &#252;ber mehrere Zeilen
+-			if (preg_match_all('/@[\w]+[\s]*\{[\s]*[-\d\w]+([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+\}/', $string, $regexp_entries) !== false)
+-			{
+-				$num_entries = sizeof($regexp_entries[0]);
+-			}
+-			else
+-			{
+-				$num_entries = 0;
+-			}
+-
+-			$entries = false;
+-			$curpos = 0;
+-			
+-			for ($i = 0; $i &lt; $num_entries; $i++)
+-			{
+-				$cur = new BibTeX;
+-				$curpos = 1; // ohne @ lesen
+-				// Lese Typ vom Eintrag
+-				if (($substr = strtill($regexp_entries[0][$i], '{', $curpos)) !== false)
+-				{
+-					$cur-&gt;type = strtolower(trim($substr[1]));
+-					$curpos = $substr[0]+1;
+-				}
+-				else
+-				{
+-					break; // Fehler beim Lesen -&gt; Abbruch
+-				}
+-
+-				
+-				// Haben wir &#252;berhaupt den Anfang eines Eintrags gefunden?
+-				if (in_array($cur-&gt;type, $allowed_entries) === false)
+-				{
+-					continue;
+-				}
+-				
+-
+-				// Lese K&#252;rzel
+-				if (($substr = strtill($regexp_entries[0][$i], ',', $curpos)) !== false)
+-				{
+-					$cur-&gt;id = trim($substr[1]);
+-					$curpos = $substr[0]+1;
+-				}
+-				else
+-				{
+-					continue; // Fehler beim Lesen -&gt; Abbruch
+-				}
+-
+-				// Extrahiere &quot;Optionen&quot;
+-				if (preg_match_all('/([\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[0][$i], $regexp_options) !== false)
+-				{
+-					$num_options = sizeof($regexp_options[0]);
+-					for ($j = 0; $j &lt; $num_options; $j++)
+-					{
+-						// Name der &quot;Option&quot; auslesen
+-						$option = strtill($regexp_options[0][$j], &quot;=&quot;);
+-						
+-						// Name des Arguments der &quot;Option&quot; auslesen und bereinigen
+-						$argument = substr($regexp_options[0][$j], $option[0]+1, strlen($regexp_options[0][$j])-$option[0]-2);
+-						$argument = trim($argument);
+-
+-						if ($argument[0] == &quot;{&quot; &amp;&amp; $argument[strlen($argument)-1] == &quot;}&quot;)
+-						{
+-							$argument = substr($argument, 1, strlen($argument)-2);
+-						}
+-						if ($argument[0] == &quot;\&quot;&quot; &amp;&amp; $argument[strlen($argument)-1] == &quot;\&quot;&quot;)
+-						{
+-							$argument = substr($argument, 1, strlen($argument)-2);
+-						}
+-
+-						switch (strtolower(trim($option[1])))
+-						{
+-						case &quot;title&quot;:
+-							$cur-&gt;title = $argument;
+-							break;
+-						case &quot;author&quot;:
+-							$cur-&gt;author = $argument;
+-							break;
+-						case &quot;year&quot;:
+-							$cur-&gt;year = $argument;
+-							break;
+-						case &quot;publisher&quot;:
+-							$cur-&gt;publisher = $argument;
+-							break;
+-						case &quot;isbn&quot;:
+-							$cur-&gt;isbn = $argument;
+-							break;
+-						case &quot;annote&quot;:
+-							$cur-&gt;annote = $argument;
+-							break;
+-						}
+-					}
+-				}
+-				else
+-				{
+-					continue;
+-				}
+-				
+-				// Erzeuge array, wenn noch nicht geschehen
+-				if ($entries === false)
+-				{
+-					$entries = array();
+-				}
+-				$entries[] = $cur;
+-			}
+-
+-			return $entries;
+-		}
+-
+-		/*! \brief Konvertiert BibTeX-Eintrag in String
+-		 *
+-		 *  TODO
+-		 *  \pre TODO
+-		 *  \return String mit BibTeX-Informationen
+-		 *  \remarks Gibt boolean false zur&#252;ck, wenn zu wenig Informationen vorhanden sind
+-		 */
+-		function toString()
+-		{
+-			if (!empty($this-&gt;type) &amp;&amp; !empty($this-&gt;id))
+-			{
+-				$str = &quot;@&quot;.$this-&gt;type.&quot;{&quot;.$this-&gt;id;
+-				
+-				if (!empty($this-&gt;title))
+-					$str .= &quot;,\n\ttitle = \&quot;&quot;.$this-&gt;title.&quot;\&quot;&quot;;
+-				if (!empty($this-&gt;author))
+-					$str .= &quot;,\n\tauthor = \&quot;&quot;.$this-&gt;author.&quot;\&quot;&quot;;
+-				if (!empty($this-&gt;year))
+-					$str .= &quot;,\n\tyear = \&quot;&quot;.$this-&gt;year.&quot;\&quot;&quot;;
+-				if (!empty($this-&gt;publisher))
+-					$str .= &quot;,\n\tpublisher = \&quot;&quot;.$this-&gt;publisher.&quot;\&quot;&quot;;
+-				if (!empty($this-&gt;isbn))
+-					$str .= &quot;,\n\tisbn = \&quot;&quot;.$this-&gt;isbn.&quot;\&quot;&quot;;
+-				if (!empty($this-&gt;annote))
+-					$str .= &quot;,\n\tannote = \&quot;&quot;.$this-&gt;$annote.&quot;\&quot;&quot;;
+-				
+-				$str .= &quot;\n}\n&quot;;
+-				return $str;
+-			}
+-			else
+-				return false;
+-			
+-		}
+-	}
+-?&gt;
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/include/literatur.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -177,8 +177,127 @@
+ 		 */
+ 		function InsertBibTeX($bibtex)
+ 		{
+-			/// \todo implementieren
+-			return 0;
++			$allowed_entries = array('book', 'article', 'booklet',
++					'conference', 'inbook', 'incollection', 'inproceedings', 'manual',
++					'mastersthesis', 'misc', 'phdthesis', 'proceedings', 'techreport',
++					'unpublished');
++
++			// Funktioniert nicht bei Argumenten &#252;ber mehrere Zeilen
++			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
++			{
++				$num_entries = sizeof($regexp_entries[0]);
++			}
++			else
++			{
++				$num_entries = 0;
++			}
++
++			$entries = false;
++			
++			for ($i = 0; $i &lt; $num_entries; $i++)
++			{
++				$cur = new stdClass;
++				$cur-&gt;autoren = &quot;&quot;;
++				$cur-&gt;art = new LiteraturArt(&quot;book&quot;);
++				$cur-&gt;titel = &quot;&quot;;
++				$cur-&gt;jahr = date(&quot;Y&quot;);
++				$cur-&gt;verlag = &quot;&quot;;
++				$cur-&gt;isbn = &quot;&quot;;
++				$cur-&gt;beschreibung = &quot;&quot;;
++				$cur-&gt;ort = &quot;&quot;;
++
++				// Lese Typ vom Eintrag
++				$type = trim($regexp_entries[1][$i]);
++				
++				// Haben wir &#252;berhaupt den Anfang eines Eintrags gefunden?
++				if (in_array($type, $allowed_entries) === false)
++				{
++					continue;
++				}
++				else
++				{
++					$cur-&gt;art = new LiteraturArt($type);
++				}
++				
++
++				// Lese K&#252;rzel
++				$cur-&gt;id = trim($regexp_entries[2][$i]);
++
++				// Extrahiere &quot;Optionen&quot;
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				{
++					$num_options = sizeof($regexp_options[0]);
++					for ($j = 0; $j &lt; $num_options; $j++)
++					{
++						// Name des Arguments der &quot;Option&quot; auslesen und bereinigen
++						$argument = trim($regexp_options[3][$j]);
++
++						if ($argument[0] == &quot;{&quot; &amp;&amp; $argument[strlen($argument)-1] == &quot;}&quot;)
++						{
++							$argument = substr($argument, 1, strlen($argument)-2);
++						}
++						if ($argument[0] == &quot;\&quot;&quot; &amp;&amp; $argument[strlen($argument)-1] == &quot;\&quot;&quot;)
++						{
++							$argument = substr($argument, 1, strlen($argument)-2);
++						}
++
++						switch (strtolower(trim($regexp_options[2][$j])))
++						{
++						case &quot;title&quot;:
++							$cur-&gt;titel = $argument;
++							break;
++						case &quot;author&quot;:
++							$cur-&gt;autoren = preg_replace(&quot;/ AND /i&quot;, &quot;, &quot;, $argument);
++							break;
++						case &quot;year&quot;:
++							$cur-&gt;jahr = $argument;
++							break;
++						case &quot;publisher&quot;:
++							$cur-&gt;verlag = $argument;
++							break;
++						case &quot;isbn&quot;:
++							$cur-&gt;isbn = $argument;
++							break;
++						case &quot;address&quot;:
++							$cur-&gt;ort = $argument;
++							break;
++						case &quot;note&quot;:
++						case &quot;annote&quot;:
++							$cur-&gt;beschreibung = $argument;
++							break;
++						}
++					}
++				}
++				else
++				{
++					continue;
++				}
++				
++				// Erzeuge array, wenn noch nicht geschehen
++				if ($entries === false)
++				{
++					$entries = array();
++				}
++				$entries[] = $cur;
++			}
++
++
++			$imported = 0;
++			if ($entries !== false &amp;&amp; empty($entries) === false)
++			{
++				foreach ($entries as $entry)
++				{
++					if (empty($entry-&gt;titel) === false &amp;&amp; empty($entry-&gt;autoren) === false)
++					{
++						$imported++;
++						Literatur::Insert($entry-&gt;autoren, $entry-&gt;art-&gt;GetDisplayText(),
++							$entry-&gt;titel, $entry-&gt;jahr, $entry-&gt;verlag, $entry-&gt;isbn,
++							$entry-&gt;beschreibung, $entry-&gt;ort, &quot;&quot;);
++					}
++				}
++			}
++
++			return $imported;
+ 		}
+ 
+ 		/*! \brief Legt Literatur an
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/index.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -39,11 +39,16 @@
+ 		{
+ 	?&gt;
+ 		&lt;hr&gt;
+-		&lt;form action=&quot;litmod.php&quot;&gt;
+-			&lt;div&gt;
++		&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
++			&lt;span&gt;
+ 				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-			&lt;/div&gt;
++			&lt;/span&gt;
+ 		&lt;/form&gt;
++		&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
++			&lt;span&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
++			&lt;/span&gt;
++		&lt;/form&gt;
+ 	&lt;?php
+ 		}
+ 	?&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/search.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -77,11 +77,16 @@
+ 	{
+ ?&gt;
+ 	&lt;hr&gt;
+-	&lt;form action=&quot;litmod.php&quot;&gt;
+-		&lt;div&gt;
++	&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
++		&lt;span&gt;
+ 			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-		&lt;/div&gt;
++		&lt;/span&gt;
+ 	&lt;/form&gt;
++	&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
++		&lt;span&gt;
++			&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
++		&lt;/span&gt;
++	&lt;/form&gt;
+ &lt;?php
+ 	}
+ ?&gt;
+
+Modified: trunk/searchmore.php
+===================================================================
+--- trunk/searchmore.php	2006-06-09 16:00:19 UTC (rev 151)
++++ trunk/searchmore.php	2006-06-09 18:52:19 UTC (rev 152)
+@@ -15,11 +15,11 @@
+ 			&lt;tbody&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=row&gt;&lt;label for=&quot;autor&quot;&gt;Autor:&lt;/label&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;autor&quot; name=&quot;autor&quot;&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;input class=&quot;input_text&quot; type=&quot;text&quot; id=&quot;autor&quot; name=&quot;autor&quot;&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=row&gt;&lt;label for=&quot;titel&quot;&gt;Titel:&lt;/label&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;titel&quot; name=&quot;titel&quot;&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;input class=&quot;input_text&quot; type=&quot;text&quot; id=&quot;titel&quot; name=&quot;titel&quot;&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th&gt;&lt;/th&gt;
+@@ -39,7 +39,7 @@
+ 			&lt;tbody&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=row&gt;&lt;label for=&quot;suchbegriff&quot;&gt;Suchbegriff:&lt;/label&gt;&lt;/th&gt;
+-					&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;suchbegriff&quot; name=&quot;suchbegriff&quot;&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;input class=&quot;input_text&quot; type=&quot;text&quot; id=&quot;suchbegriff&quot; name=&quot;suchbegriff&quot;&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 				&lt;tr&gt;
+ 					&lt;th&gt;&lt;/th&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000141.html">[Liman-svn] r151 - trunk
+</A></li>
+	<LI>Next message: <A HREF="000143.html">[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#142">[ date ]</a>
+              <a href="thread.html#142">[ thread ]</a>
+              <a href="subject.html#142">[ subject ]</a>
+              <a href="author.html#142">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

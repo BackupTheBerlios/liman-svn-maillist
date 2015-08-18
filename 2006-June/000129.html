@@ -1,0 +1,596 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r139%20-%20in%20trunk/docs%3A%20.%20beleg3%20beleg3/interfaces%20beleg3/sourcecodes%20beleg3/sourcecodes/include&In-Reply-To=%3C200606051649.k55GngIr027555%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000128.html">
+   <LINK REL="Next"  HREF="000130.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r139%20-%20in%20trunk/docs%3A%20.%20beleg3%20beleg3/interfaces%20beleg3/sourcecodes%20beleg3/sourcecodes/include&In-Reply-To=%3C200606051649.k55GngIr027555%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun  5 18:49:42 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000128.html">[Liman-svn] r138 - in trunk: docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000130.html">[Liman-svn] r140 - in trunk: . design docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#129">[ date ]</a>
+              <a href="thread.html#129">[ thread ]</a>
+              <a href="subject.html#129">[ subject ]</a>
+              <a href="author.html#129">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-05 18:49:39 +0200 (Mon, 05 Jun 2006)
+New Revision: 139
+
+Added:
+   trunk/docs/beleg3/
+   trunk/docs/beleg3/Makefile
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/arbeitsaufgaben.tex
+   trunk/docs/beleg3/interfaces/
+   trunk/docs/beleg3/interfaces/autor.php
+   trunk/docs/beleg3/meta.tex
+   trunk/docs/beleg3/programmdokumentation.tex
+   trunk/docs/beleg3/sourcecodes/
+   trunk/docs/beleg3/sourcecodes/include/
+   trunk/docs/beleg3/sourcecodes/include/autor.php
+   trunk/docs/beleg3/systemhandbuch.tex
+   trunk/docs/beleg3/teilbeleg3.tex
+   trunk/docs/beleg3/titel.tex
+   trunk/docs/beleg3/tuclogo.eps
+   trunk/docs/beleg3/tuclogo.pdf
+   trunk/docs/beleg3/user.sty
+Log:
+Struktur f?\195?\188r dritten Teilbeleg
+
+
+Added: trunk/docs/beleg3/Makefile
+===================================================================
+--- trunk/docs/beleg3/Makefile	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/Makefile	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,52 @@
++MAIN = teilbeleg3
++DEPENDS =	Makefile\
++		teilbeleg3.tex\
++		meta.tex\
++		titel.tex\
++		anwenderdokumentation.tex\
++		arbeitsaufgaben.tex\
++		programmdokumentation.tex\
++		systemhandbuch.tex
++
++# Standard pdf
++all: pdf
++
++# make pdf
++pdf: $(MAIN).pdf
++
++# make pdfthumb
++pdfthumb: $(MAIN).tpt
++
++# make ps
++ps : $(MAIN).ps
++
++# make dvi
++dvi: $(MAIN).dvi
++
++# Erzeuge pdf
++$(MAIN).pdf: $(DEPENDS)
++	pdflatex $(MAIN).tex
++
++# Erzeuge pdfthumb
++$(MAIN).tpt: $(DEPENDS) $(MAIN).pdf
++	thumbpdf $(MAIN).pdf
++
++# Erzeuge ps aus dvi
++$(MAIN).ps: $(MAIN).dvi
++	dvips -o $(MAIN).ps -Pcmz -Pamz $(MAIN).dvi
++
++# Erzeuge dvi
++$(MAIN).dvi: $(DEPENDS)
++	latex $(MAIN)
++
++clean:
++	@rm -f *.aux
++	@rm -f *.dvi
++	@rm -f *.log
++	@rm -f *.out
++	@rm -f *.toc
++	@rm -f *.backup
++	@rm -f $(MAIN).pdf
++	@rm -f $(MAIN).tpt # pdfthumb
++	@rm -f $(MAIN).ps
++	@rm -f $(MAIN).dvi
+
+Added: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,8 @@
++\chapter{Anwenderdokumentation}
++\section{Produktzweck}
++
++\section{Basismaschine und Ressourcenanforderungen}
++
++\section{Nutzerklassen}
++
++\section{Bedienungsanleitung}
+
+Added: trunk/docs/beleg3/arbeitsaufgaben.tex
+===================================================================
+--- trunk/docs/beleg3/arbeitsaufgaben.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/arbeitsaufgaben.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1 @@
++ 
+
+Added: trunk/docs/beleg3/interfaces/autor.php
+===================================================================
+--- trunk/docs/beleg3/interfaces/autor.php	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/interfaces/autor.php	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,70 @@
++&lt;?php
++	/*! \brief Verwaltet Autoren
++	 *
++	 *  Stellt Funktionen zum Hinzuf&#252;gen von Autoren und Bereinigen nicht
++	 *  mehr benutzter Autoren bereit.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
++	 */
++	class Autor
++	{
++		var $Nr = 0; ///&lt; Identifikationsnummer des Autors
++		var $Name = 0; ///&lt; Name des Autors
++		
++		/*! \brief Legt Autorenobjekt an
++		 *
++		 *  Legt ein neues Autorenobjekt aus einem Objekt mit den
++		 *  Attributen Nr und Name an.
++		 *  \pre -
++		 *  \param[in] $data Objekt mit Autorendaten der Form
++		 *    - Nr
++		 *    - Name
++		 */
++		function Autor($data);
++
++		/*! \brief Entfernt unn&#246;tige Autoren
++		 *
++		 *  Entfernt aus Autoren alle Autoren, die keine Verbindung
++		 *  (Literatur_Autor-Tabelle) mehr mit Literatur haben.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
++		 */
++		function Clean();
++
++		/*! \brief Gibt Autoren zu bestimmter Literatur zur&#252;ck
++		 *
++		 *  Liest alle Autoren die einer Literatur ($literatur_nr)
++		 *  zugeordnet sind aus Kommentare aus und gibt sie als Feld des
++		 *  Typs Autor zur&#252;ck.
++		 *  \param[in] $literatur_nr Nr einer Literatur mit Autoren
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld vom Typ Autor
++		 */
++		function GetAll($literatur_nr);
++
++		/*! \brief Legt neue Autoren aus kommagetrennter Liste an
++		 *
++		 *  Teilt die kommagetrennte Liste von Autoren in einzelne
++		 *  Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob
++		 *  diese schon in der Datenbank existieren. Sollten diese
++		 *  schon existieren, dann wird Autor_Nr ausgelesen und zum
++		 *  Feld hinzugef&#252;gt. Sollten diese noch nicht existieren,
++		 *  werden sie hinzugef&#252;gt und die neuen Autor_Nr zum Feld
++		 *  hinzugef&#252;gt. Das komplette Feld mit Autor_Nr wird
++		 *  zur&#252;ckgegeben.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
++		 *  \return Feld mit Autor_Nr der Autoren
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
++		 */
++		function Split($autoren);
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/meta.tex
+===================================================================
+--- trunk/docs/beleg3/meta.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/meta.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,17 @@
++\newcommand{\dctitle}{Literaturverwaltung}
++\newcommand{\dcsubject}{Projektdokumentation}
++\newcommand{\dcsubtitle}{Teilbeleg 3}
++\newcommand{\dcauthor}{Simon Wunderlich}
++\newcommand{\dcdate}{\today}
++
++\ifpdf
++\hypersetup{%
++   pdfauthor={\dcsubject - \dcauthor}
++   pdftitle={\dctitle}
++   bookmarksnumbered=true,
++   pdfstartview={FitH},
++   colorlinks=true,
++   linkcolor=black,
++   plainpages = false
++}
++\fi
+
+Added: trunk/docs/beleg3/programmdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/programmdokumentation.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/programmdokumentation.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,18 @@
++\chapter{Programmdokumentation}
++\section{Definition Klasseninterfaces}
++\subsection{Klasse Autor}
++\lstinputlisting{interfaces/autor.php}
++
++\section{Kommentierte Quelltexte}
++%nur ein Test
++\subsection{include/autor.php}
++\lstinputlisting{sourcecodes/include/autor.php}
++
++\section{Testplan}
++\subsection{Testf&#195;&#164;lle}
++
++\subsection{Testmatrix}
++
++\section{Systemtest}
++
++\section{Abschlu&#195;&#159;einsch&#195;&#164;tzung}
+\ No newline at end of file
+
+Added: trunk/docs/beleg3/sourcecodes/include/autor.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/autor.php	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/sourcecodes/include/autor.php	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,137 @@
++&lt;?php
++	/*! \brief Verwaltet Autoren
++	 *
++	 *  Stellt Funktionen zum Hinzuf&#252;gen von Autoren und Bereinigen nicht
++	 *  mehr benutzter Autoren bereit.
++	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - Login::IsMember
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
++	 */
++	class Autor
++	{
++		var $Nr = 0; ///&lt; Identifikationsnummer des Autors
++		var $Name = 0; ///&lt; Name des Autors
++		
++		/*! \brief Legt Autorenobjekt an
++		 *
++		 *  Legt ein neues Autorenobjekt aus einem Objekt mit den
++		 *  Attributen Nr und Name an.
++		 *  \pre -
++		 *  \param[in] $data Objekt mit Autorendaten der Form
++		 *    - Nr
++		 *    - Name
++		 */
++		function Autor($data)
++		{
++			$this-&gt;Nr = $data-&gt;Nr;
++			$this-&gt;Name = $data-&gt;Name;
++		}
++
++		/*! \brief Entfernt unn&#246;tige Autoren
++		 *
++		 *  Entfernt aus Autoren alle Autoren, die keine Verbindung
++		 *  (Literatur_Autor-Tabelle) mehr mit Literatur haben.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
++		 */
++		function Clean()
++		{
++			global $db_config, $sqldb, $login;
++
++			if ($login-&gt;IsMember() === true)
++			{
++				$sql = &quot;DELETE autoren, connect
++						FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++						LEFT JOIN &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++						ON autoren.Autor_Nr = connect.Autor_Nr
++						WHERE connect.Autor_Nr is NULL&quot;;
++				$sqldb-&gt;Query($sql);
++			}
++		}
++
++		/*! \brief Gibt Autoren zu bestimmter Literatur zur&#252;ck
++		 *
++		 *  Liest alle Autoren die einer Literatur ($literatur_nr)
++		 *  zugeordnet sind aus Kommentare aus und gibt sie als Feld des
++		 *  Typs Autor zur&#252;ck.
++		 *  \param[in] $literatur_nr Nr einer Literatur mit Autoren
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \return Feld vom Typ Autor
++		 */
++		function GetAll($literatur_nr)
++		{
++			global $db_config, $sqldb;
++
++			$authors = array();
++			$sql = &quot;SELECT  autoren.Autor_Nr AS Nr, Autorname AS Name
++					FROM &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
++					INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++					ON connect.Autor_Nr = autoren.Autor_Nr
++					WHERE Literatur_Nr = '$literatur_nr'&quot;;
++			$sqldb-&gt;Query($sql);
++			while ($cur = $sqldb-&gt;Fetch())
++			{
++				$authors[] = new Autor($cur);
++			}
++			return $authors;
++		}
++
++		/*! \brief Legt neue Autoren aus kommagetrennter Liste an
++		 *
++		 *  Teilt die kommagetrennte Liste von Autoren in einzelne
++		 *  Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob
++		 *  diese schon in der Datenbank existieren. Sollten diese
++		 *  schon existieren, dann wird Autor_Nr ausgelesen und zum
++		 *  Feld hinzugef&#252;gt. Sollten diese noch nicht existieren,
++		 *  werden sie hinzugef&#252;gt und die neuen Autor_Nr zum Feld
++		 *  hinzugef&#252;gt. Das komplette Feld mit Autor_Nr wird
++		 *  zur&#252;ckgegeben.
++		 *  \pre Datenbankverbindung muss bestehen
++		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
++		 *  \return Feld mit Autor_Nr der Autoren
++		 *  \remarks Ist der Nutzer nicht eingeloggt, werden keine
++		 *    Operationen ausgef&#252;hrt.
++		 */
++		function Split($autoren)
++		{
++			global $db_config, $sqldb, $login;
++			
++			$authorNumbers = array();
++
++			if ($login-&gt;IsMember() === true)
++			{
++				$authorNames = array();
++				$authorNames = split( &quot;,&quot;, $autoren );
++			
++				for( $i = 0; $i &lt; count($authorNames); $i++ )
++				{
++					$sqlSelect = &quot;SELECT Autor_Nr AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren AS autoren
++							WHERE Autorname = '&quot;.trim($authorNames[$i]).&quot;'&quot;;
++					$sqldb-&gt;Query( $sqlSelect );
++					
++					if( $cur = $sqldb-&gt;Fetch() )
++					{
++						$authorNumbers[] = $cur-&gt;Nr;
++					}
++					else
++					{
++						$sqlInsert = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Autoren VALUES (NULL, '&quot;.trim($authorNames[$i]).&quot;')&quot;;
++						$sqlIdentity = &quot;SELECT @@IDENTITY AS Nr FROM &quot;.$db_config['prefix'].&quot;Autoren&quot;;
++						$sqldb-&gt;Query( $sqlInsert );
++						$sqldb-&gt;Query( $sqlIdentity );
++						$line = $sqldb-&gt;Fetch();
++						$authorNumbers[] = $line-&gt;Nr;
++					}
++				}
++			}
++			
++			return $authorNumbers;
++		}
++	}
++?&gt;
+
+Added: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,6 @@
++\chapter{Systemhandbuch}
++\section{Installationsanleitung}
++
++\section{Programm-Filesystem}
++
++\section{Administrationsanleitung}
+\ No newline at end of file
+
+Added: trunk/docs/beleg3/teilbeleg3.tex
+===================================================================
+--- trunk/docs/beleg3/teilbeleg3.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/teilbeleg3.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,42 @@
++\documentclass[a4paper]{scrreprt}
++
++\usepackage[ngerman]{babel}
++\usepackage[utf8]{inputenc}
++\usepackage{pslatex}
++\usepackage{amssymb}
++\usepackage{textcomp}
++\usepackage{parskip}
++\usepackage{graphicx}
++\usepackage{txfonts}
++\usepackage[T1]{fontenc}
++\usepackage{user} % eigene Befehle
++\usepackage{longtable}
++\usepackage{floatflt}
++\usepackage{listings}
++
++\ifpdf
++  \usepackage[ps2pdf]{thumbpdf}
++  \usepackage[pdftex]{hyperref}
++\else
++  \usepackage[active]{srcltx}
++\fi
++
++% Einstellung f&#195;&#188;r Listings
++\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, basicstyle=\scriptsize, showstringspaces=false}
++\lstset{language=PHP, inputencoding=latin1, breaklines=true, breakatwhitespace=true}
++
++\include{meta} % Metainformationen wie Titel, Autoren,...
++
++\begin{document}
++\include{titel} % Titel des Dokuments mit Informationen aus meta
++\cleardoublepage
++\tableofcontents
++\cleardoublepage
++
++%Kapitel
++\input{programmdokumentation}
++\input{systemhandbuch}
++\input{anwenderdokumentation}
++\input{arbeitsaufgaben}
++
++\end{document}
+
+Added: trunk/docs/beleg3/titel.tex
+===================================================================
+--- trunk/docs/beleg3/titel.tex	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/titel.tex	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,43 @@
++% Momentan (schlecht) handgestrickt - wenn jemand es mit \maketitle und den
++% Autoren wie in Vorlage hinbekommt, bitte &#195;&#164;ndern
++
++\begin{titlepage}
++	\begin{center}\sffamily
++		\vspace{15mm}
++		\includegraphics{tuclogo}
++		\vfill
++		{% Kopf des Titels
++			\large Softwarepraktikum 2006\\[1.5ex]
++		}
++		\vfill \vfill
++
++		%Titel
++		\textbf{\Huge\dctitle}
++		\vspace{1.5cm}
++		
++		% Subjekt
++		\textbf{\Large\dcsubject}
++
++		% Untertitel
++		\textsc{\Large \dcsubtitle}
++		\vfill \vfill
++	\end{center}
++	
++	
++	{%Autoren
++		\begin{tabbing}
++			\hspace{4.5cm}\=\textbf{Teamleiter:}\hspace{0.5cm}\=Simon~Wunderlich\\[2.0ex]
++				\&gt;\textbf{Mitglieder des Projektteams:}\\[1.5ex]
++				\&gt;            \&gt;Andreas~Tr&#195;&#182;ger \\[1.5ex]
++				\&gt;            \&gt;Frank~Wilhelm \\[1.5ex]
++				\&gt;            \&gt;Florian~Scharl \\[1.5ex]
++				\&gt;            \&gt;Sven~Eckelmann \\[4.0ex]
++				\&gt; \textbf{Praktikumsbetreuer:} Michael Rentzsch
++		\end{tabbing}
++	}
++	\vfill
++	
++	{%Betreuer
++		Chemnitz, den \dcdate
++	}
++\end{titlepage}
+
+Added: trunk/docs/beleg3/tuclogo.eps
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/tuclogo.eps
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/tuclogo.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/tuclogo.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/user.sty
+===================================================================
+--- trunk/docs/beleg3/user.sty	2006-06-05 16:09:24 UTC (rev 138)
++++ trunk/docs/beleg3/user.sty	2006-06-05 16:49:39 UTC (rev 139)
+@@ -0,0 +1,27 @@
++% Nummer auch vor subsubsection anzeigen
++\setcounter{secnumdepth}{3}
++
++% Zeilenumbruch nach paragraph
++\makeatletter
++\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@} 
++               {3.25ex \@plus1ex \@minus.2ex} %
++               {1.5ex \@plus .2ex} %
++               {\setlength{\parfillskip}{\z@ \@plus 1fil}%
++               \raggedsection\normalfont\sectfont\nobreak\<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">size at paragraph</A>\nobreak}}
++\makeatother 
++
++% Hilfsfunktion f&#195;&#188;r Erkennenung der Erzeugung von PDF
++\newif\ifpdf 
++\ifx\pdfoutput\undefined
++  \pdffalse
++\else
++  \ifx\pdfoutput\relax
++    \pdffalse
++  \else
++    \ifnum\pdfoutput&gt;0
++      \pdftrue
++    \else
++      \pdffalse
++    \fi
++  \fi
++\fi
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000128.html">[Liman-svn] r138 - in trunk: docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000130.html">[Liman-svn] r140 - in trunk: . design docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#129">[ date ]</a>
+              <a href="thread.html#129">[ thread ]</a>
+              <a href="subject.html#129">[ subject ]</a>
+              <a href="author.html#129">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r176 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r176%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606191916.k5JJGY6V023096%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000165.html">
+   <LINK REL="Next"  HREF="000167.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r176 - trunk/docs/beleg3</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r176%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606191916.k5JJGY6V023096%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r176 - trunk/docs/beleg3">trusch at berlios.de
+       </A><BR>
+    <I>Mon Jun 19 21:16:34 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000165.html">[Liman-svn] r175 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000167.html">[Liman-svn] r177 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#166">[ date ]</a>
+              <a href="thread.html#166">[ thread ]</a>
+              <a href="subject.html#166">[ subject ]</a>
+              <a href="author.html#166">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-06-19 21:16:25 +0200 (Mon, 19 Jun 2006)
+New Revision: 176
+
+Modified:
+   trunk/docs/beleg3/systemhandbuch.tex
+Log:
+
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-18 13:13:25 UTC (rev 175)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-06-19 19:16:25 UTC (rev 176)
+@@ -29,10 +29,70 @@
+ include/config.php anpassen.
+ 
+ &quot;Uberpr&quot;ufen sie Ihre Einstellungen mit einem Login auf <A HREF="http://ihr.server.de/liman/">http://ihr.server.de/liman/</A> .
+-Wenn alles korrekt installiert wurde, sollten abschlie&#195;&#159;end noch die Datei install.php 
++Wenn alles korrekt installiert wurde, sollten abschlie&#223;end noch die Datei install.php 
+ aus dem Webserver-Verzeichnis gel&quot;oscht werden, damit niemand die Datenbankverbindungsdaten neu 
+ setzen kann.
+ 
+ \section{Programm-Filesystem}
++{TODO}
++\begin{longtable}{|l|p{6.0cm}|p{2cm}|}
++\hline
++{\bf Bezeichnung der Datei} &amp; {\bf Bedeutung} &amp; {\bf Anzahl Bytes}\\
++\hline
++\endhead
+ 
++index.php &amp; Startseite mit Letzte Literatur &amp; 1196\\
++\hline
++login.php &amp; login/logout mit Begr&quot;u&quot;sungstext &amp; 836\\
++\hline
++user.php &amp; Nutzerdetails &amp; 1680\\
++\hline
++usermode.php &amp; Nutzer l&quot;oschen/&quot;andern/hinzuf&quot;ugen &amp; 7892\\
++\hline
++userlist.php &amp; Nutzerdaten anzeigen &amp; 1924\\
++\hline
++search.php &amp; Suche (Ergebnisse) &amp; 1893\\
++\hline
++searchmore.php &amp; Suche (Formular) &amp; 1284\\
++\hline
++litmod.php &amp; Literatur l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 10056\\
++\hline
++commentmod.php &amp; Kommentar l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 3089\\
++\hline
++lit.php &amp; Literaturdetails &amp; 4436\\
++\hline
++bibtex.php &amp; BibTeX Importieren &amp; 2318\\
++\hline
++include$\backslash$config.php &amp; Datenbankkonfiguration &amp; 362\\
++\hline
++include$\backslash$global.php &amp; Einrichtung Prog. - Umgebung &amp; 1557\\
++\hline
++include$\backslash$literatur.php &amp; Stellt Funktionen f&quot;ur Literatur in Bibliothek zur Verf&quot;ugung &amp; 11846\\
++\hline
++include$\backslash$mitglied.php &amp; Stellt Funktionen f&quot;ur Mitglieder bereit &amp; 8436\\
++\hline
++include$\backslash$suche.php &amp; Durchsucht die Tabelle Bibliothek und Autoren &quot;uber Volltextsuche &amp; 7852\\
++\hline
++include$\backslash$footer.php &amp; Ende jeder Html - Datei &amp; 36 \\
++\hline
++include$\backslash$header.php &amp; Kopf jeder Html-Datei &amp; 2885 \\
++\hline
++include$\backslash$literaturart.php &amp; Speicherung aus der Datenbank oder BibTeX-Datei erhaltenen Art von Informationen &amp; 3811\\
++\hline
++include$\backslash$sqldb.php &amp; Datenbankzugriffsauswahl &amp; 354 \\
++\hline
++include$\backslash$autor.php &amp; Stellt Funktionen f&quot;ur Autoren bereit &amp; 4608\\
++\hline
++include$\backslash$formhelper.php &amp; Hilfsfunktionen f&quot;ur Formulare &amp; 2278\\
++\hline
++include$\backslash$kommentar.php &amp; Stellt Funktionen f&quot;ur Kommentare bereit &amp; 7911\\
++\hline   
++include$\backslash$login.php &amp;  Verwaltet die Session des Users und der damit entstehenden Rechte &amp; 5243\\
++\hline
++include$\backslash$sqldbmysql.php &amp; Startet eine Verbindung zum Datenbanksystem her und w&quot;ahlt eine Datenbank &amp; 6323\\
++\hline
++
++\end{longtable}
++
++
+ \section{Administrationsanleitung}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000165.html">[Liman-svn] r175 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000167.html">[Liman-svn] r177 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#166">[ date ]</a>
+              <a href="thread.html#166">[ thread ]</a>
+              <a href="subject.html#166">[ subject ]</a>
+              <a href="author.html#166">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,196 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r61 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r61%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604260858.k3Q8wtn2003815%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000050.html">
+   <LINK REL="Next"  HREF="000052.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r61 - trunk/docs/beleg1</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r61%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604260858.k3Q8wtn2003815%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r61 - trunk/docs/beleg1">trusch at berlios.de
+       </A><BR>
+    <I>Wed Apr 26 10:58:55 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000050.html">[Liman-svn] r60 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000052.html">[Liman-svn] r62 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-04-26 10:58:54 +0200 (Wed, 26 Apr 2006)
+New Revision: 61
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 07:48:57 UTC (rev 60)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 08:58:54 UTC (rev 61)
+@@ -114,22 +114,24 @@
+ 
+ \emph{Mitglieder} &amp; \{Mitglied\} \\
+ \hline
+-Mitglied  &amp; @Mitglieds\_Nr  + Name + Login + Passwort + Rechte + E-Mail\\
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+ \hline
+ Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* \\ 
+ \hline
+-Name &amp; &lt;Vor&gt;Name + &lt;Nach&gt;Name \\
++Name &amp; Zeichenkette20 \\
+ \hline
++Vorname &amp; Zeichenkette20 \\
++\hline
+ Login &amp; Zeichenkette12 \\
+ \hline
+ Passwort &amp; Zeichenkette12 \\
+ \hline
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] \\
+ \hline
+-E-Mail &amp; Zeichenkette320 \\
++E-Mail &amp; Zeichenkette50 \\
+ \hline\hline
+ 
+-Mitgliedsdaten &amp; Name + Login + Passwort + Rechte + E-Mail\\
++Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail\\
+ \hline
+ Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) \\
+ \hline
+@@ -168,7 +170,7 @@
+ \hline
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
+ \hline
+-Mitgliederliste &amp; \{Mitglieds\_Nr + Name\}\\
++Mitgliederliste &amp; \{Mitglieds\_Nr + Name + Vorname\}\\
+ \hline
+ \end{longtable}
+ 
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 07:48:57 UTC (rev 60)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 08:58:54 UTC (rev 61)
+@@ -41,12 +41,16 @@
+ Kommentartext &amp; Zeichenkette400 &amp; $400$\\
+ \hline\hline
+ 
+-Mitglied  &amp; @Mitglieds\_Nr  + Name + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 12 + 12 + 13 = 381 $\\
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Vorname + Login + Passwort + Rechte + E-Mail &amp; $4 + 20 + 20  + 12 + 12 + 13 + 50 = 131 $\\
+ \hline
+ Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* &amp; $4$ \\ 
+ \hline
+-Name &amp; &lt;Vor&gt;Name + &lt;Nach&gt;Name &amp; $10 + 10 = 20$\\
++Name &amp; Zeichenkette20 &amp; $20$\\
+ \hline
++Vorname &amp; Zeichenkette20 6 $20$ \\
++\hline
++E-Mail &amp; Zeichenkette30 &amp; $50$ \\
++\hline
+ Login &amp; Zeichenkette12 &amp; $12$\\
+ \hline
+ Passwort &amp; Zeichenkette12 &amp; $12$\\
+@@ -54,7 +58,7 @@
+ Rechte &amp; [``Benutzer'' $\mid $``Administrator``] &amp; $13$ \\
+ \hline\hline
+ 
+-Mitgliedsdaten &amp; Name + Login + Passwort + Rechte + E-Mail&amp; $20 + 12 + 12 + 13 + 320= 377 $\\
++Mitgliedsdaten &amp; Name + Vorname + Login + Passwort + Rechte + E-Mail&amp; $20 + 20 + 12 + 12 + 13 + 50 = 117 $\\
+ \hline
+ Literaturdaten &amp; Art + Titel + Autor + (Jahr) + (Verlag) + (ISBN) + (Beschreibung) + (Ort) + (Stichworte) &amp; $13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 545 $ \\
+ \hline
+@@ -93,7 +97,7 @@
+ \hline
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
+ \hline
+-Mitgliederliste &amp; \{Mitglieds\_Nr + Name\} &amp; $4 + 20 = 24 $\\
++Mitgliederliste &amp; \{Mitglieds\_Nr + Name + Vorname\} &amp; $4 + 20 + 20 = 44 $\\
+ \hline
+ \end{longtable}
+ 
+@@ -120,6 +124,7 @@
+ Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+ Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+ BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*8$ &amp; $50*8=400$ &amp; $100*8=800$ \\
++Revisionsunterlagen &amp;                      &amp;      &amp;            &amp;            \\
+  
+ \\
+ \hline
+@@ -128,17 +133,24 @@
+ \subsection{Absch&#228;tzungen}
+ TODO:
+ \begin{itemize}
+- \item \textbf{Gesamtsystem}: blablabla
+- \item \textbf{Mitglieder}: blub
+- \item \textbf{Leistungen}: jaja
+- \item \textbf{Revisionsunterlagen}: nicht die auch noch
++ \item \textbf{Gesamtsystem}: Als Nutzungszeit wird von 5 Jahren ausgegangen, wobei die maximale Nutzungszeit, 
++die an das System gestellt wird, 10 Jahre betr\&quot;agt.
++ \item \textbf{Mitglieder}: Es wird erwartet, dass nicht mehr als 500 Mitglieder den Dienst in Anspruch nehmen werden. Im Durchschnitt wird
++ die Mitgliederzahl etwa 200 betragen.
++\item \textbf{Leistungen}: Bei einem Stundenaufkommen zwischen 20 und 30 Stunden pro Jahr, kann davon ausgegangen werden, dass jedes 
++Mitglied in etwa 50 Suchanfragen, 10 Literatureinstellung und 20 Kommentaren abgibt. Die Informationen bleiben erhalten, solange der Dienst existiert.  
++ \item \textbf{Revisionsunterlagen}: Die Revision wird j\&quot;ahrlich vom Administrator durchgef\&quot;uhrt und umfasst normalerweise den Zeitraum seit der letzten Revision.  
+ \end{itemize}
+ 
+ \subsection{Genauigkeit}
+ Es werden nur Ganzzahlen im ganzen System verarbeitet. Es werden hierbei keine problematische Rechnungen vorgenommen.
+ 
+ \section{Operationelle Anforderungen an die Datenstr&#246;me}
+-TODO siehe Beispielbeleg S. 23
++Umfangreiche Datenstr\&quot;ome k\&quot;onnen im System nur auftreten, wenn Suchanfragen gestellt, Letzte Literatur aufgerufen, eine BibTex-Datei abgefragt 
++oder die Revisionsunterlagen abgerufen werden. Diese Datenstr\&quot;ome bewegen sich im Bereich von maximal ..... Megabyte und im Mittel ...... Kilobyte, sodass es selten
++zu gr\&quot;o\&quot;seren Datenstr\&quot;omen kommt.
+ 
++
+ \section{Operationelle Anforderungen an die Prozesse}
+-TODO siehe Beispielbeleg S. 23
+\ No newline at end of file
++Es wird von Antwortzeien bis zu 5 Sekunden gerechnet. Da die meisten Prozesse auf dem Server verarbeitet werden und der Client diese nur Darstellen muss, 
++kann von 5 Sekunden ausgegangen werden. 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000050.html">[Liman-svn] r60 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000052.html">[Liman-svn] r62 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#51">[ date ]</a>
+              <a href="thread.html#51">[ thread ]</a>
+              <a href="subject.html#51">[ subject ]</a>
+              <a href="author.html#51">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

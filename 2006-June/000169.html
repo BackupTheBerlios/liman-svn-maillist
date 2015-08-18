@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r179 - in trunk: . include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r179%20-%20in%20trunk%3A%20.%20include/tests&In-Reply-To=%3C200606241005.k5OA5sH7022063%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000168.html">
+   <LINK REL="Next"  HREF="000170.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r179 - in trunk: . include/tests</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r179%20-%20in%20trunk%3A%20.%20include/tests&In-Reply-To=%3C200606241005.k5OA5sH7022063%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r179 - in trunk: . include/tests">fwilhelm at berlios.de
+       </A><BR>
+    <I>Sat Jun 24 12:05:54 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000168.html">[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests
+</A></li>
+        <LI>Next message: <A HREF="000170.html">[Liman-svn] r180 - in trunk: docs/beleg3 include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#169">[ date ]</a>
+              <a href="thread.html#169">[ thread ]</a>
+              <a href="subject.html#169">[ subject ]</a>
+              <a href="author.html#169">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-06-24 12:05:53 +0200 (Sat, 24 Jun 2006)
+New Revision: 179
+
+Modified:
+   trunk/include/tests/autor.php
+   trunk/include/tests/kommentar.php
+   trunk/include/tests/mitglied.php
+   trunk/include/tests/sqldb_mock.php
+   trunk/include/tests/suche.php
+   trunk/test.php
+Log:
+Fehler bei SQLDB_Mock::Verify korregiert,
+test.php verfollst?\195?\164ndigt
+
+Modified: trunk/include/tests/autor.php
+===================================================================
+--- trunk/include/tests/autor.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/include/tests/autor.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -1,5 +1,6 @@
+ &lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
++	require_once(&quot;include/autor.php&quot;);
+ 	
+ 	class AutorTest
+ 	{
+@@ -91,7 +92,7 @@
+ 			$autoren = Autor::Split( $testAutorNamen );
+ 			
+ 			$result = $sqldb-&gt;Verify();
+-			if( $result !== false )
++			if( $result !== true )
+ 			{
+ 				$result-&gt;Unit = 'Autor';
+ 				$result-&gt;Test = 'Split (Gast)';
+@@ -114,7 +115,7 @@
+ 			$autoren = Autor::Split( $testAutorNamen );
+ 
+ 			$result = $sqldb-&gt;Verify();
+-			if( $result !== false )
++			if( $result !== true )
+ 			{
+ 				$result-&gt;Unit = 'Autor';
+ 				$result-&gt;Test = 'Split (Mitglied)';
+
+Modified: trunk/include/tests/kommentar.php
+===================================================================
+--- trunk/include/tests/kommentar.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/include/tests/kommentar.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -1,5 +1,6 @@
+ &lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
++	require_once(&quot;include/kommentar.php&quot;);
+ 	
+ 	class KommentarTest
+ 	{
+
+Modified: trunk/include/tests/mitglied.php
+===================================================================
+--- trunk/include/tests/mitglied.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/include/tests/mitglied.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -1,5 +1,6 @@
+ &lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
++	require_once(&quot;include/mitglied.php&quot;);
+ 	
+ 	class MitgliedTest
+ 	{
+@@ -242,8 +243,8 @@
+ 			global $sqldb, $login;
+ 			
+ 			$queryResult = array();
+-			$queryResult[] = CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; ); 
+-			$queryResult[] = CreateMemberData( 2, &quot;FischerFritze&quot;, &quot;passwort&quot;, &quot;Fritz&quot;, &quot;fischer&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">fritz at fischer.net</A>&quot;, &quot;Administrator&quot; );
++			$queryResult[] = $this-&gt;CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;, &quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; ); 
++			$queryResult[] = $this-&gt;CreateMemberData( 2, &quot;FischerFritze&quot;, &quot;passwort&quot;, &quot;Fritz&quot;, &quot;fischer&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">fritz at fischer.net</A>&quot;, &quot;Administrator&quot; );
+ 			
+ 			$login-&gt;Level = 0;	// Test mit Gast-Rechten
+ 			
+
+Modified: trunk/include/tests/sqldb_mock.php
+===================================================================
+--- trunk/include/tests/sqldb_mock.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/include/tests/sqldb_mock.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -111,7 +111,7 @@
+ 			}
+ 		}
+ 		
+-		var $error = false;
++		var $error = true;
+ 		var $patterns = array();
+ 		var $results = array();
+ 		var $queryCounter = 0;
+@@ -144,7 +144,7 @@
+ 		function Verify()
+ 		{
+ 			$ret = $this-&gt;error;
+-			if( ($ret === false) &amp;&amp; (count($this-&gt;results) != $this-&gt;queryCounter) )
++			if( ($ret === true) &amp;&amp; (count($this-&gt;results) != $this-&gt;queryCounter) )
+ 			{
+ 				$ret = new ErrorMessage( null, null, &quot;Anzahl Queries&quot;, count($this-&gt;results), $this-&gt;queryCounter );
+ 			}
+@@ -154,7 +154,7 @@
+ 			}
+ 			
+ 			// reset
+-			$this-&gt;error = false;
++			$this-&gt;error = true;
+ 			$this-&gt;error_msg = false;
+ 			$this-&gt;patterns = array();
+ 			$this-&gt;results = array();
+@@ -165,7 +165,7 @@
+ 		
+ 		function Query($query)
+ 		{
+-			if( $this-&gt;isOpen &amp;&amp; ($this-&gt;error_msg === false) )
++			if( $this-&gt;isOpen &amp;&amp; ($this-&gt;error === true) &amp;&amp; ($this-&gt;error_msg === false) )
+ 			{
+ 				if( count($this-&gt;patterns) &lt;= $this-&gt;queryCounter )
+ 				{
+
+Modified: trunk/include/tests/suche.php
+===================================================================
+--- trunk/include/tests/suche.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/include/tests/suche.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -1,7 +1,7 @@
+ &lt;?php
+ 	require_once(&quot;include/tests/errormessage.php&quot;);
++	require_once(&quot;include/suche.php&quot;);
+ 	
+-	
+ 	class SucheTest
+ 	{
+ 		var $suche;
+
+Modified: trunk/test.php
+===================================================================
+--- trunk/test.php	2006-06-23 04:33:49 UTC (rev 178)
++++ trunk/test.php	2006-06-24 10:05:53 UTC (rev 179)
+@@ -120,6 +120,30 @@
+ 				PrintTestResults($mitgliedTest-&gt;ConstructorTest());
+ 				$mitgliedTest-&gt;TearDown();
+ 				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Mitglied::GetAll()&lt;/td&gt;&quot;;
++				$mitgliedTest-&gt;Setup();
++				PrintTestResults($mitgliedTest-&gt;GetAll());
++				$mitgliedTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Mitglied::Insert()&lt;/td&gt;&quot;;
++				$mitgliedTest-&gt;Setup();
++				PrintTestResults($mitgliedTest-&gt;Insert());
++				$mitgliedTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Mitglied::Update()&lt;/td&gt;&quot;;
++				$mitgliedTest-&gt;Setup();
++				PrintTestResults($mitgliedTest-&gt;Update());
++				$mitgliedTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
++				
++				echo &quot;&lt;tr&gt;&lt;td&gt;Mitglied::Delete()&lt;/td&gt;&quot;;
++				$mitgliedTest-&gt;Setup();
++				PrintTestResults($mitgliedTest-&gt;Delete());
++				$mitgliedTest-&gt;TearDown();
++				echo &quot;&lt;/tr&gt;&quot;;
+ 			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000168.html">[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests
+</A></li>
+	<LI>Next message: <A HREF="000170.html">[Liman-svn] r180 - in trunk: docs/beleg3 include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#169">[ date ]</a>
+              <a href="thread.html#169">[ thread ]</a>
+              <a href="subject.html#169">[ subject ]</a>
+              <a href="author.html#169">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

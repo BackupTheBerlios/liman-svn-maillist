@@ -1,0 +1,1247 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r160 - in trunk: . include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r160%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606121824.k5CIOMQ9023160%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000149.html">
+   <LINK REL="Next"  HREF="000151.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r160 - in trunk: . include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r160%20-%20in%20trunk%3A%20.%20include&In-Reply-To=%3C200606121824.k5CIOMQ9023160%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r160 - in trunk: . include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun 12 20:24:22 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000149.html">[Liman-svn] r159 - in trunk: . include
+</A></li>
+        <LI>Next message: <A HREF="000151.html">[Liman-svn] r161 - in trunk: . design include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-12 20:24:14 +0200 (Mon, 12 Jun 2006)
+New Revision: 160
+
+Modified:
+   trunk/commentmod.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/login.php
+   trunk/search.php
+   trunk/user.php
+   trunk/userlist.php
+   trunk/usermod.php
+Log:
+weitere Kommentare hinzugef?\195?\188gt
+
+
+Modified: trunk/commentmod.php
+===================================================================
+--- trunk/commentmod.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/commentmod.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -63,7 +63,7 @@
+ 		}
+ 		else
+ 		{
+-			// Frage ob gel&#246;scht Kommentar werden soll
++			// Frage ob Kommentar gel&#246;scht werden soll
+ 			require_once(&quot;include/form_helper.php&quot;);
+ 			echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+ 			echo &quot;Wollen sie den Kommentar wirklich entfernen?&quot;;
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/include/login.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -89,11 +89,16 @@
+ 					LIMIT 1&quot;;
+ 			
+ 				$sqldb-&gt;Query($sql);
++
++				// Existiert das Mitglied?
+ 				if ($line = $sqldb-&gt;Fetch())
+ 				{
++					// Hat er das richtige Passwort?
+ 					if ($line-&gt;passwort === $_SESSION[&quot;login_passwort&quot;])
+ 					{
+ 						$this-&gt;Nr = $line-&gt;Nr;
++
++						// Setze Benuterrechte nach Rechtename
+ 						switch ($line-&gt;Rechte)
+ 						{
+ 						case &quot;Administrator&quot;:
+@@ -129,6 +134,7 @@
+ 		 */
+ 		function Logout()
+ 		{
++			// Entferne Session und die Informationen zu dieser
+ 			session_unset();
+ 			session_destroy();
+ 			$this-&gt;Level = 0;
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/include/mitglied.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -37,12 +37,15 @@
+ 		function Mitglied($nr)
+ 		{
+ 			global $db_config, $sqldb;
++			
++			// Suche Mitglied mit Mitglied_Nr = $nr heraus
+ 			$sql = &quot;SELECT Mitglieds_Nr, Login, Passwort, Rechte, Vorname, Name, Email
+ 					FROM &quot;.$db_config['prefix'].&quot;Mitglieder
+ 					WHERE Mitglieds_Nr='$nr'
+ 					LIMIT 1&quot;;
+ 			$sqldb-&gt;Query($sql);
+ 			
++			// Lese gefundene Daten aus
+ 			if ($cur = $sqldb-&gt;Fetch())
+ 			{
+ 				$this-&gt;Nr = $cur-&gt;Mitglieds_Nr;
+@@ -52,6 +55,7 @@
+ 				$this-&gt;Nachname = $cur-&gt;Name;
+ 				$this-&gt;Email = $cur-&gt;Email;
+ 
++				// Wandle Rechtebezeichner in numerische Repr&#228;sentation um
+ 				switch ($cur-&gt;Rechte)
+ 				{
+ 				case &quot;Administrator&quot;:
+@@ -95,13 +99,16 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Administrator angemeldet sind
+ 			if ($login-&gt;IsAdministrator() === true)
+ 			{
++				// Entferne Mitglied mit Mitglieds_Nr $nr aus Mitglieder
+ 				$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Mitglieder
+ 						WHERE Mitglieds_Nr = '$nr'
+ 						LIMIT 1&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 
++				// L&#246;scht alle zu Mitglied geh&#246;renden Kommentare
+ 				Kommentar::DeleteAllMember($nr);
+ 			}
+ 		}
+@@ -132,12 +139,15 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Administrator angemeldet sind
+ 			if ($login-&gt;IsAdministrator() === true)
+ 			{
++				// Erzeuge Passworthash
+ 				$passworthash = Mitglied::PasswordHash($passwort);
++
++				// F&#252;ge neues Mitglied hinzu
+ 				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Mitglieder
+ 						VALUES (NULL, '$nachname', '$vorname', '$email', '$loginname', '$passworthash', '$rechte')&quot;;
+-				
+ 				if ($sqldb-&gt;Query($sql) !== false)
+ 				{
+ 					return true;
+@@ -186,17 +196,21 @@
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
++			// Nur wenn wir als Administrator angemeldet sind
+ 			if ($login-&gt;IsAdministrator() === true || $nr == $login-&gt;Nr)
+ 			{
++				// Erlaube nicht, dass einfache Mitglieder ihre
++				// Rechte erh&#246;hen
+ 				if ($login-&gt;IsAdministrator() === false)
+ 				{
+ 					$rechte = &quot;Benutzer&quot;;
+ 				}
+ 
+ 				$sql = &quot;&quot;;
++				// Wurde neues Passwort angegeben?
+ 				if (empty($passwort) === true)
+ 				{
+-					
++					// wenn nicht, aktualisiere nur die anderen Daten
+ 					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
+ 							SET Login='$loginname', Rechte='$rechte', Vorname='$vorname', Name='$nachname', Email='$email'
+ 							WHERE Mitglieds_Nr='$nr'
+@@ -204,13 +218,16 @@
+ 				}
+ 				else
+ 				{
++					// wenn ja, erzeuge neuen Hash und aktualisiere
++					// ihn mit den anderen Daten
+ 					$passworthash = Mitglied::PasswordHash($passwort);
+ 					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
+ 							SET Login='$loginname', Passwort='$passworthash', Rechte='$rechte', Vorname='$vorname', Name='$nachname', Email='$email'
+ 							WHERE Mitglieds_Nr='$nr'
+ 							LIMIT 1&quot;;
+ 				}
+-	
++
++				// &#196;ndere Daten des Mitglieds
+ 				if ($sqldb-&gt;Query($sql) !== false)
+ 				{
+ 					return true;
+@@ -249,12 +266,15 @@
+ 
+ 			$members = array();
+ 
++			// Wenn wir als Administrator angemeldet sind
+ 			if ($login-&gt;IsAdministrator() === true)
+ 			{
++				// Suche alle Mitglieder
+ 				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
+ 						FROM &quot;.$db_config['prefix'].&quot;Mitglieder&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 				
++				// Lese Mitglieder aus
+ 				while ($cur = $sqldb-&gt;Fetch())
+ 				{
+ 					$members[] = $cur;
+@@ -262,12 +282,14 @@
+ 			}
+ 			elseif ($login-&gt;IsMember() === true)
+ 			{
++				// Suche eigene Daten in Mitglied
+ 				$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
+ 						FROM &quot;.$db_config['prefix'].&quot;Mitglieder
+ 						WHERE Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
+ 						LIMIT 1&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 				
++				// Lese Mitglied aus
+ 				if ($cur = $sqldb-&gt;Fetch())
+ 				{
+ 					$members[] = $cur;
+
+Modified: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/include/sqldb.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -1,4 +1,5 @@
+ &lt;?php
++	// W&#228;hle Datenbanksystem aus
+ 	switch ($db_config['dbms'])
+ 	{
+ 		default:
+@@ -7,8 +8,10 @@
+ 			break;
+ 	}
+ 	
++	// Verbinde mit Datenbank
+ 	$sqldb = new SQLDB($db_config[&quot;host&quot;], $db_config[&quot;user&quot;], $db_config[&quot;pass&quot;], $db_config[&quot;name&quot;]);
+ 	
++	// Gib Fehler aus und breche ab, wenn keine Verbindung zum SQL-Server besteht
+ 	if ($sqldb-&gt;db_id === false)
+ 		die(mysql_error().&quot;. Could not connect to SQL server. Please inform Webmaster&quot;);;
+ ?&gt;
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/include/sqldb_mysql.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -69,8 +69,12 @@
+ 		{
+ 			if ($this-&gt;db_id !== false)
+ 			{
++				// Wenn Datenbankverbindung besteht,
++				// gebe Resourcen frei und schlie&#223;e Verbindung
+ 				$this-&gt;FreeResult();
+-				return @mysql_close($this-&gt;db_id);
++				$dbid = $this-&gt;db_id;
++				$this-&gt;db_id = false;
++				return @mysql_close($dbid);
+ 			}
+ 			else
+ 			{
+@@ -93,6 +97,8 @@
+ 		{
+ 			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
+ 			{
++				// Wenn Datenbankverbindung und Ergebnis eines Querys
++				// besteht, bewege Zeiger auf angegebenes Ergebnis
+ 				return @mysql_data_seek($this-&gt;query_result, $row_number);
+ 			}
+ 			else
+@@ -114,6 +120,8 @@
+ 		{
+ 			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
+ 			{
++				// Wenn Datenbankverbindung und Ergebnis eines Querys
++				// besteht, gebe aktuelles Ergebnis zur&#252;ck
+ 				return @mysql_fetch_object($this-&gt;query_result);
+ 			}
+ 			else
+@@ -133,7 +141,11 @@
+ 		{
+ 			if ($this-&gt;query_result !== false)
+ 			{
+-				return @mysql_free_result($this-&gt;query_result);;
++				// Wenn rgebnis eines Querys existiert, gebe
++				// es frei
++				$queryresult = $this-&gt;query_result;
++				$this-&gt;query_result = false;
++				return @mysql_free_result($queryresult);
+ 			}
+ 			else
+ 			{
+@@ -155,6 +167,8 @@
+ 		{
+ 			if ($this-&gt;db_id !== false)
+ 			{
++				// Wenn Datenbankverbindung besteht, gebe
++				// Anzahl zuletzt ge&#228;nderter Datens&#228;tze zur&#252;ck
+ 				return @mysql_affected_rows($this-&gt;db_id);
+ 			}
+ 			else
+@@ -201,6 +215,9 @@
+ 		{
+ 			if ($this-&gt;db_id !== false)
+ 			{
++				// Wenn Datenbankverbindung besteht, gebe 
++				// ID des zuletzt hinzugef&#252;gten Datensatzes
++				// zur&#252;ck
+ 				return @mysql_insert_id($this-&gt;db_id);
+ 			}
+ 			else
+@@ -222,6 +239,8 @@
+ 		{
+ 			if ($this-&gt;db_id !== false &amp;&amp; $this-&gt;query_result !== false)
+ 			{
++				// Wenn Datenbankverbindung und Ergebnis eines Querys
++				// besteht, gebe Anzahl gefundener Datens&#228;tze zur&#252;ck
+ 				return @mysql_num_rows($this-&gt;query_result);
+ 			}
+ 			else
+@@ -243,6 +262,8 @@
+ 		{
+ 			if ($this-&gt;db_id !== false)
+ 			{
++				// Wenn Datenbankverbindung besteht, sende
++				// Abfrage an Datenbank
+ 				$this-&gt;FreeResult();
+ 				return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
+ 			}
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/include/suche.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -43,23 +43,27 @@
+ 		{
+ 			global $sqldb, $db_config;
+ 
++			// Finde die 10 zuletzt hinzugef&#252;gten Literatureintr&#228;ge
+ 			$sql = &quot;SELECT Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 					FROM &quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+ 					ORDER BY `Literatur_Nr` DESC
+ 					LIMIT 10&quot;;
+ 			$sqldb-&gt;Query($sql);
+ 
++			// Lese Treffer aus
+ 			$this-&gt;Treffer = array();
+ 			while ($cur = $sqldb-&gt;Fetch())
+ 			{
+ 				$this-&gt;Treffer[] = $cur;	
+ 			}
+ 
++			// Lese zu jedem Treffer Autoren
+ 			for ($i = 0; $i &lt; count($this-&gt;Treffer); $i++)
+ 			{
+ 				// Kommagetrennte Autorenliste erstellen
+ 				$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
+ 
++				// Erstelle kommagetrennte Liste der Autoren
+ 				$autorlist = &quot;&quot;;
+ 				if (empty($authors) === false)
+ 				{
+@@ -95,6 +99,7 @@
+ 			$volltext = trim($volltext);
+ 			if (empty($volltext) === false)
+ 			{
++				// Finde Literatur mit Suchbegriff
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+ 							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+@@ -105,16 +110,19 @@
+ 						OR MATCH (Autorname) AGAINST ('$volltext')&quot;;
+ 				$sqldb-&gt;Query($sql);
+ 				
++				// Lese Treffer aus
+ 				while ($cur = $sqldb-&gt;Fetch())
+ 				{
+ 					$this-&gt;Treffer[] = $cur;	
+ 				}
+ 	
++				// Lese zu jedem Treffer Autoren
+ 				for ($i = 0; $i &lt; count($this-&gt;Treffer); $i++)
+ 				{
+ 					// Kommagetrennte Autorenliste erstellen
+ 					$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
+ 	
++					// Erstelle kommagetrennte Liste der Autoren
+ 					$autorlist = &quot;&quot;;
+ 					if (empty($authors) === false)
+ 					{
+@@ -156,6 +164,7 @@
+ 			$autor = trim($autor);
+ 			if (empty($titel) === false || empty($autor) === false)
+ 			{
++				// Finde Literatur mit Titel und Autor
+ 				$sql = &quot;SELECT DISTINCT bibliothek.Literatur_Nr AS Nr, Titel, Verlag, ISBN
+ 						FROM (&quot;.$db_config['prefix'].&quot;Bibliothek AS bibliothek
+ 							INNER JOIN  &quot;.$db_config['prefix'].&quot;Literatur_Autor AS connect
+@@ -164,6 +173,8 @@
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+ 						WHERE bibliothek.Titel like '%&quot;.$titel.&quot;%'&quot;;
+ 
++				// Trenne kommagetrennte Autorenliste und
++				// f&#252;ge es Suche hinzu
+ 				if (empty($autor) === false)
+ 				{
+ 					$sql .= &quot; AND (&quot;;
+@@ -179,18 +190,21 @@
+ 					}
+ 					$sql .= &quot;)&quot;;
+ 				}
++				$sqldb-&gt;Query($sql);
+ 
+-				$sqldb-&gt;Query($sql);
++				// Lese Treffer aus
+ 				while ($cur = $sqldb-&gt;Fetch())
+ 				{
+ 					$this-&gt;Treffer[] = $cur;	
+ 				}
+ 	
++				// Lese zu jedem Treffer Autoren
+ 				for ($i = 0; $i &lt; count($this-&gt;Treffer); $i++)
+ 				{
+ 					// Kommagetrennte Autorenliste erstellen
+ 					$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
+ 	
++					// Erstelle kommagetrennte Liste der Autoren
+ 					$autorlist = &quot;&quot;;
+ 					if (empty($authors) === false)
+ 					{
+@@ -243,6 +257,7 @@
+ 		 */
+ 		function Suche($suchbegriff=&quot;&quot;, $autor=&quot;&quot;)
+ 		{
++			// W&#228;hle nach Parameteranzahl die richtige Suchfunktion
+ 			switch (func_num_args())
+ 			{
+ 			case 0:
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/index.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -39,7 +39,7 @@
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;?php
+-		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#252;ge- und Importierknopf an
++		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#252;ge- und Importierknopf aus
+ 		if ($login-&gt;IsMember() === true)
+ 		{
+ 		?&gt;
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/lit.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -5,6 +5,7 @@
+ 	require_once(&quot;include/header.php&quot;);
+ 	require_once(&quot;include/literatur.php&quot;);
+ 
++	// Lese Literatur aus, wenn id &#252;bergeben wurde
+ 	if (isset($_GET[&quot;id&quot;]))
+ 	{
+ 		$literatur = new Literatur($_GET[&quot;id&quot;]);
+@@ -13,6 +14,8 @@
+ 	{
+ 		$literatur = new Literatur(0);
+ 	}
++
++	// gebe Literatur aus
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	
+@@ -68,6 +71,7 @@
+ 				&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;?php
++				// Sind Mitgliedsrechte vorhanden, gebe Bearbeiten- und L&#246;schenknopf aus
+ 				if ($login-&gt;IsMember() === true)
+ 				{
+ 			?&gt;
+@@ -94,6 +98,7 @@
+ 				$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
+ 				foreach ($literatur-&gt;Kommentare as $cur)
+ 				{
++					// Suche ob schon ein Kommentar des aktuellen Mitglieds existiert
+ 					if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr)
+ 					{
+ 						$owncomment-&gt;Text = $cur-&gt;Text;
+@@ -123,9 +128,12 @@
+ 		if ($login-&gt;IsMember() === true)
+ 		{
+ 			require_once(&quot;include/form_helper.php&quot;);
++
+ 			// Soll Kommentar-Hinzuf&#252;gen-Box erscheinen oder Update-Box?
++			// (abh&#228;ngig ob schon Kommentar das Mitglieds existiert)
+ 			if (empty($owncomment) === true)
+ 			{
++				// Zeige Hinzuf&#252;gen-Formular
+ 		?&gt;
+ 			&lt;form action=&quot;commentmod.&lt;?=$ext;?&gt;?insert=&quot; method=&quot;post&quot;&gt;
+ 			&lt;span&gt;
+@@ -152,6 +160,7 @@
+ 			}
+ 			else
+ 			{
++				// Zeige &#196;ndern-Formular
+ 		?&gt;
+ 			&lt;form action=&quot;commentmod.&lt;?=$ext;?&gt;?update&quot; method=&quot;post&quot;&gt;
+ 			&lt;span&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/litmod.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -1,4 +1,5 @@
+ &lt;?php
++	// W&#228;hle Seitentitel nach ausgew&#228;hlter Aktion
+ 	if (isset($_GET[&quot;delete&quot;]) === true)
+ 	{
+ 		$title = &quot;Literatur l&#246;schen&quot;;
+@@ -15,6 +16,7 @@
+ 
+ 	require_once(&quot;include/header.php&quot;);
+ 
++	// Abbruch wenn keine Mitgliedsrechte vorhanden
+ 	if ($login-&gt;IsMember() === false)
+ 	{
+ 		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
+@@ -29,6 +31,7 @@
+ 	$error_autor = false;
+ 	$error_jahr = false;
+ 
++	// &#220;berpr&#252;fe wichtige Parameter bei Insert und Update auf Vorhandensein
+ 	if (isset($_GET[&quot;insert&quot;]) === true || isset($_GET[&quot;update&quot;]) === true)
+ 	{
+ 		if (empty($_POST[&quot;titel&quot;]) === true)
+@@ -50,6 +53,7 @@
+ 		}
+ 	}
+ 
++	// Gebe Fehler bei Parameter&#252;berpr&#252;fung aus
+ 	if ($error_occurred == true)
+ 	{
+ 		echo &quot;&lt;div id=\&quot;error_list\&quot;&gt;Es scheinen Fehler bei der Verarbeitung aufgetreten zu sein:&lt;ul&gt;&quot;;
+@@ -72,10 +76,11 @@
+ 		echo &quot;&lt;/ul&gt;&lt;/div&gt;&quot;;
+ 	}
+ 
+-
++	// Gebe Formular aus, wenn keine Schreibaktionen ausgef&#252;hrt werden
+ 	if ((isset($_GET[&quot;delete&quot;]) === false &amp;&amp; isset($_GET[&quot;insert&quot;]) === false &amp;&amp; isset($_GET[&quot;update&quot;]) === false)
+ 		|| $error_occurred === true)
+ 	{
++		// Lese id aus, wenn vorhanden
+ 		if (isset($_POST[&quot;id&quot;]) === true)
+ 		{
+ 			$id = $_POST[&quot;id&quot;];
+@@ -90,6 +95,7 @@
+ 		}
+ 
+ 		require_once(&quot;include/form_helper.php&quot;);
++		// Lese Literatur aus, wenn id bekannt ist und vorher kein Fehler aufgetreten ist
+ 		if ($error_occurred === false &amp;&amp; (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true))
+ 		{
+ 			require_once(&quot;include/literatur.php&quot;);
+@@ -128,6 +134,11 @@
+ 		}
+ 		else
+ 		{
++			// Sollte vorher Fehler aufgetreten sein, lese Parameter aus.
++			// Sollten vorher keine Fehler aufgetreten sein (keine
++			// id bekannt), setze Default Wert
++
++			// Setze Titel
+ 			if (isset($_POST[&quot;titel&quot;]) === true)
+ 			{
+ 				$titel = stripslashes($_POST[&quot;titel&quot;]);
+@@ -137,6 +148,7 @@
+ 				$titel = &quot;&quot;;
+ 			}
+ 
++			// Setze Autoren
+ 			if (isset($_POST[&quot;autor&quot;]) === true)
+ 			{
+ 				$autor = stripslashes($_POST[&quot;autor&quot;]);
+@@ -146,6 +158,7 @@
+ 				$autor = &quot;&quot;;
+ 			}
+ 
++			// Setze Jahr
+ 			if (isset($_POST[&quot;jahr&quot;]) === true)
+ 			{
+ 				$jahr = stripslashes($_POST[&quot;jahr&quot;]);
+@@ -155,6 +168,7 @@
+ 				$jahr = date(&quot;Y&quot;);
+ 			}
+ 
++			// Setze Stichworte
+ 			if (isset($_POST[&quot;stichworte&quot;]) === true)
+ 			{
+ 				$stichworte = stripslashes($_POST[&quot;stichworte&quot;]);
+@@ -164,6 +178,7 @@
+ 				$stichworte = &quot;&quot;;
+ 			}
+ 
++			// Setze Art
+ 			if (isset($_POST[&quot;art&quot;]) === true)
+ 			{
+ 				$art = stripslashes($_POST[&quot;art&quot;]);
+@@ -173,6 +188,7 @@
+ 				$art = &quot;Buch&quot;;
+ 			}
+ 
++			// Setze Verlag
+ 			if (isset($_POST[&quot;verlag&quot;]) === true)
+ 			{
+ 				$verlag = stripslashes($_POST[&quot;verlag&quot;]);
+@@ -182,6 +198,7 @@
+ 				$verlag = &quot;&quot;;
+ 			}
+ 
++			// Setze Ort
+ 			if (isset($_POST[&quot;ort&quot;]) === true)
+ 			{
+ 				$ort = stripslashes($_POST[&quot;ort&quot;]);
+@@ -191,6 +208,7 @@
+ 				$ort = &quot;&quot;;
+ 			}
+ 
++			// Setze ISBN
+ 			if (isset($_POST[&quot;isbn&quot;]) === true)
+ 			{
+ 				$isbn = stripslashes($_POST[&quot;isbn&quot;]);
+@@ -200,6 +218,7 @@
+ 				$isbn = &quot;&quot;;
+ 			}
+ 
++			// Setze Beschreibung
+ 			if (isset($_POST[&quot;beschreibung&quot;]) === true)
+ 			{
+ 				$beschreibung = stripslashes($_POST[&quot;beschreibung&quot;]);
+@@ -212,13 +231,17 @@
+ 
+ 		if (empty($id) === true)
+ 		{
++			// Gebe Hinzuf&#252;gen-Formular aus
+ 			echo &quot;&lt;form action=\&quot;litmod.&quot;.$ext.&quot;?insert\&quot; id=\&quot;litaddform\&quot; method=\&quot;post\&quot;&gt;&quot;;
+ 		}
+ 		else
+ 		{
++			// Gebe Update-Formular aus
+ 			echo &quot;&lt;form action=\&quot;litmod.&quot;.$ext.&quot;?update\&quot; id=\&quot;litupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
+ 			echo form_input(&quot;hidden&quot;, &quot;id&quot;, $id);
+ 		}
++
++		// Gebe Formular mit vorher bestimmten Werten aus
+ 	?&gt;
+ 		&lt;table id=&quot;litadd&quot;&gt;
+ 			&lt;tbody&gt;
+@@ -274,23 +297,32 @@
+ 	}
+ 	else
+ 	{
++		// F&#252;hre Schreibaktionen aus
+ 		require_once(&quot;include/literatur.php&quot;);
++
++
++		// Suche gew&#228;hlte Aktion
+ 		if (isset($_GET[&quot;delete&quot;]) === true)
+ 		{
++			// L&#246;schen wenn akzeptiert wurde
+ 			if (isset($_POST[&quot;accept&quot;]) === true)
+ 			{
++				// Fehlerhafte Daten zum L&#246;schen &#252;bertragen?
+ 				if (empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false)
+ 				{
++					// Wenn ja, gebe Fehler aus
+ 					echo &quot;&lt;p id=\&quot;error\&quot;&gt;Literatur konnte nicht gel&#246;scht werden, da es ein Fehler bei der &#220;bertragung der Informationen der Literatur gab&lt;/p&gt;&quot;;
+ 				}
+ 				else
+ 				{
++					// Wenn nicht, l&#246;sche Literatur und gebe Erfolgsmeldung aus
+ 					Literatur::Delete($_POST[&quot;id&quot;]);
+ 					echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde entfernt&lt;/p&gt;&quot;;
+ 				}
+ 			}
+ 			else
+ 			{
++				// Frage ob Literatur gel&#246;scht werden soll
+ 				require_once(&quot;include/form_helper.php&quot;);
+ 				echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+ 				echo &quot;Wollen sie die Literatur wirklich entfernen?&quot;;
+@@ -305,6 +337,7 @@
+ 		{
+ 			if (isset($_POST[&quot;accept&quot;]) === false)
+ 			{
++				// Suche ob &#228;hnliche Literatur existiert
+ 				require_once(&quot;include/suche.php&quot;);
+ 				$search = new Suche($_POST[&quot;titel&quot;], $_POST[&quot;autor&quot;]);
+ 				if (empty($search-&gt;Treffer) === false)
+@@ -323,7 +356,7 @@
+ 						&lt;/thead&gt;
+ 					&lt;tbody&gt;
+ 				&lt;?php
+-			
++					// Gebe gefundene Literatur zur&#252;ck
+ 					foreach ($search-&gt;Treffer as $cur)
+ 					{
+ 				?&gt;
+@@ -339,6 +372,7 @@
+ 						&lt;/tbody&gt;
+ 					&lt;/table&gt;
+ 				&lt;?php
++					// Frage nach Best&#228;tigung zum Hinzuf&#252;gen
+ 					require_once(&quot;include/form_helper.php&quot;);
+ 					echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+ 					echo &quot;Trotzdem hinzuf&#252;gen?&quot;;
+@@ -358,16 +392,20 @@
+ 				}
+ 			}
+ 
++			// Anlegen, wenn keine &#228;hnlichen B&#252;cher gefunden wurden oder wenn akzeptiert wurde
+ 			if (isset($_POST[&quot;accept&quot;]) === true || empty($search-&gt;Treffer) === true)
+ 			{
++				// Fehlerhafte Daten zum Anlegen &#252;bertragen?
+ 				if (isset($_POST[&quot;art&quot;]) === false || isset($_POST[&quot;verlag&quot;]) === false ||
+ 					isset($_POST[&quot;isbn&quot;]) === false || isset($_POST[&quot;beschreibung&quot;]) === false ||
+ 					isset($_POST[&quot;ort&quot;]) === false || isset($_POST[&quot;stichworte&quot;]) === false)
+ 				{
++					// Wenn ja, gebe Fehler aus
+ 					echo &quot;&lt;p id=\&quot;error\&quot;&gt;Literatur konnte nicht angelegt werden, da es ein Fehler bei der &#220;bertragung der Informationen der Literatur gab&lt;/p&gt;&quot;;
+ 				}
+ 				else
+ 				{
++					// Wenn nicht, lege Literatur an und gebe Erfolgsmeldung aus
+ 					Literatur::Insert($_POST[&quot;autor&quot;], $_POST[&quot;art&quot;], $_POST[&quot;titel&quot;], $_POST[&quot;jahr&quot;], $_POST[&quot;verlag&quot;], $_POST[&quot;isbn&quot;], $_POST[&quot;beschreibung&quot;], $_POST[&quot;ort&quot;], $_POST[&quot;stichworte&quot;]);
+ 					echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde hinzugef&#252;gt&lt;/p&gt;&quot;;
+ 				}
+@@ -375,15 +413,18 @@
+ 		}
+ 		elseif (isset($_GET[&quot;update&quot;]) === true)
+ 		{
++			// Fehlerhafte Daten zum &#196;ndern &#252;bertragen?
+ 			if (empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false ||
+ 				isset($_POST[&quot;art&quot;]) === false || isset($_POST[&quot;verlag&quot;]) === false ||
+ 				isset($_POST[&quot;isbn&quot;]) === false || isset($_POST[&quot;beschreibung&quot;]) === false ||
+ 				isset($_POST[&quot;ort&quot;]) === false || isset($_POST[&quot;stichworte&quot;]) === false)
+ 			{
+-					echo &quot;&lt;p id=\&quot;error\&quot;&gt;Literatur konnte nicht ge&#228;ndert werden, da es ein Fehler bei der &#220;bertragung der Informationen der Literatur gab&lt;/p&gt;&quot;;
++				// Wenn ja, gebe Fehler aus
++				echo &quot;&lt;p id=\&quot;error\&quot;&gt;Literatur konnte nicht ge&#228;ndert werden, da es ein Fehler bei der &#220;bertragung der Informationen der Literatur gab&lt;/p&gt;&quot;;
+ 			}
+ 			else
+ 			{
++				// Wenn nicht, &#228;ndere Literatur und gebe Erfolgsmeldung aus
+ 				Literatur::Update($_POST[&quot;id&quot;], $_POST[&quot;autor&quot;], $_POST[&quot;art&quot;], $_POST[&quot;titel&quot;], $_POST[&quot;jahr&quot;], $_POST[&quot;verlag&quot;], $_POST[&quot;isbn&quot;], $_POST[&quot;beschreibung&quot;], $_POST[&quot;ort&quot;], $_POST[&quot;stichworte&quot;]);
+ 				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde ge&#228;ndert&lt;/p&gt;&quot;;
+ 			}
+
+Modified: trunk/login.php
+===================================================================
+--- trunk/login.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/login.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -5,9 +5,20 @@
+ 	
+ 	require_once(&quot;include/global.php&quot;);
+ 
++	// Suche gew&#228;hlte Aktion
+ 	if (empty($_POST[&quot;loginname&quot;]) === false &amp;&amp; empty($_POST[&quot;passwort&quot;]) === false)
+ 	{
+-		$login = new Login($_POST[&quot;loginname&quot;], $_POST[&quot;passwort&quot;]);
++		// Fehlerhafte Daten zum L&#246;schen &#252;bertragen?
++		if (empty($_POST[&quot;loginname&quot;]) === true || empty($_POST[&quot;passwort&quot;]) === true)
++		{
++			// Wenn ja, gebe Fehler aus
++			echo &quot;&lt;p id=\&quot;error\&quot;&gt;Sie konnte nicht angemeldet werden, da es ein Fehler bei der &#220;bertragung der Informationen des Logins gab&lt;/p&gt;&quot;;
++		}
++		else
++		{
++			// Logge Mitglied mit &#252;bergebenen Parametern ein
++			$login = new Login($_POST[&quot;loginname&quot;], $_POST[&quot;passwort&quot;]);
++		}
+ 	}
+ 	elseif (isset($_GET[&quot;logout&quot;]) === true)
+ 	{
+@@ -19,18 +30,22 @@
+ &lt;div id=&quot;clogin&quot; class=&quot;content&quot;&gt;
+ 	&lt;div style=&quot;text-align: center&quot;&gt;
+ 	&lt;?php
++		// Gebe je nach Aktion Statusinformation aus
+ 		if (isset($_GET[&quot;logout&quot;]) === true)
+ 		{
++			// Verabschiede Nutzer beim Abmelden
+ 			echo &quot;Auf Wiedersehen&quot;;
+ 		}
+ 		elseif ($login-&gt;IsMember() === true)
+ 		{
++			// Begr&#252;&#223;e Nutzer beim Anmelden
+ 			require_once(&quot;include/mitglied.php&quot;);
+ 			$mitglied = new Mitglied($login-&gt;Nr);
+ 			echo &quot;Willkommen &quot;.$mitglied-&gt;Vorname.&quot; &quot;.$mitglied-&gt;Nachname;
+ 		}
+ 		else
+ 		{
++			// Sonst gebe Fehlermeldung beim Anmelden aus
+ 			echo &quot;&lt;div id=\&quot;error\&quot;&gt;Login ist Fehlgeschlagen&lt;/div&gt;&quot;;
+ 		}
+ 	?&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/search.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -1,6 +1,7 @@
+ &lt;?php
+ 	//$extracss = &quot;home.css&quot;;
+ 
++	// W&#228;hle Seitentitel nach ausgew&#228;hlter Aktion
+ 	if (isset($_GET[&quot;suchbegriff&quot;]) === true)
+ 	{
+ 		$title = &quot;Suchergebnisse f&uuml;r \&quot;&quot;.htmlspecialchars($_GET[&quot;suchbegriff&quot;]).&quot;\&quot;&quot;;
+@@ -20,19 +21,24 @@
+ &lt;?php
+ 	require_once(&quot;include/suche.php&quot;);
+ 
++	// Welche Art von Suche?
+ 	if (isset($_GET[&quot;suchbegriff&quot;]) === true)
+ 	{
++		// Volltextsuche nach Suchbegriff
+ 		$search = new Suche($_GET[&quot;suchbegriff&quot;]);
+ 	}
+ 	elseif (isset($_GET[&quot;autor&quot;]) === true &amp;&amp; isset($_GET[&quot;titel&quot;]) === true)
+ 	{
++		// Suche nach Autor und Titel
+ 		$search = new Suche($_GET[&quot;titel&quot;], $_GET[&quot;autor&quot;]);
+ 	}
+ 	else
+ 	{
++		// Suche zuletzt hinzugef&#252;gte Literatur
+ 		$search = new Suche();
+ 	}
+ 
++	// Wurde etwas gefunden?
+ 	if (empty($search-&gt;Treffer) === false)
+ 	{
+ 	?&gt;
+@@ -47,7 +53,7 @@
+ 			&lt;/thead&gt;
+ 		&lt;tbody&gt;
+ 	&lt;?php
+-
++		// Gebe alle gefundenen Treffer aus
+ 		foreach ($search-&gt;Treffer as $cur)
+ 		{
+ 	?&gt;
+@@ -66,27 +72,29 @@
+ 	}
+ 	else
+ 	{
++		// Wenn nicht, gebe Information aus
+ 		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffern gefunden&lt;/div&gt;&quot;;
+ 	}
+ ?&gt;
+ 
+ 
+ &lt;?php
++	// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#252;ge- und Importierknopf aus
+ 	if ($login-&gt;IsMember() === true)
+ 	{
+-?&gt;
+-	&lt;hr&gt;
+-	&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
+-		&lt;span&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-		&lt;/span&gt;
+-	&lt;/form&gt;
+-	&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
+-		&lt;span&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
+-		&lt;/span&gt;
+-	&lt;/form&gt;
+-&lt;?php
++	?&gt;
++		&lt;hr&gt;
++		&lt;form style=&quot;display:inline&quot; action=&quot;litmod.php&quot;&gt;
++			&lt;span&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++			&lt;/span&gt;
++		&lt;/form&gt;
++		&lt;form style=&quot;display:inline&quot; action=&quot;bibtex.php&quot;&gt;
++			&lt;span&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;BibTeX importieren&quot;&gt;
++			&lt;/span&gt;
++		&lt;/form&gt;
++	&lt;?php
+ 	}
+ ?&gt;
+ &lt;/div&gt;
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/user.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -5,6 +5,7 @@
+ 	require_once(&quot;include/header.php&quot;);
+ 	require_once(&quot;include/mitglied.php&quot;);
+ 
++	// Abbruch wenn keine Mitgliedsrechte vorhanden
+ 	if ($login-&gt;IsMember() === false)
+ 	{
+ 		require_once(&quot;include/footer.php&quot;);
+@@ -12,10 +13,13 @@
+ 	}
+ 	elseif ($login-&gt;IsAdministrator() === false)
+ 	{
++		// Wenn keine Administratorrechte vorhanden sind
++		// d&#252;rfen nur die eigenen Daten angesehen werden
+ 		$_GET[&quot;id&quot;] = $login-&gt;Nr;
+ 		$_POST[&quot;id&quot;] = $login-&gt;Nr;
+ 	}
+ 
++	// Lese Mitglied aus, wenn id &#252;bergeben wurde
+ 	if (isset($_GET[&quot;id&quot;]))
+ 	{
+ 		$mitglied = new Mitglied($_GET[&quot;id&quot;]);
+@@ -24,6 +28,8 @@
+ 	{
+ 		$mitglied = new Mitglied(0);
+ 	}
++
++	// gebe Informationen zu Mitglied aus
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	&lt;form action=&quot;usermod.php&quot;&gt;
+@@ -45,6 +51,8 @@
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Rechte:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;?php
++					// Wandle Zahlenrepr&#228;sentation der Rechte
++					// in textuelle Repr&#228;sentation um
+ 					switch ($mitglied-&gt;Rechte)
+ 					{
+ 					case 2:
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/userlist.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -18,6 +18,9 @@
+ 		&lt;tbody&gt;
+ 			&lt;?php
+ 				require_once(&quot;include/mitglied.php&quot;);
++
++				// Lese alle Mitglieder aus (wenn Administrator)
++				// oder eigene Daten (wenn Mitglied)
+ 				$members = Mitglied::GetAll();
+ 				foreach ($members as $cur)
+ 				{
+@@ -29,12 +32,16 @@
+ 				&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Email); ?&gt;&lt;/td&gt;
+ 				&lt;td&gt;
+ 					&lt;?php
++						// Sind Mitgliedsrechte vorhanden, gebe Bearbeitenknopf bei eigenem Eintrag aus
++						// bei Administratoren immer
+ 						if ($login-&gt;IsAdministrator() === true || $login-&gt;Nr == $cur-&gt;Nr)
+ 						{
+ 							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
+ 							echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Bearbeiten\&quot;&gt;&quot;;
+ 							echo &quot;&lt;/form&gt;&quot;;
+ 						}
++						
++						// Sind Administratorrechte vorhanden, gebe L&#246;schknopf aus
+ 						if ($login-&gt;IsAdministrator() === true)
+ 						{
+ 							echo &quot;&lt;form style=\&quot;display: inline\&quot; method=\&quot;post\&quot; action=\&quot;usermod.$ext?delete=&amp;id=&quot;.htmlspecialchars($cur-&gt;Nr).&quot;\&quot;&gt;&quot;;
+@@ -51,6 +58,7 @@
+ 	&lt;/table&gt;
+ 
+ 	&lt;?php
++		// Sind Administratorrechte vorhanden, gebe Hinzuf&#252;ge aus
+ 		if ($login-&gt;IsAdministrator() === true)
+ 		{
+ 	?&gt;
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-06-12 14:59:24 UTC (rev 159)
++++ trunk/usermod.php	2006-06-12 18:24:14 UTC (rev 160)
+@@ -1,4 +1,5 @@
+ &lt;?php
++	// W&#228;hle Seitentitel nach ausgew&#228;hlter Aktion
+ 	if (isset($_GET[&quot;delete&quot;]) === true)
+ 	{
+ 		$title = &quot;Nutzer l&#246;schen&quot;;
+@@ -15,6 +16,8 @@
+ 
+ 	require_once(&quot;include/header.php&quot;);
+ 
++	// Abbruch wenn keine Mitgliedsrechte vorhanden
++	// oder gel&#246;scht und hinzugef&#252;gt werden soll und keine Administratorrechte vorliegen
+ 	if ($login-&gt;IsMember() === false
+ 		|| ($login-&gt;IsAdministrator() === false
+ 			&amp;&amp; (isset($_GET[&quot;delete&quot;]) === true || isset($_GET[&quot;insert&quot;]) === true)
+@@ -26,6 +29,8 @@
+ 	}
+ 	elseif ($login-&gt;IsAdministrator() === false)
+ 	{
++		// Wenn keine Administratorrechte vorhanden sind
++		// d&#252;rfen nur die eigenen Daten ge&#228;ndert werden
+ 		$_GET[&quot;id&quot;] = $login-&gt;Nr;
+ 		$_POST[&quot;id&quot;] = $login-&gt;Nr;
+ 	}
+@@ -41,6 +46,7 @@
+ 	$error_password_missing = false;
+ 	$error_password_different = false;
+ 
++	// &#220;berpr&#252;fe wichtige Parameter bei Insert und Update auf Vorhandensein
+ 	if (isset($_GET[&quot;insert&quot;]) === true || isset($_GET[&quot;update&quot;]) === true)
+ 	{
+ 		if (empty($_POST[&quot;benutzername&quot;]) === true)
+@@ -67,6 +73,7 @@
+ 			$error_occurred = true;
+ 		}
+ 
++		// Teste ob Passwort beim hinzuf&#252;gen vergessen wurde
+ 		if (empty($_POST[&quot;password&quot;]) === true &amp;&amp; isset($_GET[&quot;insert&quot;]) === true)
+ 		{
+ 			$error_password = true;
+@@ -76,6 +83,7 @@
+ 
+ 		if (empty($_POST[&quot;password&quot;]) === false || empty($_POST[&quot;password_check&quot;]) === false)
+ 		{
++			// Teste ob Passw&#246;rter unterschiedlich sind
+ 			if ($_POST[&quot;password&quot;] != $_POST[&quot;password_check&quot;])
+ 			{
+ 				$error_password = true;
+@@ -85,6 +93,7 @@
+ 		}
+ 	}
+ 
++	// Gebe Fehler bei Parameter&#252;berpr&#252;fung aus
+ 	if ($error_occurred == true)
+ 	{
+ 		echo &quot;&lt;div id=\&quot;error_list\&quot;&gt;Es scheinen Fehler bei der Verarbeitung aufgetreten zu sein:&lt;ul&gt;&quot;;
+@@ -122,9 +131,11 @@
+ 	}
+ 
+ 
++	// Gebe Formular aus, wenn keine Schreibaktionen ausgef&#252;hrt werden
+ 	if ((isset($_GET[&quot;delete&quot;]) === false &amp;&amp; isset($_GET[&quot;insert&quot;]) === false &amp;&amp; isset($_GET[&quot;update&quot;]) === false)
+ 		|| $error_occurred === true)
+ 	{
++		// Lese id aus, wenn vorhanden
+ 		if (isset($_POST[&quot;id&quot;]) === true)
+ 		{
+ 			$id = $_POST[&quot;id&quot;];
+@@ -139,6 +150,7 @@
+ 		}
+ 
+ 		require_once(&quot;include/form_helper.php&quot;);
++		// Lese Mitglied aus, wenn id bekannt ist und vorher kein Fehler aufgetreten ist
+ 		if ($error_occurred === false &amp;&amp; (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true))
+ 		{
+ 			require_once(&quot;include/mitglied.php&quot;);
+@@ -169,6 +181,11 @@
+ 		}
+ 		else
+ 		{
++			// Sollte vorher Fehler aufgetreten sein, lese Parameter aus.
++			// Sollten vorher keine Fehler aufgetreten sein (keine
++			// id bekannt), setze Default Wert
++
++			// Setze Login
+ 			if (isset($_POST[&quot;benutzername&quot;]) === true)
+ 			{
+ 				$benutzername = stripslashes($_POST[&quot;benutzername&quot;]);
+@@ -178,6 +195,7 @@
+ 				$benutzername = &quot;&quot;;
+ 			}
+ 
++			// Setze Rechte
+ 			if (isset($_POST[&quot;rechte&quot;]) === true)
+ 			{
+ 				$rechte = stripslashes($_POST[&quot;rechte&quot;]);
+@@ -187,6 +205,7 @@
+ 				$rechte = &quot;Benutzer&quot;;
+ 			}
+ 
++			// Setze Vorname
+ 			if (isset($_POST[&quot;vorname&quot;]) === true)
+ 			{
+ 				$vorname = stripslashes($_POST[&quot;vorname&quot;]);
+@@ -196,6 +215,7 @@
+ 				$vorname = &quot;&quot;;
+ 			}
+ 
++			// Setze Nachname
+ 			if (isset($_POST[&quot;nachname&quot;]) === true)
+ 			{
+ 				$nachname = stripslashes($_POST[&quot;nachname&quot;]);
+@@ -205,6 +225,7 @@
+ 				$nachname = &quot;&quot;;
+ 			}
+ 
++			// Setze Email
+ 			if (isset($_POST[&quot;email&quot;]) === true)
+ 			{
+ 				$email = stripslashes($_POST[&quot;email&quot;]);
+@@ -214,18 +235,23 @@
+ 				$email = &quot;&quot;;
+ 			}
+ 
++			// &#220;bernehme nie das Passwort
+ 			$passwort = &quot;&quot;;
+ 		}
+ 
+ 	if (empty($id) === true)
+ 	{
+-		echo &quot;&lt;form action=\&quot;usermod.&quot;.$ext.&quot;?insert\&quot; id=\&quot;useraddform\&quot; method=\&quot;post\&quot;&gt;&quot;;
++		// Gebe Hinzuf&#252;gen-Formular aus
++			echo &quot;&lt;form action=\&quot;usermod.&quot;.$ext.&quot;?insert\&quot; id=\&quot;useraddform\&quot; method=\&quot;post\&quot;&gt;&quot;;
+ 	}
+ 	else
+ 	{
++		// Gebe Update-Formular aus
+ 		echo &quot;&lt;form action=\&quot;usermod.&quot;.$ext.&quot;?update\&quot; id=\&quot;userupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
+ 		echo form_input(&quot;hidden&quot;, &quot;id&quot;, $id);
+ 	}
++
++	// Gebe Formular mit vorher bestimmten Werten aus
+ ?&gt;
+ 	&lt;table id=&quot;bookdetails&quot;&gt;
+ 		&lt;tbody&gt;
+@@ -275,23 +301,32 @@
+ 	}
+ 	else
+ 	{
++		// F&#252;hre Schreibaktionen aus
++		
+ 		require_once(&quot;include/mitglied.php&quot;);
++		
++		// Suche gew&#228;hlte Aktion
+ 		if (isset($_GET[&quot;delete&quot;]) === true)
+ 		{
++			// L&#246;schen wenn akzeptiert wurde
+ 			if (isset($_POST[&quot;accept&quot;]) === true)
+ 			{
++				// Fehlerhafte Daten zum L&#246;schen &#252;bertragen?
+ 				if (empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false)
+ 				{
++					// Wenn ja, gebe Fehler aus
+ 					echo &quot;&lt;p id=\&quot;error\&quot;&gt;Nutzer konnte nicht gel&#246;scht werden, da es ein Fehler bei der &#220;bertragung der Informationen des Nutzers gab&lt;/p&gt;&quot;;
+ 				}
+ 				else
+ 				{
++					// Wenn nicht, l&#246;sche Mitglied und gebe Erfolgsmeldung aus
+ 					Mitglied::Delete($_POST[&quot;id&quot;]);
+ 					echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde entfernt&lt;/p&gt;&quot;;
+ 				}
+ 			}
+ 			else
+ 			{
++				// Frage ob Mitglied gel&#246;scht werden soll
+ 				require_once(&quot;include/form_helper.php&quot;);
+ 				echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+ 				echo &quot;Wollen sie den Nutzer wirklich entfernen?&quot;;
+@@ -304,28 +339,34 @@
+ 		}
+ 		elseif  (isset($_GET[&quot;insert&quot;]) === true)
+ 		{
++			// Versuche Benutzer anzulegen
+ 			if (Mitglied::Insert($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]) === true)
+ 			{
++				// Wenn ok, gebe Erfolgsmeldung aus
+ 				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde angelegt&lt;/p&gt;&quot;;
+ 			}
+ 			else
+ 			{
+-				
++				// Wenn nicht, gebe Fehler aus
+ 				echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Nutzer konnte nicht angelegt werden. Ist Login vielleicht schon vergeben?&lt;/p&gt;&quot;;
+ 			}
+ 		}
+ 		elseif (isset($_GET[&quot;update&quot;]) === true)
+ 		{
++			// Fehlerhafte Daten zum &#196;ndern &#252;bertragen?
+ 			if (empty($_POST[&quot;id&quot;]) === true || is_numeric($_POST[&quot;id&quot;]) === false)
+ 			{
++				// Wenn ja, gebe Fehler aus
+ 				echo &quot;&lt;p id=\&quot;error\&quot;&gt;Nutzer konnte nicht ge&#228;ndert werden, da es ein Fehler bei der &#220;bertragung der Informationen des Nutzers gab&lt;/p&gt;&quot;;
+ 			}
+ 			elseif (Mitglied::Update($_POST[&quot;id&quot;], $_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]) === true)
+ 			{
++				// Wenn ok, gebe Erfolgsmeldung aus
+ 				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde ge&#228;ndert&lt;/p&gt;&quot;;
+ 			}
+ 			else
+ 			{
++				// Wenn nicht, gebe Fehler aus
+ 				echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Nutzer konnte nicht ge&#228;ndert werden. Ist Login vielleicht schon vergeben?&lt;/p&gt;&quot;;
+ 			}
+ 		}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000149.html">[Liman-svn] r159 - in trunk: . include
+</A></li>
+	<LI>Next message: <A HREF="000151.html">[Liman-svn] r161 - in trunk: . design include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#150">[ date ]</a>
+              <a href="thread.html#150">[ thread ]</a>
+              <a href="subject.html#150">[ subject ]</a>
+              <a href="author.html#150">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,406 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r154 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r154%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606101034.k5AAYI9D015537%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000143.html">
+   <LINK REL="Next"  HREF="000145.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r154 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r154%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606101034.k5AAYI9D015537%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r154 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat Jun 10 12:34:18 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000143.html">[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces
+</A></li>
+        <LI>Next message: <A HREF="000145.html">[Liman-svn] r155 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#144">[ date ]</a>
+              <a href="thread.html#144">[ thread ]</a>
+              <a href="subject.html#144">[ subject ]</a>
+              <a href="author.html#144">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-10 12:34:12 +0200 (Sat, 10 Jun 2006)
+New Revision: 154
+
+Modified:
+   trunk/design/liman.css
+   trunk/include/autor.php
+   trunk/include/literatur.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/search.php
+   trunk/userlist.php
+Log:
+- an einigen Stellen for auf foreach umgestellt
+- Autor::Clean-Workaround mit kompakten ID-Vergleich
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/design/liman.css	2006-06-10 10:34:12 UTC (rev 154)
+@@ -123,6 +123,10 @@
+ 	vertical-align: top;
+ }
+ 
++#litkommentare .kommentar {
++	width: 99%;
++}
++
+ #error_list, #error {
+ 	padding: 0.5em;
+ 	border: 2px solid red;
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/include/autor.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -62,21 +62,20 @@
+ 							ON autoren.Autor_Nr = connect.Autor_Nr
+ 							WHERE connect.Autor_Nr is NULL&quot;;
+ 					$sqldb-&gt;Query($sql);
+-					
+-					if (($numrows = $sqldb-&gt;GetNumRows()) &gt;= 1)
++
++					$authorid = array();
++					while ($line = $sqldb-&gt;Fetch())
+ 					{
++						$authorid[] = $line-&gt;Nr;
++					}
++
++					if (empty($authorid) === false)
++					{
+ 						$sqlDelete = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Autoren
+-								WHERE &quot;;
+-						for ($i = 1; $i &lt;= $numrows; $i++)
+-						{
+-							$line = $sqldb-&gt;Fetch();
+-							$sqlDelete .= &quot;Autor_Nr = '&quot;.$line-&gt;Nr.&quot;' &quot;;
++								WHERE Autor_Nr IN (&quot;;
++						$idlist = implode(&quot;, &quot;, $authorid);
++						$sqlDelete .= $idlist.&quot;)&quot;;
+ 
+-							if ($i &lt; $numrows)
+-							{
+-								$sqlDelete .= &quot; OR &quot;;
+-							}
+-						}
+ 						$sqldb-&gt;Query($sqlDelete);
+ 					}
+ 				}
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/include/literatur.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -91,18 +91,15 @@
+ 					$str .= &quot;,\n\ttitle = \&quot;&quot;.addslashes($this-&gt;Titel).&quot;\&quot;&quot;;
+ 				}
+ 	
+-				if (count($this-&gt;Autoren) &gt; 0)
++				if (empty($this-&gt;Autoren) === false)
+ 				{
+-					$autorlist = &quot;&quot;;
+-					for ($j = 0; $j &lt; count($this-&gt;Autoren); $j++)
++					$autornamen = array();
++					foreach ($this-&gt;Autoren as $autor)
+ 					{
+-						if ($j != 0)
+-						{
+-							$autorlist .= &quot; and &quot;;
+-						}
+-						$autorlist .= $this-&gt;Autoren[$j]-&gt;Name;
++						$autornamen[] = $autor-&gt;Name;
+ 					}
+-	
++
++					$autorlist = implode(&quot; and &quot;, $autornamen);
+ 					$str .= &quot;,\n\tauthor = \&quot;&quot;.addslashes($autorlist).&quot;\&quot;&quot;;
+ 				}
+ 	
+@@ -333,10 +330,10 @@
+ 				if ($nr = $sqldb-&gt;GetInsertID())
+ 				{
+ 					$autorlist = Autor::Split($autoren);
+-					for ($i = 0; $i &lt; count($autorlist); $i++)
++					foreach ($autorlist as $cur)
+ 					{
+ 						$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Literatur_Autor
+-							VALUES ('&quot;.$autorlist[$i].&quot;', '$nr')&quot;;
++							VALUES ('&quot;.$cur.&quot;', '$nr')&quot;;
+ 						$sqldb-&gt;Query($sql);
+ 					}
+ 				}
+@@ -386,10 +383,10 @@
+ 				$sqldb-&gt;Query($sql);
+ 
+ 				$autorlist = Autor::Split($autoren);
+-				for ($i = 0; $i &lt; count($autorlist); $i++)
++				foreach ($autorlist as $cur)
+ 				{
+ 					$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Literatur_Autor
+-						VALUES ('&quot;.$autorlist[$i].&quot;', '$nr')&quot;;
++						VALUES ('&quot;.$cur.&quot;', '$nr')&quot;;
+ 					$sqldb-&gt;Query($sql);
+ 				}
+ 
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/include/suche.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -59,14 +59,17 @@
+ 			{
+ 				// Kommagetrennte Autorenliste erstellen
+ 				$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
++
+ 				$autorlist = &quot;&quot;;
+-				for ($j = 0; $j &lt; count($authors); $j++)
++				if (empty($authors) === false)
+ 				{
+-					if ($j != 0)
++					$autornamen = array();
++					foreach ($authors as $cur)
+ 					{
+-						$autorlist .= &quot;, &quot;;
++						$autornamen[] = $cur-&gt;Name;
+ 					}
+-					$autorlist .= $authors[$j]-&gt;Name;
++	
++					$autorlist = implode(&quot;, &quot;, $autornamen);
+ 				}
+ 				$this-&gt;Treffer[$i]-&gt;Autor = $autorlist;
+ 			}
+@@ -111,14 +114,17 @@
+ 				{
+ 					// Kommagetrennte Autorenliste erstellen
+ 					$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
++	
+ 					$autorlist = &quot;&quot;;
+-					for ($j = 0; $j &lt; count($authors); $j++)
++					if (empty($authors) === false)
+ 					{
+-						if ($j != 0)
++						$autornamen = array();
++						foreach ($authors as $cur)
+ 						{
+-							$autorlist .= &quot;, &quot;;
++							$autornamen[] = $cur-&gt;Name;
+ 						}
+-						$autorlist .= $authors[$j]-&gt;Name;
++		
++						$autorlist = implode(&quot;, &quot;, $autornamen);
+ 					}
+ 					$this-&gt;Treffer[$i]-&gt;Autor = $autorlist;
+ 				}
+@@ -184,14 +190,17 @@
+ 				{
+ 					// Kommagetrennte Autorenliste erstellen
+ 					$authors = Autor::GetAll($this-&gt;Treffer[$i]-&gt;Nr);
++	
+ 					$autorlist = &quot;&quot;;
+-					for ($j = 0; $j &lt; count($authors); $j++)
++					if (empty($authors) === false)
+ 					{
+-						if ($j != 0)
++						$autornamen = array();
++						foreach ($authors as $cur)
+ 						{
+-							$autorlist .= &quot;, &quot;;
++							$autornamen[] = $cur-&gt;Name;
+ 						}
+-						$autorlist .= $authors[$j]-&gt;Name;
++		
++						$autorlist = implode(&quot;, &quot;, $autornamen);
+ 					}
+ 					$this-&gt;Treffer[$i]-&gt;Autor = $autorlist;
+ 				}
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/index.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -19,9 +19,8 @@
+ 			&lt;?php
+ 				require_once(&quot;include/suche.php&quot;);
+ 				$search = new Suche();
+-				for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++				foreach ($search-&gt;Treffer as $cur)
+ 				{
+-					$cur = $search-&gt;Treffer[$i];
+ 			?&gt;
+ 				&lt;tr&gt;
+ 					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/lit.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -26,13 +26,16 @@
+ 				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;?php
+ 					$autorlist = &quot;&quot;;
+-					for ($j = 0; $j &lt; count($literatur-&gt;Autoren); $j++)
++
++					if (count($literatur-&gt;Autoren) &gt; 0)
+ 					{
+-						if ($j != 0)
++						$autornamen = array();
++						foreach ($literatur-&gt;Autoren as $autor)
+ 						{
+-							$autorlist .= &quot;, &quot;;
++							$autornamen[] = $autor-&gt;Name;
+ 						}
+-						$autorlist .= $literatur-&gt;Autoren[$j]-&gt;Name;
++	
++						$autorlist = implode(&quot;, &quot;, $autornamen);
+ 					}
+ 					echo htmlspecialchars($autorlist);
+ 				?&gt;&lt;/td&gt;
+@@ -89,9 +92,8 @@
+ 			&lt;?php
+ 				require_once(&quot;include/form_helper.php&quot;);
+ 				$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
+-				for ($i = 0; $i &lt; count($literatur-&gt;Kommentare); $i++)
++				foreach ($literatur-&gt;Kommentare as $cur)
+ 				{
+-					$cur = $literatur-&gt;Kommentare[$i];
+ 					if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr)
+ 					{
+ 						$owncomment-&gt;Text = $cur-&gt;Text;
+@@ -101,7 +103,7 @@
+ 			?&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Verfasser_Name);?&gt;:&lt;/th&gt;	
+-					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
++					&lt;td class=&quot;kommentar&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
+ 					&lt;td&gt;&lt;?php
+ 						// Darf der User l&#246;schen?
+ 						if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr || $login-&gt;IsAdministrator() === true)
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/litmod.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -110,16 +110,15 @@
+ 			}
+ 
+ 			$autor = &quot;&quot;;
+-			if (isset($lit-&gt;Autoren) === true)
++			if (empty($lit-&gt;Autoren) === false)
+ 			{
+-				for ($j = 0; $j &lt; count($lit-&gt;Autoren); $j++)
++				$autornamen = array();
++				foreach ($lit-&gt;Autoren as $cur)
+ 				{
+-					if ($j != 0)
+-					{
+-						$autor .= &quot;, &quot;;
+-					}
+-					$autor .= $lit-&gt;Autoren[$j]-&gt;Name;
++					$autornamen[] = $cur-&gt;Name;
+ 				}
++
++				$autor = implode(&quot;, &quot;, $autornamen);
+ 			}
+ 
+ 			$verlag = $lit-&gt;Verlag;
+@@ -153,7 +152,7 @@
+ 			}
+ 			else
+ 			{
+-				$jahr = &quot;&quot;;
++				$jahr = date(&quot;Y&quot;);
+ 			}
+ 
+ 			if (isset($_POST[&quot;stichworte&quot;]) === true)
+@@ -325,9 +324,8 @@
+ 					&lt;tbody&gt;
+ 				&lt;?php
+ 			
+-					for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++					foreach ($search-&gt;Treffer as $cur)
+ 					{
+-						$cur = $search-&gt;Treffer[$i];
+ 				?&gt;
+ 					&lt;tr&gt;
+ 						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/search.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -48,9 +48,8 @@
+ 		&lt;tbody&gt;
+ 	&lt;?php
+ 
+-		for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++		foreach ($search-&gt;Treffer as $cur)
+ 		{
+-			$cur = $search-&gt;Treffer[$i];
+ 	?&gt;
+ 		&lt;tr&gt;
+ 			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-06-09 19:09:10 UTC (rev 153)
++++ trunk/userlist.php	2006-06-10 10:34:12 UTC (rev 154)
+@@ -17,12 +17,10 @@
+ 		&lt;/thead&gt;
+ 		&lt;tbody&gt;
+ 			&lt;?php
+-				/// \todo richtig implementieren
+ 				require_once(&quot;include/mitglied.php&quot;);
+ 				$members = Mitglied::GetAll();
+-				for ($i = 0; $i &lt; count($members); $i++)
++				foreach ($members as $cur)
+ 				{
+-					$cur = $members[$i];
+ 			?&gt;
+ 			&lt;tr&gt;
+ 				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Login); ?&gt;&lt;/a&gt;&lt;/td&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000143.html">[Liman-svn] r153 - in trunk/docs: beleg2/doxygen beleg3 beleg3/interfaces
+</A></li>
+	<LI>Next message: <A HREF="000145.html">[Liman-svn] r155 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#144">[ date ]</a>
+              <a href="thread.html#144">[ thread ]</a>
+              <a href="subject.html#144">[ subject ]</a>
+              <a href="author.html#144">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

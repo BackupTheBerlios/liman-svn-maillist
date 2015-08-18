@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r43 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r43%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241939.k3OJdhMh011948%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000032.html">
+   <LINK REL="Next"  HREF="000034.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r43 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r43%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604241939.k3OJdhMh011948%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r43 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Apr 24 21:39:43 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000032.html">[Liman-svn] r42 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000034.html">[Liman-svn] r44 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-24 21:39:41 +0200 (Mon, 24 Apr 2006)
+New Revision: 43
+
+Modified:
+   trunk/docs/beleg1/qualitaetsanforderungen.tex
+Log:
+Nochmaliges modifizieren Qualit?\195?\164tsanforderung -&gt; Nutzer und Integrit?\195?\164t
+
+
+Modified: trunk/docs/beleg1/qualitaetsanforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/qualitaetsanforderungen.tex	2006-04-24 19:25:49 UTC (rev 42)
++++ trunk/docs/beleg1/qualitaetsanforderungen.tex	2006-04-24 19:39:41 UTC (rev 43)
+@@ -1,19 +1,19 @@
+ \chapter{Spezifikation wichtiger Qualit&#228;tsanforderungen}
+ \section{Benutzerbarkeit}
+-Im wesentlichen existieren drei Arten von Nutzern:
++Im wesentlichen existieren drei Arten von Benutzern:
+ 
+ \begin{enumerate}
+- \item \textbf{Administrator:}
++ \item \textbf{Administrator:}\\
+ Er ist im wesentlichen f\&quot;ur die Mitgliedsverwaltung zust\&quot;andig, also das Anlegen, \&quot;Andern und L\&quot;oschen von Mitgliedseintr\&quot;agen. \\
+ Des Weiteren k\&quot;ummert er sich mit Hilfe der quelloffenen Basisprogramme um Datensicherungen. Eine gewisse Grundkenntnis im Umgang mit
+ besagten Programmen ist also vorrausgesetzt.
+ 
+- \item \textbf{Mitglied:}
+-Nachdem man sich in der Literaturverwaltung registriert hat wird man zum Mitglied. Damit er\&quot;offnen sich neue M\&quot;oglichkeiten. \\
++ \item \textbf{Mitglied:}\\
++Nachdem man in der Literaturverwaltung registriert ist, wird man zum Mitglied und erh&quot;alt neue Nutzerprivilegien. \\
+ So kann man neue Literatur hinzuf\&quot;ugen, ab\&quot;andern und l\&quot;oschen oder Kommentare \&quot;uber Literatureintr\&quot;age verfassen.
+ 
+- \item \textbf{Nutzer:}
+-Wenn man sich nicht registriert ist man in der Gruppe der Nutzer, diese Gruppe hat keine M\&quot;oglichkeit auf den Datenbestand der Literaturverwaltung einzuwirken.\\
++ \item \textbf{Nutzer:}\\
++Wenn man sich nicht registriert, ist man in der Gruppe der Nutzer. Diese Gruppe hat keine M\&quot;oglichkeit auf den Datenbestand der Literaturverwaltung einzuwirken.\\
+ Die Rechte sind auf die Recherche beschr\&quot;ankt, der Nutzer kann also B\&quot;ucher suchen, ausw\&quot;ahlen und sich die Beschreibungen und Kommentare ansehen.
+ \end{enumerate}
+ 
+@@ -25,7 +25,7 @@
+ \section{Integrit&#228;t}
+ Auch wenn aktiv auf den Datenbestand eingewirkt werden kann, so ist dies jedoch ausschlie\ss lich registrierten Mitgliedern m\&quot;oglich solche \&quot;Anderungen vorzunehmen.
+ Diese \&quot;Anderungen k\&quot;onnen auch vom Administrator bereinigt werden.\\
+-Sollte es wiederholt zu sch\&quot;adigenden Eingriffen seitens eines Mitglieds kommen, so ist der Adminstrator berechtigt betreffendes Mitgliedskonto samt aller Mitgliedsdaten zu l\&quot;oschen.
++Sollte es wiederholt zu sch\&quot;adigenden Eingriffen seitens eines Mitglieds kommen, so ist es dem Adminstrator m&#246;glich das betreffende Mitgliedskonto samt aller Mitgliedsdaten zu l\&quot;oschen.
+ 
+ \section{Flexibilit&#228;t}
+ Auch wenn zur Zeit keine Erweiterungen an der Literaturverwaltung geplant sind, ist es aufgrund der Sprache PHP dennoch m\&quot;oglich \&quot;Anderungen vorzunehmen.
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000032.html">[Liman-svn] r42 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000034.html">[Liman-svn] r44 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

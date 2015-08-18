@@ -1,0 +1,486 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r128%20-%20in%20trunk%3A%20docs/beleg1%20docs/beleg2%20docs/beleg2/doxygen%20docs/protokoll%20include&In-Reply-To=%3C200605301400.k4UE0Cu1002561%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000117.html">
+   <LINK REL="Next"  HREF="000119.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r128%20-%20in%20trunk%3A%20docs/beleg1%20docs/beleg2%20docs/beleg2/doxygen%20docs/protokoll%20include&In-Reply-To=%3C200605301400.k4UE0Cu1002561%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include">lazhur at berlios.de
+       </A><BR>
+    <I>Tue May 30 16:00:12 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000117.html">[Liman-svn] r127 - in trunk: . db design docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000119.html">[Liman-svn] r129 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-30 16:00:07 +0200 (Tue, 30 May 2006)
+New Revision: 128
+
+Added:
+   trunk/docs/protokoll/2006_05_30.xhtml
+Modified:
+   trunk/docs/beleg1/basismaschine_umgebung.tex
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+   trunk/docs/beleg2/doxygen/classLogin.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/docs/beleg2/doxymake.sh
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+Log:
+- Autor und ?\195?\132nderungsstand hinzugef?\195?\188gt
+- Protokoll hinzugef?\195?\188gt
+- Fehlende Importe hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg1/basismaschine_umgebung.tex
+===================================================================
+--- trunk/docs/beleg1/basismaschine_umgebung.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg1/basismaschine_umgebung.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -5,7 +5,7 @@
+ \begin{itemize}
+  \item Server (Monitor wird nicht ben&quot;otigt)
+  \item Breitband-Netzwerk (z. B. SDSL, Ethernet)
+- \item 5 MB Festplattenspeicher
++ \item 5 MB freien Festplattenspeicher
+ \end{itemize}
+ Als notwendige Minimalausstattung des f&#195;&#188;r den {\bf Nutzer-PC} wird vorgeschlagen:
+ \begin{itemize}
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -199,8 +199,7 @@
+ \subsection{Definition der Nutzerschnittstelle}
+ 
+ Durch das Websystem ist die Nutzerschnittstelle beschr&quot;ankt auf die Darstellung im Browser. Dadurch kann die Darstellung
+-leicht bei verschiedenen Browser und Betriebssystemen variieren. Die Eingabefelder und Kn&quot;opfe werden im Stil des 
+-Betriebssystems dargestellt, sodass der Benutzer stets seine gewohnte Umgebung vorfinden kann. Ebenso kann man mittels der Optionen
++leicht bei verschiedenen Browser und Betriebssystemen variieren. Die Eingabefelder und Kn&quot;opfe werden im Stil der grafischen Oberfl&#195;&#164;che dargestellt, sodass der Benutzer stets seine gewohnte Umgebung vorfinden kann. Ebenso kann man mittels der Optionen
+ des Browser Schriftgr&quot;o&quot;se und andere visuelle Einstellungen ver&quot;andern. Das Grundlayout bleibt jedoch immer erhalten
+ und richtet sich unter anderem auch nach der Gr&quot;o&quot;se des ge&quot;offneten Browserfensters.\\
+ \\
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -32,8 +32,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classAutor_2302710dd8970853f5d49c62d4586e8f}{Autor::Autor}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Frank Wilhelm \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -42,8 +42,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classKommentar_ea774e2108c754890c602dfdd53d64e1}{Kommentar::Kommentar}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Frank Wilhelm \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -54,8 +54,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Autor::Clean}\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Autor::Split}\item \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Kommentar::Delete\-All}\item \hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Kommentar::Get\-All}\item \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art::Literatur\-Art}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classAutor_77b27af7e471abe5a404fc92c7319921}{Autor::Clean}\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classAutor_2ba5418b6622f414fa8a054e6c2a2db8}{Autor::Split}\item \hyperlink{classKommentar_9903f1df98f71eefa3b44a81d6a8ee5c}{Kommentar::Delete\-All}\item \hyperlink{classKommentar_33d65db8c526c50017a5fa029bc04416}{Kommentar::Get\-All}\item \hyperlink{classLiteraturArt_b3312217430531ed7821a46a39c49af7}{Literatur\-Art::Literatur\-Art}\item Literatur\-Art::Get\-Bib\-Tex\-Text\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Sven Eckelmann \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLiteraturArt.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classLiteraturArt.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -20,7 +20,11 @@
+ Verwaltet Literaturarten. 
+ 
+ Verwaltet die aus der Datenbank oder Bib\-Te\-X-Datei erhaltenen Informationen zur Art einer \hyperlink{classLiteratur}{Literatur}. Enthaltene Informationen k&#195;&#182;nnen wieder als Bib\-Te\-X- oder als der in Datenbank/Benutzeroberfl&#195;&#164;che verwendeten Namen zur&#195;&#188;ckgegeben werden. \begin{Desc}
+-\item[Vorbedingung:]- \end{Desc}
++\item[Vorbedingung:]-\end{Desc}
++\begin{Desc}
++\item[Autor:]Frank Wilhelm \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classLogin.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -32,8 +32,12 @@
+ \item[Bemerkungen:]Sollte ein weiteres Objekt vom Typ \hyperlink{classLogin}{Login} existieren, in welche neue Logininformationen eingetragen werden, wird keine weitere Session angelegt, sondern die alten Informationen in der aktuellen Session &#195;&#188;berschrieben. \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Frank Wilhelm \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -46,8 +46,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{Kommentar::Delete\-All\-Member}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classKommentar_92a8fcea1b065341c7c53e8a8464fcf0}{Kommentar::Delete\-All\-Member}\item \hyperlink{classLogin_6c120224aa6719f58c6ccd08acc28758}{Login::Is\-Administrator}\item \hyperlink{classLogin_70d2747b0aa454f4203a789afea25318}{Login::Is\-Member}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Sven Eckelmann \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -39,7 +39,11 @@
+ Datenbankzugriff &#195;&#188;ber My\-SQL. 
+ 
+ Erlaubt den abstrahierten Zugriff &#195;&#188;ber SQL auf eine Datenbank (hier My\-SQL). \begin{Desc}
+-\item[Vorbedingung:]- \end{Desc}
++\item[Vorbedingung:]-\end{Desc}
++\begin{Desc}
++\item[Autor:]Sven Eckelmann \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-30 14:00:07 UTC (rev 128)
+@@ -24,8 +24,12 @@
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+-\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch} \end{itemize}
++\item \hyperlink{classAutor_79cd90084cab240919a5daecf39156a7}{Autor::Get\-All}\item \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{SQLDB::Query}\item \hyperlink{classSQLDB_a55c00ce1de0e50e0a58cae61892ba35}{SQLDB::Fetch}\end{itemize}
+ \end{Desc}
++\begin{Desc}
++\item[Autor:]Sven Eckelmann \end{Desc}
++\begin{Desc}
++\item[&#195;&#132;nderungsstand:]30.05.2006 \end{Desc}
+ 
+ 
+ 
+
+Modified: trunk/docs/beleg2/doxymake.sh
+===================================================================
+--- trunk/docs/beleg2/doxymake.sh	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/beleg2/doxymake.sh	2006-05-30 14:00:07 UTC (rev 128)
+@@ -3,3 +3,4 @@
+ doxygen Doxyfile
+ sed -i &quot;s/\\\~{A}/&#195;/g&quot; doxygen/*.tex
+ sed -i &quot;s/Siehe auch:/Importiert:/g&quot; doxygen/*.tex
++sed -i &quot;s/\[Datum:\]/\[&#195;&#132;nderungsstand:\]/g&quot; doxygen/*.tex
+
+Added: trunk/docs/protokoll/2006_05_30.xhtml
+===================================================================
+--- trunk/docs/protokoll/2006_05_30.xhtml	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/docs/protokoll/2006_05_30.xhtml	2006-05-30 14:00:07 UTC (rev 128)
+@@ -0,0 +1,61 @@
++&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot; &quot;<A HREF="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd</A>&quot;&gt;
++&lt;html xmlns=&quot;<A HREF="http://www.w3.org/1999/xhtml">http://www.w3.org/1999/xhtml</A>&quot; xml:lang=&quot;de&quot;&gt;
++	&lt;head&gt;
++		&lt;title&gt;Protokoll 1. Pflichtkonsultation 30.05.2006&lt;/title&gt;
++		&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
++		&lt;meta http-equiv=&quot;content-language&quot; content=&quot;de&quot; /&gt;
++		&lt;style type=&quot;text/css&quot;&gt;@import &quot;./protokoll.css&quot;;&lt;/style&gt;
++	&lt;/head&gt;
++	&lt;body&gt;
++		&lt;h1&gt;Literaturverwaltung&lt;/h1&gt;
++		&lt;h2&gt;Protokoll 1. Pflichtkonsultation 30.05.2006&lt;/h2&gt;
++
++		&lt;h3&gt;Anwesende&lt;/h3&gt;
++		&lt;ul&gt;
++			&lt;li&gt;Simon Wunderlich&lt;/li&gt;
++			&lt;li&gt;Andreas Tr&#195;&#182;ger&lt;/li&gt;
++			&lt;li&gt;Frank Wilhelm&lt;/li&gt;
++			&lt;li&gt;Florian Scharl&lt;/li&gt;
++			&lt;li&gt;Sven Eckelmann&lt;/li&gt;
++		&lt;/ul&gt;
++
++		&lt;h3&gt;Tagesordnung&lt;/h3&gt;
++		&lt;ol&gt;
++			&lt;li&gt;&lt;a href=&quot;#teilbeleg1&quot;&gt;Besprechung Teilbeleg 1&lt;/a&gt;&lt;/li&gt;
++			&lt;li&gt;&lt;a href=&quot;#teilbeleg2&quot;&gt;Vorstellung Stand Teilbeleg 2&lt;/a&gt;&lt;/li&gt;
++			&lt;li&gt;&lt;a href=&quot;#projektarbeit&quot;&gt;Stand Projektarbeit&lt;/a&gt;&lt;/li&gt;
++			&lt;li&gt;&lt;a href=&quot;#sitzung&quot;&gt;N&#195;&#164;chste Sitzung&lt;/a&gt;&lt;/li&gt;
++		&lt;/ol&gt;
++
++		&lt;div id=&quot;content&quot;&gt;
++			&lt;h3 id=&quot;teilbeleg1&quot;&gt;Besprechung Teilbeleg 1&lt;/h3&gt;
++			&lt;ul&gt;
++				&lt;li&gt;fehlende Suchabfrage in Ereignistabelle und Datenkatalog&lt;/li&gt;
++				&lt;li&gt;kleine Fehler bei Formulierungen (&lt;i&gt;freier&lt;/i&gt; Festplattenspeicher, Stil &lt;i&gt;der grafischen Oberfl&#195;&#164;che&lt;/i&gt;)&lt;/li&gt;
++				&lt;li&gt;keine Liste der Fehlercodes&lt;/li&gt;
++			&lt;/ul&gt;
++	
++			&lt;h3 id=&quot;teilbeleg2&quot;&gt;Vorstellung Stand Teilbeleg 2&lt;/h3&gt;
++			&lt;ul&gt;
++				&lt;li&gt;&#195;&#132;nderungsstand und Bearbeiter noch nicht aufgef&#195;&#188;hrt&lt;/li&gt;
++				&lt;li&gt;Klassendiagramm nur &#195;&#164;hnlich Moduldiagramm und kein UML-Klassendiagramm&lt;/li&gt;
++			&lt;/ul&gt;
++
++			&lt;h3 id=&quot;projektarbeit&quot;&gt;Stand Projektarbeit&lt;/h3&gt;
++			&lt;ul&gt;
++				&lt;li&gt;Implementierung fast vollst&#195;&#164;ndig&lt;/li&gt;
++				&lt;li&gt;Systemtests am laufen bzw. in Vorbereitung&lt;/li&gt;
++			&lt;/ul&gt;
++			
++			&lt;h3 id=&quot;sitzung&quot;&gt;N&#195;&#164;chste Sitzung&lt;/h3&gt;
++			&lt;ul&gt;
++				&lt;li&gt;Treffen am 31.05. 15:15&lt;/li&gt;
++				&lt;li&gt;Besprechung einzelner Punkte des 2. Belegs und 3. Belegs&lt;/li&gt;
++			&lt;/ul&gt;
++		&lt;/div&gt;
++
++		&lt;dl&gt;
++			&lt;dt&gt;Protokolant&lt;/dt&gt;&lt;dd&gt;Sven Eckelmann&lt;/dd&gt;
++		&lt;/dl&gt;
++	&lt;/body&gt;
++&lt;/html&gt;
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/autor.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -5,9 +5,13 @@
+ 	 *  mehr benutzter Autoren bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
++	 *  - Autor::Autor
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
+ 	 */
+ 	class Autor
+ 	{
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/kommentar.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -8,10 +8,14 @@
+ 	 *  bzw. Mitgliederverbundenen Kommentaren gel&#195;&#182;scht werden.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
++	 *  - Kommentar::Kommentar
+ 	 *  - Login::IsAdministrator
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
+ 	 */
+ 	class Kommentar
+ 	{
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/literatur.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -16,10 +16,14 @@
+ 	 *  - Kommentar::DeleteAll
+ 	 *  - Kommentar::GetAll
+ 	 *  - LiteraturArt::LiteraturArt
++	 *  - LiteraturArt::GetBibTexText
+ 	 *  - Login::IsAdministrator
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
+ 	 */
+ 	class Literatur
+ 	{
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/literaturart.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -6,6 +6,9 @@
+ 	 *  k&#195;&#182;nnen wieder als BibTeX- oder als der in Datenbank/Benutzeroberfl&#195;&#164;che
+ 	 *  verwendeten Namen zur&#195;&#188;ckgegeben werden.
+ 	 *  \pre -
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
+ 	 */
+ 	class LiteraturArt
+ 	{
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/login.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -14,8 +14,12 @@
+ 	 *    weitere Session angelegt, sondern die alten Informationen in
+ 	 *    der aktuellen Session &#195;&#188;berschrieben.
+ 	 *  \sa
++	 *  - Mitglied::PasswordHash
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Frank Wilhelm
++	 *  \date 30.05.2006
+ 	 */
+ 	class Login
+ 	{
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/mitglied.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -13,6 +13,9 @@
+ 	 *  - Login::IsMember
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
+ 	 */
+ 	class Mitglied
+ 	{
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/sqldb_mysql.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -6,6 +6,9 @@
+ 	 *  Erlaubt den abstrahierten Zugriff &#195;&#188;ber SQL auf eine
+ 	 *  Datenbank (hier MySQL).
+ 	 *  \pre -
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
+ 	 */
+ 	class SQLDB
+ 	{
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-29 21:17:14 UTC (rev 127)
++++ trunk/include/suche.php	2006-05-30 14:00:07 UTC (rev 128)
+@@ -12,6 +12,9 @@
+ 	 *  - Autor::GetAll
+ 	 *  - SQLDB::Query
+ 	 *  - SQLDB::Fetch
++	 *
++	 *  \author Sven Eckelmann
++	 *  \date 30.05.2006
+ 	 */
+ 	class Suche
+ 	{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000117.html">[Liman-svn] r127 - in trunk: . db design docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000119.html">[Liman-svn] r129 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#118">[ date ]</a>
+              <a href="thread.html#118">[ thread ]</a>
+              <a href="subject.html#118">[ subject ]</a>
+              <a href="author.html#118">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

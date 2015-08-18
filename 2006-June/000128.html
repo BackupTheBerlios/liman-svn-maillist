@@ -1,0 +1,798 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r138 - in trunk: docs/beleg2/doxygen include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r138%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200606051609.k55G9U7B018798%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000127.html">
+   <LINK REL="Next"  HREF="000129.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r138 - in trunk: docs/beleg2/doxygen include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r138%20-%20in%20trunk%3A%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200606051609.k55G9U7B018798%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r138 - in trunk: docs/beleg2/doxygen include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun  5 18:09:30 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000127.html">[Liman-svn] r137 - in trunk/docs/beleg2: . doxygen visio
+</A></li>
+        <LI>Next message: <A HREF="000129.html">[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-05 18:09:24 +0200 (Mon, 05 Jun 2006)
+New Revision: 138
+
+Modified:
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLogin.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+Log:
+Korrekturen f?\195?\188r zweiten Teilbeleg
+
+
+Modified: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -86,7 +86,7 @@
+ 
+ Gibt Autoren zu bestimmter \hyperlink{classLiteratur}{Literatur} zur&#252;ck. 
+ 
+-Liest alle Autoren die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classAutor}{Autor} zur&#252;ck. \begin{Desc}
++Liest alle Autoren die einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classAutor}{Autor} zur&#252;ck. \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nr einer \hyperlink{classLiteratur}{Literatur} mit Autoren \end{description}
+@@ -104,7 +104,7 @@
+ 
+ Legt neue Autoren aus kommagetrennter Liste an. 
+ 
+-Teilt die kommagetrennte Liste von Autoren in einzelne Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob diese schon in der Datenbank existieren. Sollten diese schon existieren, dann wird Autor\_\-Nr ausgelesen und zum Feld hinzugef&#252;gt. Sollten diese noch nicht existieren, werden sie hinzugef&#252;gt und die neuen Autor\_\-Nr zum Feld hinzugef&#252;gt. Das komplette Feld vom Typ Autor\_\-Nr wird zur&#252;ckgegeben. \begin{Desc}
++Teilt die kommagetrennte Liste von Autoren in einzelne Autorennamen ein und &#252;berpr&#252;ft gegen Autorentabelle, ob diese schon in der Datenbank existieren. Sollten diese schon existieren, dann wird Autor\_\-Nr ausgelesen und zum Feld hinzugef&#252;gt. Sollten diese noch nicht existieren, werden sie hinzugef&#252;gt und die neuen Autor\_\-Nr zum Feld hinzugef&#252;gt. Das komplette Feld mit Autor\_\-Nr wird zur&#252;ckgegeben. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -38,7 +38,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ Verwaltet Kommentare. 
+ 
+-Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur- bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden. \begin{Desc}
++Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren bereit. Es k&#246;nnen sowohl einzelne Kommentare oder Kommentare nach ihrer Verbindung zur \hyperlink{classLiteratur}{Literatur} bzw. Mitgliedern gel&#246;scht werden. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+@@ -84,7 +84,9 @@
+ L&#246;scht \hyperlink{classKommentar}{Kommentar}. 
+ 
+ L&#246;scht einen \hyperlink{classKommentar}{Kommentar} aus Kommentare mit der Kommentar\_\-Nr \$nr. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classKommentar}{Kommentar} in Kommentare mit Kommentar\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -137,7 +139,7 @@
+ 
+ Gibt Kommentare zu bestimmter \hyperlink{classLiteratur}{Literatur} zur&#252;ck. 
+ 
+-Liest alle Kommentare die einer \hyperlink{classLiteratur}{Literatur} (\$nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classKommentar}{Kommentar} zur&#252;ck. \begin{Desc}
++Liest alle Kommentare die einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) zugeordnet sind aus Kommentare aus und gibt sie als Feld des Typs \hyperlink{classKommentar}{Kommentar} zur&#252;ck. \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nr einer \hyperlink{classLiteratur}{Literatur} mit Kommentaren \end{description}
+@@ -156,7 +158,9 @@
+ Legt \hyperlink{classKommentar}{Kommentar} an. 
+ 
+ Legt einen neuen \hyperlink{classKommentar}{Kommentar} mit Text (\$text) zu einer \hyperlink{classLiteratur}{Literatur} (\$literatur\_\-nr) vom einem Verfasser (\$verfasser\_\-nr) an. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++Text (\$text) darf nicht leer sein \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -174,14 +178,16 @@
+ &#196;ndert einen \hyperlink{classKommentar}{Kommentar}. 
+ 
+ &#196;ndert in Kommentare den Text des Kommentars mit \$nr in \$text. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classKommentar}{Kommentar} in Kommentare mit Kommentar\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$nr}]Nummer des zu ver&#228;ndernden Kommentars \item[\mbox{$\leftarrow$} {\em \$text}]neuer Text des Kommentars \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss die aktuelle Nummer des Mitglieds gleich der Mitglieds\_\-Nr des Kommentars in Kommentare sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
++\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss die aktuelle Nummer des Mitglieds gleich der Mitglieds\_\-Nr des Kommentars in Kommentare sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. Wird kein Text (\$text) angegeben, wird der \hyperlink{classKommentar}{Kommentar} mit \hyperlink{classKommentar_31c1fdfb4fb8f24e0016c8ddb98ddcdc}{Kommentar::Delete} gel&#246;scht. \end{Desc}
+ 
+ 
+ \subsubsection{Dokumentation der Datenelemente}
+
+Modified: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -24,7 +24,7 @@
+ \begin{CompactItemize}
+ \item 
+ \hyperlink{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}{\$Nr}
+-\begin{CompactList}\small\item\em Buchidentifikationsnummer. \item\end{CompactList}\item 
++\begin{CompactList}\small\item\em Literaturidentifikationsnummer. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_e30f9e9db9b396e6f87adfdb94e12ba0}{\$Titel}
+ \begin{CompactList}\small\item\em Titel der \hyperlink{classLiteratur}{Literatur}. \item\end{CompactList}\item 
+ \hyperlink{classLiteratur_2cb6f40a8757a0edd5da32385ad009c9}{\$Jahr}
+@@ -75,7 +75,9 @@
+ Liest \hyperlink{classLiteratur}{Literatur} ein. 
+ 
+ Erstellt aus \hyperlink{classLiteratur}{Literatur} in Bibliothek mit Literatur\_\-Nr (\$nr) neues Literaturobjekt. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classLiteratur}{Literatur} in Bibliothek mit Literatur\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -94,7 +96,9 @@
+ L&#246;scht \hyperlink{classLiteratur}{Literatur}. 
+ 
+ L&#246;scht \hyperlink{classLiteratur}{Literatur} aus Bibliothek mit der Literatur\_\-Nr \$nr. Alle verbundenen Kommentare werden aus Kommentare gel&#246;scht. Au&#223;erdem werden alle nun nicht mehr gebrauchten Autoren in Autoren gel&#246;scht. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classLiteratur}{Literatur} in Bibliothek mit Literatur\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -137,7 +141,7 @@
+ \item[\mbox{$\leftarrow$} {\em \$bibtex}]String mit Inhalt einer Bib\-Te\-X-Datei \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Anzahl der importierten B&#252;cher\end{Desc}
++\item[R\&quot;{u}ckgabe:]Anzahl der importierten \hyperlink{classLiteratur}{Literatur}\end{Desc}
+ \hypertarget{classLiteratur_11f6d1a4409c41638ff6693f65699ff3}{
+ \index{Literatur@{Literatur}!ToBibtex@{ToBibtex}}
+ \index{ToBibtex@{ToBibtex}!Literatur@{Literatur}}
+@@ -161,7 +165,9 @@
+ &#196;ndert \hyperlink{classLiteratur}{Literatur}. 
+ 
+ Entfernt alle zur Literatur\_\-Nr (\$nr) geh&#246;renden Verbindungen in Autor\_\-Literatur um danach die \hyperlink{classLiteratur}{Literatur} mit Literatur\_\-Nr \$nr zu den neuen Werten (\$art, \$titel, \$jahr, \$verlag, \$isbn, \$beschreibung, \$ort, \$stichworte) zu &#228;ndern. Danach werden die Autoren (\$autoren) in Autoren geschrieben und mit der Tabelle Literatur\_\-Autor der \hyperlink{classLiteratur}{Literatur} zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in Autoren werden gel&#246;scht. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classLiteratur}{Literatur} in Bibliothek mit Literatur\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -233,7 +239,7 @@
+ \label{classLiteratur_036a682a93a5d50839c1ebc70a79d4b6}
+ 
+ 
+-Buchidentifikationsnummer. 
++Literaturidentifikationsnummer. 
+ 
+ \hypertarget{classLiteratur_da6c458bb229187efea8e8f144a1d279}{
+ \index{Literatur@{Literatur}!$Ort@{\$Ort}}
+
+Modified: trunk/docs/beleg2/doxygen/classLogin.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLogin.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classLogin.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -27,7 +27,11 @@
+ Verwaltet Logininformationen. 
+ 
+ Verwaltet die aus der sich aktuellen Anmeldung ergebenen Session des Users und der damit entstehenden Rechte \begin{Desc}
+-\item[Vorbedingung:]Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. Es sollte kein zweites Objekt vom Typ \hyperlink{classLogin}{Login} existieren. Datenbankverbindung muss bestehen. \end{Desc}
++\item[Vorbedingung:]Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. 
++
++Es sollte kein zweites Objekt vom Typ \hyperlink{classLogin}{Login} existieren. 
++
++Datenbankverbindung muss bestehen. \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Sollte ein weiteres Objekt vom Typ \hyperlink{classLogin}{Login} existieren, in welche neue Logininformationen eingetragen werden, wird keine weitere Session angelegt, sondern die alten Informationen in der aktuellen Session &#252;berschrieben. \end{Desc}
+ \begin{Desc}
+@@ -53,16 +57,19 @@
+ Liest bzw. Erstellt Session f&#252;r Anmeldedaten. 
+ 
+ Liest Daten aus der Session ein. Sollten keine vorhanden sein, dann wird eine neue, leere Session angelegt. Sollten Daten vorhanden sein, wird die Korrektheit &#252;ber die Datenbank (Mitglieder) und die Verbindungsinformationen gepr&#252;ft. Nach dieser Pr&#252;fung werden abh&#228;ngig vom Ausgang die Rechteinformationen gesetzt.\par
+- Werden keine Parameter &#252;bergeben, wird das Klartextpasswort mit \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash} gehasht, um diese mit Benutzernamen (\$benutzer) gegen die Eintr&#228;ge in Mitglieder zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session mit gehashtem Passwort, Benuternamen und Verbindungsinformationen erstellt. Sollte irgendwo ein Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte (wird also nicht zum \hyperlink{classMitglied}{Mitglied}). Sonst erh&#228;lt er die Rechte und Mitglieds\_\-Nr aus dem gefundenem Eintrag in Mitglieder. \begin{Desc}
++ Werden keine Parameter &#252;bergeben, wird das Klartextpasswort mit \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash} gehasht, um diese mit Benutzernamen (\$benutzer) gegen die Eintr&#228;ge in Mitglieder zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session mit gehashtem Passwort, Benutzernamen und Verbindungsinformationen erstellt. Sollte ein Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte (wird also nicht zum \hyperlink{classMitglied}{Mitglied}). Sonst erh&#228;lt er die Rechte und Mitglieds\_\-Nr aus dem gefundenem Eintrag in Mitglieder. \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+ \item[\mbox{$\leftarrow$} {\em \$benutzer}]neuer Benutzername \item[\mbox{$\leftarrow$} {\em \$passwort}]Passwort in Klartext des Nutzers \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.\par
+- Zum Einloggen mit Daten darf kein Parameter leer sein \end{Desc}
++\item[Vorbedingung:]Eine Verbindung zur Datenbank muss bestehen. 
+ 
++Der Konstruktor muss vor dem Senden von Inhaltsdaten aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen. 
+ 
++Zum Einloggen mit Daten darf kein Parameter leer sein \end{Desc}
++
++
+ \subsubsection{Dokumentation der Elementfunktionen}
+ \hypertarget{classLogin_6c120224aa6719f58c6ccd08acc28758}{
+ \index{Login@{Login}!IsAdministrator@{IsAdministrator}}
+
+Modified: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -86,7 +86,9 @@
+ Entfernt \hyperlink{classMitglied}{Mitglied}. 
+ 
+ Entfernt \hyperlink{classMitglied}{Mitglied} mit Mitgliedsnummer (\$nr) aus Mitglieder und l&#246;scht zus&#228;tzlich die Kommentare des Mitglieds in Kommentare \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classMitglied}{Mitglied} in Mitglieder mit Mitglieds\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+@@ -103,7 +105,7 @@
+ 
+ R&#252;ckgabe einer Liste der Mitglieder. 
+ 
+-Liest alle Mitglieder mit Nr, \hyperlink{classLogin}{Login}, Vorname, Nachname und Email aus Mitgliedertabelle und gibt die ausgelesenen Objekte in einem Feld zur&#252;ck \begin{Desc}
++Liest alle Mitglieder mit Nr, \hyperlink{classLogin}{Login}, Vorname, Nachname und Email aus Tabelle Mitglieder und gibt die ausgelesenen Objekte in einem Feld zur&#252;ck \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Feld mit Objekten der Form\begin{itemize}
+@@ -120,7 +122,7 @@
+ 
+ Legt \hyperlink{classMitglied}{Mitglied} an. 
+ 
+-F&#252;gt neues \hyperlink{classMitglied}{Mitglied} mit Benutzernamen (\$loginname), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder ein. Dazu wird das Passwort noch mit Mitglied::Passwort\-Hash gehasht. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
++F&#252;gt neues \hyperlink{classMitglied}{Mitglied} mit Benutzernamen (\$loginname), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder ein. Dazu wird das Passwort noch mit \hyperlink{classMitglied_9b13db80866c22bf992e73f2eb75e369}{Mitglied::Password\-Hash} gehasht. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+@@ -159,8 +161,10 @@
+ 
+ &#196;ndert ein \hyperlink{classMitglied}{Mitglied}. 
+ 
+-&#196;ndert die Daten das Mitglieds mit der Mitglieds\_\-Nr (\$nr), in neuen Benutzernamen (\$loginname), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder. Wenn \$passwort nicht die L&#228;nge 0 hat, wird es noch mit Mitglied::Passwort\-Hash gehasht. Andernfalls wird das alte Passwort in Mitglieder beibehalten. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
+-\item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
++&#196;ndert die Daten des Mitglieds mit der Mitglieds\_\-Nr (\$nr), in neuen Benutzernamen (\$loginname), Passwort (\$passwort), Benutzerrechten (\$rechte), Vorname (\$vorname), Nachname (\$nachname), E-Mail-Adresse (\$email) in Mitglieder. Wenn \$passwort nicht die L&#228;nge 0 hat, wird es noch mit Mitglied::Passwort\-Hash gehasht. Andernfalls wird das alte Passwort in Mitglieder beibehalten. Sollte ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} existieren wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein \hyperlink{classMitglied}{Mitglied} mit gleichem \hyperlink{classLogin}{Login} erlaubt. \begin{Desc}
++\item[Vorbedingung:]Datenbankverbindung muss bestehen 
++
++\hyperlink{classMitglied}{Mitglied} in Mitglieder mit Mitglieds\_\-Nr \$nr muss existieren \end{Desc}
+ \begin{Desc}
+ \item[Parameter:]
+ \begin{description}
+
+Modified: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -132,7 +132,7 @@
+ Entfernt Datens&#228;tze der letzten Anfrage und gibt deren Speicher frei. \begin{Desc}
+ \item[Vorbedingung:]- \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]Funktion wird vor jedem query aufgerufen \end{Desc}
++\item[Bemerkungen:]Funktion wird vor jedem \hyperlink{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{Query()} aufgerufen \end{Desc}
+ \hypertarget{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}{
+ \index{SQLDB@{SQLDB}!GetAffectedRows@{GetAffectedRows}}
+ \index{GetAffectedRows@{GetAffectedRows}!SQLDB@{SQLDB}}
+@@ -147,7 +147,7 @@
+ \begin{Desc}
+ \item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]F&#252;r gefundene Datens&#228;tze sollte num\_\-rows() genutzt werden \end{Desc}
++\item[Bemerkungen:]F&#252;r gefundene Datens&#228;tze sollte \hyperlink{classSQLDB_15b181251b309ab55331be29fa33ac9f}{Get\-Num\-Rows()} genutzt werden \end{Desc}
+ \hypertarget{classSQLDB_efc9afe11649d6cdae21575717ec3436}{
+ \index{SQLDB@{SQLDB}!GetError@{GetError}}
+ \index{GetError@{GetError}!SQLDB@{SQLDB}}
+@@ -180,7 +180,7 @@
+ \item[{\em false}]bei Misserfolg \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte affected\_\-rows() genutzt werden \end{Desc}
++\item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte \hyperlink{classSQLDB_8f3c28ae4ed5941c043459d6204a887b}{Get\-Affected\-Rows()} genutzt werden \end{Desc}
+ \hypertarget{classSQLDB_fc6ffa8df50f68f07d9f5e3385b96d7a}{
+ \index{SQLDB@{SQLDB}!Query@{Query}}
+ \index{Query@{Query}!SQLDB@{SQLDB}}
+
+Modified: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-06-05 16:09:24 UTC (rev 138)
+@@ -20,7 +20,7 @@
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+ \hyperlink{classSuche}{Suche} Literaturdaten. 
+ 
+-Durchsucht die Literatur- und Autorentabelle &#252;ber Volltextsuche, nach \hyperlink{classAutor}{Autor} und Titel oder nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert sie in \$Treffer zwischen. \begin{Desc}
++Durchsucht die Tabelle Bibliothek und Autoren &#252;ber Volltextsuche, nach \hyperlink{classAutor}{Autor} und Titel oder nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert sie in \$Treffer zwischen. \begin{Desc}
+ \item[Vorbedingung:]Datenbankverbindung muss bestehen \end{Desc}
+ \begin{Desc}
+ \item[Importiert:]\begin{itemize}
+@@ -45,15 +45,15 @@
+ Sucht \hyperlink{classLiteratur}{Literatur}. 
+ 
+ Wenn keine Parameter &#252;bergeben werden:\begin{itemize}
+-\item Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
++\item Sucht in Tabelle Bibliothek nach den 10 zuletzt hinzugef&#252;gten Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
+ 
+ 
+ Wenn ein \$suchbegriff &#252;bergeben wird:\begin{itemize}
+-\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten des &#252;bergebenen Textes in Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
++\item Sucht in Tabelle \hyperlink{classLiteratur}{Literatur} und Autoren nach dem Auftreten des &#252;bergebenen Textes in Literatureintr&#228;gen und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag und ISBN als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
+ 
+ 
+ Wenn \$suchbegriff und \$autor &#252;bergeben werden:\begin{itemize}
+-\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten von \$autor in \hyperlink{classAutor}{Autor} und \$suchbegriff im Titel des Literatureintrags und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\item Wird eine kommagetrennte Liste von Autoren als \$autor &#252;bergeben, muss in Treffern nur einer der genannten Autoren auftreten.\end{itemize}
++\item Sucht in Tabelle Bibliothek und Autoren nach dem Auftreten von \$autor in \hyperlink{classAutor}{Autor} und \$suchbegriff im Titel des Literatureintrags und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\item Wird eine kommagetrennte Liste von Autoren als \$autor &#252;bergeben, muss in Treffern nur einer der genannten Autoren auftreten.\end{itemize}
+ 
+ 
+ \begin{Desc}
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/autor.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -57,9 +57,9 @@
+ 
+ 		/*! \brief Gibt Autoren zu bestimmter Literatur zur&#252;ck
+ 		 *
+-		 *  Liest alle Autoren die einer Literatur ($nr) zugeordnet
+-		 *  sind aus Kommentare aus und gibt sie als Feld des Typs
+-		 *  Autor zur&#252;ck.
++		 *  Liest alle Autoren die einer Literatur ($literatur_nr)
++		 *  zugeordnet sind aus Kommentare aus und gibt sie als Feld des
++		 *  Typs Autor zur&#252;ck.
+ 		 *  \param[in] $literatur_nr Nr einer Literatur mit Autoren
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Feld vom Typ Autor
+@@ -90,7 +90,7 @@
+ 		 *  schon existieren, dann wird Autor_Nr ausgelesen und zum
+ 		 *  Feld hinzugef&#252;gt. Sollten diese noch nicht existieren,
+ 		 *  werden sie hinzugef&#252;gt und die neuen Autor_Nr zum Feld
+-		 *  hinzugef&#252;gt. Das komplette Feld vom Typ Autor_Nr wird
++		 *  hinzugef&#252;gt. Das komplette Feld mit Autor_Nr wird
+ 		 *  zur&#252;ckgegeben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/kommentar.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -4,8 +4,8 @@
+ 	/*! \brief Verwaltet Kommentare
+ 	 *
+ 	 *  Stellt Funktionen zum Anlegen, L&#246;schen, Bearbeiten von Kommentaren
+-	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder nach Literatur-
+-	 *  bzw. Mitgliederverbundenen Kommentaren gel&#246;scht werden.
++	 *  bereit. Es k&#246;nnen sowohl einzelne Kommentare oder Kommentare nach
++	 *  ihrer Verbindung zur Literatur bzw. Mitgliedern gel&#246;scht werden.
+ 	 *  \pre Datenbankverbindung muss bestehen
+ 	 *  \sa
+ 	 *  - Login::IsAdministrator
+@@ -48,6 +48,8 @@
+ 		 *  L&#246;scht einen Kommentar aus Kommentare mit der Kommentar_Nr
+ 		 *  $nr.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Kommentar in Kommentare mit Kommentar_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Nummer des zu l&#246;schenden Kommentars
+ 		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
+ 		 *    werden keine Operationen ausgef&#252;hrt, wenn Mitglieds_Nr
+@@ -119,9 +121,9 @@
+ 
+ 		/*! \brief Gibt Kommentare zu bestimmter Literatur zur&#252;ck
+ 		 *
+-		 *  Liest alle Kommentare die einer Literatur ($nr) zugeordnet
+-		 *  sind aus Kommentare aus und gibt sie als Feld des Typs
+-		 *  Kommentar zur&#252;ck.
++		 *  Liest alle Kommentare die einer Literatur ($literatur_nr)
++		 *  zugeordnet sind aus Kommentare aus und gibt sie als Feld des
++		 *  Typs Kommentar zur&#252;ck.
+ 		 *  \param[in] $literatur_nr Nr einer Literatur mit Kommentaren
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Feld vom Typ Kommentar
+@@ -151,6 +153,7 @@
+ 		 *  Literatur ($literatur_nr) vom einem Verfasser 
+ 		 *  ($verfasser_nr) an.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Text ($text) darf nicht leer sein
+ 		 *  \param[in] $text Text des Kommentars
+ 		 *  \param[in] $verfasser_nr Mitglieds_Nr des Verfassers
+ 		 *  \param[in] $literatur_nr Nummer der Literatur
+@@ -183,9 +186,12 @@
+ 
+ 					if (($cur = $sqldb-&gt;Fetch()) === false)
+ 					{
+-						$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++						if (empty($text) === false)
++						{
++							$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
+ 								VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
+-						$sqldb-&gt;Query($sql);
++							$sqldb-&gt;Query($sql);
++						}
+ 					}
+ 					else
+ 					{
+@@ -200,33 +206,43 @@
+ 		 *  &#196;ndert in Kommentare den Text des Kommentars mit $nr
+ 		 *  in $text.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Kommentar in Kommentare mit Kommentar_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Nummer des zu ver&#228;ndernden Kommentars
+ 		 *  \param[in] $text neuer Text des Kommentars
+ 		 *  \remarks Ist das aktuelle Mitglied kein Administrator,
+ 		 *  dann muss die aktuelle Nummer des Mitglieds gleich der
+ 		 *  Mitglieds_Nr des Kommentars in Kommentare sein. Ist der
+ 		 *  Nutzer nicht eingeloggt, werden keine Operationen
+-		 *  ausgef&#252;hrt.
++		 *  ausgef&#252;hrt. Wird kein Text ($text) angegeben, wird der
++		 *  Kommentar mit Kommentar::Delete gel&#246;scht.
+ 		 */
+ 		function Update($nr, $text)
+ 		{
+ 			global $db_config, $sqldb, $login;
+ 
+-			if ($login-&gt;IsAdministrator() === true)
++			if (empty($text) === true)
+ 			{
+-				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
+-						SET Kommentartext='$text'
+-						WHERE Kommentar_Nr='$nr'
+-						LIMIT 1&quot;;
+-				$sqldb-&gt;Query($sql);
++				Kommentar::Delete($nr);
+ 			}
+-			elseif ($login-&gt;IsMember() === true)
++			else
+ 			{
+-				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
+-						SET Kommentartext='$text'
+-						WHERE Kommentar_Nr='$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
+-						LIMIT 1&quot;;
+-				$sqldb-&gt;Query($sql);
++				if ($login-&gt;IsAdministrator() === true)
++				{
++					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
++							SET Kommentartext='$text'
++							WHERE Kommentar_Nr='$nr'
++							LIMIT 1&quot;;
++					$sqldb-&gt;Query($sql);
++				}
++				elseif ($login-&gt;IsMember() === true)
++				{
++					$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Kommentare
++							SET Kommentartext='$text'
++							WHERE Kommentar_Nr='$nr' AND Mitglieds_Nr='&quot;.$login-&gt;Nr.&quot;'
++							LIMIT 1&quot;;
++					$sqldb-&gt;Query($sql);
++				}
+ 			}
+ 		}
+ 	}
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/literatur.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -26,7 +26,7 @@
+ 	 */
+ 	class Literatur
+ 	{
+-		var $Nr = 0; ///&lt; Buchidentifikationsnummer
++		var $Nr = 0; ///&lt; Literaturidentifikationsnummer
+ 		var $Titel = &quot;&quot;; ///&lt; Titel der Literatur
+ 		var $Jahr = 0; ///&lt; Erscheinungsjahr
+ 		var $Verlag = &quot;&quot;; ///&lt; Verlag/Herausgeber
+@@ -43,6 +43,8 @@
+ 		 *  Erstellt aus Literatur in Bibliothek mit Literatur_Nr
+ 		 *  ($nr) neues Literaturobjekt.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Nummer der zu einlesenden Literatur
+ 		 */
+ 		function Literatur($nr)
+@@ -135,6 +137,8 @@
+ 		 *  Au&#223;erdem werden alle nun nicht mehr gebrauchten Autoren in
+ 		 *  Autoren gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Nummer der zu l&#246;schenden Literatur
+ 		 *  \remarks Ist der Nutzer nicht als Mitglied angemeldet,
+ 		 *    werden keine Operationen ausgef&#252;hrt
+@@ -168,10 +172,12 @@
+ 		 *  in die Datenbank zu schreiben.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \param[in] $bibtex String mit Inhalt einer BibTeX-Datei
++		 *  \return Anzahl der importierten Literatur
+ 		 */
+ 		function InsertBibTeX($bibtex)
+ 		{
+ 			/// \todo implementieren
++			return 0;
+ 		}
+ 
+ 		/*! \brief Legt Literatur an
+@@ -232,6 +238,8 @@
+ 		 *  zugeordnet. Alle jetzt noch nicht zugeordneten Autoren in
+ 		 *  Autoren werden gel&#246;scht.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Literatur in Bibliothek mit Literatur_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Nummer der zu ver&#228;ndernden Literatur
+ 		 *  \param[in] $autoren String mit kommagetrennter Liste von Autoren
+ 		 *  \param[in] $art neuer Bezeichner der Literaturart
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/login.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -6,9 +6,9 @@
+ 	 *  Verwaltet die aus der sich aktuellen Anmeldung ergebenen Session
+ 	 *  des Users und der damit entstehenden Rechte
+ 	 *  \pre Das Loginobjekt muss vor einer &#220;bertragung von Inhaltsdaten zum 
+-	 *    User angelegt werden, um ein Cookie anlegen zu k&#246;nnen. Es sollte
+-	 *    kein zweites Objekt vom Typ Login existieren.
+-	 *    Datenbankverbindung muss bestehen.
++	 *    User angelegt werden, um ein Cookie anlegen zu k&#246;nnen.
++	 *  \pre Es sollte kein zweites Objekt vom Typ Login existieren.
++	 *  \pre Datenbankverbindung muss bestehen.
+ 	 *  \remarks Sollte ein weiteres Objekt vom Typ Login existieren, in
+ 	 *    welche neue Logininformationen eingetragen werden, wird keine
+ 	 *    weitere Session angelegt, sondern die alten Informationen in
+@@ -44,17 +44,17 @@
+ 		 *  mit Mitglied::PasswordHash gehasht, um diese mit
+ 		 *  Benutzernamen ($benutzer) gegen die Eintr&#228;ge in Mitglieder
+ 		 *  zu pr&#252;fen. Ist diese erfolgreich, wird eine neue Session
+-		 *  mit gehashtem Passwort, Benuternamen und
+-		 *  Verbindungsinformationen erstellt. Sollte irgendwo ein
+-		 *  Fehler bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte
++		 *  mit gehashtem Passwort, Benutzernamen und
++		 *  Verbindungsinformationen erstellt. Sollte ein Fehler 
++		 *  bei der Anmeldung auftreten, erh&#228;lt er Nutzerrechte
+ 		 *  (wird also nicht zum Mitglied). Sonst erh&#228;lt er die Rechte
+ 		 *  und Mitglieds_Nr aus dem gefundenem Eintrag in Mitglieder.
+ 		 *  \param[in] $benutzer neuer Benutzername
+ 		 *  \param[in] $passwort Passwort in Klartext des Nutzers
+ 		 *  \pre Eine Verbindung zur Datenbank muss bestehen.
+-		 *    Der Konstruktor muss vor dem Senden von Inhaltsdaten
+-		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.\n
+-		 *    Zum Einloggen mit Daten darf kein Parameter leer sein
++		 *  \pre Der Konstruktor muss vor dem Senden von Inhaltsdaten
++		 *    aufgerufen werden, um ein Cookie erstellen zu k&#246;nnen.
++		 *  \pre Zum Einloggen mit Daten darf kein Parameter leer sein
+ 		 */
+ 		function Login($benutzer = &quot;&quot;, $passwort = &quot;&quot;)
+ 		{
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/mitglied.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -85,6 +85,8 @@
+ 		 *  und l&#246;scht zus&#228;tzlich die Kommentare des Mitglieds in
+ 		 *  Kommentare
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Mitglied in Mitglieder mit Mitglieds_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Mitglieds_Nr des zu l&#246;schenden Mitglieds
+ 		 *  \remarks Ist der Nutzer nicht als Administrator angemeldet,
+ 		 *    werden keine Operationen ausgef&#252;hrt
+@@ -109,7 +111,7 @@
+ 		 *  F&#252;gt neues Mitglied mit Benutzernamen ($loginname), Passwort
+ 		 *  ($passwort), Benutzerrechten ($rechte), Vorname ($vorname),
+ 		 *  Nachname ($nachname), E-Mail-Adresse ($email) in Mitglieder
+-		 *  ein. Dazu wird das Passwort noch mit Mitglied::PasswortHash
++		 *  ein. Dazu wird das Passwort noch mit Mitglied::PasswordHash
+ 		 *  gehasht. Sollte ein Mitglied mit gleichem Login existieren
+ 		 *  wird ein Fehler zur&#252;ckgegeben, da die Datenbank nur ein
+ 		 *  Mitglied mit gleichem Login erlaubt.
+@@ -153,7 +155,7 @@
+ 		
+ 		/*! \brief &#196;ndert ein Mitglied
+ 		 *
+-		 *  &#196;ndert die Daten das Mitglieds mit der Mitglieds_Nr ($nr),
++		 *  &#196;ndert die Daten des Mitglieds mit der Mitglieds_Nr ($nr),
+ 		 *  in neuen Benutzernamen ($loginname), Passwort ($passwort),
+ 		 *  Benutzerrechten ($rechte), Vorname ($vorname),
+ 		 *  Nachname ($nachname), E-Mail-Adresse ($email) in
+@@ -164,6 +166,8 @@
+ 		 *  zur&#252;ckgegeben, da die Datenbank nur ein Mitglied mit
+ 		 *  gleichem Login erlaubt.
+ 		 *  \pre Datenbankverbindung muss bestehen
++		 *  \pre Mitglied in Mitglieder mit Mitglieds_Nr $nr muss
++		 *    existieren
+ 		 *  \param[in] $nr Mitglieds_Nr des zu ver&#228;ndernden Mitglieds
+ 		 *  \param[in] $loginname neuer Benutzername des Mitglieds
+ 		 *  \param[in] $passwort neues Passwort des Mitglieds
+@@ -225,7 +229,7 @@
+ 		/*! \brief R&#252;ckgabe einer Liste der Mitglieder
+ 		 *
+ 		 *  Liest alle Mitglieder mit Nr, Login, Vorname, Nachname und
+-		 *  Email aus Mitgliedertabelle und gibt die ausgelesenen
++		 *  Email aus Tabelle Mitglieder und gibt die ausgelesenen
+ 		 *  Objekte in einem Feld zur&#252;ck
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Feld mit Objekten der Form
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/sqldb_mysql.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -127,7 +127,7 @@
+ 		 *  Entfernt Datens&#228;tze der letzten Anfrage und gibt deren
+ 		 *  Speicher frei.
+ 		 *  \pre -
+-		 *  \remarks Funktion wird vor jedem query aufgerufen
++		 *  \remarks Funktion wird vor jedem Query() aufgerufen
+ 		 */
+ 		function FreeResult()
+ 		{
+@@ -149,7 +149,7 @@
+ 		 *  Anweisung ge&#228;nderten Datens&#228;tze.
+ 		 *  \pre Datenbankverbindung muss bestehen
+ 		 *  \return Anzahl der Datens&#228;tze
+-		 *  \remarks F&#252;r gefundene Datens&#228;tze sollte num_rows() genutzt werden
++		 *  \remarks F&#252;r gefundene Datens&#228;tze sollte GetNumRows() genutzt werden
+ 		 */
+ 		function GetAffectedRows()
+ 		{
+@@ -195,7 +195,7 @@
+ 		 *  \pre Datenbankverbindung muss mit einer Abfrage bestehen
+ 		 *  \return bei Erfolg Anzahl der Datens&#228;tze
+ 		 *  \retval false bei Misserfolg
+-		 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte affected_rows() genutzt werden
++		 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte GetAffectedRows() genutzt werden
+ 		 */
+ 		function GetNumRows()
+ 		{
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-06-05 10:11:30 UTC (rev 137)
++++ trunk/include/suche.php	2006-06-05 16:09:24 UTC (rev 138)
+@@ -4,7 +4,7 @@
+ 
+ 	/*! \brief Suche Literaturdaten
+ 	 *
+-	 *  Durchsucht die Literatur- und Autorentabelle &#252;ber Volltextsuche,
++	 *  Durchsucht die Tabelle Bibliothek und Autoren &#252;ber Volltextsuche,
+ 	 *  nach Autor und Titel oder nach den 10 zuletzt hinzugef&#252;gten
+ 	 *  Literatureintr&#228;gen und speichert sie in $Treffer zwischen.
+ 	 *  \pre Datenbankverbindung muss bestehen
+@@ -31,9 +31,9 @@
+ 
+ 		/*! \brief Sucht zuletzt hinzugef&#252;gte Literatur
+ 		 *
+-		 *  Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten
++		 *  Sucht in Tabelle Bibliothek nach den 10 zuletzt hinzugef&#252;gten
+ 		 *  Literatureintr&#228;gen und speichert Nr, Titel, Autor, Verlag
+-		 *  und ISBN als als Objekt im Feld $Treffer. Sollte ein Fehler
++		 *  und ISBN als Objekt im Feld $Treffer. Sollte ein Fehler
+ 		 *  auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann
+ 		 *  wird $Treffer ein Feld der L&#228;nge 0.
+ 		 *  \pre Datenbankverbindung muss bestehen.
+@@ -74,9 +74,9 @@
+ 
+ 		/*! \brief Sucht nach Literatur mit Suchbegriff
+ 		 *
+-		 *  Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  Sucht in Tabelle Bibliothek und Autor nach dem Auftreten
+ 		 *  des &#252;bergebenen Textes in  Literatureintr&#228;gen und speichert
+-		 *  Nr, Titel, Autor, Verlag und ISBN als als Objekt im Feld
++		 *  Nr, Titel, Autor, Verlag und ISBN als Objekt im Feld
+ 		 *  $Treffer. Sollte ein Fehler auftreten oder keine passenden
+ 		 *  Eintr&#228;ge vorhanden sein, dann wird $Treffer ein Feld der
+ 		 *  L&#228;nge 0.
+@@ -127,10 +127,10 @@
+ 		
+ 		/*! \brief Sucht Literatur mit Autor und Titel
+ 		 *
+-		 *  Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  Sucht in Tabelle Bibliothek und Autoren nach dem Auftreten
+ 		 *  von $autor in Autor und $titel im Titel des Literatureintrags
+ 		 *  und speichert Nr, Titel, Autor, Verlag und ISBN der Treffer
+-		 *  als als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
++		 *  als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
+ 		 *  oder keine passenden Eintr&#228;ge vorhanden sein, dann wird
+ 		 *  $Treffer ein Feld der L&#228;nge 0.
+ 		 *  \pre Datenbankverbindung muss bestehen.
+@@ -202,25 +202,25 @@
+ 		/*! \brief Sucht Literatur
+ 		 *
+ 		 *  Wenn keine Parameter &#252;bergeben werden:
+-		 *  - Sucht in Literaturtabelle nach den 10 zuletzt hinzugef&#252;gten
+-		 *    Literatureintr&#228;gen und speichert Nr, Titel, Autor, Verlag
+-		 *    und ISBN als als Objekt im Feld $Treffer. Sollte ein Fehler
+-		 *    auftreten oder bisher keine Eintr&#228;ge vorhanden sein, dann
+-		 *    wird $Treffer ein Feld der L&#228;nge 0.
++		 *  - Sucht in Tabelle Bibliothek nach den 10 zuletzt
++		 *    hinzugef&#252;gten Literatureintr&#228;gen und speichert Nr, Titel,
++		 *    Autor, Verlag und ISBN als Objekt im Feld $Treffer.
++		 *    Sollte ein Fehler auftreten oder bisher keine Eintr&#228;ge
++		 *    vorhanden sein, dann wird $Treffer ein Feld der L&#228;nge 0.
+ 		 *
+ 		 *  Wenn ein $suchbegriff &#252;bergeben wird:
+-		 *  - Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  - Sucht in Tabelle Literatur und Autoren nach dem Auftreten
+ 		 *    des &#252;bergebenen Textes in  Literatureintr&#228;gen und speichert
+-		 *    Nr, Titel, Autor, Verlag und ISBN als als Objekt im Feld
++		 *    Nr, Titel, Autor, Verlag und ISBN als Objekt im Feld
+ 		 *    $Treffer. Sollte ein Fehler auftreten oder keine passenden
+ 		 *    Eintr&#228;ge vorhanden sein, dann wird $Treffer ein Feld der
+ 		 *    L&#228;nge 0.
+ 		 *
+ 		 *  Wenn $suchbegriff und $autor &#252;bergeben werden:
+-		 *  - Sucht in Literatur und Autortabelle nach dem Auftreten
++		 *  - Sucht in Tabelle Bibliothek und Autoren nach dem Auftreten
+ 		 *    von $autor in Autor und $suchbegriff im Titel des 
+ 		 *    Literatureintrags und speichert Nr, Titel, Autor, Verlag
+-		 *    als als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
++		 *    als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
+ 		 *    und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden
+ 		 *    sein, dann wird $Treffer ein Feld der L&#228;nge 0.
+ 		 *  - Wird eine kommagetrennte Liste von Autoren als
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000127.html">[Liman-svn] r137 - in trunk/docs/beleg2: . doxygen visio
+</A></li>
+	<LI>Next message: <A HREF="000129.html">[Liman-svn] r139 - in trunk/docs: . beleg3 beleg3/interfaces beleg3/sourcecodes beleg3/sourcecodes/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#128">[ date ]</a>
+              <a href="thread.html#128">[ thread ]</a>
+              <a href="subject.html#128">[ subject ]</a>
+              <a href="author.html#128">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

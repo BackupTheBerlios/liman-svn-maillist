@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r194 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r194%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606271140.k5RBeoIL001834%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000183.html">
+   <LINK REL="Next"  HREF="000185.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r194 - trunk/docs/beleg3</H1>
+    <B>gregorian at berlios.de</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r194%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606271140.k5RBeoIL001834%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r194 - trunk/docs/beleg3">gregorian at berlios.de
+       </A><BR>
+    <I>Tue Jun 27 13:40:50 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000183.html">[Liman-svn] r193 - in trunk/docs/beleg3: . visio
+</A></li>
+        <LI>Next message: <A HREF="000185.html">[Liman-svn] r195 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#184">[ date ]</a>
+              <a href="thread.html#184">[ thread ]</a>
+              <a href="subject.html#184">[ subject ]</a>
+              <a href="author.html#184">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: gregorian
+Date: 2006-06-27 13:40:10 +0200 (Tue, 27 Jun 2006)
+New Revision: 194
+
+Added:
+   trunk/docs/beleg3/lit_ins.pdf
+   trunk/docs/beleg3/lit_ins1.pdf
+   trunk/docs/beleg3/login.pdf
+   trunk/docs/beleg3/login1.pdf
+   trunk/docs/beleg3/screen1.pdf
+   trunk/docs/beleg3/suche.pdf
+   trunk/docs/beleg3/treffer.pdf
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+Log:
+Anwenderdokumentation
+- mit 3.4 Bedienungsanleitung begonnen
+- Login, Suche, Buch einf. ...
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-26 23:11:54 UTC (rev 193)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-27 11:40:10 UTC (rev 194)
+@@ -42,3 +42,53 @@
+ 
+ \end{enumerate}
+ \section{Bedienungsanleitung}
++\subsection{Start der Anwenung}
++Um den Literaturmanager zu starten muss man einen Web-Browser (hier Firefox 1.5.0.4) starten und die passende Internet-Adresse in das URL-Feld eintragen. Die URL kann man beim Administrator erfragen, da er den Web-Server zuvor konfiguriert.
++\subsection{Die Hauptseite}
++Hat man die richtige Web-Adresse eingegeben, so l&quot;adt der Browser folgende Seite:\\
++\includegraphics[scale=0.8]{screen1.pdf}\\
++Die Hauptseite ist in vier Segmente aufgeteilt:\\
++\begin{enumerate}
++\item Navigation:\\
++In dem Segment Navigation kann man nun zwischen zwei Men&quot;upunkten w&quot;ahlen:\\
++Literatur und Nutzer\\
++Auf diese beiden Punkte wird sp&quot;ater genauer eingegangen.
++\item Letzte Literatur:\\
++Dieses Segment erm&quot;oglicht einen &quot;Uberblick der zuletzt get&quot;atigten Literatureintr&quot;age.
++\item Suchen:\\
++Die Suchfunktion erm&quot;oglicht eine schnelle Recherche in den vorhandenen Buchdaten. Die genauere Bedienung wird noch erl&quot;autert.
++\item Einloggen:\\
++Hier kann sich jedes Mitglied mit seinem Login, also einem Namen und seinem Passwort bei dem Literaturmanager anmelden.\\
++Sollte man keinen Login-Name und kein Passwort besitzen so muss man sich bei einem Administrator anmelden.\\
++Auch wenn man sein Passwort vergessen hat, muss man einen Adminsitrator kontaktieren.\\
++\end{enumerate}
++\subsection{Wie logge ich mich ein?}
++Im Segment Einloggen auf der Hauptseite existieren zwei Editfelder, Login und Passwort.\\
++Man gibt also in das obere Feld seinen Login-Namen und in das zweite Feld sein Passwort ein. Anschlie&quot;send bet&quot;atigt man den Button &quot;Login&quot; (1).\\
++In der folgenden Abbildung ist der Abschnitt Einloggen einmal vergr&quot;o&quot;sert dargestellt.
++Wir Loggen uns mit dem Namen 'Lazhur' und dem Passwort 'tescht' ein:\\
++\begin{center}
++\includegraphics[scale=1.0]{login.pdf}\\
++\end{center}
++War die Anmeldung erfolgreich so erscheint folgende Anzeige und man ist als Mitglied eingeloggt:\\
++\includegraphics[scale=0.8]{login1.pdf}\\
++
++\subsection{Wie finde ich ein Buch?}
++Um Informationen zu einem Buchtitel zu erhalten bietet es sich an die Suchfunktion des Literaturmanagers zu nutzen. Hierzu kommen wir kurz auf das Bild des Hauptbildschirm weiter oben zur&quot;uck:\\
++Folgendes Bild verg&quot;o&quot;sert das Suchsegment (3):\\
++\begin{center}
++\includegraphics[scale=2.0]{suche.pdf}\\
++\end{center}
++Das Prinzip ist ganz einfach. Man gibt ein Stichwort zu einem Buchtitel ein, z.B. ein Wort aus dem Titel oder den Namen des Autors, und dr&quot;uckt den Suche-Button (1).\\
++Gibt man z.B. den Begriff 'Python' ein so erscheinen alle Buchtitel mit diesem Begriff. Die n&quot;achste Abbildung zeigt einmal eine solche Trefferliste:\\
++\includegraphics[scale=0.8]{treffer.pdf}\\
++\subsection{Wie kann ich ein neues Buch anlegen?}
++Kommen wir nun vom Recherchieren zum bearbeiten und Pflegen der Literaturverwaltung.\\
++Angenommen ein Buch ist nicht in der Literaturverwaltung vorhanden und ein Mitglied m&quot;ochte es darin aufnehmen.\\
++Hierzu klicken wir zun&quot;achst im Segment 'Navigation' auf den Punkt 'Literatur', daraufhin erscheint folgendes Fenster:\\
++\includegraphics[scale=0.8]{lit_ins.pdf}\\
++Dominiert wird das Segment von der Tabelle mit den Literatureintr&quot;agen darunter befinden sich zwei Buttons, die nur dann erscheinen, wenn man sich als Mitglied angemeldet hat.\\
++Der Button 'Literatur hinzuf&quot;ugen' spricht wohl f&quot;ur sich. Er erm&quot;oglicht das hinzuf&quot;ugen eines neuen Buchtitels.\\
++Der Button 'BibTex importieren' erm&quot;oglicht es bereits vorgefertigte Buchbeschreibungen im BibTex-Format zu importieren.\\
++Klickt man nun auf den Button 'Literatur hinzuf&quot;ugen' erscheint folgendes Formular:\\
++\includegraphics[scale=0.8]{lit_ins1.pdf}\\
+\ No newline at end of file
+
+Added: trunk/docs/beleg3/lit_ins.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/lit_ins.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/lit_ins1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/lit_ins1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/login.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/login.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/login1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/login1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/screen1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/screen1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/suche.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/suche.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/treffer.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/treffer.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000183.html">[Liman-svn] r193 - in trunk/docs/beleg3: . visio
+</A></li>
+	<LI>Next message: <A HREF="000185.html">[Liman-svn] r195 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#184">[ date ]</a>
+              <a href="thread.html#184">[ thread ]</a>
+              <a href="subject.html#184">[ subject ]</a>
+              <a href="author.html#184">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

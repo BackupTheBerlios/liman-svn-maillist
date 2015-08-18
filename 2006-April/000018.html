@@ -1,0 +1,622 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r28 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r28%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200604231425.k3NEPwRq008030%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000017.html">
+   <LINK REL="Next"  HREF="000019.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r28 - in trunk: . design include</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r28%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200604231425.k3NEPwRq008030%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r28 - in trunk: . design include">dotslash at berlios.de
+       </A><BR>
+    <I>Sun Apr 23 16:25:58 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000017.html">[Liman-svn] r27 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000019.html">[Liman-svn] r29 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-04-23 16:25:57 +0200 (Sun, 23 Apr 2006)
+New Revision: 28
+
+Added:
+   trunk/book.php
+   trunk/bookadd.php
+   trunk/user.php
+   trunk/userlist.php
+   trunk/usermod.php
+Modified:
+   trunk/design/liman.css
+   trunk/include/header.php
+   trunk/index.php
+Log:
+- ein kleines bisschen Framework/Prototyp.
+
+Added: trunk/book.php
+===================================================================
+--- trunk/book.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/book.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -0,0 +1,90 @@
++&lt;?php
++	$title = &quot;Buchdetails&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;hr&gt;
++	
++	&lt;table id=&quot;bookdetails&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
++				&lt;td&gt;Algorithmen&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
++				&lt;td&gt;Sedgewick&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
++				&lt;td&gt;1998&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
++				&lt;td&gt;Pearson Studium&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
++				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
++				&lt;td&gt;Robert Sedgewicks bekanntes Standardwerk stellt die wichtigsten Algorithmen klar und umfassend dar. Von elementaren Datenstrukturen und Algorithmen wie Such- und Sortieralgorithmen schl&#228;gt Sedgewick einen Bogen bis hin zu modernen Ans&#228;tzen und vermittelt dem Leser einen fundierten &#220;berblick &#252;ber die vielf&#228;ltigen M&#246;glichkeiten der Probleml&#246;sung anhand von Datenstrukturen.&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Bibtex:&lt;/th&gt;	
++				&lt;td&gt;
++				&lt;pre&gt;&lt;?php
++					require($basepath.&quot;include/bibtex.php&quot;);
++					$example = &quot; aber trotzdem wird dieses kaputte dokument nicht falsch erkannt
++						@article{     lin1973,
++									author = \&quot;Sedgewick\&quot;,
++									title = \&quot;Algorithmen\&quot;,
++									year = 1998
++								}&quot;;
++					if (($asd = BibTeX::parse($example)) !== false)
++					{
++						foreach($asd as $d)
++						{
++							echo htmlspecialchars($d-&gt;toString());
++						}
++					}
++					?&gt;
++				&lt;/pre&gt;
++				&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;&Auml;ndern&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;br&gt; &lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++	&lt;hr&gt;
++
++	&lt;table id=&quot;bookdetails&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Simon Wunderlich:&lt;br&gt;&lt;/th&gt;	
++				&lt;td&gt;Tolle Dramatik, wirklich fesselnder Storyverlauf, nur das Ende war ein bisschen matt.&lt;/td&gt;
++				&lt;td&gt;&lt;font size=1&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/font&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Hans Wurst:&lt;/th&gt;	
++				&lt;td&gt;Ich fands langweilig.&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
++				&lt;td&gt;
++				&lt;textarea cols=50 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++
++
++
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
+
+Added: trunk/bookadd.php
+===================================================================
+--- trunk/bookadd.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/bookadd.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -0,0 +1,47 @@
++&lt;?php
++	$title = &quot;Hinzuf&uuml;gen&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;
++
++	&lt;table id=&quot;bookadd&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
++				&lt;td&gt;&lt;textarea&gt;&lt;/textarea&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Hinzuf&uuml;gen&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++
++	&lt;/pre&gt;
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/design/liman.css	2006-04-23 14:25:57 UTC (rev 28)
+@@ -28,7 +28,7 @@
+ 	margin: .2em .2em .2em .5em;
+ }
+ 
+-#navigation, #search {
++#navigation, #search, #loginbox {
+ 	background-color: white;
+ 	border: 1px solid #aaa;
+ 	color: black;
+@@ -45,14 +45,14 @@
+ 	list-style: none;
+ }
+ 
+-#search input {
++#search input, #loginform #login, #loginform #password {
+ 	margin: 0 auto;
+ 	font-size: 1em;
+ 	width: 10.8em;
+ 	display: box;
+ }
+ 
+-#search form {
++#search form, #loginform {
+ 	text-align: center
+ }
+ 
+@@ -75,38 +75,22 @@
+ }
+ 
+ 
+-#loginbox {
+-	width: 15em;
+-	vertical-align: middle;
+-	margin: 0 auto;
+-	border: 2px solid #ccc;
+-	background-color: #e0e0e0;
+-	padding: 0.2em;
+-}
+-
+-#loginform {
+-	margin-left: 0.3em;
+-	text-align: center;
+-}
+-
+-#loginform label, #loginform #login, #loginform #password {
+-	width: 13.5em;
+-	margin: 0 auto 0.5em auto;
+-	display: block;
+-	font-size: 1em;
+-}
+-
+-#searchresult {
++#searchresult, #userlist {
+ 	width: 100%;
+ 	border: 1px solid black;
+ 	border-collapse: collapse;
+ }
+ 
+-#searchresult td, #searchresult th {
++#searchresult td, #searchresult th,  #userlist th{
+ 	border: 1px solid black;
+ 	text-align: center;
+ }
++#userlist td {
++	border: 1px solid black;
++	text-align: left;
++}
+ 
+ #bookdetails th {
+ 	text-align: left;
+-}
+\ No newline at end of file
++	vertical-align: top;
++}
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/include/header.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -39,9 +39,8 @@
+ 				&lt;div id=&quot;navigation&quot;&gt;
+ 					&lt;h2&gt;&lt;span&gt;Navigation&lt;/span&gt;&lt;/h2&gt;
+ 					&lt;ul&gt;
+-						&lt;li id=&quot;nhome&quot;&gt;&lt;a href=&quot;index.&lt;?=$ext;?&gt;&quot; accesskey=&quot;h&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+-						&lt;li id=&quot;nadd&quot;&gt;&lt;a href=&quot;add.&lt;?=$ext;?&gt;&quot; accesskey=&quot;a&quot;&gt;Hinzuf&#252;gen&lt;/a&gt;&lt;/li&gt;
+-						&lt;li id=&quot;nsearch&quot;&gt;&lt;a href=&quot;search.&lt;?=$ext;?&gt;&quot; accesskey=&quot;s&quot;&gt;Suchen&lt;/a&gt;&lt;/li&gt;
++						&lt;li id=&quot;nhome&quot;&gt;&lt;a href=&quot;index.&lt;?=$ext;?&gt;&quot; accesskey=&quot;h&quot;&gt;B&uuml;cher&lt;/a&gt;&lt;/li&gt;
++						&lt;li id=&quot;nuser&quot;&gt;&lt;a href=&quot;userlist.&lt;?=$ext;?&gt;&quot; accesskey=&quot;n&quot;&gt;Nutzer&lt;/a&gt;&lt;/li&gt;
+ 					&lt;/ul&gt;
+ 				&lt;/div&gt;
+ 
+@@ -54,6 +53,17 @@
+ 						&lt;/div&gt;
+ 					&lt;/form&gt;
+ 				&lt;/div&gt;
++
++				&lt;div id=&quot;loginbox&quot;&gt;
++					&lt;h2&gt;&lt;span&gt;Einloggen&lt;/span&gt;&lt;/h2&gt;
++					&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot;&gt;
++						&lt;div&gt;
++						&lt;label for=&quot;login&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;login&quot; name=&quot;login&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++						&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
++						&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
++						&lt;/div&gt;
++					&lt;/form&gt;
++				&lt;/div&gt;
+ 			&lt;/div&gt;
+ 
+ 			&lt;div id=&quot;content&quot;&gt;
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/index.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -5,21 +5,8 @@
+ 	require(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	TestBlablabla
+-	&lt;hr&gt;
+-
+-	&lt;div id=&quot;loginbox&quot;&gt;
+-		&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot;&gt;
+-			&lt;div&gt;
+-			&lt;label for=&quot;login&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;login&quot; name=&quot;login&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+-			&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+-			&lt;/div&gt;
+-		&lt;/form&gt;
+-	&lt;/div&gt;
+-
+-	&lt;hr&gt;
+-
++	
++	&lt;br&gt;
+ 	&lt;table id=&quot;searchresult&quot;&gt;
+ 		&lt;thead&gt;
+ 			&lt;tr&gt;
+@@ -50,94 +37,13 @@
+ 			&lt;/tr&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+-
++	&lt;br&gt;
+ 	&lt;hr&gt;
+-	
+-	&lt;table id=&quot;bookdetails&quot;&gt;
+-		&lt;tbody&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
+-				&lt;td&gt;Algorithmen&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;	
+-				&lt;td&gt;Sedgewick&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
+-				&lt;td&gt;1998&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
+-				&lt;td&gt;Pearson Studium&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+-				&lt;td&gt;3-8273-7032-9&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-				&lt;td&gt;Robert Sedgewicks bekanntes Standardwerk stellt die wichtigsten Algorithmen klar und umfassend dar. Von elementaren Datenstrukturen und Algorithmen wie Such- und Sortieralgorithmen schl&#228;gt Sedgewick einen Bogen bis hin zu modernen Ans&#228;tzen und vermittelt dem Leser einen fundierten &#220;berblick &#252;ber die vielf&#228;ltigen M&#246;glichkeiten der Probleml&#246;sung anhand von Datenstrukturen.&lt;/td&gt;
+-			&lt;/tr&gt;
+-		&lt;/tbody&gt;
+-	&lt;/table&gt;
++	&lt;br&gt;
++	&lt;form action=&quot;bookadd.php&quot;&gt;
++	&lt;input type=&quot;submit&quot; value=&quot;Buch hinzuf&uuml;gen&quot;&gt;
++	&lt;/form&gt;
+ 
+-	&lt;hr&gt;
+-	&lt;h3&gt;BibTeX-Test&lt;/h3&gt;
+-	&lt;pre&gt;&lt;?php
+-		require($basepath.&quot;include/bibtex.php&quot;);
+-		$example = &quot; aber trotzdem wird dieses kaputte dokument nicht falsch erkannt
+-		@article{     lin1973,
+-			author = \&quot;Shen Lin and Brian W. Kernighan\&quot;,
+-			title = \&quot;An Effective Heuristic Algorithm for the Travelling-Salesman Problem\&quot;,
+-			journal = \&quot;Operations Research\&quot;,
+-			volume = 21,
+-			year = 1973,
+-			pages = \&quot;498-516\&quot;
+-		}
+-		
+ 
+-		hier kann auch etwas unsinn stehen
+-
+-		@ARTICLE{whole-journal,
+-			key = \&quot;GAJ\&quot;,
+-			journal = {Journal},
+-			year = 1986,
+-			volume = 41,
+-			number = 7,
+-			month = {adfasdf \mbox{asd}},
+-			note = {The entire issue{}}
+-			}
+-			
+-			@inbook{inbook-minimal,
+-			author = \&quot;Donald E. Knuth\&quot;,
+-			title = \&quot;Fundamental Algorithms\&quot;,
+-			publisher = \&quot;Addison-Wesley\&quot;,
+-			year = \&quot;1973\&quot;,
+-			chapter = \&quot;1.2\&quot;,
+-			}
+-			@inbook{	inbook-minimal,author = Donald,
+-				title = {alles gute kommt von oben}}
+-
+-		alle kinder gottes haben schuhe
+-
+-		oder wie wir{ } auch immer sagen sollten
+-
+-		testen wir doch mal einfach unsinn
+-
+-		@misc{ processing-software,
+-		author = \&quot;For Signal Processing\&quot;,
+-		title = \&quot;Software Synthesis and Code Generation\&quot;,
+-		url = \&quot;citeseer.ist.psu.edu/638190.html\&quot; }&quot;;
+-		
+-		if (($asd = BibTeX::parse($example)) !== false)
+-		{
+-			foreach($asd as $d)
+-			{
+-				echo htmlspecialchars($d-&gt;toString());
+-			}
+-		}
+-	?&gt;
+-	&lt;/pre&gt;
+ &lt;/div&gt;
+-&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
+\ No newline at end of file
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
+
+Added: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/user.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -0,0 +1,40 @@
++&lt;?php
++	$title = &quot;Nutzerdetails&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;
++	
++	&lt;table id=&quot;bookdetails&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Login:&lt;/th&gt;	
++				&lt;td&gt;siwu&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Vorname:&lt;/th&gt;	
++				&lt;td&gt;Simon&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Nachname:&lt;/th&gt;	
++				&lt;td&gt;Wunderlich&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;E-Mail:&lt;/th&gt;	
++				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++				&lt;td&gt;
++				&lt;form action=&quot;usermod.php&quot;&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;/form&gt;
++				&lt;br&gt; &lt;/td&gt;
++			&lt;/tr&gt;
++
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
+
+Added: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/userlist.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -0,0 +1,42 @@
++&lt;?php
++	$title = &quot;Nutzer&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;
++	&lt;table id=&quot;userlist&quot;&gt;
++		&lt;thead&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;col&quot;&gt;Login&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;Vorame&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;Nachname&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;E-Mail&lt;/th&gt;
++				&lt;th scope=&quot;col&quot;&gt;Aktionen&lt;/th&gt;
++			&lt;/tr&gt;
++		&lt;/thead&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=123&quot;&gt;siwu&lt;/a&gt;&lt;/td&gt;
++				&lt;td&gt;Simon&lt;/td&gt;
++				&lt;td&gt;Wunderlich&lt;/td&gt;
++				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Details&quot;&gt;
++					&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
++					&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;td&gt;&lt;a href=&quot;user.&lt;?=$ext;?&gt;?id=456&quot;&gt;hans&lt;/a&gt;&lt;/td&gt;
++				&lt;td&gt;Hans&lt;/td&gt;
++				&lt;td&gt;Wurst&lt;/td&gt;
++				&lt;td&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Details&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++
++
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
+
+Added: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-04-23 14:22:48 UTC (rev 27)
++++ trunk/usermod.php	2006-04-23 14:25:57 UTC (rev 28)
+@@ -0,0 +1,50 @@
++&lt;?php
++	$title = &quot;Nutzer bearbeiten&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;
++	
++	&lt;table id=&quot;bookdetails&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Login:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot; value=&quot;siwu&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Vorname:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot; value=&quot;Simon&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Nachname:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot; value=&quot;Wunderlich&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;E-Mail:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;input&quot; value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Passwort:&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Passwort (wiederholen):&lt;/th&gt;	
++				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++
++			&lt;tr&gt;
++				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++				&lt;td&gt;
++				&lt;form action=&quot;usermod.php&quot;&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;&Uuml;bernehmen&quot;&gt;&lt;/form&gt;
++				&lt;br&gt; &lt;/td&gt;
++			&lt;/tr&gt;
++
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
++
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000017.html">[Liman-svn] r27 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000019.html">[Liman-svn] r29 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#18">[ date ]</a>
+              <a href="thread.html#18">[ thread ]</a>
+              <a href="subject.html#18">[ subject ]</a>
+              <a href="author.html#18">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

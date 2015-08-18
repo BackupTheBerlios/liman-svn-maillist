@@ -1,0 +1,413 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r175 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r175%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606181313.k5IDDTUe017469%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000164.html">
+   <LINK REL="Next"  HREF="000166.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r175 - trunk/docs/beleg3</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r175%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606181313.k5IDDTUe017469%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r175 - trunk/docs/beleg3">lazhur at berlios.de
+       </A><BR>
+    <I>Sun Jun 18 15:13:29 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000164.html">[Liman-svn] r174 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes
+</A></li>
+        <LI>Next message: <A HREF="000166.html">[Liman-svn] r176 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-18 15:13:25 +0200 (Sun, 18 Jun 2006)
+New Revision: 175
+
+Modified:
+   trunk/docs/beleg3/systemhandbuch.tex
+   trunk/docs/beleg3/tests.tex
+Log:
+- weitere Testf?\195?\164lle hinzugef?\195?\188gt
+- Testmatrix erweitert
+- kleinere Korrektur in Installationsanleitung
+
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-17 22:50:46 UTC (rev 174)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-06-18 13:13:25 UTC (rev 175)
+@@ -29,7 +29,7 @@
+ include/config.php anpassen.
+ 
+ &quot;Uberpr&quot;ufen sie Ihre Einstellungen mit einem Login auf <A HREF="http://ihr.server.de/liman/">http://ihr.server.de/liman/</A> .
+-Wenn alles korrekt installiert wurde, sollten Sie abschliessend noch die Datei install.php 
++Wenn alles korrekt installiert wurde, sollten abschlie&#223;end noch die Datei install.php 
+ aus dem Webserver-Verzeichnis gel&quot;oscht werden, damit niemand die Datenbankverbindungsdaten neu 
+ setzen kann.
+ 
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-06-17 22:50:46 UTC (rev 174)
++++ trunk/docs/beleg3/tests.tex	2006-06-18 13:13:25 UTC (rev 175)
+@@ -6,10 +6,10 @@
+ \subsubsection{Fall 2: Installation}
+ \begin{enumerate}
+ \item Systemzustand vor dem Test:\\
+-	1. Durchlauf: Alle Speicher sind nicht vorhanden, aber die Datenbank. 2. Durchlauf: Speicher sind vorhanden und mit zuf&#228;lligen Werten gef&#252;llt.
++	1. Durchlauf: Alle Speicher nicht vorhanden, aber die Datenbank. 2. Durchlauf: Speicher sind vorhanden und mit zuf&#228;lligen Werten gef&#252;llt.
+ \item Eingabedaten:\\
+ 	install.php wird aufgerufen und die verlangten Daten eingegeben.
+-\item Erwartete Ereignisse:\
++\item Erwartete Ereignisse:\\
+ 	Verbindung mit Datenbank wird erstellt, schon vorhandene Speicher gel&#246;scht, Speicher neu angelegt und neuer Administrator angelegt
+ \item Systemzustand nach Test:\\
+ 	Leere Speicher Autoren, Bibliothek, Kommentare und Literatur\_Autoren bestehen. Au&#223;erdem existiert Speicher Mitglieder mit einem Datensatz (Administrator Admin Istrator mit angegebenen Login und gehashtem Passwort)
+@@ -18,10 +18,10 @@
+ \subsubsection{Fall 3: Test des Nutzerinterfaces -- Administrator}
+ \begin{enumerate}
+ \item Systemzustand vor dem Test:\\
+-	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
+ \item Eingabedaten:\\
+-	Begonnen wird der Test mit dem einloggen als Administrator. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Ausloggen.
+-\item Erwartete Ereignisse:\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
+ 	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht.
+ \item Systemzustand nach Test:\\
+ 	Unver&#228;ndert, wie vor dem Test.
+@@ -30,10 +30,10 @@
+ \subsubsection{Fall 4: Test des Nutzerinterfaces -- Benutzer}
+ \begin{enumerate}
+ \item Systemzustand vor dem Test:\\
+-	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden.
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden.
+ \item Eingabedaten:\\
+-	Begonnen wird der Test mit dem einloggen als Mitglied. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Ausloggen.
+-\item Erwartete Ereignisse:\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
+ 	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht. Die Nutzerliste zeigt nur den eigenen Nutzereintrag an. Jegliche Provokation des Systems (L&#246;schen und Hinzuf&#252;gen eines Mitglieds und das Bearbeiten eines fremden Mitglieds) wird abgewiesen bzw. auf die eigenen Nutzerdaten umgeleitet.
+ \item Systemzustand nach Test:\\
+ 	Unver&#228;ndert, wie vor dem Test.
+@@ -42,51 +42,219 @@
+ \subsubsection{Fall 5: Test des Nutzerinterfaces -- Gast}
+ \begin{enumerate}
+ \item Systemzustand vor dem Test:\\
+-	Alle Speicher sind bis auf Mitglieder leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
+ \item Eingabedaten:\\
+ 	Nutzer ist nicht angemeldet. Alle Funktionen des Systems werden nacheinander aktiviert, ohne Eintragungen vorzunehmen.
+-\item Erwartete Ereignisse:\
++\item Erwartete Ereignisse:\\
+ 	Korrekte Anzeige der entsprechend der aktivierten Aktion laut Layoutentwurf zugeordneten Ansicht. Es sind keine Elemente zum Hinzuf&#252;gen, &#196;ndern oder L&#246;schen von Daten vorhanden. Die Nutzerliste zeigt keinen Nutzereintrag an. Jegliche Provokation des Systems (L&#246;schen und Hinzuf&#252;gen, &#196;ndern eines Mitglieds, Kommentars, Literatur) wird abgewiesen.
+ \item Systemzustand nach Test:\\
+ 	Unver&#228;ndert, wie vor dem Test.
+ \end{enumerate}
+ 
+ \subsubsection{Fall 6: Anlegen neue Literatur}
+-TODO
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Neue Literatur wird angelegt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System legt neue Literatur an und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Bibliothek sind unver&#228;ndert. In Bibliothek existiert ein korrekter Datensatz.
++\end{enumerate}
+ 
+-\subsubsection{Fall 7: &#196;ndern Literatur}
+-TODO
++\subsubsection{Fall 7: Anlegen neue Literatur, die schon existiert}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder und Bibliothek sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek sind mehrere Literaturdatens&#228;tze vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Neue Literatur wird angelegt mit &#228;hnlichen/gleichen Daten wie eine existierende Literatur angelegt. Anlegen wird best&#228;tigt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System fragt ob die Literatur angelegt werden soll und zeigt Liste der &#228;hnlichen Literatur an. Nach Best&#228;tigung legt das System neue Literatur an und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Bibliothek, Literatur\_Autoren und Autoren sind unver&#228;ndert. In Bibliothek existiert ein neuer korrekter Datensatz, in Autoren sind angegebene Autoren eingef&#252;gt und in Literatur\_Autoren sind die Verbindung von Literatur zu Autoren vorhanden.
++\end{enumerate}
+ 
+-\subsubsection{Fall 8: L&#246;schen Literatur}
+-TODO
++\subsubsection{Fall 8: &#196;ndern Literatur}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Kommentare ist leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek sind mehrere Literaturdatens&#228;tze vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Bestehende Literatur wird gew&#228;hlt und bearbeitet. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System &#228;ndert Literatur und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Bibliothek, Literatur\_Autoren und Autoren sind unver&#228;ndert. In Bibliothek existiert die selbe Anzahl an Datens&#228;tzen und der zu &#228;ndernte Datensatz wurde korrekt &#252;berschrieben. In Autoren sind angegebene Autoren eingef&#252;gt, nicht angegebene entfernt und in Literatur\_Autoren sind die Verbindung von Literatur zu Autoren vorhanden.
++\end{enumerate}
+ 
+-\subsubsection{Fall 9: Anlegen neues Mitglied}
+-TODO
++\subsubsection{Fall 9: L&#246;schen Literatur}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Kommentare ist leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek sind mehrere Literaturdatens&#228;tze vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Bestehende Literatur wird gew&#228;hlt und entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System fragt nach Best&#228;tigung und &#228;ndert nach Best&#228;tigung Literatur und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Bibliothek, Literatur\_Autoren und Autoren sind unver&#228;ndert. In Bibliothek existieren alle Datens&#228;tze, bis auf den zu l&#246;schenden Datensatz. In Autoren sind nicht mehr benutzte Autoren entfernt und in Literatur\_Autoren sind die nicht mehr ben&#246;tigten Verbindungen von Literatur zu Autoren entfernt.
++\end{enumerate}
+ 
+-\subsubsection{Fall 10: &#196;ndern Mitglied}
+-TODO
++\subsubsection{Fall 10: Anlegen neues Mitglied}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Neues Mitglied wird angelegt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System legt neues Mitglied an und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Mitglieder sind unver&#228;ndert. In Mitglieder existiert neben dem Administratordatensatz ein korrekter neuer Datensatz.
++\end{enumerate}
+ 
+-\subsubsection{Fall 11: L&#246;schen Mitglied}
+-TODO
++\subsubsection{Fall 11: Anlegen neues Mitglied, das schon existiert}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Neues Mitglied wird mit dem Login des Administratos angelegt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System gibt Fehlermeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind unver&#228;ndert.
++\end{enumerate}
+ 
+-\subsubsection{Fall 12: Anlegen Kommentar}
+-TODO
++\subsubsection{Fall 12: &#196;ndern Mitglied}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein weiteres Mitglied vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Mitglied wird ausgew&#228;hlt und bearbeitet. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System &#228;ndert das Mitglied und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind bis auf Mitglieder unver&#228;ndert. In Mitglieder existiert die selbe Anzahl an Datens&#228;tzen und der zu &#228;ndernte Datensatz wurde korrekt &#252;berschrieben.
++\end{enumerate}
+ 
+-\subsubsection{Fall 13: &#196;ndern Kommentar}
+-TODO
++\subsubsection{Fall 13: &#196;ndern Mitglied - eigene Daten}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein weiteres Mitglied ohne Administratorrechte vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Eigene Mitgliedsdaten werden ausgew&#228;hlt und bearbeitet. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System &#228;ndert das Mitglied und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind bis auf Mitglieder unver&#228;ndert. In Mitglieder existiert die selbe Anzahl an Datens&#228;tzen und der zu eigene Datensatz wurde korrekt &#252;berschrieben.
++\end{enumerate}
+ 
+-\subsubsection{Fall 14: L&#246;schen Kommentar}
+-TODO
++\subsubsection{Fall 14: L&#246;schen Mitglied}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder sind leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein weiteres Mitglied vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Mitglied wird ausgew&#228;hlt und entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System l&#246;scht das Mitglied und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind bis auf Mitglieder unver&#228;ndert. In Mitglieder existieren alle Datens&#228;tze, bis auf den zu l&#246;schenden Datensatz.
++\end{enumerate}
+ 
+-\subsubsection{Fall 15: L&#246;schen Kommentar -- Administrator}
+-TODO
++\subsubsection{Fall 15: Anlegen Kommentar}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Kommentare ist leer. In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Literatur wird ausgew&#228;hlt. Neuer Kommentar wird angelegt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System legt neuen Kommentar an und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Kommentare sind unver&#228;ndert. In Kommentare existiert ein neuer korrekter Datensatz.
++\end{enumerate}
+ 
+-\subsubsection{Fall 16: Volltextsuche}
+-TODO
++\subsubsection{Fall 16: &#196;ndern Kommentar}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden. In Kommentare ist Kommentar zu Literatureintrag vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Literatur wird ausgew&#228;hlt. Kommentar wird ge&#228;ndert. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System &#228;ndert Kommentar und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher bis auf Kommentare sind unver&#228;ndert. In Kommentare wurde nur der Kommentar korrekt ge&#228;ndert.
++\end{enumerate}
+ 
+-\subsubsection{Fall 17: Erweiterte Suche}
+-TODO
++\subsubsection{Fall 17: L&#246;schen Kommentar}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden. In Kommentare sind mehrere Kommentare zu Literatureintrag vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Mitglied. Literatur wird ausgew&#228;hlt. Kommentar wird entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System l&#246;scht Kommentar und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind bis auf Kommentare unver&#228;ndert. In Kommentare existieren alle Datens&#228;tze, bis auf den zu l&#246;schenden Datensatz.
++\end{enumerate}
+ 
++\subsubsection{Fall 18: L&#246;schen fremden Kommentar}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden. In Kommentare sind mehrere Kommentare zu Literatureintrag vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Literatur wird ausgew&#228;hlt. Kommentar eines anderen Mitglieds wird entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System l&#246;scht Kommentar und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Alle Speicher sind bis auf Kommentare unver&#228;ndert. In Kommentare existieren alle Datens&#228;tze, bis auf den zu l&#246;schenden Datensatz.
++\end{enumerate}
++
++\subsubsection{Fall 19: L&#246;schen Literatur inklusive Kommentare}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden. In Kommentare sind mehrere Kommentare zu Literatureintrag vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Literatur wird ausgew&#228;hlt und entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System l&#246;scht Literatur und dazugeh&#246;rigen Kommentar und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Speicher Mitglieder unver&#228;ndert. In Kommentare existieren alle Datens&#228;tze, bis auf die zu der Literatur geh&#246;renden Datens&#228;tze. Literaturdatensatz wurde aus Bibliothek entfernt. Nicht mehr ben&#246;tigte Autoren aus Autoren entfernt und nicht mehr ben&#246;tigte Verbindungen in Literatur\_Autoren entfernt.
++\end{enumerate}
++
++\subsubsection{Fall 20: L&#246;schen Mitglied inklusive Kommentare}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	In Mitglieder ist neben dem Datensatz des ersten Administrators ein Mitglied ohne Administratorrechte vorhanden. In Bibliothek ist Literaturdatensatz vorhanden. In Autoren sind Autoren vohanden und in Literatur\_Autoren sind die Verbindungen zu Literatur vorhanden. In Kommentare sind mehrere Kommentare zu Literatureintrag vorhanden.
++\item Eingabedaten:\\
++	Begonnen wird der Test mit dem Anmelden als Administrator. Mitglied wird ausgew&#228;hlt und entfernt. Beendet wird der Test mit dem Abmelden.
++\item Erwartete Ereignisse:\\
++	System l&#246;scht Mitglied und dazugeh&#246;rigen Kommentar und gibt Erfolgsmeldung aus.
++\item Systemzustand nach Test:\\
++	Speicher Literatur, Autoren, Literatur\_Autoren unver&#228;ndert. In Kommentare existieren alle Datens&#228;tze, bis auf die zu dem Mitglied geh&#246;renden Datens&#228;tze.
++\end{enumerate}
++
++\subsubsection{Fall 21: Volltextsuche}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder und Bibliothek sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators. In Bibliothek sind mehrere Literaturdatens&#228;tze vorhanden.
++\item Eingabedaten:\\
++	Suchbegriff wird eingegeben
++\item Erwartete Ereignisse:\\
++	System sucht &#252;ber Volltextsuche Literatur heraus und gibt diese mit Autoren aus
++\item Systemzustand nach Test:\\
++	Alle Speicher unver&#228;ndert wie vor dem Test
++\end{enumerate}
++
++\subsubsection{Fall 22: Erweiterte Suche}
++\begin{enumerate}
++\item Systemzustand vor dem Test:\\
++	Alle Speicher bis auf Mitglieder und Bibliothek sind leer. In Mitglieder ist nur der Datensatz des ersten Administrators. In Bibliothek sind mehrere Literaturdatens&#228;tze vorhanden.
++\item Eingabedaten:\\
++	Suchbegriff wird eingegeben
++\item Erwartete Ereignisse:\\
++	System sucht &#252;ber Autor und Titel Literatur heraus und gibt diese mit Autoren aus
++\item Systemzustand nach Test:\\
++	Alle Speicher unver&#228;ndert wie vor dem Test
++\end{enumerate}
++
+ \subsection{Testmatrix}
+ \begin{longtable}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+ \hline
+@@ -112,11 +280,28 @@
+ 	\multicolumn{1}{R{6em}|}{Installation}\\
+ \hline\hline
+ \endhead
+-1 &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;   &amp;  \\\hline
+-2 &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x\\\hline
+-3 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
+-4 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
+-5 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++ 1 &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;   &amp;  \\\hline
++ 2 &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x\\\hline
++ 3 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++ 4 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++ 5 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
++ 6 &amp; x &amp; x &amp;   &amp; x &amp;   &amp; x &amp; x &amp;   &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;  \\\hline
++ 7 &amp; x &amp; x &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;  \\\hline
++ 8 &amp; x &amp; x &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp; x &amp; x &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++ 9 &amp; x &amp; x &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp; x &amp; x &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++10 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;  \\\hline
++11 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;  \\\hline
++12 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;  \\\hline
++13 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;  \\\hline
++14 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;  \\\hline
++15 &amp; x &amp;   &amp; x &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++16 &amp; x &amp;   &amp; x &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++17 &amp; x &amp;   &amp; x &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++18 &amp; x &amp;   &amp; x &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;  \\\hline
++19 &amp; x &amp; x &amp;   &amp;   &amp;   &amp;   &amp; x &amp;   &amp; x &amp; x &amp;   &amp;   &amp;   &amp; x &amp;  \\\hline
++20 &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp;   &amp; x &amp;   &amp; x &amp;  \\\hline
++21 &amp; x &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp; x &amp;  \\\hline
++22 &amp; x &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp;   &amp; x &amp;   &amp;   &amp; x &amp; x &amp;  \\\hline
+ \end{longtable}
+ 
+ \section{Systemtest}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000164.html">[Liman-svn] r174 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes
+</A></li>
+	<LI>Next message: <A HREF="000166.html">[Liman-svn] r176 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#165">[ date ]</a>
+              <a href="thread.html#165">[ thread ]</a>
+              <a href="subject.html#165">[ subject ]</a>
+              <a href="author.html#165">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

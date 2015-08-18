@@ -1,0 +1,972 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r127 - in trunk: . db design docs/beleg2/doxygen include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r127%20-%20in%20trunk%3A%20.%20db%20design%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605292117.k4TLHG5g019248%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000116.html">
+   <LINK REL="Next"  HREF="000118.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r127 - in trunk: . db design docs/beleg2/doxygen include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r127%20-%20in%20trunk%3A%20.%20db%20design%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605292117.k4TLHG5g019248%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r127 - in trunk: . db design docs/beleg2/doxygen include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon May 29 23:17:16 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000116.html">[Liman-svn] r126 - in trunk: db include
+</A></li>
+        <LI>Next message: <A HREF="000118.html">[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-29 23:17:14 +0200 (Mon, 29 May 2006)
+New Revision: 127
+
+Modified:
+   trunk/db/liman_test.sql
+   trunk/design/liman.css
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/include/autor.php
+   trunk/include/config.php
+   trunk/include/global.php
+   trunk/include/header.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/literaturart.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/litmod.php
+   trunk/search.php
+   trunk/searchmore.php
+   trunk/user.php
+   trunk/userlist.php
+   trunk/usermod.php
+Log:
+- Include Guards entfernt (dank require_once nicht ben?\195?\182tigt)
+- searchmore.php zum Suchen vorbereitet
+- litmod.php zum Hinzuf?\195?\188gen vorbereitet
+- usermod.php zum Hinzuf?\195?\188gen vorbereitet
+- Anzeigen diverser Kn?\195?\182pfe rechteabh?\195?\164ngig gemacht
+- Suche in Nutzerinterface hinzugef?\195?\188gt
+- Kommentar::Insert nur ausf?\195?\188hren, wenn Literatur vorhanden und noch kein Kommentar von Nutzer
+- Kommagetrennte Liste von Autoren bei Suche::AutorTitelSuche erlaubt
+- Anzeigen der Nutzer in userlist.php rechteabh?\195?\164ngig gemacht
+
+
+Modified: trunk/db/liman_test.sql
+===================================================================
+--- trunk/db/liman_test.sql	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/db/liman_test.sql	2006-05-29 21:17:14 UTC (rev 127)
+@@ -49,7 +49,7 @@
+ INSERT INTO `liman_Bibliothek` (`Literatur_Nr`, `Art`, `Titel`, `Jahr`, `Verlag`, `ISBN`, `Beschreibung`, `Ort`, `Stichworte`) VALUES (1, 'Buch', 'Algorithmen', 1998, 'Pearson Studium', '3-8273-7032-9', 'Robert Sedgewicks bekanntes Standardwerk stellt die wichtigsten Algorithmen klar und umfassend dar. Von elementaren Datenstrukturen und Algorithmen wie Such- und Sortieralgorithmen schl&#228;gt Sedgewick einen Bogen bis hin zu modernen Ans&#228;tzen und vermittelt dem Leser einen fundierten &#220;berblick &#252;ber die vielf&#228;ltigen M&#246;glichkeiten der Probleml&#246;sung anhand von Datenstrukturen.', 'Bonn ; M&#252;nchen ; Paris [u.a.]', 'AVL, Listen, RB, B&#228;ume,'),
+ (2, 'Buch', 'Python - kurz und gut', 2002, 'O''Reilly', '3-89721-240-4', '&quot;Python - kurz und gut&quot; ist eine kompakte Referenz zum schnellen Nachschlagen aller wichtigen Sprachmerkmale und Elemente von Python.', 'K&#246;ln', 'Datentypen, Anweisungen, Funktionen, Objektorientierte Programmierung, &#220;berladungsmethoden, Biblioth'),
+ (3, 'Buch', 'Angewandte Kryptographie', 1996, 'Addison-Wesley', '3-89319-854-7', 'Diese zweite Auflage des Klassikers &#252;ber Kryptographie bietet eine umfassenden &#220;berblick &#252;ber die moderne Kyptographie. Programmierer und Datenkommunikations-Fachleute erfahren, wie sie Verfahren zur Ver- und Entschl&#252;sselung von Nachrichten in die Praxis umsetzen. Das Buch beschreibt nicht nur zahlreiche kryptographische Algorithmen, sondern gibt auch praktische Hinweise zur Implementierung kryptographischer Software.', 'M&#252;nchen', 'RSA, XOR, MD5, SHA, Public Key'),
+-(4, 'Diplomarbeit', 'Verteilte Datensicherung unter Nutzung v', 2002, '', '', 'Diese Arbeit beschreibt ein Konzept f&#252;r eine verteilte Datensicherung unter Nutzung freier Ressourcen von Arbeitsplatzrechnern. Das vorzustellende System beinhaltet entsprechende Ma&#223;nahmen, um sowohl die Authentizit&#228;t und Vertraulichkeit der zu sichernden Daten zu gew&#228;hrleisten, als auch eine m&#246;glichst hohe Wahrscheinlichkeit f&#252;r die Wiederherstellung zu erreichen.', 'Chemnitz', 'P2P, Datensicherung, Integrit&#228;t');
++(4, 'Diplomarbeit', 'Verteilte Datensicherung', 2002, '', '', 'Diese Arbeit beschreibt ein Konzept f&#252;r eine verteilte Datensicherung unter Nutzung freier Ressourcen von Arbeitsplatzrechnern. Das vorzustellende System beinhaltet entsprechende Ma&#223;nahmen, um sowohl die Authentizit&#228;t und Vertraulichkeit der zu sichernden Daten zu gew&#228;hrleisten, als auch eine m&#246;glichst hohe Wahrscheinlichkeit f&#252;r die Wiederherstellung zu erreichen.', 'Chemnitz', 'P2P, Datensicherung, Integrit&#228;t');
+ 
+ -- --------------------------------------------------------
+ 
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/design/liman.css	2006-05-29 21:17:14 UTC (rev 127)
+@@ -15,6 +15,15 @@
+ 	margin-left: 1em;
+ }
+ 
++hr {
++	margin-top: 2em;
++	margin-bottom: 2em;
++}
++
++#content h2 {
++	padding-bottom: 1em;
++}
++
+ #sidebar {
+ 	float: left;
+ 	width: 11.5em;
+
+Modified: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-29 21:17:14 UTC (rev 127)
+@@ -159,7 +159,7 @@
+ \item[\mbox{$\leftarrow$} {\em \$text}]Text des Kommentars \item[\mbox{$\leftarrow$} {\em \$verfasser\_\-nr}]Mitglieds\_\-Nr des Verfassers \item[\mbox{$\leftarrow$} {\em \$literatur\_\-nr}]Nummer der \hyperlink{classLiteratur}{Literatur} \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss \$verfasser\_\-nr gleich der aktuellen Nummer des Logins sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. \end{Desc}
++\item[Bemerkungen:]Ist das aktuelle \hyperlink{classMitglied}{Mitglied} kein Administrator, dann muss \$verfasser\_\-nr gleich der aktuellen Nummer des Logins sein. Ist der Nutzer nicht eingeloggt, werden keine Operationen ausgef&#252;hrt. Ist keine passende \hyperlink{classLiteratur}{Literatur} mit der Literatur\_\-Nr \$literatur\_\-nr vorhanden, wird kein \hyperlink{classKommentar}{Kommentar} angelegt. Existiert schon ein \hyperlink{classKommentar}{Kommentar} zu \hyperlink{classLiteratur}{Literatur} mit \$literatur\_\-nr von \hyperlink{classMitglied}{Mitglied} mit Mitglieds\_\-Nr \$verfasser\_\-nr, wird nur der Text des Kommentars mit \hyperlink{classKommentar_0b3e20e910493e67b67b747243f04511}{Kommentar::Update} ge&#228;ndert. \end{Desc}
+ \hypertarget{classKommentar_0b3e20e910493e67b67b747243f04511}{
+ \index{Kommentar@{Kommentar}!Update@{Update}}
+ \index{Update@{Update}!Kommentar@{Kommentar}}
+
+Modified: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-29 21:17:14 UTC (rev 127)
+@@ -49,7 +49,7 @@
+ 
+ 
+ Wenn \$suchbegriff und \$autor &#252;bergeben werden:\begin{itemize}
+-\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten von \$autor in \hyperlink{classAutor}{Autor} und \$suchbegriff im Titel des Literatureintrags und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\end{itemize}
++\item Sucht in \hyperlink{classLiteratur}{Literatur} und Autortabelle nach dem Auftreten von \$autor in \hyperlink{classAutor}{Autor} und \$suchbegriff im Titel des Literatureintrags und speichert Nr, Titel, \hyperlink{classAutor}{Autor}, Verlag als als Objekt im Feld \$Treffer. Sollte ein Fehler auftreten und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden sein, dann wird \$Treffer ein Feld der L&#228;nge 0.\item Wird eine kommagetrennte Liste von Autoren als \$autor &#252;bergeben, muss in Treffern nur einer der genannten Autoren auftreten.\end{itemize}
+ 
+ 
+ \begin{Desc}
+
+Modified: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/autor.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,8 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Autor&quot;))
+-{
+-	define(&quot;Autor&quot;, 1);
+-
+ 	/*! \brief Verwaltet Autoren
+ 	 *
+ 	 *  Stellt Funktionen zum Hinzuf&#252;gen von Autoren und Bereinigen nicht
+@@ -135,5 +131,4 @@
+ 			return $authorNumbers;
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/config.php
+===================================================================
+--- trunk/include/config.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/config.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -10,6 +10,4 @@
+ 	$db_config['prefix'] = &quot;liman_&quot;;
+ 
+ 	$ext = &quot;php&quot;;	// Endung der von den Usern abrufbaren Dateien
+-
+-	$smilies_path = $basepath.&quot;images/smilies&quot;;
+ ?&gt;
+
+Modified: trunk/include/global.php
+===================================================================
+--- trunk/include/global.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/global.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,8 +1,4 @@
+ &lt;?php
+-if (!defined(&quot;global&quot;))
+-{
+-	define(&quot;global&quot;, 1);
+-	
+ 	if (empty($basepath))
+ 	{
+ 		$basepath = &quot;./&quot;;
+@@ -76,5 +72,4 @@
+ 	require_once($basepath.&quot;include/config.php&quot;);
+ 	require_once($basepath.&quot;include/sqldb.php&quot;);
+ 	require_once($basepath.&quot;include/login.php&quot;);
+-}
+ ?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/header.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -47,9 +47,9 @@
+ 
+ 				&lt;div id=&quot;search&quot;&gt;
+ 					&lt;h2&gt;&lt;span&gt;Suchen&lt;/span&gt;&lt;/h2&gt;
+-					&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot; method=&quot;post&quot;&gt;
++					&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot; method=&quot;get&quot;&gt;
+ 						&lt;div&gt;
+-						&lt;input name=&quot;search&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++						&lt;input name=&quot;suchbegriff&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+ 						&lt;input value=&quot;Suche&quot; type=&quot;submit&quot;&gt;
+ 						&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;searchmore.php&quot;&gt;Erweiterte Suche&lt;/a&gt;&lt;/span&gt;
+ 						&lt;/div&gt;
+
+Modified: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/kommentar.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,7 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Kommentar&quot;))
+-{
+-	define(&quot;Kommentar&quot;, 1);
+ 	require_once(&quot;include/login.php&quot;);
+ 
+ 	/*! \brief Verwaltet Kommentare
+@@ -157,18 +154,41 @@
+ 		 *  \remarks Ist das aktuelle Mitglied kein 
+ 		 *  Administrator, dann muss $verfasser_nr gleich der aktuellen
+ 		 *  Nummer des Logins sein. Ist der Nutzer nicht eingeloggt,
+-		 *  werden keine Operationen ausgef&#252;hrt.
++		 *  werden keine Operationen ausgef&#252;hrt. Ist keine passende
++		 *  Literatur mit der Literatur_Nr $literatur_nr vorhanden,
++		 *  wird kein Kommentar angelegt. Existiert schon ein Kommentar
++		 *  zu Literatur mit $literatur_nr von Mitglied mit Mitglieds_Nr
++		 *  $verfasser_nr, wird nur der Text des Kommentars mit
++		 *  Kommentar::Update ge&#228;ndert.
+ 		 */
+ 		function Insert($text, $verfasser_nr, $literatur_nr)
+ 		{
+-			global $db_config, $sqldb;
++			global $db_config, $sqldb, $login;
+ 
+ 			if ($login-&gt;IsAdministrator() === true ||
+ 				($login-&gt;IsMember() === true &amp;&amp; $verfasser_nr == $login-&gt;Nr))
+ 			{
+-				$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
+-						VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
+-				$sqldb-&gt;Query($sql);
++				$sqlExists = &quot;SELECT Literatur_Nr FROM &quot;.$db_config['prefix'].&quot;Bibliothek
++						WHERE Literatur_Nr='$literatur_nr'&quot;;
++				$sqldb-&gt;Query($sqlExists);
++
++				if ($sqldb-&gt;Fetch() !== false)
++				{
++					$sqlAlready = &quot;SELECT Kommentar_Nr FROM &quot;.$db_config['prefix'].&quot;Kommentare
++							WHERE Literatur_Nr='$literatur_nr' AND Mitglieds_Nr='$verfasser_nr'&quot;;
++					$sqldb-&gt;Query($sqlAlready);
++
++					if (($cur = $sqldb-&gt;Fetch()) === false)
++					{
++						$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Kommentare
++								VALUES (NULL, '$text', '$literatur_nr', '$verfasser_nr')&quot;;
++						$sqldb-&gt;Query($sql);
++					}
++					else
++					{
++						Kommentar::Update($cur-&gt;Kommentar_Nr, $text);
++					}
++				}
+ 			}
+ 		}
+ 		
+@@ -207,5 +227,4 @@
+ 			}
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/literatur.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,7 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Literatur&quot;))
+-{
+-	define(&quot;Literatur&quot;, 1);
+ 	require_once(&quot;include/login.php&quot;);
+ 	require_once(&quot;include/kommentar.php&quot;);
+ 	require_once(&quot;include/literaturart.php&quot;);
+@@ -269,5 +266,4 @@
+ 			}
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/literaturart.php
+===================================================================
+--- trunk/include/literaturart.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/literaturart.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,8 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;LiteraturArt&quot;))
+-{
+-	define(&quot;LiteraturArt&quot;, 1);
+-
+ 	/*! \brief Verwaltet Literaturarten
+ 	 *
+ 	 *  Verwaltet die aus der Datenbank oder BibTeX-Datei erhaltenen
+@@ -193,5 +189,4 @@
+ 			};
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/login.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,7 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Login&quot;))
+-{
+-	define(&quot;Login&quot;, 1);
+ 	require_once(&quot;include/mitglied.php&quot;);
+ 
+ 	/*! \brief Verwaltet Logininformationen
+@@ -179,5 +176,4 @@
+ 
+ 	// Globales Loginobjekt erstellen
+ 	$login = new Login();
+-}
+ ?&gt;
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/mitglied.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,7 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Mitglied&quot;))
+-{
+-	define(&quot;Mitglied&quot;, 1);
+ 	require_once(&quot;include/login.php&quot;);
+ 	require_once(&quot;include/kommentar.php&quot;);
+ 
+@@ -291,5 +288,4 @@
+ 			return $members;
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/sqldb_mysql.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,8 +1,5 @@
+ &lt;?php
+-if(!defined(&quot;SQLDB&quot;))
+-{
+ 	define(&quot;SQLDB&quot;, &quot;mysql&quot;);
+-	
+ 
+ 	/*! \brief Datenbankzugriff &#252;ber MySQL
+ 	 *
+@@ -231,5 +228,4 @@
+ 			}
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/include/suche.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,7 +1,4 @@
+ &lt;?php
+-if(!defined(&quot;Suche&quot;))
+-{
+-	define(&quot;Suche&quot;, 1);
+ 	require_once(&quot;include/autor.php&quot;);
+ 	require_once(&quot;include/literatur.php&quot;);
+ 
+@@ -137,6 +134,9 @@
+ 		 *  \param[in] $titel String mit Literaturtitel
+ 		 *  \param[in] $autor String mit Autorname
+ 		 *  \private
++		 *  \remarks Wird eine kommagetrennte Liste von Autoren als
++		 *    $autor &#252;bergeben, muss in Treffern nur einer der
++		 *    genannten Autoren auftreten.
+ 		 */
+ 		function AutorTitelSuche($titel, $autor)
+ 		{
+@@ -153,10 +153,25 @@
+ 							ON bibliothek.Literatur_Nr = connect.Literatur_Nr)
+ 						INNER JOIN  &quot;.$db_config['prefix'].&quot;Autoren AS autoren
+ 						ON connect.Autor_Nr = autoren.Autor_Nr
+-						WHERE bibliothek.Titel like '%&quot;.$titel.&quot;%' AND
+-							autoren.Autorname like '%&quot;.$autor.&quot;%'&quot;;
++						WHERE bibliothek.Titel like '%&quot;.$titel.&quot;%'&quot;;
++
++				if (empty($autor) !== false)
++				{
++					$sql .= &quot; AND (&quot;;
++					$authors = array();
++					$authors = split(&quot;,&quot;, $autor);
++					for($i = 0; $i &lt; count($authors); $i++)
++					{
++						if ($i != 0)
++						{
++							$sql .= &quot; OR &quot;;
++						}
++						$sql .= &quot;autoren.Autorname like '%&quot;.trim($authors[$i]).&quot;%'&quot;;
++					}
++					$sql .= &quot;)&quot;;
++				}
++
+ 				$sqldb-&gt;Query($sql);
+-
+ 				while ($cur = $sqldb-&gt;Fetch())
+ 				{
+ 					$this-&gt;Treffer[] = $cur;	
+@@ -205,6 +220,9 @@
+ 		 *    als als Objekt im Feld $Treffer. Sollte ein Fehler auftreten
+ 		 *    und ISBN der Treffer oder keine passenden Eintr&#228;ge vorhanden
+ 		 *    sein, dann wird $Treffer ein Feld der L&#228;nge 0.
++		 *  - Wird eine kommagetrennte Liste von Autoren als
++		 *    $autor &#252;bergeben, muss in Treffern nur einer der
++		 *    genannten Autoren auftreten.
+ 		 *
+ 		 *  \pre Datenbankverbindung muss bestehen.
+ 		 *  \param[in] $autor String mit Autorname
+@@ -227,5 +245,4 @@
+ 			}
+ 		}
+ 	}
+-}
+ ?&gt;
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/index.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -6,7 +6,6 @@
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	
+-	&lt;br&gt;
+ 	&lt;table id=&quot;searchresult&quot;&gt;
+ 		&lt;thead&gt;
+ 			&lt;tr&gt;
+@@ -35,14 +34,19 @@
+ 			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+-	&lt;br&gt;
+-	&lt;hr&gt;
+-	&lt;br&gt;
+-	&lt;form action=&quot;litmod.php&quot;&gt;
+-		&lt;div&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-		&lt;/div&gt;
+-	&lt;/form&gt;
++	&lt;?php
++		if ($login-&gt;IsMember() === true)
++		{
++	?&gt;
++		&lt;hr&gt;
++		&lt;form action=&quot;litmod.php&quot;&gt;
++			&lt;div&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++			&lt;/div&gt;
++		&lt;/form&gt;
++	&lt;?php
++		}
++	?&gt;
+ 
+ 
+ &lt;/div&gt;
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/lit.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,7 +5,6 @@
+ 	require_once(&quot;include/header.php&quot;);
+ 	require_once(&quot;include/literatur.php&quot;);
+ 
+-	$literatur;
+ 	if (isset($_GET[&quot;id&quot;]))
+ 	{
+ 		$literatur = new Literatur($_GET[&quot;id&quot;]);
+@@ -16,7 +15,6 @@
+ 	}
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;hr&gt;
+ 	
+ 	&lt;table id=&quot;litdetails&quot;&gt;
+ 		&lt;tbody&gt;
+@@ -66,10 +64,17 @@
+ 					&lt;pre&gt;&lt;?= htmlspecialchars($literatur-&gt;ToBibtex()); ?&gt;&lt;/pre&gt;
+ 				&lt;/td&gt;
+ 			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;br&gt; &lt;/td&gt;
+-			&lt;/tr&gt;
++			&lt;?php
++				if ($login-&gt;IsMember() === true)
++				{
++			?&gt;
++				&lt;tr&gt;
++					&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
++					&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;L&ouml;schen&quot;&gt;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;?php
++				}
++			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;hr&gt;
+@@ -77,25 +82,44 @@
+ 	&lt;table id=&quot;litkommentare&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;?php
++				$nocomment = false; // hat der user schon etwas kommentiert?
+ 				for ($i = 0; $i &lt; count($literatur-&gt;Kommentare); $i++)
+ 				{
+ 					$cur = $literatur-&gt;Kommentare[$i];
++					if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr)
++					{
++						$nocomment = true;
++					}
+ 			?&gt;
+ 				&lt;tr&gt;
+ 					&lt;th scope=&quot;row&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Verfasser_Name);?&gt;:&lt;/th&gt;	
+ 					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Text);?&gt;&lt;/td&gt;
+-					&lt;td&gt;&lt;span style=&quot;font-size: xx-small&quot;&gt;&lt;a href=&quot;loeschen.php&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&lt;/td&gt;
++					&lt;td&gt;&lt;?php
++						// Darf der User l&#246;schen?
++						if ($login-&gt;Nr == $cur-&gt;Verfasser_Nr || $login-&gt;IsAdministrator() === true)
++						{
++							echo &quot;&lt;span style=\&quot;font-size: xx-small\&quot;&gt;&lt;a href=\&quot;loeschen.php?id=&quot;.$cur-&gt;Nr.&quot;\&quot;&gt;(loeschen)&lt;/a&gt;&lt;/span&gt;&quot;;
++						}
++					?&gt;&lt;/td&gt;
+ 				&lt;/tr&gt;
+ 			&lt;?
+ 				}
++
++				// Soll Kommentar-Hinzuf&#252;gen-Box erscheinen?
++				if ($login-&gt;IsMember() === true &amp;&amp; 
++					($login-&gt;IsAdministrator() === true || $nocomment === false))
++				{
+ 			?&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
+-				&lt;td&gt;
+-				&lt;textarea cols=40 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
+-				&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
+-				&lt;td&gt;&nbsp;&lt;/td&gt;
+-			&lt;/tr&gt;
++				&lt;tr&gt;
++					&lt;th scope=&quot;row&quot;&gt;Neuer Kommentar:&lt;/th&gt;	
++					&lt;td&gt;
++					&lt;textarea cols=40 rows=10&gt;&lt;/textarea&gt;&lt;br&gt;
++					&lt;input type=&quot;submit&quot; value=&quot;Kommentar senden&quot;&gt;&lt;/td&gt;
++					&lt;td&gt;&nbsp;&lt;/td&gt;
++				&lt;/tr&gt;
++			&lt;?php
++				}
++			?&gt;
+ 
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/litmod.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,21 +5,20 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;
+-
++	&lt;form action=&quot;litmod.&lt;?=$ext;?&gt;?add&quot; id=&quot;litaddform&quot; method=&quot;post&quot;&gt;
+ 	&lt;table id=&quot;litadd&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Titel:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;titel&quot; id=&quot;titel&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;br&gt;
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;/th&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;autor&quot; id=&quot;autor&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Erscheinungsjahr:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;jahr&quot; id=&quot;jahr&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Stichworte:&lt;/th&gt;	
+@@ -27,11 +26,17 @@
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Art:&lt;/th&gt;	
+-				&lt;td&gt;&lt;select&gt;
+-				&lt;option&gt;Buch&lt;/option&gt;
+-				&lt;option&gt;Paper&lt;/option&gt;
+-				&lt;option&gt;Hochglanzmagazin&lt;/option&gt;
+-				&lt;option&gt;Boulevardmagazin&lt;/option&gt;
++				&lt;td&gt;&lt;select name=&quot;art&quot; id=&quot;art&quot;&gt;
++					&lt;option&gt;Anleitung&lt;/option&gt;
++					&lt;option&gt;Artikel&lt;/option&gt;
++					&lt;option&gt;Brosch&#252;re&lt;/option&gt;
++					&lt;option&gt;Buch&lt;/option&gt;
++					&lt;option&gt;Diplomarbeit&lt;/option&gt;
++					&lt;option&gt;Dissertation&lt;/option&gt;
++					&lt;option&gt;Protokoll&lt;/option&gt;
++					&lt;option&gt;Sonstiges&lt;/option&gt;
++					&lt;option&gt;Techn. Bericht&lt;/option&gt;
++					&lt;option&gt;Unver&#246;ffentlicht&lt;/option&gt;
+ 				&lt;/select&gt;
+ 				&lt;/td&gt;
+ 			&lt;/tr&gt;
+@@ -39,20 +44,20 @@
+ 
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Verlag:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;verlag&quot; id=&quot;verlag&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Verlagsort:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;ort&quot; id=&quot;ort&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;ISBN:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;isbn&quot; id=&quot;isbn&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Bemerkung:&lt;/th&gt;	
+-				&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;textarea cols=&quot;20&quot; rows=&quot;10&quot; name=&quot;beschreibung&quot; id=&quot;beschreibung&quot;&gt;&lt;/textarea&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+@@ -61,6 +66,7 @@
+ 
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
++	&lt;/form&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+ 
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/search.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -1,12 +1,23 @@
+ &lt;?php
+-	$title = &quot;Suchergebnisse f&uuml;r \&quot;Algorithmen\&quot;&quot;;
+ 	//$extracss = &quot;home.css&quot;;
+ 
++	if (isset($_GET[&quot;suchbegriff&quot;]) === true)
++	{
++		$title = &quot;Suchergebnisse f&uuml;r \&quot;&quot;.htmlspecialchars(addslashes($_GET[&quot;suchbegriff&quot;])).&quot;\&quot;&quot;;
++	}
++	elseif (isset($_GET[&quot;autor&quot;]) === true &amp;&amp; isset($_GET[&quot;titel&quot;]) === true)
++	{
++		$title = &quot;Suchergebnisse f&uuml;r \&quot;&quot;.htmlspecialchars(addslashes($_GET[&quot;autor&quot;])).&quot;\&quot; und \&quot;&quot;.htmlspecialchars(addslashes($_GET[&quot;titel&quot;])).&quot;\&quot;&quot;;
++	}
++	else
++	{
++		$title = &quot;Letzte Literatur&quot;;
++	}
++
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+ 	
+-	&lt;br&gt;
+ 	&lt;table id=&quot;searchresult&quot;&gt;
+ 		&lt;thead&gt;
+ 			&lt;tr&gt;
+@@ -19,8 +30,20 @@
+ 		&lt;tbody&gt;
+ 			&lt;?php
+ 				require_once(&quot;include/suche.php&quot;);
+-				/// \todo richtig implementieren
+-				$search = new Suche(&quot;  python &quot;);
++
++				if (isset($_GET[&quot;suchbegriff&quot;]) === true)
++				{
++					$search = new Suche($_GET[&quot;suchbegriff&quot;]);
++				}
++				elseif (isset($_GET[&quot;autor&quot;]) === true &amp;&amp; isset($_GET[&quot;titel&quot;]) === true)
++				{
++					$search = new Suche($_GET[&quot;titel&quot;], $_GET[&quot;autor&quot;]);
++				}
++				else
++				{
++					$search = new Suche();
++				}
++
+ 				for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
+ 				{
+ 					$cur = $search-&gt;Treffer[$i];
+@@ -36,16 +59,19 @@
+ 			?&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+-	&lt;br&gt;
+-	&lt;hr&gt;
+-	&lt;br&gt;
+-	&lt;form action=&quot;litadd.php&quot;&gt;
+-		&lt;div&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-		&lt;/div&gt;
+-	&lt;/form&gt;
+ 
+-
++	&lt;?php
++		if ($login-&gt;IsMember() === true)
++		{
++	?&gt;
++		&lt;hr&gt;
++		&lt;form action=&quot;litmod.php&quot;&gt;
++			&lt;div&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++			&lt;/div&gt;
++		&lt;/form&gt;
++	&lt;?php
++		}
++	?&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+-
+
+Modified: trunk/searchmore.php
+===================================================================
+--- trunk/searchmore.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/searchmore.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,40 +5,36 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;&lt;br&gt;
+-	&lt;h3&gt;Volltextsuche&lt;/h3&gt;
++	&lt;h3&gt;Autoren- und Titelsuche&lt;/h3&gt;
++	&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot; method=&quot;get&quot;&gt;
+ 	&lt;table class=&quot;searchmore&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+-				&lt;td scope=row&gt;Suchbegriff:&lt;/td&gt;
+-				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
++				&lt;td scope=row&gt;&lt;label for=&quot;autor&quot;&gt;Autor:&lt;/label&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input id=&quot;autor&quot; name=&quot;autor&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&nbsp;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;td scope=row&gt;&lt;label for=&quot;titel&quot;&gt;Titel:&lt;/label&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;titel&quot; name=&quot;titel&quot;&gt;&lt;/td&gt;
+ 				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Suche&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+-
++	&lt;/form&gt;
+ 	&lt;hr&gt;
+-	&lt;h3&gt;Autoren- und Titelsuche&lt;/h3&gt;
+-
++	
++	&lt;h3&gt;Volltextsuche&lt;/h3&gt;
++	&lt;form action=&quot;search.&lt;?=$ext;?&gt;&quot; id=&quot;searchform&quot; method=&quot;get&quot;&gt;
+ 	&lt;table class=&quot;searchmore&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+-				&lt;td scope=row&gt;Autor:&lt;/td&gt;
+-				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
+-				&lt;td&gt;&nbsp;&lt;/td&gt;
+-			&lt;/tr&gt;
+-			&lt;tr&gt;
+-				&lt;td scope=row&gt;Titel:&lt;/td&gt;
+-				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
++				&lt;td scope=row&gt;&lt;label for=&quot;suchbegriff&quot;&gt;Suchbegriff:&lt;/label&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;suchbegriff&quot; name=&quot;suchbegriff&quot;&gt;&lt;/td&gt;
+ 				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Suche&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/tbody&gt;
+-	&lt;/table&gt;&lt;br&gt;&lt;br&gt;
+-	
+-	&lt;br&gt;
+-
+-
++	&lt;/table&gt;
++	&lt;/form&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+-
+-
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/user.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,7 +5,6 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;
+ 	&lt;form action=&quot;usermod.php&quot;&gt;
+ 	
+ 	&lt;table id=&quot;bookdetails&quot;&gt;
+@@ -35,7 +34,7 @@
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+ 				&lt;td&gt;
+ 				&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
+-				&lt;br&gt; &lt;/td&gt;
++				&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/userlist.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,7 +5,6 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;
+ 	&lt;form action=&quot;usermod.php&quot;&gt;
+ 	&lt;table id=&quot;userlist&quot;&gt;
+ 		&lt;thead&gt;
+@@ -50,15 +49,28 @@
+ 		&lt;/tbody&gt;
+ 	&lt;/table&gt;
+ 	&lt;/form&gt;
+-	&lt;br&gt;
+-	&lt;hr&gt;
+-	&lt;br&gt;
+-	&lt;form action=&quot;usermod.php&quot;&gt;
+-		&lt;div&gt;
+-			&lt;input type=&quot;submit&quot; value=&quot;Nutzer hinzuf&uuml;gen&quot;&gt;
+-		&lt;/div&gt;
+-	&lt;/form&gt;
+ 
++	&lt;?php
++		if ($login-&gt;IsAdministrator() === true)
++		{
++	?&gt;
++		&lt;hr&gt;
++		&lt;form action=&quot;usermod.php&quot;&gt;
++			&lt;div&gt;
++				&lt;input type=&quot;submit&quot; value=&quot;Nutzer hinzuf&uuml;gen&quot;&gt;
++			&lt;/div&gt;
++		&lt;/form&gt;
++	&lt;?php
++		}
++		elseif ($login-&gt;IsMember() === true)
++		{
++			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Sie sind nicht berechtigt alle Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
++		}
++		else
++		{
++			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Sie sind nicht berechtigt Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
++		}
++	?&gt;
+ 
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-05-28 00:35:48 UTC (rev 126)
++++ trunk/usermod.php	2006-05-29 21:17:14 UTC (rev 127)
+@@ -5,29 +5,28 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	&lt;br&gt;
+ 	
+-	&lt;form action=&quot;usermod.php&quot;&gt;
++	&lt;form action=&quot;usermod.&lt;?=$ext;?&gt;?add&quot; id=&quot;litaddform&quot; method=&quot;post&quot;&gt;
+ 	&lt;table id=&quot;bookdetails&quot;&gt;
+ 		&lt;tbody&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Login:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;siwu&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;siwu&quot; name=&quot;login&quot; id=&quot;login&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Vorname:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;Simon&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;Simon&quot; name=&quot;vorname&quot; id=&quot;vorname&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Nachname:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;Wunderlich&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;Wunderlich&quot; name=&quot;nachname&quot; id=&quot;nachname&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;E-Mail:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;text&quot; value=&quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot; name=&quot;email&quot; id=&quot;email&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+-				&lt;th scope=&quot;row&quot;&gt;Rechte:&lt;/th&gt;	
++				&lt;th scope=&quot;row&quot; name=&quot;rechte&quot; id=&quot;rechte&quot;&gt;Rechte:&lt;/th&gt;	
+ 				&lt;td&gt;&lt;select&gt;
+ 				&lt;option&gt;Administrator&lt;/option&gt;
+ 				&lt;option&gt;Mitarbeiter&lt;/option&gt;
+@@ -37,18 +36,18 @@
+ 
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Passwort:&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot; name=&quot;passwort&quot; id=&quot;passwort&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Passwort (wiederholen):&lt;/th&gt;	
+-				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot;&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;password&quot; value=&quot;password&quot; name=&quot;passwort_check&quot; id=&quot;passwort_check&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+ 				&lt;td&gt;
+ 				&lt;input type=&quot;submit&quot; value=&quot;&Uuml;bernehmen&quot;&gt;
+-				&lt;br&gt; &lt;/td&gt;
++				&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 
+ 		&lt;/tbody&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000116.html">[Liman-svn] r126 - in trunk: db include
+</A></li>
+	<LI>Next message: <A HREF="000118.html">[Liman-svn] r128 - in trunk: docs/beleg1 docs/beleg2 docs/beleg2/doxygen docs/protokoll include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#117">[ date ]</a>
+              <a href="thread.html#117">[ thread ]</a>
+              <a href="subject.html#117">[ subject ]</a>
+              <a href="author.html#117">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

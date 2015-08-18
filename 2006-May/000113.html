@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r123 - trunk/include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r123%20-%20trunk/include&In-Reply-To=%3C200605271256.k4RCu6Xo015924%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000112.html">
+   <LINK REL="Next"  HREF="000114.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r123 - trunk/include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r123%20-%20trunk/include&In-Reply-To=%3C200605271256.k4RCu6Xo015924%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r123 - trunk/include">lazhur at berlios.de
+       </A><BR>
+    <I>Sat May 27 14:56:06 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000112.html">[Liman-svn] r122 - in trunk: . docs/beleg2/doxygen include
+</A></li>
+        <LI>Next message: <A HREF="000114.html">[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#113">[ date ]</a>
+              <a href="thread.html#113">[ thread ]</a>
+              <a href="subject.html#113">[ subject ]</a>
+              <a href="author.html#113">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-27 14:56:04 +0200 (Sat, 27 May 2006)
+New Revision: 123
+
+Modified:
+   trunk/include/mitglied.php
+Log:
+Mitglieder implementiert
+
+
+Modified: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-27 12:20:14 UTC (rev 122)
++++ trunk/include/mitglied.php	2006-05-27 12:56:04 UTC (rev 123)
+@@ -9,6 +9,9 @@
+ 	 *  Stellt Funktionen zum Entfernen, Hinzuf&#252;gen, &#196;ndern und Auflisten
+ 	 *  von Mitgliedern bereit.
+ 	 *  \pre Datenbankverbindung muss bestehen
++	 *  \sa
++	 *  - SQLDB::Query
++	 *  - SQLDB::Fetch
+ 	 */
+ 	class Mitglied
+ 	{
+@@ -29,7 +32,33 @@
+ 		 */
+ 		function Mitglied($nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++			$sql = &quot;SELECT Mitglieds_Nr, Login, Passwort, Rechte, Vorname, Name, Email
++					FROM &quot;.$db_config['prefix'].&quot;Mitglieder
++					LIMIT 1&quot;;
++			$sqldb-&gt;Query($sql);
++			
++			if ($cur = $sqldb-&gt;Fetch())
++			{
++				$this-&gt;Nr = $cur-&gt;Mitglieds_Nr;
++				$this-&gt;Login = $cur-&gt;Login;
++				$this-&gt;Passwort = $cur-&gt;Passwort;
++				$this-&gt;Vorname = $cur-&gt;Vorname;
++				$this-&gt;Nachname = $cur-&gt;Name;
++				$this-&gt;Email = $cur-&gt;Email;
++
++				switch ($cur-&gt;Rechte)
++				{
++				case &quot;Administrator&quot;:
++					$this-&gt;Rechte = 2;
++					break;
++				case &quot;Benutzer&quot;:
++					$this-&gt;Rechte = 1;
++					break;
++				default:
++					$this-&gt;Rechte = 0;
++				}
++			}
+ 		}
+ 		
+ 		/*! \brief Generiert Passworthash
+@@ -55,7 +84,12 @@
+ 		 */
+ 		function Delete($nr)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$sql = &quot;DELETE FROM &quot;.$db_config['prefix'].&quot;Mitglieder
++					WHERE Mitglieds_Nr = '$nr'
++					LIMIT 1&quot;;
++			$sqldb-&gt;Query($sql);
+ 		}
+ 		
+ 		/*! \brief Legt  Mitglied an
+@@ -80,7 +114,32 @@
+ 		 */
+ 		function Insert($login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$rechtestring = &quot;&quot;;
++			switch ($rechte)
++			{
++			case 2:
++				$rechtestring = &quot;Administrator&quot;;
++				break;
++			default:
++			case 1:
++				$rechtestring = &quot;Benutzer&quot;;
++				break;
++			}
++
++			$passworthash = Mitglied::PasswordHash($passwort);
++			$sql = &quot;INSERT INTO &quot;.$db_config['prefix'].&quot;Mitglieder
++					VALUES (NULL, '$nachname', '$vorname', '$email', '$login', '$passworthash', '$rechtestring')&quot;;
++			
++			if ($sqldb-&gt;Query($sql) !== false)
++			{
++				return true;
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief &#196;ndert ein Mitglied
+@@ -108,7 +167,46 @@
+ 		 */
+ 		function Update($nr, $login, $passwort, $rechte, $vorname, $nachname, $email)
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
++			$rechtestring = &quot;&quot;;
++			switch ($rechte)
++			{
++			case 2:
++				$rechtestring = &quot;Administrator&quot;;
++				break;
++			default:
++			case 1:
++				$rechtestring = &quot;Benutzer&quot;;
++				break;
++			}
++
++			$sql = &quot;&quot;;
++			if (empty($passwort) === true)
++			{
++				
++				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
++						SET Login='$login', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
++						WHERE Mitglieds_Nr='$nr'
++						LIMIT 1&quot;;
++			}
++			else
++			{
++				$passworthash = Mitglied::PasswordHash($passwort);
++				$sql = &quot;UPDATE &quot;.$db_config['prefix'].&quot;Mitglieder
++						SET Login='$login', Passwort='$passworthash', Rechte='$rechtestring', Vorname='$vorname', Name='$nachname', Email='$email'
++						WHERE Mitglieds_Nr='$nr'
++						LIMIT 1&quot;;
++			}
++
++			if ($sqldb-&gt;Query($sql) !== false)
++			{
++				return true;
++			}
++			else
++			{
++				return false;
++			}
+ 		}
+ 		
+ 		/*! \brief R&#252;ckgabe einer Liste der Mitglieder
+@@ -126,23 +224,19 @@
+ 		 */
+ 		function GetAll()
+ 		{
+-			/// \todo implementieren
++			global $db_config, $sqldb;
++
+ 			$members = array();
++			
++			$sql = &quot;SELECT Mitglieds_Nr AS Nr, Login, Vorname, Name AS Nachname, Email
++					FROM &quot;.$db_config['prefix'].&quot;Mitglieder&quot;;
++			$sqldb-&gt;Query($sql);
++			
++			while ($cur = $sqldb-&gt;Fetch())
++			{
++				$members[] = $cur;
++			}
+ 
+-			$cur1-&gt;Nr = 1;
+-			$cur1-&gt;Login = &quot;siwu&quot;;
+-			$cur1-&gt;Vorname = &quot;Simon&quot;;
+-			$cur1-&gt;Nachname = &quot;Wunderlich&quot;;
+-			$cur1-&gt;Email = &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">siwu at hrz.tu-chemnitz.de</A>&quot;;
+-			$members[] = $cur1;
+-
+-			$cur2-&gt;Nr = 2;
+-			$cur2-&gt;Login = &quot;hans&quot;;
+-			$cur2-&gt;Vorname = &quot;Hans&quot;;
+-			$cur2-&gt;Nachname = &quot;Wurst&quot;;
+-			$cur2-&gt;Email = &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">hans at foobar.de</A>&quot;;
+-			$members[] = $cur2;
+-
+ 			return $members;
+ 		}
+ 	}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000112.html">[Liman-svn] r122 - in trunk: . docs/beleg2/doxygen include
+</A></li>
+	<LI>Next message: <A HREF="000114.html">[Liman-svn] r124 - in trunk: . docs/beleg2 docs/beleg2/doxygen docs/beleg2/visio include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#113">[ date ]</a>
+              <a href="thread.html#113">[ thread ]</a>
+              <a href="subject.html#113">[ subject ]</a>
+              <a href="author.html#113">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

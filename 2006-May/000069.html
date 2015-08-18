@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r79 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r79%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200605041400.k44E0kf1007534%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000068.html">
+   <LINK REL="Next"  HREF="000070.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r79 - in trunk: . design include</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r79%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200605041400.k44E0kf1007534%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r79 - in trunk: . design include">dotslash at berlios.de
+       </A><BR>
+    <I>Thu May  4 16:00:46 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000068.html">[Liman-svn] r78 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000070.html">[Liman-svn] r80 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-05-04 16:00:31 +0200 (Thu, 04 May 2006)
+New Revision: 79
+
+Added:
+   trunk/searchmore.php
+Modified:
+   trunk/design/liman.css
+   trunk/include/header.php
+   trunk/litmod.php
+Log:
+- Prototyp &quot;Erweiterte Suche&quot;
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-05-04 14:00:03 UTC (rev 78)
++++ trunk/design/liman.css	2006-05-04 14:00:31 UTC (rev 79)
+@@ -80,7 +80,11 @@
+ 	border: 1px solid black;
+ 	border-collapse: collapse;
+ }
++#searchmore td {
++	width:100px;
++}
+ 
++
+ #searchresult td, #searchresult th,  #userlist th{
+ 	border: 1px solid black;
+ 	text-align: center;
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-05-04 14:00:03 UTC (rev 78)
++++ trunk/include/header.php	2006-05-04 14:00:31 UTC (rev 79)
+@@ -50,6 +50,7 @@
+ 						&lt;div&gt;
+ 						&lt;input name=&quot;search&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+ 						&lt;input value=&quot;Suche&quot; type=&quot;submit&quot;&gt;
++						&lt;font size=1&gt;&lt;a href=&quot;searchmore.php&quot;&gt;Erweiterte Suche&lt;/a&gt;&lt;/font&gt;
+ 						&lt;/div&gt;
+ 					&lt;/form&gt;
+ 				&lt;/div&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-05-04 14:00:03 UTC (rev 78)
++++ trunk/litmod.php	2006-05-04 14:00:31 UTC (rev 79)
+@@ -15,7 +15,6 @@
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Autor:&lt;br&gt;
+-				&lt;span style=&quot;font-size:8px&quot;&gt;(Mehrere Autoren durch&lt;br&gt; Kommata trennen)&lt;/span&gt;				&lt;/th&gt;	
+ 				&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;
+ 			&lt;/tr&gt;
+ 			&lt;tr&gt;
+
+Added: trunk/searchmore.php
+===================================================================
+--- trunk/searchmore.php	2006-05-04 14:00:03 UTC (rev 78)
++++ trunk/searchmore.php	2006-05-04 14:00:31 UTC (rev 79)
+@@ -0,0 +1,44 @@
++&lt;?php
++	$title = &quot;Erweiterte Suche&quot;;
++	//$extracss = &quot;home.css&quot;;
++
++	require(&quot;include/header.php&quot;);
++?&gt;
++&lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
++	&lt;br&gt;&lt;br&gt;
++	&lt;h3&gt;Volltextsuche&lt;/h3&gt;
++	&lt;table id=&quot;searchmore&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;td scope=row&gt;Suchbegriff:&lt;/td&gt;
++				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Suche&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++	&lt;/table&gt;
++
++	&lt;hr&gt;
++	&lt;h3&gt;Autoren- und Titelsuche&lt;/h3&gt;
++
++	&lt;table id=&quot;searchmore&quot;&gt;
++		&lt;tbody&gt;
++			&lt;tr&gt;
++				&lt;td scope=row&gt;Autor:&lt;/td&gt;
++				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
++				&lt;td&gt;&nbsp;&lt;/td&gt;
++			&lt;/tr&gt;
++			&lt;tr&gt;
++				&lt;td scope=row&gt;Titel:&lt;/td&gt;
++				&lt;td&gt;&lt;input&gt;&lt;/td&gt;
++				&lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;Suche&quot;&gt;&lt;/td&gt;
++			&lt;/tr&gt;
++		&lt;/tbody&gt;
++	&lt;/table&gt;&lt;br&gt;&lt;br&gt;
++	
++	&lt;br&gt;
++
++
++&lt;/div&gt;
++&lt;?php	require(&quot;include/footer.php&quot;); ?&gt;
++
++
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000068.html">[Liman-svn] r78 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000070.html">[Liman-svn] r80 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#69">[ date ]</a>
+              <a href="thread.html#69">[ thread ]</a>
+              <a href="subject.html#69">[ subject ]</a>
+              <a href="author.html#69">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

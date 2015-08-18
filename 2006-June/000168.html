@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r178 - in trunk: . docs/beleg3 include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r178%20-%20in%20trunk%3A%20.%20docs/beleg3%20include/tests&In-Reply-To=%3C200606230433.k5N4Xq9m000194%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000167.html">
+   <LINK REL="Next"  HREF="000169.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r178%20-%20in%20trunk%3A%20.%20docs/beleg3%20include/tests&In-Reply-To=%3C200606230433.k5N4Xq9m000194%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r178 - in trunk: . docs/beleg3 include/tests">lazhur at berlios.de
+       </A><BR>
+    <I>Fri Jun 23 06:33:52 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000167.html">[Liman-svn] r177 - trunk/include/tests
+</A></li>
+        <LI>Next message: <A HREF="000169.html">[Liman-svn] r179 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#168">[ date ]</a>
+              <a href="thread.html#168">[ thread ]</a>
+              <a href="subject.html#168">[ subject ]</a>
+              <a href="author.html#168">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-23 06:33:49 +0200 (Fri, 23 Jun 2006)
+New Revision: 178
+
+Modified:
+   trunk/docs/beleg3/systemhandbuch.tex
+   trunk/docs/beleg3/tests.tex
+   trunk/include/tests/kommentar.php
+   trunk/include/tests/mitglied.php
+   trunk/test.php
+Log:
+- Tests korrigiert (Kommentar, Mitglied)
+- Literatur aus test.php entfernt
+- Literatur aus Unittestzeile der Testmatrix entfernt
+- Dateigr?\195?\182?\195?\159en in Programm-Filesystem korrigiert
+- In Programm-Filesystem Backslashes in Slashes ge?\195?\164ndert
+
+
+Modified: trunk/docs/beleg3/systemhandbuch.tex
+===================================================================
+--- trunk/docs/beleg3/systemhandbuch.tex	2006-06-22 21:12:10 UTC (rev 177)
++++ trunk/docs/beleg3/systemhandbuch.tex	2006-06-23 04:33:49 UTC (rev 178)
+@@ -29,69 +29,68 @@
+ include/config.php anpassen.
+ 
+ &quot;Uberpr&quot;ufen sie Ihre Einstellungen mit einem Login auf <A HREF="http://ihr.server.de/liman/">http://ihr.server.de/liman/</A> .
+-Wenn alles korrekt installiert wurde, sollten abschlie&#223;end noch die Datei install.php 
++Wenn alles korrekt installiert wurde, sollten abschlie&quot;send noch die Datei install.php 
+ aus dem Webserver-Verzeichnis gel&quot;oscht werden, damit niemand die Datenbankverbindungsdaten neu 
+ setzen kann.
+ 
+ \section{Programm-Filesystem}
+ {TODO}
+-\begin{longtable}{|l|p{6.0cm}|p{2cm}|}
++\begin{longtable}{|l|p{6cm}|r|}
+ \hline
+ {\bf Bezeichnung der Datei} &amp; {\bf Bedeutung} &amp; {\bf Anzahl Bytes}\\
+ \hline
+ \endhead
+ 
+-index.php &amp; Startseite mit Letzte Literatur &amp; 1196\\
++index.php &amp; Startseite mit Letzte Literatur &amp; 1364\\
+ \hline
+-login.php &amp; login/logout mit Begr&quot;u&quot;sungstext &amp; 836\\
++login.php &amp; login/logout mit Begr&quot;u&quot;sungstext &amp; 1384\\
+ \hline
+-user.php &amp; Nutzerdetails &amp; 1680\\
++user.php &amp; Nutzerdetails &amp; 1983\\
+ \hline
+-usermode.php &amp; Nutzer l&quot;oschen/&quot;andern/hinzuf&quot;ugen &amp; 7892\\
++usermod.php &amp; Nutzer l&quot;oschen/&quot;andern/hinzuf&quot;ugen &amp; 9534\\
+ \hline
+-userlist.php &amp; Nutzerdaten anzeigen &amp; 1924\\
++userlist.php &amp; Nutzerdaten anzeigen &amp; 2251\\
+ \hline
+-search.php &amp; Suche (Ergebnisse) &amp; 1893\\
++search.php &amp; Suche (Ergebnisse) &amp; 2245\\
+ \hline
+-searchmore.php &amp; Suche (Formular) &amp; 1284\\
++searchmore.php &amp; Suche (Formular) &amp; 1257\\
+ \hline
+-litmod.php &amp; Literatur l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 10056\\
++litmod.php &amp; Literatur l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 11701\\
+ \hline
+-commentmod.php &amp; Kommentar l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 3089\\
++commentmod.php &amp; Kommentar l&quot;oschen / &quot;andern / hinzuf&quot;ugen &amp; 4009\\
+ \hline
+-lit.php &amp; Literaturdetails &amp; 4436\\
++lit.php &amp; Literaturdetails &amp; 4771\\
+ \hline
+-bibtex.php &amp; BibTeX Importieren &amp; 2318\\
++bibtex.php &amp; BibTeX Importieren &amp; 2856\\
+ \hline
+-include$\backslash$config.php &amp; Datenbankkonfiguration &amp; 362\\
++include/config.php &amp; Datenbankkonfiguration &amp; 362\\
+ \hline
+-include$\backslash$global.php &amp; Einrichtung Prog. - Umgebung &amp; 1557\\
++include/global.php &amp; Einrichtung Prog. - Umgebung &amp; 1375\\
+ \hline
+-include$\backslash$literatur.php &amp; Stellt Funktionen f&quot;ur Literatur in Bibliothek zur Verf&quot;ugung &amp; 11846\\
++include/literatur.php &amp; Stellt Funktionen f&quot;ur Literatur in Bibliothek zur Verf&quot;ugung &amp; 13372\\
+ \hline
+-include$\backslash$mitglied.php &amp; Stellt Funktionen f&quot;ur Mitglieder bereit &amp; 8436\\
++include/mitglied.php &amp; Stellt Funktionen f&quot;ur Mitglieder bereit &amp; 9370\\
+ \hline
+-include$\backslash$suche.php &amp; Durchsucht die Tabelle Bibliothek und Autoren &quot;uber Volltextsuche &amp; 7852\\
++include/suche.php &amp; Durchsucht die Tabelle Bibliothek und Autoren &quot;uber Volltextsuche &amp; 8463\\
+ \hline
+-include$\backslash$footer.php &amp; Ende jeder Html - Datei &amp; 36 \\
++include/footer.php &amp; Ende jeder HTML-Datei &amp; 36 \\
+ \hline
+-include$\backslash$header.php &amp; Kopf jeder Html-Datei &amp; 2885 \\
++include/header.php &amp; Kopf jeder HTML-Datei &amp; 3236 \\
+ \hline
+-include$\backslash$literaturart.php &amp; Speicherung aus der Datenbank oder BibTeX-Datei erhaltenen Art von Informationen &amp; 3811\\
++include/literaturart.php &amp; Speicherung aus der Datenbank oder BibTeX-Datei erhaltenen Art von Informationen &amp; 3959\\
+ \hline
+-include$\backslash$sqldb.php &amp; Datenbankzugriffsauswahl &amp; 354 \\
++include/sqldb.php &amp; Datenbankzugriffsauswahl &amp; 481 \\
+ \hline
+-include$\backslash$autor.php &amp; Stellt Funktionen f&quot;ur Autoren bereit &amp; 4608\\
++include/autor.php &amp; Stellt Funktionen f&quot;ur Autoren bereit &amp; 5495\\
+ \hline
+-include$\backslash$formhelper.php &amp; Hilfsfunktionen f&quot;ur Formulare &amp; 2278\\
++include/formhelper.php &amp; Hilfsfunktionen f&quot;ur Formulare &amp; 2278\\
+ \hline
+-include$\backslash$kommentar.php &amp; Stellt Funktionen f&quot;ur Kommentare bereit &amp; 7911\\
++include/kommentar.php &amp; Stellt Funktionen f&quot;ur Kommentare bereit &amp; 9342\\
+ \hline   
+-include$\backslash$login.php &amp;  Verwaltet die Session des Users und der damit entstehenden Rechte &amp; 5243\\
++include/login.php &amp;  Verwaltet die Session des Users und der damit entstehenden Rechte &amp; 5414\\
+ \hline
+-include$\backslash$sqldbmysql.php &amp; Startet eine Verbindung zum Datenbanksystem her und w&quot;ahlt eine Datenbank &amp; 6323\\
++include/sqldb\_mysql.php &amp; Startet eine Verbindung zum Datenbanksystem her und w&quot;ahlt eine Datenbank &amp; 7212\\
+ \hline
+-
+ \end{longtable}
+ 
+ 
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-06-22 21:12:10 UTC (rev 177)
++++ trunk/docs/beleg3/tests.tex	2006-06-23 04:33:49 UTC (rev 178)
+@@ -280,7 +280,7 @@
+ 	\multicolumn{1}{R{6em}|}{Installation}\\
+ \hline\hline
+ \endhead
+- 1 &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp; x &amp; x &amp;   &amp; x &amp; x &amp;   &amp;  \\\hline
++ 1 &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x &amp;   &amp; x &amp;   &amp; x &amp; x &amp;   &amp;  \\\hline
+  2 &amp; x &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp;   &amp; x &amp; x\\\hline
+  3 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
+  4 &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp; x &amp;  \\\hline
+
+Modified: trunk/include/tests/kommentar.php
+===================================================================
+--- trunk/include/tests/kommentar.php	2006-06-22 21:12:10 UTC (rev 177)
++++ trunk/include/tests/kommentar.php	2006-06-23 04:33:49 UTC (rev 178)
+@@ -39,7 +39,7 @@
+ 		
+ 		function ConstructorTest()
+ 		{
+-			$testData = CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 2, &quot;Max&quot;, &quot;Mustermann&quot; );
++			$testData = $this-&gt;CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 2, &quot;Max&quot;, &quot;Mustermann&quot; );
+ 			
+ 			$kommentar = new Kommentar($testData);
+ 			
+@@ -113,11 +113,11 @@
+ 			global $sqldb;
+ 			
+ 			$testData = array();
+-			$testData[] = CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 1, &quot;Max&quot;, &quot;Mustermann&quot; );
+-			$testData[] = CreateKommentarData( 2, &quot;Noch ein Kommentar&quot;, 2, &quot;Fritz&quot;, &quot;Fischer&quot; );
++			$testData[] = $this-&gt;CreateKommentarData( 1, &quot;Das ist ein Kommentar&quot;, 1, &quot;Max&quot;, &quot;Mustermann&quot; );
++			$testData[] = $this-&gt;CreateKommentarData( 2, &quot;Noch ein Kommentar&quot;, 2, &quot;Fritz&quot;, &quot;Fischer&quot; );
+ 			
+ 			$sqldb-&gt;ExpectQuery( 'SELECT.*FROM.*Kommentare', $testData );
+-			$result = Kommentar::GetAll();
++			$result = Kommentar::GetAll(1);
+ 			
+ 			$dbResult = $sqldb-&gt;Verify();
+ 			if( $dbResult !== true )
+
+Modified: trunk/include/tests/mitglied.php
+===================================================================
+--- trunk/include/tests/mitglied.php	2006-06-22 21:12:10 UTC (rev 177)
++++ trunk/include/tests/mitglied.php	2006-06-23 04:33:49 UTC (rev 178)
+@@ -40,7 +40,7 @@
+ 		{
+ 			global $sqldb;
+ 			
+-			$testData = CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;,&quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
++			$testData = $this-&gt;CreateMemberData( 1, &quot;Maximator&quot;, &quot;passwort&quot;,&quot;Max&quot;, &quot;Mustermann&quot;, &quot;<A HREF="https://lists.berlios.de/mailman/listinfo/liman-svn">max.mustermann at gmx.de</A>&quot;, &quot;Benutzer&quot; );
+ 			
+ 			$sqldb-&gt;ExpectQuery(&quot;SELECT.*FROM.*Mitglieder.*WHERE.*Mitglieds_Nr.*LIMIT 1&quot;, $testData );
+ 			
+
+Modified: trunk/test.php
+===================================================================
+--- trunk/test.php	2006-06-22 21:12:10 UTC (rev 177)
++++ trunk/test.php	2006-06-23 04:33:49 UTC (rev 178)
+@@ -110,41 +110,6 @@
+ 				$kommentarTest-&gt;TearDown();
+ 				echo &quot;&lt;/tr&gt;&quot;;
+ 				
+-				// Literatur
+-				require_once(&quot;include/literatur.php&quot;);
+-				require_once(&quot;include/tests/literatur.php&quot;);
+-				$literaturTest = new LiteraturTest();
+-
+-				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Literatur()&lt;/td&gt;&quot;;
+-				$literaturTest-&gt;Setup();
+-				PrintTestResults($literaturTest-&gt;ConstructorTest());
+-				$literaturTest-&gt;TearDown();
+-				echo &quot;&lt;/tr&gt;&quot;;
+-				
+-				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Insert()&lt;/td&gt;&quot;;
+-				$literaturTest-&gt;Setup();
+-				PrintTestResults($literaturTest-&gt;Insert());
+-				$literaturTest-&gt;TearDown();
+-				echo &quot;&lt;/tr&gt;&quot;;
+-				
+-				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::Update()&lt;/td&gt;&quot;;
+-				$literaturTest-&gt;Setup();
+-				PrintTestResults($literaturTest-&gt;Update());
+-				$literaturTest-&gt;TearDown();
+-				echo &quot;&lt;/tr&gt;&quot;;
+-				
+-				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::InsertBibtex()&lt;/td&gt;&quot;;
+-				$literaturTest-&gt;Setup();
+-				PrintTestResults($literaturTest-&gt;InsertBibtex());
+-				$literaturTest-&gt;TearDown();
+-				echo &quot;&lt;/tr&gt;&quot;;
+-				
+-				echo &quot;&lt;tr&gt;&lt;td&gt;Literatur::ToBibtex()&lt;/td&gt;&quot;;
+-				$literaturTest-&gt;Setup();
+-				PrintTestResults($literaturTest-&gt;ToBibtex());
+-				$literaturTest-&gt;TearDown();
+-				echo &quot;&lt;/tr&gt;&quot;;
+-				
+ 				// Mitglied
+ 				require_once(&quot;include/mitglied.php&quot;);
+ 				require_once(&quot;include/tests/mitglied.php&quot;);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000167.html">[Liman-svn] r177 - trunk/include/tests
+</A></li>
+	<LI>Next message: <A HREF="000169.html">[Liman-svn] r179 - in trunk: . include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#168">[ date ]</a>
+              <a href="thread.html#168">[ thread ]</a>
+              <a href="subject.html#168">[ subject ]</a>
+              <a href="author.html#168">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r31 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r31%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604231548.k3NFmAf1018218%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000020.html">
+   <LINK REL="Next"  HREF="000022.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r31 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r31%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604231548.k3NFmAf1018218%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r31 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Sun Apr 23 17:48:10 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000020.html">[Liman-svn] r30 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000022.html">[Liman-svn] r32 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-23 17:48:09 +0200 (Sun, 23 Apr 2006)
+New Revision: 31
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/pspec_bibtex.tex
+   trunk/docs/beleg1/pspec_kommentarverwaltung.tex
+   trunk/docs/beleg1/pspec_literaturinformation.tex
+   trunk/docs/beleg1/pspec_literaturverwaltung.tex
+   trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+Log:
+In PSPEC Literatur_?\195?\164ndern: Literaturnummer -&gt; Literatur_Nr
+Fehlende Bearbeitername in PSpec entfernt
+L?\195?\182schen von Kommentaren bei Literatur/Mitglied_l?\195?\182schen hinzugef?\195?\188gt
+PSpec f?\195?\188r Kommentar_*, Literatur_*, Mitglied_* hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -41,7 +41,7 @@
+ 10.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
+ 11.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
+ 12.&amp; A &#228;ndert Mitglied &amp; Mitglied &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
+-13.&amp; A l&#246;scht Mitglied &amp; Mitglied\_Nr &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
++13.&amp; A l&#246;scht Mitglied &amp; Mitglieds\_Nr &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
+ 14.&amp; A ruft Mitglieder ab &amp; - &amp; Mitgliederliste \\\hline
+ \end{longtable}
+ 
+@@ -104,7 +104,7 @@
+ 
+ \emph{Kommentare} &amp; \{Kommentar\} \\
+ \hline
+-Kommentar &amp; @Kommentar\_Nr + Kommentartext \\
++Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr\\
+ \hline
+ Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* \\
+ \hline
+
+Modified: trunk/docs/beleg1/pspec_bibtex.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_bibtex.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/pspec_bibtex.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -36,7 +36,7 @@
+ \textbf{Voraussetzung}: -
+ \begin{verbatim}
+  BEGIN
+-   Daten := Finde in Bibliothek Literatur mit Literatur.Literatur_Nr = \
++   Daten := Finde in Bibliothek Literatur mit Literatur.Literatur_Nr = 
+               Exportanfrage.Literatur_Nr;
+   
+    IF gefunden THEN
+
+Modified: trunk/docs/beleg1/pspec_kommentarverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_kommentarverwaltung.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/pspec_kommentarverwaltung.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -2,13 +2,33 @@
+ \paragraph{Kommentar\_anlegen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Kommentar\_anlegen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer ist angemeldet. Kommentardaten.Mitglieds\_Nr ist die Nummer des aktuell angemeldeten Nutzers. Kommentare ist nicht voll.
+ \begin{verbatim}
+- asdasd
++  BEGIN
++   Finde in Bibliothek Literatur
++         mit Literatur.Titel = Kommentardaten.Buch_Nr
++   und Finde in Literatur.Autor = Literaturdaten.Autor;
++ 
++   IF gefunden THEN
++   BEGIN
++     Finde in Kommentare Kommentar
++           mit Kommentar.Mitglieds_Nr = Kommentardaten.Mitglieds_Nr
++           und Kommentar.Literatur_Nr = Kommentardaten.Literatur_Nr
++
++     IF gefunden THEN
++       Setze Fehler 301
++     ELSE
++     BEGIN
++       Lege in Kommentare Kommentar mit Kommentardaten an
++       Setze Best&#228;tigung_Kommentaranlegen
++     END
++
++   END
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -18,13 +38,22 @@
+ \paragraph{Kommentar\_&#228;ndern}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Kommentar\_&#228;ndern  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer ist angemeldet. Kommentardaten.Mitglieds\_Nr ist die Nummer des aktuell angemeldeten Nutzers (au&#223;er er ist Administrator)
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Setze in Kommentare Kommentar_Eintrag
++         mit Kommentar_Eintrag.Kommentar_Nr = Kommentar.Kommentar_Nr
++         auf Kommentar;
++  
++   IF erfolgreich THEN
++     Setze Best&#228;tigung_Kommentar&#228;ndern
++   ELSE
++     Setze Fehler 302
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -34,12 +63,20 @@
+ \paragraph{Kommentar\_l&#246;schen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Kommentar\_l&#246;schen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer ist angemeldet. Kommentardaten.Mitglieds\_Nr ist die Nummer des aktuell angemeldeten Nutzers (au&#223;er er ist Administrator)
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   L&#246;sche in Kommentare Kommentar mit Kommenar.Kommentar_Nr = 
++                                      Kommentar_Nr;
++   
++   IF erfolgreich THEN
++     Setze Best&#228;tigung_Kommentarl&#246;schen
++   ELSE
++     Setze Fehler 303
++ END
+ \end{verbatim}
+ \hrulefill
+\ No newline at end of file
+
+Modified: trunk/docs/beleg1/pspec_literaturinformation.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_literaturinformation.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/pspec_literaturinformation.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -2,13 +2,30 @@
+ \paragraph{Literatur\_anzeigen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Literatur\_anzeigen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: -
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Finde in Bibliothek Literatur
++         mit Literatur.Literatur_Nr = Literatur_Nr
++
++   IF gefunden THEN
++   BEGIN
++     Finde in Kommentare Kommentar
++           mit Kommentar.Literatur_Nr =  Literatur_Nr
++
++     IF gefunden THEN
++       Setze Literatur_Info := gefundene_Literatur
++                             + gefundene_Kommentare
++     ELSE
++       Setze Literatur_Info := gefundene_Literatur
++   END
++   ELSE
++     Setze Fehler 401
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -17,12 +34,33 @@
+ \paragraph{Literatur\_suchen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Literatur\_suchen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}: -
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   IF Volltextsuche THEN
++     Finde in Bibliothek Literatur
++           mit Suchbegriff in Literatur
++   ELSE
++   BEGIN
++     Finde in Bibliothek Literatur
++           mit Suchbegriff.Art = Literatur.Art
++           und Suchbegriff.Titel enthalten in Literatur.Titel
++           und Suchbegriff.Autor enthalten in Literatur.Autor
++           und Suchbegriff.ISBN enthalten in Literatur.ISBN
++           und Suchbegriff.Beschreibung in Literatur.Beschreibung // VT
++           und Suchbegriff.Jahr enthalten in Literatur.Jahr
++           und Suchbegriff.Ort enthalten in Literatur.Ort
++           und Suchbegriff.Stichworte in Literatur.Stichworte // Volltext
++   END
++   
++   IF gefunden THEN
++     Setz Suchtreffer := gefundene_Literatur
++   ELSE
++     Setze Fehler 402
++ END
+ \end{verbatim}
+ \hrulefill
+\ No newline at end of file
+
+Modified: trunk/docs/beleg1/pspec_literaturverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_literaturverwaltung.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/pspec_literaturverwaltung.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -39,9 +39,9 @@
+ \textbf{Voraussetzung}: Benutzer ist angemeldet.
+ \begin{verbatim}
+  BEGIN
+-   Setze in Bibliothek Literatur
+-         mit Literatur.Literatur_Nr = Literaturnummer
+-         auf Literaturdaten;
++   Setze in Bibliothek Literatur_Eintrag
++         mit Literatur_Eintrag.Literatur_Nr = Literatur.Literatur_Nr
++         auf Literatur;
+   
+    IF erfolgreich THEN
+      Setze Best&#228;tigung_Literatur&#228;ndern
+@@ -57,16 +57,20 @@
+ \paragraph{Literatur\_l&#246;schen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Literatur\_l&#246;schen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;F. Wilhelm\\
+ \end{tabular}
+ 
+ \hrulefill\\
+ \textbf{Voraussetzung}: Benutzer ist angemeldet.
+ \begin{verbatim}
+  BEGIN
+-   L&#246;sche in Bibliothek Literatur mit Literatur.Literatur_Nr = Literatur_Nr;
+-   
++   L&#246;sche in Bibliothek Literatur mit Literatur.Literatur_Nr = 
++                                      Literatur_Nr;
++
+    IF erfolgreich THEN
++     L&#246;sche in Kommentare Kommentar mit Kommentar.Literatur_Nr = 
++                                        Literatur_Nr
++
+      Setze Best&#228;tigung_Literaturl&#246;schen
+    ELSE
+      Setze Fehler 203
+
+Modified: trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-04-23 14:36:25 UTC (rev 30)
++++ trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-04-23 15:48:09 UTC (rev 31)
+@@ -2,13 +2,20 @@
+ \paragraph{Mitglieder\_anzeigen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Mitglieder\_anzeigen 	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein.
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Finde alle in Mitglieder
++
++   IF erfolgreich THEN
++      Setze Mitgliederliste := gefundene_Mitglieder
++   ELSE
++      Setze Fehler 501
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -16,13 +23,21 @@
+ \paragraph{Mitglied\_anlegen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Mitglied\_anlegen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein.
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   Finde in Mitglieder Mitglied
++         mit Mitglied.Login = Mitgliedsdaten.Login
++
++   IF gefunden THEN
++     Setze Fehler 502
++   ELSE
++     Lege in Mitglieder Mitglied mit Mitgliedsdaten an
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -32,13 +47,22 @@
+ \paragraph{Mitglied\_&#228;ndern}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Mitglied\_&#228;ndern  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein.
+ \begin{verbatim}
+- asdasd
++  BEGIN
++   Setze in Mitglieder Mitglied_Eintrag
++         mit Mitglied_Eintrag.Mitglieds_Nr = Mitglied.Mitglieds_Nr
++         auf Mitglied;
++  
++   IF erfolgreich THEN
++     Setze Best&#228;tigung_Mitglied&#228;ndern
++   ELSE
++     Setze Fehler 503
++ END
+ \end{verbatim}
+ \hrulefill
+ 
+@@ -48,12 +72,23 @@
+ \paragraph{Mitglied\_l&#246;schen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+ \textbf{Prozess}: Mitglied\_l&#246;schen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
+-					&amp;\textbf{Bearbeiter}: &amp;TODO\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}:
++\textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein.
+ \begin{verbatim}
+- asdasd
++ BEGIN
++   L&#246;sche in Mitglieder Mitglied mit Mitglied.Mitglieds_Nr = 
++                                     Mitglieds_Nr;
++
++   IF erfolgreich THEN
++     L&#246;sche in Kommentare Kommentar mit Kommentar.Mitglieds_Nr = 
++                                        Mitglieds_Nr
++
++     Setze Best&#228;tigung_Mitgliedl&#246;schen
++   ELSE
++     Setze Fehler 504
++ END
+ \end{verbatim}
+ \hrulefill
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000020.html">[Liman-svn] r30 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000022.html">[Liman-svn] r32 - in trunk/docs/beleg1: . visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#21">[ date ]</a>
+              <a href="thread.html#21">[ thread ]</a>
+              <a href="subject.html#21">[ subject ]</a>
+              <a href="author.html#21">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

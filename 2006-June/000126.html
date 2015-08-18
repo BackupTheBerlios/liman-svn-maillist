@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r136 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r136%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606050739.k557dg3b003653%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000125.html">
+   <LINK REL="Next"  HREF="000127.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r136 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r136%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606050739.k557dg3b003653%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r136 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun  5 09:39:42 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000125.html">[Liman-svn] r135 - trunk
+</A></li>
+        <LI>Next message: <A HREF="000127.html">[Liman-svn] r137 - in trunk/docs/beleg2: . doxygen visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-05 09:39:39 +0200 (Mon, 05 Jun 2006)
+New Revision: 136
+
+Modified:
+   trunk/design/liman.css
+   trunk/include/form_helper.php
+   trunk/litmod.php
+   trunk/user.php
+   trunk/usermod.php
+Log:
+- IE6-Fixes
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-04 15:13:40 UTC (rev 135)
++++ trunk/design/liman.css	2006-06-05 07:39:39 UTC (rev 136)
+@@ -91,8 +91,8 @@
+ 	width: 20em;
+ }
+ 
+-#content input[type=&quot;text&quot;],
+-#content input[type=&quot;password&quot;],
++#content .input_text,
++#content .input_password,
+ #content form textarea {
+ 	width: 99%;
+ }
+
+Modified: trunk/include/form_helper.php
+===================================================================
+--- trunk/include/form_helper.php	2006-06-04 15:13:40 UTC (rev 135)
++++ trunk/include/form_helper.php	2006-06-05 07:39:39 UTC (rev 136)
+@@ -8,7 +8,7 @@
+ 	 */
+ 	function form_input($type, $name, $value = &quot;&quot;, $failure = false)
+ 	{
+-		$str = &quot;&lt;input type=\&quot;&quot;.htmlspecialchars($type).&quot;\&quot; name=\&quot;&quot;.htmlspecialchars($name).&quot;\&quot; id=\&quot;&quot;.htmlspecialchars($name).&quot;\&quot; &quot;;
++		$str = &quot;&lt;input class=\&quot;input_&quot;.$type.&quot;\&quot; type=\&quot;&quot;.htmlspecialchars($type).&quot;\&quot; name=\&quot;&quot;.htmlspecialchars($name).&quot;\&quot; id=\&quot;&quot;.htmlspecialchars($name).&quot;\&quot; &quot;;
+ 
+ 		if (empty($value) === false)
+ 		{
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-04 15:13:40 UTC (rev 135)
++++ trunk/litmod.php	2006-06-05 07:39:39 UTC (rev 136)
+@@ -76,21 +76,25 @@
+ 	if ((isset($_GET[&quot;delete&quot;]) === false &amp;&amp; isset($_GET[&quot;insert&quot;]) === false &amp;&amp; isset($_GET[&quot;update&quot;]) === false)
+ 		|| $error_occurred === true)
+ 	{
++		if (isset($_POST[&quot;id&quot;]) === true)
++		{
++			$id = $_POST[&quot;id&quot;];
++		}
++		elseif (isset($_GET[&quot;id&quot;]) === true)
++		{
++			$id = $_GET[&quot;id&quot;];
++		}
++		else
++		{
++			unset($id);
++		}
++
+ 		require_once(&quot;include/form_helper.php&quot;);
+-		if (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true)
++		if ($error_occurred === false &amp;&amp; (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true))
+ 		{
+ 			require_once(&quot;include/literatur.php&quot;);
+ 
+-			if (isset($_POST[&quot;id&quot;]) === true)
+-			{
+-				$id = $_POST[&quot;id&quot;];
+-			}
+-			else
+-			{
+-				$id = $_GET[&quot;id&quot;];
+-			}
+-
+-			$lit = new Literatur($_GET[&quot;id&quot;]);
++			$lit = new Literatur($id);
+ 			$titel = $lit-&gt;Titel;
+ 			$autor = &quot;&quot;;
+ 			$jahr = $lit-&gt;Jahr;
+
+Modified: trunk/user.php
+===================================================================
+--- trunk/user.php	2006-06-04 15:13:40 UTC (rev 135)
++++ trunk/user.php	2006-06-05 07:39:39 UTC (rev 136)
+@@ -66,8 +66,11 @@
+ 			&lt;tr&gt;
+ 				&lt;th scope=&quot;row&quot;&gt;Aktionen:&lt;/th&gt;	
+ 				&lt;td&gt;
+-					&lt;form style=&quot;display:inline&quot; action=&quot;usermod.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot; method=&quot;post&quot;&gt;
+-						&lt;span&gt;&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;&lt;/span&gt;
++					&lt;form style=&quot;display:inline&quot; action=&quot;usermod.&lt;?=$ext;?&gt;&quot; method=&quot;post&quot;&gt;
++						&lt;span&gt;
++							&lt;input type=&quot;hidden&quot; id=&quot;id&quot; name=&quot;id&quot; value=&quot;&lt;?=htmlspecialchars($_GET[&quot;id&quot;]);?&gt;&quot;&gt;
++							&lt;input type=&quot;submit&quot; value=&quot;Bearbeiten&quot;&gt;
++						&lt;/span&gt;
+ 					&lt;/form&gt;
+ 				&lt;/td&gt;
+ 			&lt;/tr&gt;
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-06-04 15:13:40 UTC (rev 135)
++++ trunk/usermod.php	2006-06-05 07:39:39 UTC (rev 136)
+@@ -125,21 +125,24 @@
+ 	if ((isset($_GET[&quot;delete&quot;]) === false &amp;&amp; isset($_GET[&quot;insert&quot;]) === false &amp;&amp; isset($_GET[&quot;update&quot;]) === false)
+ 		|| $error_occurred === true)
+ 	{
++		if (isset($_POST[&quot;id&quot;]) === true)
++		{
++			$id = $_POST[&quot;id&quot;];
++		}
++		elseif (isset($_GET[&quot;id&quot;]) === true)
++		{
++			$id = $_GET[&quot;id&quot;];
++		}
++		else
++		{
++			unset($id);
++		}
++
+ 		require_once(&quot;include/form_helper.php&quot;);
+-		if (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true)
++		if ($error_occurred === false &amp;&amp; (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true))
+ 		{
+ 			require_once(&quot;include/mitglied.php&quot;);
+-
+-			if (isset($_POST[&quot;id&quot;]) === true)
+-			{
+-				$id = $_POST[&quot;id&quot;];
+-			}
+-			else
+-			{
+-				$id = $_GET[&quot;id&quot;];
+-			}
+-
+-			$mitglied = new Mitglied($_GET[&quot;id&quot;]);
++			$mitglied = new Mitglied($id);
+ 			$benutzername = $mitglied-&gt;Login;
+ 
+ 			if (isset($mitglied-&gt;Rechte) === true)
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000125.html">[Liman-svn] r135 - trunk
+</A></li>
+	<LI>Next message: <A HREF="000127.html">[Liman-svn] r137 - in trunk/docs/beleg2: . doxygen visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#126">[ date ]</a>
+              <a href="thread.html#126">[ thread ]</a>
+              <a href="subject.html#126">[ subject ]</a>
+              <a href="author.html#126">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

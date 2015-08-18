@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r157 - trunk/include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r157%20-%20trunk/include/tests&In-Reply-To=%3C200606121141.k5CBffcR030634%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000146.html">
+   <LINK REL="Next"  HREF="000148.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r157 - trunk/include/tests</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r157%20-%20trunk/include/tests&In-Reply-To=%3C200606121141.k5CBffcR030634%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r157 - trunk/include/tests">lazhur at berlios.de
+       </A><BR>
+    <I>Mon Jun 12 13:41:41 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000146.html">[Liman-svn] r156 - trunk/include/tests
+</A></li>
+        <LI>Next message: <A HREF="000148.html">[Liman-svn] r158 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-12 13:41:38 +0200 (Mon, 12 Jun 2006)
+New Revision: 157
+
+Modified:
+   trunk/include/tests/sqldb_mock.php
+Log:
+- Fehlende ?\195?\156berpr?\195?\188fung in SQLDB_MOCK::Verify hinzugef?\195?\188gt
+
+
+Modified: trunk/include/tests/sqldb_mock.php
+===================================================================
+--- trunk/include/tests/sqldb_mock.php	2006-06-12 06:15:11 UTC (rev 156)
++++ trunk/include/tests/sqldb_mock.php	2006-06-12 11:41:38 UTC (rev 157)
+@@ -150,7 +150,7 @@
+ 			{
+ 				$ret = new ErrorMessage( null, null, &quot;Anzahl Queries&quot;, count($this-&gt;results), $this-&gt;queryCounter );
+ 			}
+-			else
++			elseif ($ret === false)
+ 			{
+ 				$ret = true;
+ 			}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000146.html">[Liman-svn] r156 - trunk/include/tests
+</A></li>
+	<LI>Next message: <A HREF="000148.html">[Liman-svn] r158 - trunk/include/tests
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#147">[ date ]</a>
+              <a href="thread.html#147">[ thread ]</a>
+              <a href="subject.html#147">[ subject ]</a>
+              <a href="author.html#147">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

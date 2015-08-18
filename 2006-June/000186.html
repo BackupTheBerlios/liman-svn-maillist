@@ -1,0 +1,372 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r196 - trunk/docs/beleg3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r196%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606280002.k5S0214w030877%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000185.html">
+   <LINK REL="Next"  HREF="000187.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r196 - trunk/docs/beleg3</H1>
+    <B>gregorian at berlios.de</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r196%20-%20trunk/docs/beleg3&In-Reply-To=%3C200606280002.k5S0214w030877%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r196 - trunk/docs/beleg3">gregorian at berlios.de
+       </A><BR>
+    <I>Wed Jun 28 02:02:01 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000185.html">[Liman-svn] r195 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000187.html">[Liman-svn] r197 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: gregorian
+Date: 2006-06-28 02:01:39 +0200 (Wed, 28 Jun 2006)
+New Revision: 196
+
+Added:
+   trunk/docs/beleg3/bearb1.pdf
+   trunk/docs/beleg3/bearb2.pdf
+   trunk/docs/beleg3/bearb3.pdf
+   trunk/docs/beleg3/bibtex.pdf
+   trunk/docs/beleg3/comment1.pdf
+   trunk/docs/beleg3/comment2.pdf
+   trunk/docs/beleg3/comment3.pdf
+   trunk/docs/beleg3/comment4.pdf
+   trunk/docs/beleg3/comment5.pdf
+   trunk/docs/beleg3/del_lit.pdf
+   trunk/docs/beleg3/err.pdf
+   trunk/docs/beleg3/ext_suche.pdf
+   trunk/docs/beleg3/import1.pdf
+   trunk/docs/beleg3/import2.pdf
+   trunk/docs/beleg3/import_succ.pdf
+   trunk/docs/beleg3/nutzer1.pdf
+   trunk/docs/beleg3/nutzer2.pdf
+   trunk/docs/beleg3/sure.pdf
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+Log:
+Anwenderdokumentation
+Bedienanleitung f?\195?\188r Mitglieder fertig gestellt
+
+es fehlt noch:
+kurze Anleitung zur Nutzerverwaltung per graf. Oberfl?\195?\164che
+ALSO: Nutzer anlegen, bearbeiten, l?\195?\182schen...
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-27 13:49:03 UTC (rev 195)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-06-28 00:01:39 UTC (rev 196)
+@@ -82,6 +82,14 @@
+ Das Prinzip ist ganz einfach. Man gibt ein Stichwort zu einem Literaturtitel ein, z. B. ein Wort aus dem Titel oder den Namen des Autors, und dr&quot;uckt den Suche-Button (1).\\
+ Gibt man z. B. den Begriff 'Python' ein so erscheinen alle Literaturtitel mit diesem Begriff. Die n&quot;achste Abbildung zeigt einmal eine solche Trefferliste:\\
+ \includegraphics[scale=0.8]{treffer}\\
++\subsection{Die erweiterte Suche}
++Klickt in dem Suchsegments auf den Link 'Erweiterte Suche' so erscheint folgender Bildschirm:\\
++\includegraphics[scale=0.8]{ext_suche}\\
++Die Suchfunktionen richten sich nunmehr auf spezielle Informationen eines Buches, was sich bei sehr gro&quot;sen Datenbest&quot;anden, die sich im Lauf der Zeit anreichern, in Form einer gr&quot;o&quot;seren &quot;Ubersichtlichkeit der Suchtreffer auszahlen k&quot;onnte.\\
++Im Feld 'Titel' gibt man einfach einen Literatur-Titel , ein Wort aus dem Titel oder sogar nur eine kurze Zeichenkette wie 'Algo' ein.\\
++Im Feld 'Autor' funktioniert es genau so, einfach einen Autor oder auch nur Teile seines Namens eingeben und den Button 'Suche' dr&quot;ucken.\\
++Die Volltextsuche sucht, &quot;ahnlich wie die 'normale' Suche auf dem Hauptformular in allen Informationen eines Literaturtitels mit Ausnahme der Kommentare.\\
++
+ \subsection{Wie kann ich eine neue Literatur anlegen?}
+ Kommen wir nun vom Recherchieren zum bearbeiten und Pflegen der Literaturverwaltung.\\
+ Angenommen eine Literatur ist nicht in der Literaturverwaltung vorhanden und ein Mitglied m&quot;ochte es darin aufnehmen.\\
+@@ -91,4 +99,75 @@
+ Der Button 'Literatur hinzuf&quot;ugen' spricht wohl f&quot;ur sich. Er erm&quot;oglicht das hinzuf&quot;ugen eines neuen Literaturtitels.\\
+ Der Button 'BibTex importieren' erm&quot;oglicht es bereits vorgefertigte Literaturbeschreibungen im BibTex-Format zu importieren.\\
+ Klickt man nun auf den Button 'Literatur hinzuf&quot;ugen' erscheint folgendes Formular:\\
+-\includegraphics[scale=0.8]{lit_ins1}\\
+\ No newline at end of file
++\includegraphics[scale=0.8]{lit_ins1}\\
++Will man nun einen Eintrag in das Literaturverzeichnis machen, so muss man alle Felder ihrer Beschreibung gem&quot;a&quot;s auszuf&quot;ullen und den Button '&quot;Ubernehmen' dr&quot;ucken.\\
++F&quot;ur einen von der Anwendung akzeptierten Eintrag sind die Felder 'Titel' und 'Autor' zwingend auszuf&quot;ullen, sonst erscheint folgende Fehlermeldung:\\
++\includegraphics[scale=0.8]{err}\\
++
++\subsection{Literatur mit BibTeX anlegen}
++W&quot;ahlt man statt dem Web-Formular zum Literatur-Import den Import via BibTeX, so sieht man sich folgendem Formular konfrontiert:\\
++\includegraphics[scale=0.8]{bibtex}\\
++Auch hier deuten zwei Segmente auf zwei M&quot;oglichkeiten die BibTeX-Beschreibung zu importieren.\\
++Die erste M&quot;oglichkeit ist es, ein lokale BibTeX-Datei vom Computer des Mitglieds einzulesen. Hierzu klickt man auf 'Durchsuchen' und w&quot;ahlt in dem lokalen Verzeichnisbaum die BibTeX-Datei aus und dr&quot;uckt den &quot;Offnen-Button. Folgendes Bild zeigt den &quot;Offnen-Dialog indem man die Datei ausw&quot;ahlen kann:\\
++\begin{center}
++\includegraphics[scale=0.8]{import1}\\
++\end{center}
++Nachdem man die BibTeX-Datei ausgew&quot;ahlt hat, dr&quot;uckt man noch den Button 'Imprtieren' und ein neuer Literatureintrag wurde get&quot;atigt.\\[0.4cm]
++Die zweite M&quot;oglichkeit ist die direkte Eingabe der BibTeX-Beschreibung in das Memo-Feld im zweiten, unteren Segment des Import-Formulars.\\
++Folgendes Bild zeigt ein Beispiel:\\
++\includegraphics[scale=0.8]{import2}\\
++Nach der Eingabe der Beschreibung muss man noch den Button 'Importieren' dr&quot;ucken und ein neues Buch mit Titel 'BibTeX kurzgefasst' wurde in die Literaturverwaltung aufgenommen.\\
++Der efolgreiche Import wird durch folgende Anzeige signalisiert:\\
++\includegraphics[scale=0.8]{import_succ}\\
++
++\subsection{Wie bearbeite ich eine Literatur?}
++M&quot;ochte man einen Literatureintrag &quot;andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun&quot;achst die Literaturtabelle anzeigen lassen, danach den zu &quot;andernden Eintrag ausw&quot;ahlen und den Button 'Bearbeiten' dr&quot;ucken.\\
++\includegraphics[scale=0.8]{bearb1}\\
++Anschlie&quot;send erscheint ein Formular &quot;ahnlich dem Formular 'Literatur erstellen' nur stehen bereits Literatur-Information in den Feldern.
++Im folgenden Bild wollen wir eine &quot;Anderung an unserem erstellten Literatur-Titel 'BibTeX kurzgefasst' vornehmen, wir wollen die ISBN bon 9-99999-999-9 in 0-00000-000-0 &quot;andern und Verlag in SwP umbenennen:\\
++\includegraphics[scale=0.8]{bearb2}\\
++Anschlie&quot;send noch '&quot;Uebernehmen' dr&quot;ucken und unsere Literaturdaten wurden ge&quot;andert. Best&quot;atigt wird die &quot;Anderung durch folgende Meldung:\\
++\includegraphics[scale=0.8]{bearb3}\\
++
++\subsection{Wie l&quot;osche ich eine Literatur?}
++Ist es n&quot;otig einen Literatureintrag zu l&quot;oschen, so w&quot;ahlt man ihn wie auch beim 'Bearbeiten' in der Literaturliste aus, l&quot;asst sich also die betreffenden Literaturdetails anzeigen, und bet&quot;atigt den Button 'L&quot;oschen':\\
++\includegraphics[scale=0.8]{del_lit}\\
++Daraufhin erscheint die Aufforderung den L&quot;oschvorgang zu best&quot;atigen. Sollten man es sich anders &quot;uberlegt haben, so bet&quot;atigt man NICHT den Best&quot;atigen-Button sonder verl&quot;asst &quot;uber das seitliche Men&quot;u den L&quot;oschprozess.\\
++Sollte man sich sicher sein, dass man den Eintrag l&quot;oschen will, so klickt man auf den Button 'Best&quot;atigen':\\
++\includegraphics[scale=0.8]{sure}\\
++
++
++\subsection{Wie kommentiere ich einen Literatureintrag?}
++Oftmals ist ein kurzer Kommentar eines Lesers eines Buches oder einer Zeitschrift wesentlich aussagekr&quot;aftiger als alle fachlichen Beschreibungen, die man findet.\\
++M&quot;ochte man nun einen solchen Kommentar zu einem Literatureintrag verfassen, etwa weil man das jeweilige Medium bereits gelesen oder zu Recherchen herangezogen hat muss man zun&quot;achst, wie auch beim l&quot;oschen und bearbeiten eines Eintrages, sich die Literaturdetails anzeigen lassen.\\
++Bei niedriegeren Aufl&quot;osungen, etwa 800x600 oder noch niedriger, k&quot;onnte es n&quot;otig sein mit der Laufleiste rechts von den Details in den unteren Bereich des Segments zu scrollen.\\
++Dort findet man ein Textfeld worin man seinen Kommentar verfassen kann, anschlie&quot;send best&quot;atigt man ihn mit dem Button 'Kommentar versenden':\\
++\includegraphics[scale=0.8]{comment1}\\
++Auch hier erfolgt eine visuelle Best&quot;atigung &quot;uber die erfolgreiche Abgabe eines Kommentars:
++\includegraphics[scale=0.8]{comment2}\\
++Mit dem Button 'Zur&quot;uck' gelangt man zu den Literaturdetails des gerade kommentierten Titels zur&quot;uck.\\
++
++\subsection{Wie &quot;andere ich einen Kommentar?}
++Will man einen seiner Kommentare zu einem Literaturtitel &quot;andern, muss man den gew&quot;unschten Titel in der Literaturliste ausw&quot;ahlen um sich die Details anzeigen zu lassen.\\
++Scrollt man nun zu den Kommentaren, so sieht man in dem Textfeld, welches bereits beim Erstellen eines Kommentars n&quot;otig war, den Kommentar, den man zuvor abgegeben hatte.\\
++M&quot;ochte man den zuvor abgegeben Kommentar &quot;andern, so formatiert man ihn jediglich in diesem Textfeld und bet&quot;atigt erneut 'Kommentar senden'.\\
++\includegraphics[scale=0.8]{comment3}\\
++Es erscheint eine Best&quot;atigung &quot;ahnlich der, die beim Verfassen eines Kommentares erscheint.\\
++
++\subsection{Wie l&quot;osche ich einen Kommentar?}
++Ist es n&quot;otig einen seiner verfassten Kommentare zu l&quot;oschen, muss man sich wieder die Literaturdetails des Literaturtitels anzeigen lassen, worin der zu l&quot;oschende Kommentare steht.\\
++Sucht man den Kommentar, hinter dem ein Link mit der Aufschrift l&quot;oschen steht und bet&quot;atigt diesen. Die folgende Abbildung soll dies verdeutlichen:\\
++\includegraphics[scale=0.8]{comment4}\\
++Bet&quot;atigt man diesen Link, so erscheint als n&quot;achstes eine L&quot;oschbest&quot;atigung. Hier gilt Selbiges wie auch beim L&quot;oschen von Literatur, will man den Vorgang abbrechen geht man einfach &quot;uber die Men&quot;uleiste am linken Browser-Rand in ein anderes Men&quot;u. Ist man sich sicher, dass man den Kommentar l&quot;oschen will so bet&quot;atigt man den Button.\\
++\includegraphics[scale=0.8]{comment5}\\
++Nachdem man den Best&quot;atigen-Button benutzt hat, erscheint eine L&quot;oschbest&quot;atigung.
++
++\subsection{Wie kann ich meine Mitgliedsdaten &quot;andern?}
++Grunds&quot;atzlich gilt, dass jedes Mitglied die eigenen Mitgliedsdaten &quot;andern darf.\\ Man benutzt einfach im Navigationssegment den Men&quot;upunkt 'Nutzer'. Tut man dies, so erscheint folgende &quot;Ubersicht:\\
++\includegraphics[scale=0.8]{nutzer1}\\
++Wie man leicht erkennen kann, hat man als Mitglied jediglich das Recht die eigenen Nutzerdaten zu sehen und zu &quot;andern.\\
++Bet&quot;atigt man nun den Button 'Bearbeiten' so erh&quot;alt man Zugang zu den eigenen Mitgliedsinformationen.\\
++\includegraphics[scale=0.8]{nutzer2}\\
++M&quot;ochte man beispielsweise seine E-Mail-Adresse &quot;andern, l&quot;oscht man einfach die alte Adresse raus und schreibt seine neue hinein, danach best&quot;atigt man mit dem Button '&quot;Ubernehmen'.\\
++Jedes Mitglied kann alle eigenen Daten, bis auf die 'Rechte', auf diese Wiese &quot;andern. Allerdings ist das &quot;Andern der Rechte einzig und allein Administratoren &quot;uberlassen.\\
++Danach erscheint eine Best&quot;atigung &quot;uber die &quot;Anderung der Nutzerdaten.\\
+
+Added: trunk/docs/beleg3/bearb1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/bearb1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/bearb2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/bearb2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/bearb3.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/bearb3.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/bibtex.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/bibtex.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/comment1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/comment1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/comment2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/comment2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/comment3.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/comment3.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/comment4.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/comment4.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/comment5.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/comment5.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/del_lit.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/del_lit.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/err.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/err.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/ext_suche.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/ext_suche.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/import1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/import1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/import2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/import2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/import_succ.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/import_succ.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzer1.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzer1.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/nutzer2.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/nutzer2.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+Added: trunk/docs/beleg3/sure.pdf
+===================================================================
+(Binary files differ)
+
+
+Property changes on: trunk/docs/beleg3/sure.pdf
+___________________________________________________________________
+Name: svn:mime-type
+   + application/octet-stream
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000185.html">[Liman-svn] r195 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000187.html">[Liman-svn] r197 - trunk/docs/beleg3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#186">[ date ]</a>
+              <a href="thread.html#186">[ thread ]</a>
+              <a href="subject.html#186">[ subject ]</a>
+              <a href="author.html#186">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

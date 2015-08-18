@@ -1,0 +1,607 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r205 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include docs/protokoll include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-July/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r205%20-%20in%20trunk%3A%20.%20docs/beleg3%20docs/beleg3/sourcecodes%20docs/beleg3/sourcecodes/include%20docs/protokoll%20include&In-Reply-To=%3C200607121708.k6CH8aBw007620%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000194.html">
+   <LINK REL="Next"  HREF="000196.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r205 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include docs/protokoll include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r205%20-%20in%20trunk%3A%20.%20docs/beleg3%20docs/beleg3/sourcecodes%20docs/beleg3/sourcecodes/include%20docs/protokoll%20include&In-Reply-To=%3C200607121708.k6CH8aBw007620%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r205 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes docs/beleg3/sourcecodes/include docs/protokoll include">lazhur at berlios.de
+       </A><BR>
+    <I>Wed Jul 12 19:08:36 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000194.html">[Liman-svn] r204 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000196.html">[Liman-svn] r206 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#195">[ date ]</a>
+              <a href="thread.html#195">[ thread ]</a>
+              <a href="subject.html#195">[ subject ]</a>
+              <a href="author.html#195">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-07-12 19:08:23 +0200 (Wed, 12 Jul 2006)
+New Revision: 205
+
+Modified:
+   trunk/docs/beleg3/anwenderdokumentation.tex
+   trunk/docs/beleg3/arbeitsaufgaben.tex
+   trunk/docs/beleg3/sourcecodes/include/config.php
+   trunk/docs/beleg3/sourcecodes/include/literatur.php
+   trunk/docs/beleg3/sourcecodes/include/sqldb.php
+   trunk/docs/beleg3/sourcecodes/index.php
+   trunk/docs/beleg3/sourcecodes/lit.php
+   trunk/docs/beleg3/sourcecodes/search.php
+   trunk/docs/beleg3/sourcecodes/userlist.php
+   trunk/docs/beleg3/tests.tex
+   trunk/docs/protokoll/2006_06_07.xhtml
+   trunk/include/config.php
+   trunk/include/literatur.php
+   trunk/include/sqldb.php
+   trunk/index.php
+   trunk/lit.php
+   trunk/search.php
+   trunk/userlist.php
+Log:
+- Raumnummer im Protokoll vom 07.06.2006 korrigiert
+- HTML4-TBody-Fehler im Zusammenhang mit leeren Suchergebnisssen behoben
+- &quot;BibTeX-ISBN-Import-Bug&quot; behoben
+- ?\195?\156berpr?\195?\188fung auf vorhandene PHP-MySQL-Module hinzugef?\195?\188gt
+
+
+Modified: trunk/docs/beleg3/anwenderdokumentation.tex
+===================================================================
+--- trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/anwenderdokumentation.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -122,6 +122,8 @@
+ Der efolgreiche Import wird durch folgende Anzeige signalisiert:\\
+ \includegraphics[scale=0.8]{import_succ}
+ 
++Beim Einf&#195;&#188;gen von BibTeX-Daten ist darauf zu achten, dass nur je ein Attribut auf einer Zeile steht. Bei mehr als einem Attribut kann nicht garantiert werden, dass eine korrekte Trennung der einzelnen Attribute durchgef&#195;&#188;hrt wird. Au&#195;&#159;erdem sollte direkte Einbettung von LaTeX-Befehle vermieden werden. Sollte dies trotzdem einmal passieren, muss der Literatureintrag nachtr&#195;&#164;glich bearbeitet werden.
++
+ \subsection{Wie bearbeite ich eine Literatur?}
+ M&quot;ochte man einen Literatureintrag &quot;andern, etwa weil man einen Fehler bei der Erstellung gemacht hat oder um eine Aktualisierung vorzunehmen, muss man sich zun&quot;achst die Literaturtabelle anzeigen lassen, danach den zu &quot;andernden Eintrag ausw&quot;ahlen und den Button 'Bearbeiten' dr&quot;ucken.\\
+ \includegraphics[scale=0.8]{bearb1}\\
+@@ -216,8 +218,3 @@
+ \section{Helpsystem}
+ Die Nachrichten beim Anlegen, Editieren und L&quot;oschen von Datenbest&quot;anden sind als Hilfestellung v&quot;ollig ausreichend.\\
+ Ausserdem sind die Fehlermeldungen, die bei unzureichender Eingabe erscheinen, aussagekr&quot;aftig genug.
+-
+-
+-
+-
+-
+
+Modified: trunk/docs/beleg3/arbeitsaufgaben.tex
+===================================================================
+--- trunk/docs/beleg3/arbeitsaufgaben.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/arbeitsaufgaben.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -303,7 +303,7 @@
+ 			\end{itemize}
+ 			\subsection{N&#195;&#164;chste Pflichtkonsultation mit Betreuer}
+ 			\begin{itemize}
+-			\item Die n&#195;&#164;chste Pflichtkonsultation mit Herrn Rentzsch findet am {\em 13.06.2006 um 13:10 Uhr im Raum 			1/B317 } statt.
++			\item Die n&#195;&#164;chste Pflichtkonsultation mit Herrn Rentzsch findet am {\em 13.06.2006 um 13:10 Uhr im Raum 			1/344 } statt.
+ 			\end{itemize}
+ 			Chemnitz, 07.06.2006
+ 			\begin{itemize}
+
+Modified: trunk/docs/beleg3/sourcecodes/include/config.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/config.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/config.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -1,14 +1,12 @@
+ &lt;?php
+-	error_reporting(E_ALL);
++        // Datenbankeinstellungen
++        $db_config['dbms'] = &quot;mysql&quot;;
++        $db_config['user'] = &quot;liman&quot;;
++        $db_config['pass'] = &quot;drownamil&quot;;
++        $db_config['name'] = &quot;liman&quot;;
++        $db_config['host'] = &quot;db.berlios.de&quot;;
++        $db_config['prefix'] = &quot;liman_&quot;;
+ 
+-	// Datenbankeinstellungen
+-	$db_config['dbms'] = &quot;mysql&quot;;	// welche Datenbankklasse benutzen?
+-	$db_config['user'] = &quot;&quot;; // Nutzername des Datenbanknutzers
+-	$db_config['pass'] = &quot;&quot;; // Passwort f&#252;r Datenbanknutzer
+-	$db_config['name'] = &quot;&quot;; // Name der Datenbank
+-	$db_config['host'] = &quot;&quot;; // Adresse des Datenbankservers
+-	$db_config['prefix'] = &quot;liman_&quot;; // Prefix der Tabellennamen
+-
+-	$ext = &quot;php&quot;;	// Endung der von den Usern abrufbaren Dateien
+-	$gz_enable = true; // aktiviere GZIP-Kompression der HTML-Dateien
+-?&gt;
++        $ext = &quot;php&quot;;   // Endung der von den Usern abrufbaren Dateien
++        $gz_enable = false; // aktiviere GZIP-Kompression der HTML-Dateien
++?&gt;
+\ No newline at end of file
+
+Modified: trunk/docs/beleg3/sourcecodes/include/literatur.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/literatur.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -201,7 +201,7 @@
+ 
+ 			// Finde alle BibTeX-Eintr&#228;ge
+ 			// Funktioniert nicht bei Argumenten &#252;ber mehrere Zeilen
+-			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*'. '[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
++			if (preg_match_all('/@([\w]+[\s]*)\{[\s]*([-\d\w]+)(([\s]*,[\s]*[\w]*[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*)+)\}/', $bibtex, $regexp_entries) !== false)
+ 			{
+ 				$num_entries = sizeof($regexp_entries[0]);
+ 			}
+@@ -243,10 +243,11 @@
+ 				$cur-&gt;id = trim($regexp_entries[2][$i]);
+ 
+ 				// Extrahiere &quot;Optionen&quot;
+-				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|'. '&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
++					print_r($regexp_options[0]);
+ 					for ($j = 0; $j &lt; $num_options; $j++)
+ 					{
+ 						// Name des Arguments der &quot;Option&quot; auslesen und bereinigen
+@@ -262,7 +263,7 @@
+ 						}
+ 
+ 						// Wei&#223;e Daten der aktuellen Option zu
+-						switch (strtolower( trim($regexp_options[2][$j])))
++						switch (strtolower(trim($regexp_options[2][$j])))
+ 						{
+ 						case &quot;title&quot;:
+ 							$cur-&gt;titel = $argument;
+
+Modified: trunk/docs/beleg3/sourcecodes/include/sqldb.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/include/sqldb.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/include/sqldb.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -4,7 +4,15 @@
+ 	{
+ 		default:
+ 		case &quot;mysql&quot;:
+-			require_once(&quot;include/sqldb_mysql.php&quot;);
++			if (function_exists(&quot;mysql_connect&quot;) === true
++			    &amp;&amp; function_exists(&quot;mysql_connect&quot;) === true)
++			{
++				require_once(&quot;include/sqldb_mysql.php&quot;);
++			}
++			else
++			{
++				die(&quot;Es liegt ein Problem mit der PHP-MySQL-Einbindung vor. Bitte vergewissern sie sich, dass alle n&#246;tigen PHP-Module vorhanden sind.&quot;);
++			}
+ 			break;
+ 	}
+ 	
+@@ -13,5 +21,8 @@
+ 	
+ 	// Gib Fehler aus und breche ab, wenn keine Verbindung zum SQL-Server besteht
+ 	if ($sqldb-&gt;db_id === false)
+-		die(mysql_error().&quot;. Could not connect to SQL server. Please inform Webmaster&quot;);;
++	{
++		$error = $sqldb-&gt;GetError();
++		die(&quot;Could not connect to SQL server. Please inform Webmaster:\n &quot;.$error['msg']);
++	}
+ ?&gt;
+
+Modified: trunk/docs/beleg3/sourcecodes/index.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/index.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/index.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,12 +14,14 @@
+ 				&lt;th scope=&quot;col&quot;&gt;ISBN&lt;/th&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				// Suche zuletzt hinzugef&#252;gte Literatur
+-				require_once(&quot;include/suche.php&quot;);
+-				$search = new Suche();
++		&lt;?php
++			// Suche zuletzt hinzugef&#252;gte Literatur
++			require_once(&quot;include/suche.php&quot;);
++			$search = new Suche();
+ 
++			if (empty($search-&gt;Treffer) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				// Gebe alle gefundenen Treffer aus
+ 				foreach ($search-&gt;Treffer as $cur)
+ 				{
+@@ -34,8 +36,13 @@
+ 					&lt;/tr&gt;
+ 				&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;4\&quot;&gt;Keine Literatur vorhanden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 	&lt;?php
+ 		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#252;ge- und Importierknopf aus
+
+Modified: trunk/docs/beleg3/sourcecodes/lit.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/lit.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/lit.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -91,10 +91,14 @@
+ 	&lt;hr&gt;
+ 
+ 	&lt;table id=&quot;litkommentare&quot;&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				require_once(&quot;include/form_helper.php&quot;);
+-				$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
++		&lt;?php
++			require_once(&quot;include/form_helper.php&quot;);
++			$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
++			
++			
++			if (empty($literatur-&gt;Kommentare) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				foreach ($literatur-&gt;Kommentare as $cur)
+ 				{
+ 					// Suche ob schon ein Kommentar des aktuellen Mitglieds existiert
+@@ -119,8 +123,13 @@
+ 				&lt;/tr&gt;
+ 			&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;2\&quot;&gt;Keine Kommentare vorhanden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 
+ 	&lt;?php
+
+Modified: trunk/docs/beleg3/sourcecodes/search.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/search.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/search.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -56,7 +56,7 @@
+ 		{
+ 	?&gt;
+ 		&lt;tr&gt;
+-			&lt;td&gt;&lt;a href=&quot;lit.&lt;?= $ext; ?&gt;?id=&lt;?= htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?= htmlspecialchars($cur-&gt;Nr); ?&gt;&quot;&gt;&lt;?= htmlspecialchars($cur-&gt;Titel); ?&gt;&lt;/a&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+ 			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
+@@ -71,7 +71,7 @@
+ 	else
+ 	{
+ 		// Wenn nicht, gebe Information aus
+-		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffern gefunden&lt;/div&gt;&quot;;
++		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffer gefunden&lt;/div&gt;&quot;;
+ 	}
+ ?&gt;
+ 
+
+Modified: trunk/docs/beleg3/sourcecodes/userlist.php
+===================================================================
+--- trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/sourcecodes/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,10 +14,12 @@
+ 				&lt;th scope=&quot;col&quot;&gt;Aktionen&lt;/th&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				require_once(&quot;include/mitglied.php&quot;);
++		&lt;?php
++			require_once(&quot;include/mitglied.php&quot;);
+ 
++			if (empty($members-&gt;Treffer) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				// Lese alle Mitglieder aus (wenn Administrator)
+ 				// oder eigene Daten (wenn Mitglied)
+ 				$members = Mitglied::GetAll();
+@@ -52,8 +54,13 @@
+ 			&lt;/tr&gt;
+ 			&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;5\&quot;&gt;Keine Mitglieder gefunden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 
+ 	&lt;?php
+
+Modified: trunk/docs/beleg3/tests.tex
+===================================================================
+--- trunk/docs/beleg3/tests.tex	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/beleg3/tests.tex	2006-07-12 17:08:23 UTC (rev 205)
+@@ -8,7 +8,7 @@
+ \item Eingabedaten:\\
+ 	test.php wird aufgerufen. Sonstige Eingaben werden fest im Code der Tests durchgef&#195;&#188;hrt.
+ \item Erwartete Ereignisse:\\
+-	Alle Tests liefern &quot;OK&quot; zur&#195;&#188;ck
++	Alle Tests liefern ``OK'' zur&#195;&#188;ck
+ \item Systemzustand nach Test:\\
+ 	Unver&#195;&#164;ndert, wie vor dem Test.
+ \end{enumerate}
+
+Modified: trunk/docs/protokoll/2006_06_07.xhtml
+===================================================================
+--- trunk/docs/protokoll/2006_06_07.xhtml	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/docs/protokoll/2006_06_07.xhtml	2006-07-12 17:08:23 UTC (rev 205)
+@@ -70,7 +70,7 @@
+ 
+ 			&lt;h3 id=&quot;nextpk&quot;&gt;N&#195;&#164;chste Pflichtkonsultation mit Betreuer&lt;/h3&gt;
+ 			&lt;ul&gt;
+-			&lt;li&gt;Die n&#195;&#164;chste Pflichtkonsultation mit Herrn Rentzsch findet am &lt;b&gt;13.06.2006 um 13:10 Uhr im Raum 			1/B317 &lt;/b&gt; statt.&lt;/li&gt;
++			&lt;li&gt;Die n&#195;&#164;chste Pflichtkonsultation mit Herrn Rentzsch findet am &lt;b&gt;13.06.2006 um 13:10 Uhr im Raum 			1/344 &lt;/b&gt; statt.&lt;/li&gt;
+ 			&lt;/ul&gt;
+ 
+ 			&lt;p&gt;Chemnitz, 07.06.2006&lt;/p&gt;
+
+Modified: trunk/include/config.php
+===================================================================
+--- trunk/include/config.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/config.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -1,12 +1,12 @@
+ &lt;?php
+-	// Datenbankeinstellungen
+-	$db_config['dbms'] = &quot;mysql&quot;;	// welche Datenbankklasse benutzen?
+-	$db_config['user'] = &quot;liman&quot;; // Nutzername des Datenbanknutzers
+-	$db_config['pass'] = &quot;drownamil&quot;; // Passwort f&#195;&#188;r Datenbanknutzer
+-	$db_config['name'] = &quot;liman&quot;; // Name der Datenbank
+-	$db_config['host'] = &quot;db.berlios.de&quot;; // Adresse des Datenbankservers
+-	$db_config['prefix'] = &quot;liman_&quot;; // Prefix der Tabellennamen
++        // Datenbankeinstellungen
++        $db_config['dbms'] = &quot;mysql&quot;;
++        $db_config['user'] = &quot;liman&quot;;
++        $db_config['pass'] = &quot;drownamil&quot;;
++        $db_config['name'] = &quot;liman&quot;;
++        $db_config['host'] = &quot;db.berlios.de&quot;;
++        $db_config['prefix'] = &quot;liman_&quot;;
+ 
+-	$ext = &quot;php&quot;;	// Endung der von den Usern abrufbaren Dateien
+-	$gz_enable = true; // aktiviere GZIP-Kompression der HTML-Dateien
+-?&gt;
++        $ext = &quot;php&quot;;   // Endung der von den Usern abrufbaren Dateien
++        $gz_enable = false; // aktiviere GZIP-Kompression der HTML-Dateien
++?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/literatur.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -243,10 +243,11 @@
+ 				$cur-&gt;id = trim($regexp_entries[2][$i]);
+ 
+ 				// Extrahiere &quot;Optionen&quot;
+-				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|\}))+/', $regexp_entries[3][$i], $regexp_options) !== false)
++				if (preg_match_all('/(([\w]*)[\s]*=[\s]*([\w]+|\{.*\}|&quot;.*&quot;)[\s]*(,|))+/', $regexp_entries[3][$i], $regexp_options) !== false)
+ 				{
+ 					// Lese die Optionen des aktuellen BibTeX-Eintrags einzeln
+ 					$num_options = sizeof($regexp_options[0]);
++					print_r($regexp_options[0]);
+ 					for ($j = 0; $j &lt; $num_options; $j++)
+ 					{
+ 						// Name des Arguments der &quot;Option&quot; auslesen und bereinigen
+
+Modified: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/include/sqldb.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -4,7 +4,15 @@
+ 	{
+ 		default:
+ 		case &quot;mysql&quot;:
+-			require_once(&quot;include/sqldb_mysql.php&quot;);
++			if (function_exists(&quot;mysql_connect&quot;) === true
++			    &amp;&amp; function_exists(&quot;mysql_connect&quot;) === true)
++			{
++				require_once(&quot;include/sqldb_mysql.php&quot;);
++			}
++			else
++			{
++				die(&quot;Es liegt ein Problem mit der PHP-MySQL-Einbindung vor. Bitte vergewissern sie sich, dass alle n&#195;&#182;tigen PHP-Module vorhanden sind.&quot;);
++			}
+ 			break;
+ 	}
+ 	
+@@ -13,5 +21,8 @@
+ 	
+ 	// Gib Fehler aus und breche ab, wenn keine Verbindung zum SQL-Server besteht
+ 	if ($sqldb-&gt;db_id === false)
+-		die(mysql_error().&quot;. Could not connect to SQL server. Please inform Webmaster&quot;);;
++	{
++		$error = $sqldb-&gt;GetError();
++		die(&quot;Could not connect to SQL server. Please inform Webmaster:\n &quot;.$error['msg']);
++	}
+ ?&gt;
+
+Modified: trunk/index.php
+===================================================================
+--- trunk/index.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/index.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,12 +14,14 @@
+ 				&lt;th scope=&quot;col&quot;&gt;ISBN&lt;/th&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				// Suche zuletzt hinzugef&#195;&#188;gte Literatur
+-				require_once(&quot;include/suche.php&quot;);
+-				$search = new Suche();
++		&lt;?php
++			// Suche zuletzt hinzugef&#195;&#188;gte Literatur
++			require_once(&quot;include/suche.php&quot;);
++			$search = new Suche();
+ 
++			if (empty($search-&gt;Treffer) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				// Gebe alle gefundenen Treffer aus
+ 				foreach ($search-&gt;Treffer as $cur)
+ 				{
+@@ -34,8 +36,13 @@
+ 					&lt;/tr&gt;
+ 				&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;4\&quot;&gt;Keine Literatur vorhanden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 	&lt;?php
+ 		// Sind Mitgliedsrechte vorhanden, gebe Hinzuf&#195;&#188;ge- und Importierknopf aus
+
+Modified: trunk/lit.php
+===================================================================
+--- trunk/lit.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/lit.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -91,10 +91,14 @@
+ 	&lt;hr&gt;
+ 
+ 	&lt;table id=&quot;litkommentare&quot;&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				require_once(&quot;include/form_helper.php&quot;);
+-				$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
++		&lt;?php
++			require_once(&quot;include/form_helper.php&quot;);
++			$owncomment = &quot;&quot;; // hat der user schon etwas kommentiert?
++			
++			
++			if (empty($literatur-&gt;Kommentare) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				foreach ($literatur-&gt;Kommentare as $cur)
+ 				{
+ 					// Suche ob schon ein Kommentar des aktuellen Mitglieds existiert
+@@ -119,8 +123,13 @@
+ 				&lt;/tr&gt;
+ 			&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;2\&quot;&gt;Keine Kommentare vorhanden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 
+ 	&lt;?php
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/search.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -71,7 +71,7 @@
+ 	else
+ 	{
+ 		// Wenn nicht, gebe Information aus
+-		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffern gefunden&lt;/div&gt;&quot;;
++		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffer gefunden&lt;/div&gt;&quot;;
+ 	}
+ ?&gt;
+ 
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-07-04 19:56:59 UTC (rev 204)
++++ trunk/userlist.php	2006-07-12 17:08:23 UTC (rev 205)
+@@ -14,10 +14,12 @@
+ 				&lt;th scope=&quot;col&quot;&gt;Aktionen&lt;/th&gt;
+ 			&lt;/tr&gt;
+ 		&lt;/thead&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				require_once(&quot;include/mitglied.php&quot;);
++		&lt;?php
++			require_once(&quot;include/mitglied.php&quot;);
+ 
++			if (empty($members-&gt;Treffer) === false)
++			{
++				echo &quot;&lt;tbody&gt;&quot;;
+ 				// Lese alle Mitglieder aus (wenn Administrator)
+ 				// oder eigene Daten (wenn Mitglied)
+ 				$members = Mitglied::GetAll();
+@@ -52,8 +54,13 @@
+ 			&lt;/tr&gt;
+ 			&lt;?php
+ 				}
+-			?&gt;
+-		&lt;/tbody&gt;
++				echo &quot;&lt;/tbody&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=\&quot;5\&quot;&gt;Keine Mitglieder gefunden&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&quot;;
++			}
++		?&gt;
+ 	&lt;/table&gt;
+ 
+ 	&lt;?php
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000194.html">[Liman-svn] r204 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000196.html">[Liman-svn] r206 - in trunk: . docs/beleg3 docs/beleg3/sourcecodes
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#195">[ date ]</a>
+              <a href="thread.html#195">[ thread ]</a>
+              <a href="subject.html#195">[ subject ]</a>
+              <a href="author.html#195">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

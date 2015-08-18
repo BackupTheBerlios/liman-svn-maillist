@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r57 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r57%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604252003.k3PK32cK029093%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000046.html">
+   <LINK REL="Next"  HREF="000048.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r57 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r57%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604252003.k3PK32cK029093%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r57 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Tue Apr 25 22:03:02 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000046.html">[Liman-svn] r56 - in trunk/docs/beleg1: . visio
+</A></li>
+        <LI>Next message: <A HREF="000048.html">[Liman-svn] r58 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-25 22:02:35 +0200 (Tue, 25 Apr 2006)
+New Revision: 57
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+   trunk/docs/beleg1/pspec_literaturinformation.tex
+   trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+Log:
+- in Datenkatalog: nur noch einfache Volltextsuche, Letzte_Literatur hinzugef?\195?\188gt
+- PSpec f?\195?\188r Literatur_Neuigkeiten_anzeigen
+- Ereignistabelle ge?\195?\164ndert, dass Mitglieder eigene Daten ?\195?\164ndern k?\195?\182nnen
+- Voraussetzung f?\195?\188r PSpec Mitglied_?\195?\164ndern f?\195?\188r eigene Daten ?\195?\164ndern modifiziert
+- Breite von Tabelle Weitere Datenfl?\195?\188sse verringert
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 19:39:19 UTC (rev 56)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 20:02:35 UTC (rev 57)
+@@ -34,12 +34,12 @@
+ 4. &amp; M legt Literatur an &amp; Literaturdaten &amp; Best&#228;tigung\_Literaturanlegen \\\hline
+ 5. &amp; M &#228;ndert Literatur &amp; Literatur &amp; Best&#228;tigung\_Literatur&#228;ndern\\\hline
+ 6. &amp; M l&#246;scht Literatur &amp; Literatur\_Nr &amp; Best&#228;tigung\_Literaturl&#246;schen \\\hline
+-7. &amp; M legt Kommentar an &amp; Kommentardaten &amp; Best&#228;tigung\_Kommentaranlegen \\\hline
+-8. &amp; M &#228;ndert Kommentar &amp; Kommentar &amp; Best&#228;tigung\_Kommentar&#228;ndern \\\hline
+-9. &amp; M l&#246;scht Kommentar &amp; Kommentar\_Nr &amp; Best&#228;tigung\_Kommentarl&#246;schen \\\hline
+-10.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
+-11.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
+-12.&amp; A &#228;ndert Mitglied &amp; Mitglied &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
++7. &amp; M &#228;ndert Mitglied &amp; Mitglied &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
++8. &amp; M legt Kommentar an &amp; Kommentardaten &amp; Best&#228;tigung\_Kommentaranlegen \\\hline
++9. &amp; M &#228;ndert Kommentar &amp; Kommentar &amp; Best&#228;tigung\_Kommentar&#228;ndern \\\hline
++10. &amp; M l&#246;scht Kommentar &amp; Kommentar\_Nr &amp; Best&#228;tigung\_Kommentarl&#246;schen \\\hline
++11.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
++12.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
+ 13.&amp; A l&#246;scht Mitglied &amp; Mitglieds\_Nr &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
+ 14.&amp; A ruft Mitglieder ab &amp; - &amp; Mitgliederliste \\\hline
+ \end{longtable}
+@@ -137,7 +137,7 @@
+ \hline
+ BibTeX-Datei &amp; *Datei im Bibtexformat* \\
+ \hline
+-Suchbegriff &amp; [Zeichenkette100 | (Art) + (Titel) + (Autor) + (ISBN) + (Jahr) + (Beschreibung) + (Ort) + (Stichworte)] *Mindestens ein optionales Feld muss angegeben sein* \\
++Suchbegriff &amp; Zeichenkette100 \\
+ \hline
+ Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} \\
+ \hline\hline
+@@ -164,8 +164,10 @@
+ \hline
+ Literatur\_Info &amp; Literatur + Kommentare \\
+ \hline
+-Suchtreffer &amp; \{Literatur\_Nr + Titel\} \textbf{NICHT NOCH MEHR?}\\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
+ \hline
++Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}\\
++\hline
+ Mitgliederliste &amp; \{Mitglieds\_Nr + Name\}\\
+ \hline
+ \end{longtable}
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 19:39:19 UTC (rev 56)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 20:02:35 UTC (rev 57)
+@@ -62,7 +62,7 @@
+ \hline
+ BibTeX-Datei &amp; *Datei im Bibtexformat* &amp; $8$\\
+ \hline
+-Suchbegriff &amp; [Zeichenkette100 | (Art) + (Titel) + (Autor) + (ISBN) + (Jahr) + (Beschreibung) + (Ort) + (Stichworte)] *Mindestens ein optionales Feld muss angegeben sein* &amp; $100 $ \\
++Suchbegriff &amp; Zeichenkette100 &amp; $100 $ \\
+ \hline
+ Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} &amp; $4 $ \\
+ \hline\hline
+@@ -89,8 +89,10 @@
+ \hline
+ Literatur\_Info &amp; Literatur + Kommentare &amp; $ 549 + 412 = 961 $ \textbf{KOMMENTARE = VIELE KOMMENTARE UND NICHT NUR EINER}\\
+ \hline
+-Suchtreffer &amp; \{Literatur\_Nr + Titel + Art + Beschreibung\} &amp; $4 + 40 + 13 + 250 = 307$\\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
+ \hline
++Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\} &amp; $4 + 40 + 40 + 40 + 20 = 144$\\
++\hline
+ Mitgliederliste &amp; \{Mitglieds\_Nr + Name\} &amp; $4 + 20 = 24 $\\
+ \hline
+ \end{longtable}
+@@ -110,12 +112,13 @@
+ 
+ \subsection{Weitere Datenfl&#252;sse}
+ TODO:\\
+-\begin{tabular}[ht]{|l|l|l|l|l|}
++\begin{tabular}[ht]{|l|p{3.2cm}|l|l|l|}
+ \hline
+ Datenfluss &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+ 
+-Suchtreffer &amp; \{Literatur\_Nr + Titel + Art + Beschreibung\}  &amp; $0*307$ &amp; $50*307=15350$ &amp; $100*307=30700$ \\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
++Letzte\_Literatur &amp; \{Literatur\_Nr + Titel + Autor + Verlag + ISBN\}  &amp; $0*144$ &amp; $50*144=7200$ &amp; $100*144=14400$ \\
+ BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*8$ &amp; $50*8=400$ &amp; $100*8=800$ \\
+  
+ \\
+
+Modified: trunk/docs/beleg1/pspec_literaturinformation.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_literaturinformation.tex	2006-04-25 19:39:19 UTC (rev 56)
++++ trunk/docs/beleg1/pspec_literaturinformation.tex	2006-04-25 20:02:35 UTC (rev 57)
+@@ -29,7 +29,28 @@
+ \end{verbatim}
+ \hrulefill
+ 
++% Literatur_Neuigkeiten_anzeigen
++\paragraph{Literatur\_Neuigkeiten\_anzeigen}
++\begin{tabular}[t]{p{9.5cm}ll}
++\textbf{Prozess}: Literatur\_Neuigkeiten\_anzeigen  	&amp;\textbf{Datum}:      &amp;21.04.2006\\
++					&amp;\textbf{Bearbeiter}: &amp;S. Eckelmann\\
++\end{tabular}
+ 
++\hrulefill\\
++\textbf{Voraussetzung}: -
++\begin{verbatim}
++ BEGIN
++   Finde 10 Eintr&#228;ge mit den h&#246;chsten Literatur_Nr in Bibliothek
++
++   IF erfolgreich THEN
++      Setze Letzte_Literatur := gefundene_Literatur
++   ELSE
++      Setze Fehler 402
++ END
++\end{verbatim}
++\hrulefill
++
++
+ % Literatur_suchen
+ \paragraph{Literatur\_suchen}
+ \begin{tabular}[t]{p{9.5cm}ll}
+@@ -60,7 +81,7 @@
+    IF gefunden THEN
+      Setz Suchtreffer := gefundene_Literatur
+    ELSE
+-     Setze Fehler 402
++     Setze Fehler 403
+  END
+ \end{verbatim}
+ \hrulefill
+\ No newline at end of file
+
+Modified: trunk/docs/beleg1/pspec_mitgliederverwaltung.tex
+===================================================================
+--- trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-04-25 19:39:19 UTC (rev 56)
++++ trunk/docs/beleg1/pspec_mitgliederverwaltung.tex	2006-04-25 20:02:35 UTC (rev 57)
+@@ -50,7 +50,7 @@
+ \end{tabular}
+ 
+ \hrulefill\\
+-\textbf{Voraussetzung}: Benutzer muss als Administrator angemeldet sein.
++\textbf{Voraussetzung}: Benutzer ist angemeldet. Mitglied.Mitglieds\_Nr ist die Nummer des aktuell angemeldeten Nutzers (au&#223;er er ist Administrator)
+ \begin{verbatim}
+   BEGIN
+    Setze in Mitglieder Mitglied_Eintrag
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000046.html">[Liman-svn] r56 - in trunk/docs/beleg1: . visio
+</A></li>
+	<LI>Next message: <A HREF="000048.html">[Liman-svn] r58 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#47">[ date ]</a>
+              <a href="thread.html#47">[ thread ]</a>
+              <a href="subject.html#47">[ subject ]</a>
+              <a href="author.html#47">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,542 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r188 - in trunk/docs: beleg3 protokoll
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r188%20-%20in%20trunk/docs%3A%20beleg3%20protokoll&In-Reply-To=%3C200606261834.k5QIY46w007358%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000177.html">
+   <LINK REL="Next"  HREF="000179.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r188 - in trunk/docs: beleg3 protokoll</H1>
+    <B>dotslash at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r188%20-%20in%20trunk/docs%3A%20beleg3%20protokoll&In-Reply-To=%3C200606261834.k5QIY46w007358%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r188 - in trunk/docs: beleg3 protokoll">dotslash at berlios.de
+       </A><BR>
+    <I>Mon Jun 26 20:34:04 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000177.html">[Liman-svn] r187 - trunk/docs/beleg3
+</A></li>
+        <LI>Next message: <A HREF="000179.html">[Liman-svn] r189 - in trunk/docs: beleg3 protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#178">[ date ]</a>
+              <a href="thread.html#178">[ thread ]</a>
+              <a href="subject.html#178">[ subject ]</a>
+              <a href="author.html#178">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: dotslash
+Date: 2006-06-26 20:34:03 +0200 (Mon, 26 Jun 2006)
+New Revision: 188
+
+Added:
+   trunk/docs/protokoll/convert.sh
+Modified:
+   trunk/docs/beleg3/arbeitsaufgaben.tex
+Log:
+- Protokolle + krankes script
+
+Modified: trunk/docs/beleg3/arbeitsaufgaben.tex
+===================================================================
+--- trunk/docs/beleg3/arbeitsaufgaben.tex	2006-06-26 17:50:59 UTC (rev 187)
++++ trunk/docs/beleg3/arbeitsaufgaben.tex	2006-06-26 18:34:03 UTC (rev 188)
+@@ -1 +1,373 @@
+- 
++\chapter{Arbeitsaufgaben}
++		\section{Protokoll Anfangskonsultation 18.04.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Arten von Buchlisten
++			\item Einteilung von Benutzern
++			\item Sichtbarkeit von Kommentaren
++			\item Funktionsweise der Suche
++			\item Informationen f&#252;r B&#252;cher
++			\item Verwendete Software im Softwaresystem
++			\item Software f&#252;r Graphen
++			\item N&#228;chste Sitzung
++		\end{itemize}
++			\subsection{Arten von Buchlisten}
++			\begin{itemize}
++				\item globale B&#252;cherliste
++				\item User k&#246;nnen recherchieren und gefundene B&#252;cher als BibTeX exportieren
++				\item keine lokalen Listen f&#252;r User
++			\end{itemize}
++			\subsection{Einteilung von Benutzern}
++			\begin{itemize}
++				\item Anonyme Nutzer (G&#228;ste) k&#246;nnen Suchen und Exportieren
++				\item Registrierte Nutzer k&#246;nnen zus&#228;tzlich B&#252;cher hinzuf&#252;gen/&#228;ndern/l&#246;schen/kommentieren
++				\item Administratoren k&#246;nnen zus&#228;tzlich Nutzer hinzuf&#252;gen/&#228;ndern/l&#246;schen
++			\end{itemize}
++			\subsection{Sichtbarkeit von Kommentaren}
++			\begin{itemize}
++				\item registrierte Nutzer k&#246;nnen Kommentare zu Buch verfassen
++				\item jeder kann Kommentare zu Buch lesen
++			\end{itemize}
++			\subsection{Funktionsweise der Suche}
++			\begin{itemize}
++				\item Suche nach spezifischen Informationen (Titel, Autor, Verlag, ...)
++				\item Freie Suche (Volltextsuche) nach Stichw&#246;rtern (auch in Bemerkungen, Stichworte, ...)
++			\end{itemize}
++			\subsection{Informationen f&#252;r B&#252;cher}
++			\begin{itemize}
++				\item Informationen laut Aufgabenbeschreibung:
++					\begin{itemize}
++						\item Art
++						\item Titel
++						\item Autor
++						\item ISBN
++						\item Jahr
++						\item Ort
++						\item Beschreibung
++					\end{itemize}
++				\item weitere Informationen laut DIN 1505 Teil 2
++			\end{itemize}
++			\subsection{Verwendete Software im Softwaresystem}
++			\begin{itemize}
++				\item DBS
++					: MySQL 5.0
++				\item Webserver
++					: Apache 2.0
++				\item Skriptsprache
++					: PHP 5.1
++			\end{itemize}
++			\subsection{Software f&#252;r Graphen}
++			Vorschl&#228;ge:
++			\begin{itemize}
++				\item xfig
++				\item dot
++				\item Microsoft Visio
++			\end{itemize}
++			\subsection{N&#228;chste Sitzung}
++			\begin{itemize}
++				\item Treffen am 19.04. 15:15
++				\item Besprechung einzelner Punkte des 1. Belegs
++				\item Einteilen f&#252;r Aufgaben
++			\end{itemize}
++		\begin{itemize}
++			\item Protokolant: Sven Eckelmann
++		\end{itemize}
++\newpage
++		\section{Sitzungsprotokoll 19.04.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg
++		\end{itemize}
++			\subsection{Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg}
++			Es wurden die zu bearbeitenden Aufgaben zur Erstellung des ersten Teilbeleges in folgende drei Komplexe aufgeteilt und an die jeweiligen Mitglieder des Teams verteilt:
++			\begin{itemize}
++				\item 1. Komplex - Sven Eckelmann, Frank Wilhelm
++					\begin{itemize}	
++						\item Kontextdiagramm
++						\item Verhaltensmodells
++						\item Prozessbeschreibung
++						\item Planung in Form eines Gantt-Diagramms
++					\end{itemize}
++				\item 2. Komplex - Simon Wunderlich
++					\begin{itemize}
++						\item Definition der Nutzerschnittstellen
++						\item Produktbeschreibung
++						\item Entwicklungsumgebung
++					\end{itemize}
++				\item 3. Komplex - Andreas Tr&#246;ger, Florian Scharl
++					\begin{itemize}
++						\item Datenkatalog
++						\item Entity-Relationship-Modell
++						\item Spezifikation wichtiger Qualifikationsanforderungen
++					\end{itemize}
++			\end{itemize}
++			Chemnitz, 19.04.2006
++			\begin{itemize}
++				\item Protokolant: Florian Scharl
++				\item Korrekturen: Sven Eckelmann
++			\end{itemize}
++\newpage
++&#65279;
++		\section{Sitzungsprotokoll 26.04.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg
++		\end{itemize}
++			\subsection{Aufteilung und Verteilung der Aufgaben zum 1. Teilbeleg}
++			\begin{itemize}
++				\item Es wurden die Erbegnisse der einzelnen Aufgaben des erste Teilbeleg durchgesehen und Korrekturen besprochen.
++				\item Weiteren Projektverlauf anhand des Gentt-Diagramms festgelegt.
++				\item Aufgrund fehlenden Engagements und dem Vers&#228;umen aller bisherigen Treffen war es notwendig das Mitglied Benedikt Keil aus dem Projektteam zu entfernen. 
++			\end{itemize}
++			Chemnitz, 26.04.2006
++			\begin{itemize}
++				\item Protokolant: Andreas Tr&#246;ger
++				\item Korrekturen: Florian Scharl
++			\end{itemize}
++\newpage
++&#65279;
++		\section{Sitzungsprotokoll 03.05.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Korrekturen zum 1. Teilbeleg
++		\end{itemize}
++			\subsection{Korrekturen zum 1. Teilbeleg}
++			\begin{itemize}
++				\item Autoren Entit&#228;t mit Relation zu Literatur hinzugef&#252;gt (ERD und Datenkatalog)
++				\item Arten an Literatur im Datenkatalog definiert:
++					\begin{itemize}
++						\item Buch
++						\item Artikel
++						\item Brosch&#252;re
++						\item Protokoll
++						\item Anleitung
++						\item Diplomarbeit
++						\item Dissertation
++						\item Techn. Bericht
++						\item Unver&#246;ffentlicht
++						\item Sonstiges
++					\end{itemize}
++				\item Suche auf Titel und Autoren
++				\item &#220;berarbeitung des Abschnitts 3.3 (Flexibilit&#228;t)
++			\end{itemize}
++			Chemnitz, 03.05.2006
++			\begin{itemize}
++				\item Protokolant: Frank Wilhelm
++			\end{itemize}
++\newpage
++		\section{Sitzungsprotokoll 10.05.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Korrekturen zum 1. Teilbeleg
++			\item Beleg2 Klassenaufteilung
++		\end{itemize}
++			\subsection{Korrekturen zum 1. Teilbeleg}
++			\begin{itemize}
++				\item Autoren bei Suchanfragen mit einbeziehen
++			\end{itemize}
++			\subsection{Beleg2 Klassenaufteilung}
++			\begin{itemize}
++					\item Eine Klassenaufteilung wurde festgelegt:
++					\includegraphics[scale=0.8]{../protokoll/2006_05_10.png}
++					\item Generierung mit Doxygen soweit m&quot;o;glich
++			\end{itemize}
++			Chemnitz, 10.05.2006
++			\begin{itemize}
++				\item Protokolant: Simon Wunderlich
++			\end{itemize}
++\newpage
++		\section{Protokoll 1. Pflichtkonsultation 30.05.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Besprechung Teilbeleg 1
++			\item Vorstellung Stand Teilbeleg 2
++			\item Stand Projektarbeit
++			\item N&#228;chste Sitzung
++		\end{itemize}
++			\subsection{Besprechung Teilbeleg 1}
++			\begin{itemize}
++				\item fehlende Suchabfrage in Ereignistabelle und Datenkatalog
++				\item kleine Fehler bei Formulierungen ({\it freier} Festplattenspeicher, Stil {\it der grafischen Oberfl&#228;che})
++				\item keine Liste der Fehlercodes
++			\end{itemize}
++			\subsection{Vorstellung Stand Teilbeleg 2}
++			\begin{itemize}
++				\item &#196;nderungsstand und Bearbeiter noch nicht aufgef&#252;hrt
++				\item Klassendiagramm nur &#228;hnlich Moduldiagramm und kein UML-Klassendiagramm
++			\end{itemize}
++			\subsection{Stand Projektarbeit}
++			\begin{itemize}
++				\item Implementierung fast vollst&#228;ndig
++				\item Systemtests am laufen bzw. in Vorbereitung
++			\end{itemize}
++			\subsection{N&#228;chste Sitzung}
++			\begin{itemize}
++				\item Treffen am 7.6. 15:15
++				\item Besprechung einzelner Punkte des 3. Belegs
++			\end{itemize}
++		\begin{itemize}
++			\item Protokolant: Sven Eckelmann
++		\end{itemize}
++\newpage
++		\section{Sitzungsprotokoll 07.06.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Verteilung der Aufgaben zum 3. Teilbeleg
++			\item N&#228;chste Sitzung
++			\item N&#228;chste Pflichtkonsultation mit Betreuer
++		\end{itemize}
++			\subsection{Verteilung der Aufgaben zum 3. Teilbeleg}
++			\begin{itemize}
++			\item Programmdokumentation
++			\begin{itemize}
++			\item Definition der Interfaces in der Implementierungssprache -- Sven Eckelmann u. Frank 			Wilhelm
++			\item Kommentierte Quelltexte -- Sven Eckelmann u. Frank Wilhelm
++			\item Testplan -- Sven Eckelmann u. Frank Wilhelm
++			\item Systemtest -- Sven Eckelmann u. Frank Wilhelm
++			\item Abschlusseinsch&#228;tzung -- Sven Eckelmann u. Frank Wilhelm
++			\end{itemize}
++			\item Systemhandbuch
++			\begin{itemize}
++			\item Installationsanleitung -- Simon Wunderlich
++			\item Programm-Filesystem -- Andreas Tr&#246;ger
++			\item Administrationsanleitung -- Andreas Tr&#246;ger
++			\end{itemize}
++			\item Anwenderdokumentation
++			\begin{itemize}
++			\item Produktzweck -- Florian Scharl
++			\item Basismaschine und Ressourcenanforderungen -- Florian Scharl
++			\item Nutzerklassen -- Florian Scharl
++			\item Bedienungsanleitung -- Florian Scharl
++			\item Helpsystem -- Florian Scharl
++			\end{itemize}
++			\item &#220;bersicht &#252;ber die Arbeitsaufgaben alle Teammitglieder w&#228;hrend der gesamten Projektbearbeitung
++			inkl. der Festlegungsprotokolle	-- Simon Wunderlich
++			\end{itemize}
++			Bemerkung: Die endg&#252;ltige Festlegung erfolgt in der n&#228;chsten Sitzung nachdem jeder den Umfang 				seines Aufgabengebietes bzw. seiner Aufgabengebiete erschlossen hat.
++			\subsection{N&#228;chste Sitzung}
++			\begin{itemize}
++			\item Die n&#228;chste Sitzung findet am {\em 14.06.2006 um 15:15 Uhr im Raum 1/204 } statt.
++			\end{itemize}
++			\subsection{N&#228;chste Pflichtkonsultation mit Betreuer}
++			\begin{itemize}
++			\item Die n&#228;chste Pflichtkonsultation mit Herrn Rentzsch findet am {\em 13.06.2006 um 13:10 Uhr im Raum 			1/B317 } statt.
++			\end{itemize}
++			Chemnitz, 07.06.2006
++			\begin{itemize}
++				\item Protokolant: Florian Scharl
++			\end{itemize}
++\newpage
++		\section{Protokoll 2. Pflichtkonsultation 13.06.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Besprechung Teilbeleg 2
++			\item Vorstellung Stand Teilbeleg 3
++			\item N&#228;chste Sitzung
++		\end{itemize}
++			\subsection{Besprechung Teilbeleg 2}
++			\begin{itemize}
++				\item fehlende Trennung zwischen SQLDB-Klasse und Datenbank
++				\item unklare Formulierung &quot;Felder {\it mit Elementen} vom Typ...&quot;
++			\end{itemize}
++			\subsection{Vorstellung Stand Teilbeleg 3}
++			\begin{itemize}
++				\item Implementierung weitgehend vollst&#228;ndig
++				\item Tests werden fertiggestellt
++				\item Anwender- und Systemdokumentation in Vorbereitung
++			\end{itemize}
++			\subsection{N&#228;chste Sitzung}
++			\begin{itemize}
++				\item Treffen am 14.06. 15:15
++				\item Besprechung einzelner Punkte des 3. Belegs
++			\end{itemize}
++		\begin{itemize}
++			\item Protokolant: Sven Eckelmann
++		\end{itemize}
++\newpage
++		\section{Sitzungsprotokoll 14.06.2006}
++		\subsection{Anwesende}
++		\begin{itemize}
++			\item Simon Wunderlich
++			\item Andreas Tr&#246;ger
++			\item Frank Wilhelm
++			\item Florian Scharl
++			\item Sven Eckelmann
++		\end{itemize}
++		\subsection{Tagesordnung}
++		\begin{itemize}
++			\item Besprechung Teilbeleg 3
++		\end{itemize}
++			\subsection{Besprechung Teilbeleg 3}
++			\begin{itemize}
++				\item Explizite Aufteilung noch zu erledigender Aufgaben
++				\item Besprechung und Korrektur bisher vorhandener Teile
++				\item Besprechung technischer M&#246;glichkeiten zur Dokumentation der Oberfl&#228;che
++				\item Archivierungsm&#246;glichkeiten des Administrators (phpMyAdmin, mysqldump)
++			\end{itemize}
++		\begin{itemize}
++			\item Protokolant: Sven Eckelmann
++		\end{itemize}
++\newpage
+
+Added: trunk/docs/protokoll/convert.sh
+===================================================================
+--- trunk/docs/protokoll/convert.sh	2006-06-26 17:50:59 UTC (rev 187)
++++ trunk/docs/protokoll/convert.sh	2006-06-26 18:34:03 UTC (rev 188)
+@@ -0,0 +1,78 @@
++#!/bin/sh
++FINAL=&quot;../beleg3/arbeitsaufgaben.tex&quot;
++function sedit()
++{
++	sed  &quot;$1&quot; $TMP1 &gt; $TMP2
++	mv $TMP2 $TMP1
++}
++echo '\chapter{Arbeitsaufgaben}' &gt; $FINAL
++
++
++for FILE in *.xhtml;
++ do 
++	TMP1=&quot;/tmp/${FILE}1&quot;
++	TMP2=&quot;/tmp/${FILE}2&quot;
++	cp $FILE $TMP1
++	sedit 's/&lt;!DOCTYPE.*&gt;//' 
++	sedit 's/&lt;[\/]*html.*&gt;//'
++	sedit 's/&lt;[\/]*head.*&gt;//' 
++	sedit 's/&lt;title.*&lt;\/title&gt;//' 
++	sedit 's/&lt;\/title.*&gt;/\}/' 
++	sedit 's/&lt;[\/]*meta.*&gt;//' 
++	sedit 's/&lt;style.*&gt;.*&lt;\/style&gt;//' 
++	sedit 's/&lt;[\/]*body.*&gt;//'
++	sedit 's/&lt;[\/]*h1.*&gt;.*&lt;\/h1&gt;//'
++	sedit 's/&lt;h2&gt;/\\section\{/'
++	sedit 's/&lt;\/h2&gt;/\}/'
++	sedit 's/&lt;h3[^&gt;]*&gt;/\\subsection\{/'
++	sedit 's/&lt;\/h3&gt;/\}/'
++	sedit 's/&lt;ul&gt;/\\begin\{itemize\}/' 
++	sedit 's/&lt;\/ul&gt;/\\end\{itemize\}/' 
++	sedit 's/&lt;ol&gt;/\\begin\{itemize\}/' 
++	sedit 's/&lt;\/ol&gt;/\\end\{itemize\}/' 
++	sedit 's/&lt;dl&gt;/\\begin\{itemize\}/' 
++	sedit 's/&lt;\/dl&gt;/\\end\{itemize\}/' 
++	sedit 's/&lt;li&gt;/\\item /' 
++	sedit 's/&lt;\/li&gt;//' 
++	sedit 's/&lt;dt&gt;/\\item /' 
++	sedit 's/&lt;\/dt&gt;//' 
++	sedit 's/&lt;dd&gt;/\:\ /' 
++	sedit 's/&lt;\/dd&gt;//' 
++	sedit 's/&lt;a [^&gt;]*&gt;//' 
++	sedit 's/&lt;\/a&gt;//' 
++	# sed only subsitutes once on a line? well, then do it again:
++	sedit 's/&lt;a [^&gt;]*&gt;//' 
++	sedit 's/&lt;\/a&gt;//' 
++
++	sedit 's/&lt;acronym [^&gt;]*&gt;//' 
++	sedit 's/&lt;\/acronym&gt;//' 
++	sedit 's/&lt;[\/]*div[^&gt;]*&gt;//'
++	#sedit 's/&lt;br[^&gt;]*&gt;/\\\\\n/'
++	sedit 's/&lt;br[^&gt;]*&gt;//'
++	sedit 's/&lt;p&gt;//'
++	#sedit 's/&lt;p&gt;/\\\\\n/'
++	sedit 's/&lt;\/p&gt;//'
++	sedit 's/&lt;img src=\&quot;/\\includegraphics\[scale=0.8\]\{\.\.\/protokoll\//'
++	sedit 's/\&quot; alt=\&quot;Klassenaufteilung\&quot;\ \/&gt;/}/'
++	sedit 's/&lt;b&gt;/\{\\em /' 
++	sedit 's/&lt;\/b&gt;/}/' 
++	sedit 's/&lt;i&gt;/\{\\it /' 
++	sedit 's/&lt;\/i&gt;/}/' 
++	# sed only subsitutes once on a line? well, then do it again:
++	sedit 's/&lt;i&gt;/\{\\it /' 
++	sedit 's/&lt;\/i&gt;/}/' 
++
++	sedit 's/\&amp;ouml/\&quot;o/'
++	sedit 's/\&amp;auml/\&quot;a/'
++	sedit 's/\&amp;uuml/\&quot;u/'
++	dos2unix $TMP1
++
++	
++	sedit '/^[ \t]*$/d' # remove blanks
++	#sedit 's/^[ \t]*//' # remove spaces
++	# sedit 's/\\item/\t\\item/' # add some spaces ;)
++	cat $TMP1 &gt;&gt; $FINAL
++	echo '\newpage' &gt;&gt; $FINAL
++	rm $TMP1 
++done
++echo &quot;converted to $FINAL&quot;
+
+
+Property changes on: trunk/docs/protokoll/convert.sh
+___________________________________________________________________
+Name: svn:executable
+   + *
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000177.html">[Liman-svn] r187 - trunk/docs/beleg3
+</A></li>
+	<LI>Next message: <A HREF="000179.html">[Liman-svn] r189 - in trunk/docs: beleg3 protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#178">[ date ]</a>
+              <a href="thread.html#178">[ thread ]</a>
+              <a href="subject.html#178">[ subject ]</a>
+              <a href="author.html#178">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

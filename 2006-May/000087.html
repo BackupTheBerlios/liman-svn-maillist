@@ -1,0 +1,1366 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r97 - in trunk: docs/beleg2 docs/beleg2/doxygen include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r97%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605162057.k4GKvM0f005009%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000086.html">
+   <LINK REL="Next"  HREF="000088.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r97 - in trunk: docs/beleg2 docs/beleg2/doxygen include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r97%20-%20in%20trunk%3A%20docs/beleg2%20docs/beleg2/doxygen%20include&In-Reply-To=%3C200605162057.k4GKvM0f005009%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r97 - in trunk: docs/beleg2 docs/beleg2/doxygen include">lazhur at berlios.de
+       </A><BR>
+    <I>Tue May 16 22:57:22 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000086.html">[Liman-svn] r96 - trunk/docs/beleg2/visio
+</A></li>
+        <LI>Next message: <A HREF="000088.html">[Liman-svn] r98 - trunk/docs/beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-16 22:57:21 +0200 (Tue, 16 May 2006)
+New Revision: 97
+
+Added:
+   trunk/docs/beleg2/doxygen/classAutor.tex
+   trunk/docs/beleg2/doxygen/classKommentar.tex
+   trunk/docs/beleg2/doxygen/classLiteratur.tex
+   trunk/docs/beleg2/doxygen/classLogin.tex
+   trunk/docs/beleg2/doxygen/classMitglied.tex
+   trunk/docs/beleg2/doxygen/classSQLDB.tex
+   trunk/docs/beleg2/doxygen/classSuche.tex
+   trunk/include/autor.php
+   trunk/include/kommentar.php
+   trunk/include/literatur.php
+   trunk/include/login.php
+   trunk/include/mitglied.php
+   trunk/include/sqldb.php
+   trunk/include/sqldb_mysql.php
+   trunk/include/suche.php
+Removed:
+   trunk/docs/beleg2/doxygen/classBibTeX.tex
+Modified:
+   trunk/docs/beleg2/klassenspezifikation.tex
+   trunk/docs/beleg2/user.sty
+   trunk/include/bibtex.php
+   trunk/include/config.php
+   trunk/include/global.php
+Log:
+- Hinzuf?\195?\188gen leerer Klassen f?\195?\188r Klassenspezifikation
+- Import einfacher MySQL-Wrapper
+
+
+Added: trunk/docs/beleg2/doxygen/classAutor.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classAutor.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classAutor}{
++\subsection{Autor Klassenreferenz}
++\label{classAutor}\index{Autor@{Autor}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classAutor_28111338918ed4358ca4adc2cc694b23}{Autor} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classAutor_2dc163422acc9a6161ae97d2301ddba0}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classAutor_28111338918ed4358ca4adc2cc694b23}{
++\index{Autor@{Autor}!Autor@{Autor}}
++\index{Autor@{Autor}!Autor@{Autor}}
++\paragraph[Autor]{\setlength{\rightskip}{0pt plus 5cm}Autor::Autor ()}\hfill}
++\label{classAutor_28111338918ed4358ca4adc2cc694b23}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classAutor_2dc163422acc9a6161ae97d2301ddba0}{
++\index{Autor@{Autor}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Autor@{Autor}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Autor::\$blabla = 0}\hfill}
++\label{classAutor_2dc163422acc9a6161ae97d2301ddba0}
++
++
++blabla 
++
+
+Deleted: trunk/docs/beleg2/doxygen/classBibTeX.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classBibTeX.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classBibTeX.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -1,167 +0,0 @@
+-\hypertarget{classBibTeX}{
+-\subsection{Bib\-Te\-X Klassenreferenz}
+-\label{classBibTeX}\index{BibTeX@{BibTeX}}
+-}
+-\hyperlink{classBibTeX}{Bib\-Te\-X} Parser und Exporter.  
+-
+-
+-\subsubsection*{\&quot;{O}ffentliche Methoden}
+-\begin{CompactItemize}
+-\item 
+-\hyperlink{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}{Bib\-Te\-X} ()
+-\begin{CompactList}\small\item\em Konstruktor. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}{parse} (\$string)
+-\begin{CompactList}\small\item\em Parser f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}{to\-String} ()
+-\begin{CompactList}\small\item\em Konvertiert Bib\-Te\-X-Eintrag in String. \item\end{CompactList}\end{CompactItemize}
+-\subsubsection*{\&quot;{O}ffentliche Attribute}
+-\begin{CompactItemize}
+-\item 
+-\hyperlink{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}{\$type}
+-\begin{CompactList}\small\item\em Typ der Literatur. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_13b46f23224381be3a2693f2832bb0ab}{\$id}
+-\begin{CompactList}\small\item\em Buchidentifikationsnummer. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}{\$title}
+-\begin{CompactList}\small\item\em Titel der Literatur. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_05df25974ad6f4b708e608f9a40ff186}{\$author}
+-\begin{CompactList}\small\item\em Autoren der Literatur. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}{\$year}
+-\begin{CompactList}\small\item\em Erscheinungsjahr. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_635a5c6fbed663cfd66104596e249303}{\$publisher}
+-\begin{CompactList}\small\item\em Verlag/Herausgeber. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}{\$isbn}
+-\begin{CompactList}\small\item\em ISBN der Literatur. \item\end{CompactList}\item 
+-\hyperlink{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}{\$annote}
+-\begin{CompactList}\small\item\em Bemerkung zur Literatur. \item\end{CompactList}\end{CompactItemize}
+-
+-
+-\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-\hyperlink{classBibTeX}{Bib\-Te\-X} Parser und Exporter. 
+-
+-\begin{Desc}
+-\item[Zu beachten:]Das sollte mit Buch verschmolzen werden \end{Desc}
+-
+-
+-
+-
+-\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
+-\hypertarget{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}{
+-\index{BibTeX@{Bib\-Te\-X}!BibTeX@{BibTeX}}
+-\index{BibTeX@{BibTeX}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[BibTeX]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::Bib\-Te\-X ()}\hfill}
+-\label{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}
+-
+-
+-Konstruktor. 
+-
+-Erstellt eine leere Literaturangabe 
+-
+-\subsubsection{Dokumentation der Elementfunktionen}
+-\hypertarget{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}{
+-\index{BibTeX@{Bib\-Te\-X}!parse@{parse}}
+-\index{parse@{parse}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[parse]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::parse (\$ {\em string})}\hfill}
+-\label{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}
+-
+-
+-Parser f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+-
+-\begin{Desc}
+-\item[Parameter:]
+-\begin{description}
+-\item[{\em \$string}]Zu \char`\&quot;{}parsende\char`\&quot;{} String \end{description}
+-\end{Desc}
+-\begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Array von \hyperlink{classBibTeX}{Bib\-Te\-X} \end{Desc}
+-\begin{Desc}
+-\item[Bemerkungen:]\$string wird nicht exakt auf Fehler untersucht und gegebenenfalls versuchen zu ignorieren 
+-
+-Gibt boolean false zur&#252;ck, wenn nichts gefunden werden kann \end{Desc}
+-\hypertarget{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}{
+-\index{BibTeX@{Bib\-Te\-X}!toString@{toString}}
+-\index{toString@{toString}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[toString]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::to\-String ()}\hfill}
+-\label{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}
+-
+-
+-Konvertiert Bib\-Te\-X-Eintrag in String. 
+-
+-\begin{Desc}
+-\item[R\&quot;{u}ckgabe:]String mit Bib\-Te\-X-Informationen \end{Desc}
+-\begin{Desc}
+-\item[Bemerkungen:]Gibt boolean false zur&#252;ck, wenn zu wenig Informationen vorhanden sind \end{Desc}
+-
+-
+-\subsubsection{Dokumentation der Datenelemente}
+-\hypertarget{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}{
+-\index{BibTeX@{Bib\-Te\-X}!$annote@{\$annote}}
+-\index{$annote@{\$annote}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$annote]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$annote}\hfill}
+-\label{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}
+-
+-
+-Bemerkung zur Literatur. 
+-
+-\hypertarget{classBibTeX_05df25974ad6f4b708e608f9a40ff186}{
+-\index{BibTeX@{Bib\-Te\-X}!$author@{\$author}}
+-\index{$author@{\$author}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$author]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$author}\hfill}
+-\label{classBibTeX_05df25974ad6f4b708e608f9a40ff186}
+-
+-
+-Autoren der Literatur. 
+-
+-\hypertarget{classBibTeX_13b46f23224381be3a2693f2832bb0ab}{
+-\index{BibTeX@{Bib\-Te\-X}!$id@{\$id}}
+-\index{$id@{\$id}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$id]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$id}\hfill}
+-\label{classBibTeX_13b46f23224381be3a2693f2832bb0ab}
+-
+-
+-Buchidentifikationsnummer. 
+-
+-\hypertarget{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}{
+-\index{BibTeX@{Bib\-Te\-X}!$isbn@{\$isbn}}
+-\index{$isbn@{\$isbn}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$isbn]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$isbn}\hfill}
+-\label{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}
+-
+-
+-ISBN der Literatur. 
+-
+-\hypertarget{classBibTeX_635a5c6fbed663cfd66104596e249303}{
+-\index{BibTeX@{Bib\-Te\-X}!$publisher@{\$publisher}}
+-\index{$publisher@{\$publisher}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$publisher]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$publisher}\hfill}
+-\label{classBibTeX_635a5c6fbed663cfd66104596e249303}
+-
+-
+-Verlag/Herausgeber. 
+-
+-\hypertarget{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}{
+-\index{BibTeX@{Bib\-Te\-X}!$title@{\$title}}
+-\index{$title@{\$title}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$title]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$title}\hfill}
+-\label{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}
+-
+-
+-Titel der Literatur. 
+-
+-\hypertarget{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}{
+-\index{BibTeX@{Bib\-Te\-X}!$type@{\$type}}
+-\index{$type@{\$type}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$type]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$type}\hfill}
+-\label{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}
+-
+-
+-Typ der Literatur. 
+-
+-\hypertarget{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}{
+-\index{BibTeX@{Bib\-Te\-X}!$year@{\$year}}
+-\index{$year@{\$year}!BibTeX@{Bib\-Te\-X}}
+-\paragraph[\$year]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$year}\hfill}
+-\label{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}
+-
+-
+-Erscheinungsjahr. 
+-
+
+Added: trunk/docs/beleg2/doxygen/classKommentar.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classKommentar.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classKommentar}{
++\subsection{Kommentar Klassenreferenz}
++\label{classKommentar}\index{Kommentar@{Kommentar}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classKommentar_850b68328808c92ed5b2b30bfa12f311}{Kommentar} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classKommentar_fdf104e05a476d5c31598067b7f8f17d}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classKommentar_850b68328808c92ed5b2b30bfa12f311}{
++\index{Kommentar@{Kommentar}!Kommentar@{Kommentar}}
++\index{Kommentar@{Kommentar}!Kommentar@{Kommentar}}
++\paragraph[Kommentar]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::Kommentar ()}\hfill}
++\label{classKommentar_850b68328808c92ed5b2b30bfa12f311}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classKommentar_fdf104e05a476d5c31598067b7f8f17d}{
++\index{Kommentar@{Kommentar}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Kommentar@{Kommentar}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Kommentar::\$blabla = 0}\hfill}
++\label{classKommentar_fdf104e05a476d5c31598067b7f8f17d}
++
++
++blabla 
++
+
+Added: trunk/docs/beleg2/doxygen/classLiteratur.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classLiteratur.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classLiteratur}{
++\subsection{Literatur Klassenreferenz}
++\label{classLiteratur}\index{Literatur@{Literatur}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLiteratur_a647da0a0e560f17321c76207e5f5a03}{Literatur} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classLiteratur_a647da0a0e560f17321c76207e5f5a03}{
++\index{Literatur@{Literatur}!Literatur@{Literatur}}
++\index{Literatur@{Literatur}!Literatur@{Literatur}}
++\paragraph[Literatur]{\setlength{\rightskip}{0pt plus 5cm}Literatur::Literatur ()}\hfill}
++\label{classLiteratur_a647da0a0e560f17321c76207e5f5a03}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}{
++\index{Literatur@{Literatur}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Literatur@{Literatur}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Literatur::\$blabla = 0}\hfill}
++\label{classLiteratur_1fd31a583c0ffffd05d2ec492a357ec7}
++
++
++blabla 
++
+
+Added: trunk/docs/beleg2/doxygen/classLogin.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classLogin.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classLogin}{
++\subsection{Login Klassenreferenz}
++\label{classLogin}\index{Login@{Login}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLogin_4847f3e07e43b540d3339392346f87ff}{Login} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classLogin_00bf0b2858a6ecc754cd00e7b21798e3}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classLogin_4847f3e07e43b540d3339392346f87ff}{
++\index{Login@{Login}!Login@{Login}}
++\index{Login@{Login}!Login@{Login}}
++\paragraph[Login]{\setlength{\rightskip}{0pt plus 5cm}Login::Login ()}\hfill}
++\label{classLogin_4847f3e07e43b540d3339392346f87ff}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classLogin_00bf0b2858a6ecc754cd00e7b21798e3}{
++\index{Login@{Login}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Login@{Login}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Login::\$blabla = 0}\hfill}
++\label{classLogin_00bf0b2858a6ecc754cd00e7b21798e3}
++
++
++blabla 
++
+
+Added: trunk/docs/beleg2/doxygen/classMitglied.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classMitglied.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classMitglied}{
++\subsection{Mitglied Klassenreferenz}
++\label{classMitglied}\index{Mitglied@{Mitglied}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classMitglied_a5e881881d7fa340611898aaea939cb3}{Mitglied} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classMitglied_a5e881881d7fa340611898aaea939cb3}{
++\index{Mitglied@{Mitglied}!Mitglied@{Mitglied}}
++\index{Mitglied@{Mitglied}!Mitglied@{Mitglied}}
++\paragraph[Mitglied]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::Mitglied ()}\hfill}
++\label{classMitglied_a5e881881d7fa340611898aaea939cb3}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}{
++\index{Mitglied@{Mitglied}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Mitglied@{Mitglied}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Mitglied::\$blabla = 0}\hfill}
++\label{classMitglied_8cf2e1dce2c0ae743bdc55af7252f7a7}
++
++
++blabla 
++
+
+Added: trunk/docs/beleg2/doxygen/classSQLDB.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classSQLDB.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,197 @@
++\hypertarget{classSQLDB}{
++\subsection{SQLDB Klassenreferenz}
++\label{classSQLDB}\index{SQLDB@{SQLDB}}
++}
++Datenbankzugriff &#252;ber My\-SQL.  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classSQLDB_069ba0502ed4bfedb72768a03ff6854d}{SQLDB} (\$host, \$user, \$password, \$database, \$persist=true)
++\begin{CompactList}\small\item\em &#214;ffnet eine Datenbankverbindung. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{affected\_\-rows} ()
++\begin{CompactList}\small\item\em Anzahl zuletzt ge&#228;nderter Datens&#228;tze. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_8c4f10efb418445877d7263412a082fa}{close} ()
++\begin{CompactList}\small\item\em Beendet Verbindung. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}{data\_\-seek} (\$row\_\-number)
++\begin{CompactList}\small\item\em Springt auf Datensatz. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_c889958653ffbf14922988e1dcbe014b}{error} ()
++\begin{CompactList}\small\item\em Liefert Fehlerinformationen. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_43fa0105050768eba0ded5bd2f736709}{fetch\_\-object} ()
++\begin{CompactList}\small\item\em Liefert Datensatz als Objekt. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}{fetch\_\-row} ()
++\begin{CompactList}\small\item\em Liefert Datensatz als Feld. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_8168b4df39a17186620e4777c7413a44}{free\_\-result} ()
++\begin{CompactList}\small\item\em Entfernt Ergebnisse. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{num\_\-rows} ()
++\begin{CompactList}\small\item\em Anzahl zuletzt gefundener Datens&#228;tze. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_9a5af86138a3bb12ba443318a26103a1}{query} (\$query)
++\begin{CompactList}\small\item\em Sendet Anfrage an Server. \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}{\$db\_\-id} = 0
++\begin{CompactList}\small\item\em Identifikation der aktuellen Datenbankverbindung. \item\end{CompactList}\item 
++\hyperlink{classSQLDB_879fa41a3df6664f4ce83960808326ab}{\$query\_\-result} = 0
++\begin{CompactList}\small\item\em Identifikation der letzten Datenbankabfrage. \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++Datenbankzugriff &#252;ber My\-SQL. 
++
++Erlaubt den abstrahierten Zugriff &#252;ber SQL auf eine Datenbank (hier My\-SQL). 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classSQLDB_069ba0502ed4bfedb72768a03ff6854d}{
++\index{SQLDB@{SQLDB}!SQLDB@{SQLDB}}
++\index{SQLDB@{SQLDB}!SQLDB@{SQLDB}}
++\paragraph[SQLDB]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::SQLDB (\$ {\em host}, \$ {\em user}, \$ {\em password}, \$ {\em database}, \$ {\em persist} = {\tt true})}\hfill}
++\label{classSQLDB_069ba0502ed4bfedb72768a03ff6854d}
++
++
++&#214;ffnet eine Datenbankverbindung. 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$host}]Adresse oder IP des My\-SQL-Servers \item[{\em \$user}]Benutzernamen f&#252;r My\-SQL-Zugriff \item[{\em \$password}]Benutzerpasswort f&#252;r My\-SQL-Zugriff \item[{\em \$database}]Auszuw&#228;hlende Datenbank \item[{\em \$persist}]Aufbau einer persistenten (geteilten) Verbindung \end{description}
++\end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]Kennung der Datenbankverbindung oder im Fehlerfall false \end{Desc}
++
++
++\subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{
++\index{SQLDB@{SQLDB}!affected_rows@{affected\_\-rows}}
++\index{affected_rows@{affected\_\-rows}!SQLDB@{SQLDB}}
++\paragraph[affected\_\-rows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::affected\_\-rows ()}\hfill}
++\label{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}
++
++
++Anzahl zuletzt ge&#228;nderter Datens&#228;tze. 
++
++Gibt Anzahl der bei der letzten INSERT, UPDATE bzw. DELETE Anweisung ge&#228;nderten Datens&#228;tze \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]F&#252;r gefundene Datens&#228;tze sollte \hyperlink{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{num\_\-rows()} genutzt werden \end{Desc}
++\hypertarget{classSQLDB_8c4f10efb418445877d7263412a082fa}{
++\index{SQLDB@{SQLDB}!close@{close}}
++\index{close@{close}!SQLDB@{SQLDB}}
++\paragraph[close]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::close ()}\hfill}
++\label{classSQLDB_8c4f10efb418445877d7263412a082fa}
++
++
++Beendet Verbindung. 
++
++Beendet die Verbindung zum Datenbankserver \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Bei Erfolg true, im Fehlerfall false \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]Persistente Verbindungen werden nicht geschlossen \end{Desc}
++\hypertarget{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}{
++\index{SQLDB@{SQLDB}!data_seek@{data\_\-seek}}
++\index{data_seek@{data\_\-seek}!SQLDB@{SQLDB}}
++\paragraph[data\_\-seek]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::data\_\-seek (\$ {\em row\_\-number})}\hfill}
++\label{classSQLDB_01346cc7c56480b57c76ca2dac515b2a}
++
++
++Springt auf Datensatz. 
++
++L&#228;sst den internen Zeiger auf angegebenen Datensatz der letzten Anfrage zeigen. Der Datensatz l&#228;sst sich danach mit fetch\_\-$\ast$ abfragen. \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Bei Erfolg true, im Fehlerfall false \end{Desc}
++\hypertarget{classSQLDB_c889958653ffbf14922988e1dcbe014b}{
++\index{SQLDB@{SQLDB}!error@{error}}
++\index{error@{error}!SQLDB@{SQLDB}}
++\paragraph[error]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::error ()}\hfill}
++\label{classSQLDB_c889958653ffbf14922988e1dcbe014b}
++
++
++Liefert Fehlerinformationen. 
++
++Liefert Array mit Fehlernachricht und interner Fehlernummer zur&#252;ck \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Feld mit feld\mbox{[}0\mbox{]} als Fehlernachricht und feld\mbox{[}1\mbox{]} als Fehlernummer \end{Desc}
++\hypertarget{classSQLDB_43fa0105050768eba0ded5bd2f736709}{
++\index{SQLDB@{SQLDB}!fetch_object@{fetch\_\-object}}
++\index{fetch_object@{fetch\_\-object}!SQLDB@{SQLDB}}
++\paragraph[fetch\_\-object]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::fetch\_\-object ()}\hfill}
++\label{classSQLDB_43fa0105050768eba0ded5bd2f736709}
++
++
++Liefert Datensatz als Objekt. 
++
++Wandelt aktuellen Datensatz in Objekt um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Bei Erfolg Datensatz als Objekt, sonst false \end{Desc}
++\hypertarget{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}{
++\index{SQLDB@{SQLDB}!fetch_row@{fetch\_\-row}}
++\index{fetch_row@{fetch\_\-row}!SQLDB@{SQLDB}}
++\paragraph[fetch\_\-row]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::fetch\_\-row ()}\hfill}
++\label{classSQLDB_cbd6f7a7ad0dbe4cd7f0533649be1abd}
++
++
++Liefert Datensatz als Feld. 
++
++Wandelt aktuellen Datensatz in Feld um und gibt ihn zur&#252;ck. Nach erfolgreicher Operation wird der interne Zeiger eine Stelle weiter ger&#252;ckt \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Bei Erfolg Datensatz als Feld, sonst false \end{Desc}
++\hypertarget{classSQLDB_8168b4df39a17186620e4777c7413a44}{
++\index{SQLDB@{SQLDB}!free_result@{free\_\-result}}
++\index{free_result@{free\_\-result}!SQLDB@{SQLDB}}
++\paragraph[free\_\-result]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::free\_\-result ()}\hfill}
++\label{classSQLDB_8168b4df39a17186620e4777c7413a44}
++
++
++Entfernt Ergebnisse. 
++
++Entfernt Datens&#228;tze der letzten Anfrage und gibt deren Speicher frei \begin{Desc}
++\item[Bemerkungen:]Funktion wird vor jedem query aufgerufen \end{Desc}
++\hypertarget{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}{
++\index{SQLDB@{SQLDB}!num_rows@{num\_\-rows}}
++\index{num_rows@{num\_\-rows}!SQLDB@{SQLDB}}
++\paragraph[num\_\-rows]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::num\_\-rows ()}\hfill}
++\label{classSQLDB_8b8f1f63b6172381e118b3cbc32f9f69}
++
++
++Anzahl zuletzt gefundener Datens&#228;tze. 
++
++Gibt Anzahl der bei der letzten SELECT-Anweisung gefundenen Datens&#228;tze \begin{Desc}
++\item[R\&quot;{u}ckgabe:]Anzahl der Datens&#228;tze \end{Desc}
++\begin{Desc}
++\item[Bemerkungen:]F&#252;r ge&#228;nderte Datens&#228;tze sollte \hyperlink{classSQLDB_2d1ec94a4c94e4a505ec37f944363954}{affected\_\-rows()} genutzt werden \end{Desc}
++\hypertarget{classSQLDB_9a5af86138a3bb12ba443318a26103a1}{
++\index{SQLDB@{SQLDB}!query@{query}}
++\index{query@{query}!SQLDB@{SQLDB}}
++\paragraph[query]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::query (\$ {\em query})}\hfill}
++\label{classSQLDB_9a5af86138a3bb12ba443318a26103a1}
++
++
++Sendet Anfrage an Server. 
++
++Sendet eine Anfrage an die aktive Datenbank. Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit fetch\_\-field, fetch\_\-object und fetch\_\-row abgefragt werden \begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$query}]SQL-Anfrage an den Datenbankserver \end{description}
++\end{Desc}
++\begin{Desc}
++\item[R\&quot;{u}ckgabe:]false wenn ein Fehler in der Anfrage aufgetreten ist \end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}{
++\index{SQLDB@{SQLDB}!$db_id@{\$db\_\-id}}
++\index{$db_id@{\$db\_\-id}!SQLDB@{SQLDB}}
++\paragraph[\$db\_\-id]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$db\_\-id = 0}\hfill}
++\label{classSQLDB_2c62843044a6ec53ad3384fb36aa811b}
++
++
++Identifikation der aktuellen Datenbankverbindung. 
++
++\hypertarget{classSQLDB_879fa41a3df6664f4ce83960808326ab}{
++\index{SQLDB@{SQLDB}!$query_result@{\$query\_\-result}}
++\index{$query_result@{\$query\_\-result}!SQLDB@{SQLDB}}
++\paragraph[\$query\_\-result]{\setlength{\rightskip}{0pt plus 5cm}SQLDB::\$query\_\-result = 0}\hfill}
++\label{classSQLDB_879fa41a3df6664f4ce83960808326ab}
++
++
++Identifikation der letzten Datenbankabfrage. 
++
+
+Added: trunk/docs/beleg2/doxygen/classSuche.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/doxygen/classSuche.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,51 @@
++\hypertarget{classSuche}{
++\subsection{Suche Klassenreferenz}
++\label{classSuche}\index{Suche@{Suche}}
++}
++blabla  
++
++
++\subsubsection*{\&quot;{O}ffentliche Methoden}
++\begin{CompactItemize}
++\item 
++\hyperlink{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{Suche} ()
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classSuche_4c132138ff7a8f08e3b9fddb540254bb}{\$blabla} = 0
++\begin{CompactList}\small\item\em blabla \item\end{CompactList}\end{CompactItemize}
++
++
++\subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
++blabla 
++
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}{
++\index{Suche@{Suche}!Suche@{Suche}}
++\index{Suche@{Suche}!Suche@{Suche}}
++\paragraph[Suche]{\setlength{\rightskip}{0pt plus 5cm}Suche::Suche ()}\hfill}
++\label{classSuche_e863aff1c9abcb0308d5d3fdcdebb968}
++
++
++blabla 
++
++\begin{Desc}
++\item[Parameter:]
++\begin{description}
++\item[{\em \$blabla}]blabla \end{description}
++\end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classSuche_4c132138ff7a8f08e3b9fddb540254bb}{
++\index{Suche@{Suche}!$blabla@{\$blabla}}
++\index{$blabla@{\$blabla}!Suche@{Suche}}
++\paragraph[\$blabla]{\setlength{\rightskip}{0pt plus 5cm}Suche::\$blabla = 0}\hfill}
++\label{classSuche_4c132138ff7a8f08e3b9fddb540254bb}
++
++
++blabla 
++
+
+Modified: trunk/docs/beleg2/klassenspezifikation.tex
+===================================================================
+--- trunk/docs/beleg2/klassenspezifikation.tex	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/klassenspezifikation.tex	2006-05-16 20:57:21 UTC (rev 97)
+@@ -1,2 +1,8 @@
+ \section{Klassenspezifikation}
+-\input{doxygen/classBibTeX}
++\input{doxygen/classAutor}
++\input{doxygen/classKommentar}
++\input{doxygen/classLiteratur}
++\input{doxygen/classLogin}
++\input{doxygen/classMitglied}
++\input{doxygen/classSuche}
++\input{doxygen/classSQLDB}
+
+Modified: trunk/docs/beleg2/user.sty
+===================================================================
+--- trunk/docs/beleg2/user.sty	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/docs/beleg2/user.sty	2006-05-16 20:57:21 UTC (rev 97)
+@@ -20,6 +20,9 @@
+ 
+ 
+ % Anpassung der &#220;berschriften
++\setkomafont{chapter}{\bfseries\normalcolor\sffamily\Huge} 
++\setkomafont{section}{\bfseries\normalcolor\sffamily\huge} 
++\setkomafont{subsection}{\bfseries\normalcolor\sffamily\Large} 
+ \setkomafont{subsubsection}{\bfseries\normalcolor\sffamily\large} 
+ \setkomafont{paragraph}{\bfseries\normalcolor\sffamily\large} 
+ 
+
+Added: trunk/include/autor.php
+===================================================================
+--- trunk/include/autor.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/autor.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,23 @@
++&lt;?php
++	if(!defined(&quot;Autor&quot;))
++	{
++		define(&quot;Autor&quot;, 1);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Autor
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Autor()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Modified: trunk/include/bibtex.php
+===================================================================
+--- trunk/include/bibtex.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/bibtex.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -1,11 +1,11 @@
+ &lt;?php
+-	/**
+-	 * @brief Gib &#167;string bis zum ersten Auftreten von $needle aus
+-	 * @param $string zu lesende String
+-	 * @param $needle zu findende String
+-	 * @param $offset Offset des als erstes zu bearbeidende Buchstabens
+-	 * @returns Array aus Position des Fundes und Teilstring bis (aber nicht einschlie&#223;lich) gefundenem $needle
+-	 * @remarks Gibt boolean false zur&#252;ck, wenn needle nicht gefunden werden kann
++	/*! \brief Gib &#167;string bis zum ersten Auftreten von $needle aus
++	 *
++	 *  \param $string zu lesende String
++	 *  \param $needle zu findende String
++	 *  \param $offset Offset des als erstes zu bearbeidende Buchstabens
++	 *  \returns Array aus Position des Fundes und Teilstring bis (aber nicht einschlie&#223;lich) gefundenem $needle
++	 *  \remarks Gibt boolean false zur&#252;ck, wenn needle nicht gefunden werden kann
+ 	 */
+ 	function strtill($string, $needle , $offset = 0)
+ 	{
+@@ -19,23 +19,25 @@
+ 		}
+ 	}
+ 
+-	/**
+-	 * @brief BibTeX Parser und Exporter
++	/*! \brief BibTeX Parser und Exporter
++	 *
++	 *  \note Das sollte mit Buch verschmolzen werden
+ 	 */
+ 	class BibTeX
+ 	{
+-		var $type;
+-		var $id;
+-		var $title;
+-		var $author;
+-		var $year;
+-		var $publisher;
+-		var $isbn;
+-		var $annote;
++		var $type; ///&lt; Typ der Literatur
++		var $id; ///&lt; Buchidentifikationsnummer
++		var $title; ///&lt; Titel der Literatur
++		var $author; ///&lt; Autoren der Literatur
++		var $year; ///&lt; Erscheinungsjahr
++		var $publisher; ///&lt; Verlag/Herausgeber
++		var $isbn; ///&lt; ISBN der Literatur
++		var $annote; ///&lt; Bemerkung zur Literatur
+ 		
+ 		
+-		/**
+-		 * @brief Konstruktor
++		/*! \brief Konstruktor
++		 * 
++		 *  Erstellt eine leere Literaturangabe
+ 		 */
+ 		function BibTeX()
+ 		{
+@@ -49,12 +51,12 @@
+ 			$annote = &quot;&quot;;
+ 		}
+ 
+-		/**
+-		 * @brief Parser f&#252;r BibTeX
+-		 * @param $string Zu &quot;parsende&quot; String
+-		 * @return Array von BibTeX
+-		 * @remarks $string wird nicht exakt auf Fehler untersucht und gegebenenfalls versuchen zu ignorieren
+-		 * @remarks Gibt boolean false zur&#252;ck, wenn nichts gefunden werden kann
++		/*! \brief Parser f&#252;r BibTeX
++		 *
++		 *  \param $string Zu &quot;parsende&quot; String
++		 *  \return Array von BibTeX
++		 *  \remarks $string wird nicht exakt auf Fehler untersucht und gegebenenfalls versuchen zu ignorieren
++		 *  \remarks Gibt boolean false zur&#252;ck, wenn nichts gefunden werden kann
+ 		 */
+ 		function parse($string)
+ 		{
+@@ -172,10 +174,10 @@
+ 			return $entries;
+ 		}
+ 
+-		/**
+-		 * @brief Konvertiert BibTeX-Eintrag in String
+-		 * @return String mit BibTeX-Informationen
+-		 * @remarks Gibt boolean false zur&#252;ck, wenn zu wenig Informationen vorhanden sind
++		/*! \brief Konvertiert BibTeX-Eintrag in String
++		 *
++		 *  \return String mit BibTeX-Informationen
++		 *  \remarks Gibt boolean false zur&#252;ck, wenn zu wenig Informationen vorhanden sind
+ 		 */
+ 		function toString()
+ 		{
+
+Modified: trunk/include/config.php
+===================================================================
+--- trunk/include/config.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/config.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -1,7 +1,8 @@
+ &lt;?php
+ 	error_reporting(E_ALL);
+ 
+-	/// Datenbankeinstellungen
++	// Datenbankeinstellungen
++	$db_config['dbms'] = &quot;mysql&quot;;	// welche Datenbankklasse benutzen?
+ 	$db_config['user'] = &quot;liman&quot;;
+ 	$db_config['pass'] = &quot;drownamil&quot;;
+ 	$db_config['name'] = &quot;liman&quot;;
+
+Modified: trunk/include/global.php
+===================================================================
+--- trunk/include/global.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/global.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -38,10 +38,9 @@
+ 			quote_array($_COOKIE);
+ 		}
+ 
+-		/**
+-		 * @brief Wandelt String in HTML-ID um
+-		 * @param str zu verarbeitende Rohdaten
+-		 * @return umgewandelter String
++		/*! \brief Wandelt String in HTML-ID um
++		 *  \param str zu verarbeitende Rohdaten
++		 *  \return umgewandelter String
+ 		 */
+ 		function makeid($str)
+ 		{
+@@ -70,5 +69,6 @@
+ 		}
+ 
+ 		require($basepath.&quot;include/config.php&quot;);
++		require($basepath.&quot;include/sqldb.php&quot;);
+ 	}
+ ?&gt;
+
+Added: trunk/include/kommentar.php
+===================================================================
+--- trunk/include/kommentar.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/kommentar.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,24 @@
++&lt;?php
++	if(!defined(&quot;Kommentar&quot;))
++	{
++		define(&quot;Kommentar&quot;, 1);
++		require_once(&quot;login.php&quot;);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Kommentar
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Kommentar()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Added: trunk/include/literatur.php
+===================================================================
+--- trunk/include/literatur.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/literatur.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,26 @@
++&lt;?php
++	if(!defined(&quot;Literatur&quot;))
++	{
++		define(&quot;Literatur&quot;, 1);
++		require_once(&quot;login.php&quot;);
++		require_once(&quot;kommentar.php&quot;);
++		require_once(&quot;autor.php&quot;);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Literatur
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Literatur()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Added: trunk/include/login.php
+===================================================================
+--- trunk/include/login.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/login.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,23 @@
++&lt;?php
++	if(!defined(&quot;Login&quot;))
++	{
++		define(&quot;Login&quot;, 1);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Login
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Login()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Added: trunk/include/mitglied.php
+===================================================================
+--- trunk/include/mitglied.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/mitglied.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,24 @@
++&lt;?php
++	if(!defined(&quot;Mitglied&quot;))
++	{
++		define(&quot;Mitglied&quot;, 1);
++		require_once(&quot;login.php&quot;);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Mitglied
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Mitglied()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Added: trunk/include/sqldb.php
+===================================================================
+--- trunk/include/sqldb.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/sqldb.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,14 @@
++&lt;?php
++	switch ($db_config['dbms'])
++	{
++		default:
++		case &quot;mysql&quot;:
++			require($basepath.&quot;include/sqldb_mysql.php&quot;);
++			break;
++	}
++	
++	$sqldb = new SQLDB($db_config[&quot;host&quot;], $db_config[&quot;user&quot;], $db_config[&quot;pass&quot;], $db_config[&quot;name&quot;]);
++	
++	if ($sqldb-&gt;db_id === false)
++		die(mysql_error().&quot;. Could not connect to SQL server. Please inform Webmaster&quot;);;
++?&gt;
+
+Added: trunk/include/sqldb_mysql.php
+===================================================================
+--- trunk/include/sqldb_mysql.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/sqldb_mysql.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,174 @@
++&lt;?php
++	if(!defined(&quot;SQLDB&quot;))
++	{
++		define(&quot;SQLDB&quot;, &quot;mysql&quot;);
++		
++
++		/*! \brief Datenbankzugriff &#252;ber MySQL
++		 *
++		 *  Erlaubt den abstrahierten Zugriff &#252;ber SQL auf eine
++		 *  Datenbank (hier MySQL).
++		 */
++		class SQLDB
++		{
++			var $db_id = 0; ///&lt; Identifikation der aktuellen Datenbankverbindung
++			var $query_result = 0; ///&lt; Identifikation der letzten Datenbankabfrage
++			
++
++			/*! \brief &#214;ffnet eine Datenbankverbindung
++			 *
++			 *  \param $host Adresse oder IP des MySQL-Servers
++			 *  \param $user Benutzernamen f&#252;r MySQL-Zugriff
++			 *  \param $password Benutzerpasswort f&#252;r MySQL-Zugriff
++			 *  \param $database Auszuw&#228;hlende Datenbank
++			 *  \param $persist Aufbau einer persistenten (geteilten) Verbindung
++			 *  \return Kennung der Datenbankverbindung oder im Fehlerfall false
++			 */
++			function SQLDB($host, $user, $password, $database, $persist = true)
++			{
++				if (empty($database) === true)
++				{
++					// keine Datenbank angegeben
++					$this-&gt;db_id = false;
++					return false;
++				}
++
++				if ($persist == true)
++				{
++					$this-&gt;db_id = @mysql_pconnect($host, $user, $password);
++				}
++				else
++				{
++					$this-&gt;db_id = @mysql_connect($host, $user, $password);
++				}
++				
++				if ($this-&gt;db_id !== false)
++				{
++					if (@mysql_select_db($database, $this-&gt;db_id))
++					{
++						// Verbindung aufgebaut und Datenbank ausgew&#228;hlt
++						return $this-&gt;db_id;
++					}
++				}
++
++				// Verbindungsaufbau funktionierte nicht
++				$this-&gt;db_id = false;
++				return  false;
++			}
++			
++			/*! \brief Anzahl zuletzt ge&#228;nderter Datens&#228;tze
++			 *
++			 *  Gibt Anzahl der bei der letzten INSERT, UPDATE bzw.
++			 *  DELETE Anweisung ge&#228;nderten Datens&#228;tze
++			 *  \return Anzahl der Datens&#228;tze
++			 *  \remarks F&#252;r gefundene Datens&#228;tze sollte num_rows() genutzt werden
++			 */
++			function affected_rows()
++			{
++				return @mysql_affected_rows($this-&gt;db_id);
++			}
++			
++			/*! \brief Beendet Verbindung
++			 *
++			 *  Beendet die Verbindung zum Datenbankserver
++			 *  \return Bei Erfolg true, im Fehlerfall false
++			 *  \remarks Persistente Verbindungen werden nicht geschlossen
++			 */
++			function close()
++			{
++				return @mysql_close($this-&gt;db_id);
++			}
++			
++			/*! \brief Springt auf Datensatz
++			 *
++			 *  L&#228;sst den internen Zeiger auf angegebenen
++			 *  Datensatz der letzten Anfrage zeigen. Der
++			 *  Datensatz l&#228;sst sich danach mit fetch_*
++			 *  abfragen.
++			 *  \return Bei Erfolg true, im Fehlerfall false
++			 */
++			function data_seek($row_number)
++			{
++				return @mysql_data_seek($this-&gt;query_result, $row_number);
++			}
++			
++			/*! \brief Liefert Fehlerinformationen
++			 *
++			 *  Liefert Array mit Fehlernachricht und interner
++			 *  Fehlernummer zur&#252;ck
++			 *  \return Feld mit feld[0] als Fehlernachricht und feld[1] als Fehlernummer
++			 */
++			function error()
++			{
++				$error = array();
++				$error['msg'] = @mysql_error($query_result);
++				$error['code'] = @mysql_errno($query_result);
++				return $error;
++			}
++			
++			/*! \brief Liefert Datensatz als Objekt
++			 *
++			 *  Wandelt aktuellen Datensatz in Objekt um und gibt
++			 *  ihn zur&#252;ck. Nach erfolgreicher Operation wird der
++			 *  interne Zeiger eine Stelle weiter ger&#252;ckt
++			 *  \return Bei Erfolg Datensatz als Objekt, sonst false
++			 */
++			function fetch_object()
++			{
++				return @mysql_fetch_object($this-&gt;query_result);
++			}
++			
++			/*! \brief Liefert Datensatz als Feld
++			 *
++			 *  Wandelt aktuellen Datensatz in Feld um und gibt
++			 *  ihn zur&#252;ck. Nach erfolgreicher Operation wird der
++			 *  interne Zeiger eine Stelle weiter ger&#252;ckt
++			 *  \return Bei Erfolg Datensatz als Feld, sonst false
++			 */
++			function fetch_row()
++			{
++				return @mysql_fetch_row($this-&gt;query_result);
++			}
++			
++			/*! \brief Entfernt Ergebnisse
++			 *  
++			 *  Entfernt Datens&#228;tze der letzten Anfrage und gibt
++			 *  deren Speicher frei
++			 *  \remarks Funktion wird vor jedem query aufgerufen
++			 */
++			function free_result()
++			{
++				$ret = @mysql_free_result($this-&gt;query_result);
++				unset($this-&gt;query_result);
++				return $ret;
++			}
++			
++			/*! \brief Anzahl zuletzt gefundener Datens&#228;tze
++			 *
++			 *  Gibt Anzahl der bei der letzten SELECT-Anweisung
++			 *  gefundenen Datens&#228;tze
++			 *  \return Anzahl der Datens&#228;tze
++			 *  \remarks F&#252;r ge&#228;nderte Datens&#228;tze sollte affected_rows() genutzt werden
++			 */
++			function num_rows()
++			{
++				return @mysql_num_rows($this-&gt;query_result);
++			}
++			
++			/*! \brief Sendet Anfrage an Server
++			 *
++			 *  Sendet eine Anfrage an die aktive Datenbank.
++			 *  Erhaltene Datens&#228;tze der Anfrage k&#246;nnen mit
++			 *  fetch_field, fetch_object und fetch_row abgefragt
++			 *  werden
++			 *  \param $query SQL-Anfrage an den Datenbankserver
++			 *  \return false wenn ein Fehler in der Anfrage aufgetreten ist
++			 */
++			function query($query)
++			{
++				$this-&gt;free_result();
++				return $this-&gt;query_result = @mysql_query($query, $this-&gt;db_id);
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+Added: trunk/include/suche.php
+===================================================================
+--- trunk/include/suche.php	2006-05-16 20:26:30 UTC (rev 96)
++++ trunk/include/suche.php	2006-05-16 20:57:21 UTC (rev 97)
+@@ -0,0 +1,24 @@
++&lt;?php
++	if(!defined(&quot;Suche&quot;))
++	{
++		define(&quot;Suche&quot;, 1);
++		require_once(&quot;literatur.php&quot;);
++
++		/*! \brief blabla
++		 *
++		 */
++		class Suche
++		{
++			var $blabla = 0; ///&lt; blabla
++			
++
++			/*! \brief blabla
++			 *
++			 *  \param $blabla blabla
++			 */
++			function Suche()
++			{
++			}
++		}
++	}
++?&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000086.html">[Liman-svn] r96 - trunk/docs/beleg2/visio
+</A></li>
+	<LI>Next message: <A HREF="000088.html">[Liman-svn] r98 - trunk/docs/beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#87">[ date ]</a>
+              <a href="thread.html#87">[ thread ]</a>
+              <a href="subject.html#87">[ subject ]</a>
+              <a href="author.html#87">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,254 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r48 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r48%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604251138.k3PBc5Mv010027%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000037.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r48 - trunk/docs/beleg1</H1>
+    <B>trusch at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r48%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604251138.k3PBc5Mv010027%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r48 - trunk/docs/beleg1">trusch at berlios.de
+       </A><BR>
+    <I>Tue Apr 25 13:38:05 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000037.html">[Liman-svn] r47 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[Liman-svn] r49 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: trusch
+Date: 2006-04-25 13:38:01 +0200 (Tue, 25 Apr 2006)
+New Revision: 48
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+Log:
+Hinzuf?\195?\188gen operationelle_anforderungen
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 08:44:51 UTC (rev 47)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-25 11:38:01 UTC (rev 48)
+@@ -94,7 +94,7 @@
+ \hline
+ Verlag &amp; Zeichenkette40 \\
+ \hline
+-ISBN &amp; gZahl *1stellig* + '-' + gZahl *4stellig* + '-' + gZahl *4stellig* + '-' + gZahl *1stellig* \textbf{DAS STIMMT LAUT WIKIPEDIA NICHT}\\
++ISBN &amp; Zeichenkette20 \\
+ \hline
+ Beschreibung &amp; Zeichenkette250 \\
+ \hline
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 08:44:51 UTC (rev 47)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-25 11:38:01 UTC (rev 48)
+@@ -5,106 +5,106 @@
+          gZahl - 2Byte, rZahl - 4 Byte\\
+          Zeichenkette - 1Byte pro Zeichen (der maximalen L&#228;nge) erforderlich sind.
+ 
+-TODO:\\
+ \begin{longtable}{|l|p{6.0cm}|p{2cm}|}
+ \hline
+ Element &amp; Struktur &amp; Bytes\\
+ \hline\hline
+-\endhead
++%\endhead
+ 
+-Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte \\
++Literatur &amp; @Literatur\_Nr + Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte &amp; $4 + 13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 539$ \\
+ \hline
+ Literatur\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Literatur\_Nr $\leq$ 999999*  &amp; $4$\\
+ \hline
+ Art &amp; [``Buch'' | ``Artikel'' | ``Handbuch'' | ``Diplomarbeit'' | ``Sonstiges''] \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG}  &amp; $13$\\
+ \hline
+-Titel &amp; Zeichenkette40 \\
++Titel &amp; Zeichenkette40 &amp; $40$ \\
+ \hline
+-Autor &amp; Zeichenkette40 \\
++Autor &amp; Zeichenkette40 &amp; $40$\\
+ \hline
+-Jahr &amp; gZahl *4stellig* \\
++Jahr &amp; gZahl *4stellig* &amp; $2$\\
+ \hline
+-Verlag &amp; Zeichenkette40 \\
++Verlag &amp; Zeichenkette40 &amp; $40$ \\
+ \hline
+-ISBN &amp; gZahl *1stellig* + '-' + gZahl *4stellig* + '-' + gZahl *4stellig* + '-' + gZahl *1stellig* \textbf{DAS STIMMT LAUT WIKIPEDIA NICHT}\\
++ISBN &amp; Zeichenkette20 &amp; $20$  \\
+ \hline
+-Beschreibung &amp; Zeichenkette250 \\
++Beschreibung &amp; Zeichenkette250 &amp; $250$ \\
+ \hline
+-Ort &amp; Zeichenkette40 \\
++Ort &amp; Zeichenkette40 &amp; $40$ \\
+ \hline
+-Stichworte &amp; Zeichenkette100 \\
++Stichworte &amp; Zeichenkette100 &amp; $100$\\
+ \hline\hline
+ 
+-Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr\\
++Kommentar &amp; @Kommentar\_Nr + Kommentartext + Literatur\_Nr + Mitglieds\_Nr &amp; $4 + 400 + 4 + 4 = 412 $\\
+ \hline
+-Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* \\
++Kommentar\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Kommentar\_Nr $\leq$ 999999* &amp; $4$ \\
+ \hline
+-Kommentartext &amp; Zeichenkette400 \\
++Kommentartext &amp; Zeichenkette400 &amp; $400$\\
+ \hline\hline
+ 
+-Mitglied  &amp; @Mitglieds\_Nr  + Name + Login + Passwort + Rechte\\
++Mitglied  &amp; @Mitglieds\_Nr  + Name + Login + Passwort + Rechte &amp; $4 + 20 + 12 + 12 + 13 = 61 $\\
+ \hline
+-Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* \\ 
++Mitglieds\_Nr &amp; gZahl *6stellig, 000001 $\leq$ Benutzer\_Nr $\leq$ 999999* &amp; $4$ \\ 
+ \hline
+-Name &amp; &lt;Vor&gt;Name + &lt;Nach&gt;Name \\
++Name &amp; &lt;Vor&gt;Name + &lt;Nach&gt;Name &amp; $10 + 10 = 20$\\
+ \hline
+-Login &amp; Zeichenkette12 \\
++Login &amp; Zeichenkette12 &amp; $12$\\
+ \hline
+-Passwort &amp; Zeichenkette12 \\
++Passwort &amp; Zeichenkette12 &amp; $12$\\
+ \hline
+-Rechte &amp; [``Benutzer'' $\mid $``Administrator``] \\
++Rechte &amp; [``Benutzer'' $\mid $``Administrator``] &amp; $13$ \\
+ \hline\hline
+ 
+-Mitgliedsdaten &amp; Name + Login + Passwort + Rechte \\
++Mitgliedsdaten &amp; Name + Login + Passwort + Rechte &amp; $20 + 12 + 12 + 13 = 57 $\\
+ \hline
+-Literaturdaten &amp; Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte \\
++Literaturdaten &amp; Art + Titel + Autor + Jahr + Verlag + ISBN + Beschreibung + Ort + Stichworte &amp; $13 + 40 + 40 + 2 + 40 + 20 + 250 + 40 + 100 = 535 $ \\
+ \hline
+-Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext \\
++Kommentardaten &amp; Literatur\_Nr + Mitglieds\_Nr + Kommentartext &amp; $4 + 4 + 4 = 12 $ \\
+ \hline
+-BibTeX-Datei &amp; *Datei im Bibtexformat* \\
++BibTeX-Datei &amp; *Datei im Bibtexformat* &amp; $8$\\
+ \hline
+-Suchbegriff &amp; [Zeichenkette100 | (Art) + (Titel) + (Autor) + (ISBN) + (Jahr) + (Beschreibung) + (Ort) + (Stichworte)] *Mindestens ein optionales Feld muss angegeben sein* \\
++Suchbegriff &amp; [Zeichenkette100 | (Art) + (Titel) + (Autor) + (ISBN) + (Jahr) + (Beschreibung) + (Ort) + (Stichworte)] *Mindestens ein optionales Feld muss angegeben sein* &amp; $100 $ \\
+ \hline
+-Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} \\
++Exportanfrage &amp; Literatur\_Nr \textbf{BITTE UM VORSCHL&#196;GE/&#196;NDERUNG} &amp; $4 $ \\
+ \hline\hline
+ 
+-Best&#228;tigung\_BibTeXImport &amp; Literatur\_Nr + Zeichenkette ''Importieren vorgenommen`` \\
++Best&#228;tigung\_BibTeXImport &amp; Literatur\_Nr + Zeichenkette ''Importieren vorgenommen`` &amp; $4 + 23 = 27 $\\
+ \hline
+-Best&#228;tigung\_Literaturanlegen &amp; Literatur\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++Best&#228;tigung\_Literaturanlegen &amp; Literatur\_Nr + Zeichenkette ''Anlegen vorgenommen`` &amp; $4 + 19 = 23 $\\
+ \hline
+-Best&#228;tigung\_Literatur&#228;ndern &amp; Literatur\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++Best&#228;tigung\_Literatur&#228;ndern &amp; Literatur\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` &amp; $4 + 20 = 24$ \\
+ \hline
+-Best&#228;tigung\_Literaturl&#246;schen &amp; Literatur\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++Best&#228;tigung\_Literaturl&#246;schen &amp; Literatur\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` &amp; $4 + 19 = 23 $\\
+ \hline
+-Best&#228;tigung\_Kommentaranlegen &amp; Kommentar\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++Best&#228;tigung\_Kommentaranlegen &amp; Kommentar\_Nr + Zeichenkette ''Anlegen vorgenommen`` &amp; $4 + 19 = 23 $\\
+ \hline
+-Best&#228;tigung\_Kommentar&#228;ndern &amp; Kommentar\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++Best&#228;tigung\_Kommentar&#228;ndern &amp; Kommentar\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` &amp; $4 + 20 = 23$\\
+ \hline
+-Best&#228;tigung\_Kommentarl&#246;schen &amp; Kommentar\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++Best&#228;tigung\_Kommentarl&#246;schen &amp; Kommentar\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` &amp; $4 + 19 = 23$ \\
+ \hline
+-Best&#228;tigung\_Mitgliedanlegen &amp; Mitglieds\_Nr + Zeichenkette ''Anlegen vorgenommen`` \\
++Best&#228;tigung\_Mitgliedanlegen &amp; Mitglieds\_Nr + Zeichenkette ''Anlegen vorgenommen`` &amp; $4 + 19 = 23 $ \\
+ \hline
+-Best&#228;tigung\_Mitglied&#228;ndern &amp; Mitglieds\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` \\
++Best&#228;tigung\_Mitglied&#228;ndern &amp; Mitglieds\_Nr + Zeichenkette ''&#196;nderung vorgenommen`` &amp; $4 + 20 = 24$\\
+ \hline
+-Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` \\
++Best&#228;tigung\_Mitgliedl&#246;schen &amp; Mitglieds\_Nr + Zeichenkette ''L&#246;schen vorgenommen`` &amp; $4 + 19 = 23$\\
+ \hline
+-Literatur\_Info &amp; Literatur + Kommentare \\
++Literatur\_Info &amp; Literatur + Kommentare &amp; $ 539 + 412 = 951 $ \\
+ \hline
+-Suchtreffer &amp; \{Literatur\_Nr + Titel\} \textbf{NICHT NOCH MEHR?}\\
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Art + Beschreibung\} &amp; $4 + 40 + 13 + 250 = 307$\\
+ \hline
+-Mitgliederliste &amp; \{Mitglieds\_Nr + Name\}\\
++Mitgliederliste &amp; \{Mitglieds\_Nr + Name\} &amp; $4 + 20 = 24 $\\
+ \hline
+ \end{longtable}
+ 
++
+ \subsection{Speicher (Angaben zum Speicherbedarf in Byte)}
+ TODO:\\
+ \begin{tabular}[ht]{|l|l|l|l|l|}
+ \hline
+ Speicher &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Bibliothek &amp; {Literatur} &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
+-Kommentare &amp; {Kommentar} &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
+-Mitglieder &amp; {Mitglied}  &amp; $0*19$ &amp; $50*19=950$ &amp; $100*19=1900$ \\
++Literatur &amp; {Literatur} &amp; $0*539$ &amp; $50*539=26950$ &amp; $100*539=53900$ \\
++Kommentare &amp; {Kommentar} &amp; $0*412$ &amp; $50*412=20600$ &amp; $100*412=41200$ \\
++Mitglieder &amp; {Mitglied}  &amp; $0*61$ &amp; $50*61=3050$ &amp; $100*61=6100$ \\
+ \hline
+ \end{tabular}
+ 
+@@ -114,9 +114,11 @@
+ \hline
+ Datenfluss &amp; Struktur &amp; Minimum &amp; Mittel &amp; Maximum \\
+ \hline\hline
+-Kommentare &amp; {Kommentar} &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
+-Suchtreffer &amp; \{Literatur\_Nr + Titel\}  &amp; $0*64$ &amp; $50*64=3200$ &amp; $100*64=6400$ \\
+-...\\
++
++Suchtreffer &amp; \{Literatur\_Nr + Titel + Art + Beschreibung\}  &amp; $0*307$ &amp; $50*307=15350$ &amp; $100*307=30700$ \\
++BibTeX-Datei &amp; \{Datei im Bibtexformat\} &amp; $0*8$ &amp; $50*8=400$ &amp; $100*8=800$ \\
++ 
++\\
+ \hline
+ \end{tabular}
+ 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000037.html">[Liman-svn] r47 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[Liman-svn] r49 - trunk/docs/beleg1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

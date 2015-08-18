@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r147 - trunk/include/tests
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r147%20-%20trunk/include/tests&In-Reply-To=%3C200606080851.k588pLrl027177%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000136.html">
+   <LINK REL="Next"  HREF="000138.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r147 - trunk/include/tests</H1>
+    <B>fwilhelm at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r147%20-%20trunk/include/tests&In-Reply-To=%3C200606080851.k588pLrl027177%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r147 - trunk/include/tests">fwilhelm at berlios.de
+       </A><BR>
+    <I>Thu Jun  8 10:51:21 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000136.html">[Liman-svn] r146 - in trunk/include: . tests
+</A></li>
+        <LI>Next message: <A HREF="000138.html">[Liman-svn] r148 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#137">[ date ]</a>
+              <a href="thread.html#137">[ thread ]</a>
+              <a href="subject.html#137">[ subject ]</a>
+              <a href="author.html#137">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: fwilhelm
+Date: 2006-06-08 10:51:20 +0200 (Thu, 08 Jun 2006)
+New Revision: 147
+
+Added:
+   trunk/include/tests/autor.php
+Modified:
+   trunk/include/tests/suche.php
+Log:
+Query Ergebnisse bei Suche korregiert (von int zu object mit Nr),
+UnitTest f?\195?\188r Autor
+
+Added: trunk/include/tests/autor.php
+===================================================================
+--- trunk/include/tests/autor.php	2006-06-07 18:28:06 UTC (rev 146)
++++ trunk/include/tests/autor.php	2006-06-08 08:51:20 UTC (rev 147)
+@@ -0,0 +1,104 @@
++&lt;?php
++	require_once(&quot;include/tests/errormessage.php&quot;);
++	
++	class AutorTest
++	{
++		function Setup()
++		{
++		}
++		
++		function TearDown()
++		{
++			global $sqldb;
++			
++			$sqldb-&gt;Verify();
++		}
++		
++		function ConstructorTest()
++		{
++			$data = new stdClass();
++			$data-&gt;Name = &quot;Nur ein Mensch&quot;;
++			$data-&gt;Nr = 127;
++			
++			$autor = new Autor( $data );
++			
++			if( $data-&gt;Nr != $autor-&gt;Nr )
++				return new ErrorMessage( &quot;Autor&quot;, &quot;ctor&quot;, &quot;Nummer&quot;, $data-&gt;Nr, $autor-&gt;Nr );
++				
++			if( $data-&gt;Name != $autor-&gt;Name )
++				return new ErrorMessage( &quot;Autor&quot;, &quot;ctor&quot;, &quot;Nummer&quot;, $data-&gt;Name, $autor-&gt;Name );
++				
++			return true;
++		}
++		
++		function GetAll()
++		{
++			global $sqldb;
++			
++			$testAutoren = array();
++			for( $i = 0; $i &lt; 3; $i++ )
++			{
++				$autor = new stdObject();
++				$autor-&gt;Nr = $i;
++				$autor-&gt;Name = &quot;Autor $i&quot;;
++				$testAutoren[] = $autor;
++			}
++			
++			$sqldb-&gt;ExpectQuery( '', $testAutoren );
++			
++			$resultAutoren = Autor::GetAll( 123 );
++			
++			$result = $sqldb-&gt;Verify();
++			
++			if( $result !== true )
++			{
++				$result-&gt;Unit = &quot;Autor&quot;;
++				$result-&gt;Test = &quot;GetAll&quot;;
++				return $result;
++			}
++			
++			for( $i = 0; $i &lt; 3; $i++ )
++			{
++				if( $testAutoren[$i]-&gt;Nr != $resultAutoren[$i]-&gt;Nr )
++					return new ErrorMessage( &quot;Autor&quot;, &quot;GetAll&quot;, &quot;Nummer von Autor $i falsch&quot;, $testAutoren[$i]-&gt;Nr, $resultAutoren[$i]-&gt;Nr );
++				
++				if( $testAutoren[$i]-&gt;Name != $resultAutoren[$i]-&gt;Name )
++					return new ErrorMessage( &quot;Autor&quot;, &quot;GetAll&quot;, &quot;Name von Autor $i falsch&quot;, $testAutoren[$i]-&gt;Name, $resultAutoren[$i]-&gt;Name );
++			}
++			
++			return true;
++		}
++		
++		function Split()
++		{
++			global $sqldb;
++			
++			$testAutorNamen = &quot;Schon Vorhanden, Wird Hinzugef&#252;gt&quot;;
++			
++			$testAutoren = array();
++			$testAutoren[] = new stdObject();
++			$testAutoren[] = new stdObject();
++			
++			$testAutoren[0]-&gt;Nr = 1;
++			$testAutoren[1]-&gt;Nr = 2;
++			 
++			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', $testAutoren[0] );
++			$sqldb-&gt;ExpectQuery( 'SELECT.*Autor_Nr.*WHERE.*Autorname', false  );
++			$sqldb-&gt;ExpectQuery( 'INSERT INTO.*', 1 );
++			$sqldb-&gt;ExpectQuery( 'SELECT @@IDENTITY.*', $testAutoren[1] );
++			
++			$autoren = Autor::Split( $testAutorNamen );
++			
++			if( count($autoren) != count($testAutoren) )
++				return new ErrorMessage( 'Autor', 'Split', 'Anzahl Autoren', count($testAutoren), count($autoren) );
++				
++			for( $i = 0; $i &lt; count($autoren); $i++ )
++			{
++				if( $autoren[$i]-&gt;Nr != $testAutoren[$i]-&gt;Nr )
++					return new ErrorMessage( 'Autor', 'Split', &quot;Autor[$i]-&gt;Nr&quot;, $testAutoren[$i]-&gt;Nr, $autoren[$i]-&gt;Nr );
++			}
++			
++			return true;
++		}
++	}
++?&gt;
+
+Modified: trunk/include/tests/suche.php
+===================================================================
+--- trunk/include/tests/suche.php	2006-06-07 18:28:06 UTC (rev 146)
++++ trunk/include/tests/suche.php	2006-06-08 08:51:20 UTC (rev 147)
+@@ -5,10 +5,36 @@
+ 	class SucheTest
+ 	{
+ 		var $suche;
++		var $testHits;
+ 		
++		function CreateResult( $nr, $titel, $verlag, $isbn )
++		{
++			$result = new stdObject();
++			$result-&gt;Nr = $nr;
++			$result-&gt;Titel = $titel;
++			$result-&gt;Verlag = $verlag;
++			$result-&gt;ISBN = $isbn;
++			return $result;
++		}
++		
++		function CompareResults( $realHits )
++		{
++			if( count($realHits) != count($this-&gt;testHits) )
++				return new ErrorMessage( 'Suche', null, 'Anzahl Treffer', count($this-&gt;testHits), count($realHits) );
++			
++			for( $i = 0; $i &lt; count($this-&gt;testHits); $i++ )
++			{
++				
++			}
++		}
++		
+ 		function Setup()
+ 		{
+ 			$suche = new Suche();
++			
++			$this-&gt;testHits = array();
++			$this-&gt;testHits[] = CreateResult( 1, 'Nachtvogel', 'Blanvalet', '3-442-24258-4' );
++			$this-&gt;testHits[] = CreateResult( 2, 'D&#228;monensommer', 'Blanvalet', '3-422-24257-6' );
+ 		}
+ 		
+ 		function TearDown()
+@@ -22,13 +48,10 @@
+ 		{
+ 			global $sqldb;
+ 			
+-			$testHits = array();
+-			$testHits[] = 1;
+-			$testHits[] = 2;
+-			$sqldb-&gt;ExpectQuery( '.*SELECT Literatur_Nr.*Bibliothek.*LIMIT.*', $testHits );
++			$sqldb-&gt;ExpectQuery( '.*SELECT Literatur_Nr.*Bibliothek.*LIMIT.*', $this-&gt;testHits );
+ 			
+ 			// keine Autoren, Autor::GetAll soll in Autor Unit getestet werden
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
++			for( $i = 0; $i &lt; count($this-&gt;testHits); $i++ )
+ 			{
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+@@ -44,17 +67,9 @@
+ 				return $result;
+ 			}
+ 			
+-			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
+-				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			if( count($this-&gt;testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($this-&gt;testHits), count($this-&gt;suche-&gt;Treffer) );
+ 			
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
+-			{
+-				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
+-				{
+-					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
+-				}
+-			}
+-			
+ 			return true;
+ 		}
+ 		
+@@ -64,13 +79,9 @@
+ 			
+ 			$volltext = 'Pr&#228;dikat';
+ 			
+-			$testHits = array();
+-			$testHits[] = 1;
+-			$testHits[] = 2;
++			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*MATCH.*AGAINST.*', $this-&gt;testHits );
+ 			
+-			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*MATCH.*AGAINST.*', $testHits );
+-			
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
++			for( $i = 0; $i &lt; count($this-&gt;testHits); $i++ )
+ 			{
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+@@ -86,16 +97,9 @@
+ 				return $result;
+ 			}
+ 			
+-			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
+-				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			if( count($this-&gt;testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($this-&gt;testHits), count($this-&gt;suche-&gt;Treffer) );
+ 			
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
+-			{
+-				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
+-				{
+-					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
+-				}
+-			}
+ 			
+ 			return true;
+ 		}
+@@ -107,13 +111,9 @@
+ 			$titel = 'Ein Titel';
+ 			$autor = 'Niemand';
+ 			
+-			$testHits = array();
+-			$testHits[] = 1;
+-			$testHits[] = 2;
++			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*LIKE.*', $this-&gt;testHits );
+ 			
+-			$sqldb-&gt;ExpectQuery( '.*SELECT.*Bibliothek.*WHERE.*LIKE.*', $testHits );
+-			
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
++			for( $i = 0; $i &lt; count($this-&gt;testHits); $i++ )
+ 			{
+ 				$sqldb-&gt;ExpectQuery( '.*SELECT.*Autor_Nr.*Autorname.*Literatur_Autor.*', false );
+ 			}
+@@ -129,17 +129,9 @@
+ 				return $result;
+ 			}
+ 			
+-			if( count($testHits) != count($this-&gt;suche-&gt;Treffer) )
+-				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($testHits), count($this-&gt;suche-&gt;Treffer) );
++			if( count($this-&gt;testHits) != count($this-&gt;suche-&gt;Treffer) )
++				return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, count($this-&gt;testHits), count($this-&gt;suche-&gt;Treffer) );
+ 			
+-			for( $i = 0; $i &lt; count($testHits); $i++ )
+-			{
+-				if( $testHits[$i] != $this-&gt;suche-&gt;Treffer[$i] )
+-				{
+-					return new ErrorMessage( &quot;Suche&quot;, &quot;LetzteLiteratur&quot;, &quot;Zahl der Treffer&quot;, $testHits[$i], $this-&gt;suche-&gt;Treffer[$i] );
+-				}
+-			}
+-			
+ 			return true;
+ 		}
+ 	}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000136.html">[Liman-svn] r146 - in trunk/include: . tests
+</A></li>
+	<LI>Next message: <A HREF="000138.html">[Liman-svn] r148 - trunk/include
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#137">[ date ]</a>
+              <a href="thread.html#137">[ thread ]</a>
+              <a href="subject.html#137">[ subject ]</a>
+              <a href="author.html#137">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r133 - trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r133%20-%20trunk&In-Reply-To=%3C200606041500.k54F0TZd009454%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000122.html">
+   <LINK REL="Next"  HREF="000124.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r133 - trunk</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r133%20-%20trunk&In-Reply-To=%3C200606041500.k54F0TZd009454%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r133 - trunk">lazhur at berlios.de
+       </A><BR>
+    <I>Sun Jun  4 17:00:29 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000122.html">[Liman-svn] r132 - in trunk: . design include
+</A></li>
+        <LI>Next message: <A HREF="000124.html">[Liman-svn] r134 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-04 17:00:22 +0200 (Sun, 04 Jun 2006)
+New Revision: 133
+
+Modified:
+   trunk/litmod.php
+   trunk/usermod.php
+Log:
+- Mitgliederverwaltung erweitert
+- L?\195?\182schbest?\195?\164tigung in Literaturverwaltung korrigiert
+
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-04 14:52:30 UTC (rev 132)
++++ trunk/litmod.php	2006-06-04 15:00:22 UTC (rev 133)
+@@ -272,7 +272,7 @@
+ 			{
+ 				require_once(&quot;include/form_helper.php&quot;);
+ 				echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
+-				echo &quot;Trotzdem entfernen?&quot;;
++				echo &quot;Wollen sie die Literatur wirklich entfernen?&quot;;
+ 				echo &quot;&lt;form action=\&quot;litmod.&quot;.$ext.&quot;?delete\&quot; id=\&quot;litupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
+ 				echo form_input(&quot;hidden&quot;, &quot;id&quot;, $_GET[&quot;id&quot;]);
+ 				echo form_input(&quot;hidden&quot;, &quot;accept&quot;, &quot;true&quot;);
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-06-04 14:52:30 UTC (rev 132)
++++ trunk/usermod.php	2006-06-04 15:00:22 UTC (rev 133)
+@@ -264,18 +264,45 @@
+ 		require_once(&quot;include/mitglied.php&quot;);
+ 		if (isset($_GET[&quot;delete&quot;]) === true)
+ 		{
+-			/// \todo Hier erstmal nachfragen, ob &#252;berhaupt L&#246;schen
+-			Mitglied::Delete($_GET[&quot;id&quot;]);
++			if (isset($_POST[&quot;accept&quot;]) === true)
++			{
++				Mitglied::Delete($_POST[&quot;id&quot;]);
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde entfernt&lt;/p&gt;&quot;;
++			}
++			else
++			{
++				require_once(&quot;include/form_helper.php&quot;);
++				echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
++				echo &quot;Wollen sie den Nutzer wirklich entfernen?&quot;;
++				echo &quot;&lt;form action=\&quot;usermod.&quot;.$ext.&quot;?delete\&quot; id=\&quot;userupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
++				echo form_input(&quot;hidden&quot;, &quot;id&quot;, $_GET[&quot;id&quot;]);
++				echo form_input(&quot;hidden&quot;, &quot;accept&quot;, &quot;true&quot;);
++				echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Best&#228;tigen\&quot;&gt;&quot;;
++				echo &quot;&lt;/form&gt;&lt;/div&gt;&quot;;
++			}
+ 		}
+ 		elseif  (isset($_GET[&quot;insert&quot;]) === true)
+ 		{
+-			/// \todo gab es den Login vielleicht schon?
+-			Mitglied::Insert($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]);
++			if (Mitglied::Insert($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]) === true)
++			{
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde ge&#228;ndert&lt;/p&gt;&quot;;
++			}
++			else
++			{
++				
++				echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Nutzer konnte nicht angelegt werden. Ist Login vielleicht schon vergeben?&lt;/p&gt;&quot;;
++			}
+ 		}
+ 		elseif (isset($_GET[&quot;update&quot;]) === true)
+ 		{
+-			/// \todo gab es den Login vielleicht schon?
+-			Mitglied::Update($_POST[&quot;id&quot;], $_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]);
++			if (Mitglied::Update($_POST[&quot;id&quot;], $_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]) === true)
++			{
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde ge&#228;ndert&lt;/p&gt;&quot;;
++			}
++			else
++			{
++				echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Nutzer konnte nicht ge&#228;ndert werden. Ist Login vielleicht schon vergeben?&lt;/p&gt;&quot;;
++			}
+ 		}
+ 	}
+ ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000122.html">[Liman-svn] r132 - in trunk: . design include
+</A></li>
+	<LI>Next message: <A HREF="000124.html">[Liman-svn] r134 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#123">[ date ]</a>
+              <a href="thread.html#123">[ thread ]</a>
+              <a href="subject.html#123">[ subject ]</a>
+              <a href="author.html#123">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

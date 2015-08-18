@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r63 - trunk/docs/beleg1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r63%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604261527.k3QFREiq021049%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000052.html">
+   <LINK REL="Next"  HREF="000054.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r63 - trunk/docs/beleg1</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r63%20-%20trunk/docs/beleg1&In-Reply-To=%3C200604261527.k3QFREiq021049%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r63 - trunk/docs/beleg1">lazhur at berlios.de
+       </A><BR>
+    <I>Wed Apr 26 17:27:14 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000052.html">[Liman-svn] r62 - trunk/docs/beleg1
+</A></li>
+        <LI>Next message: <A HREF="000054.html">[Liman-svn] r64 - in trunk/docs: beleg1 protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-04-26 17:27:14 +0200 (Wed, 26 Apr 2006)
+New Revision: 63
+
+Modified:
+   trunk/docs/beleg1/funktionelle_anforderungen.tex
+   trunk/docs/beleg1/operationelle_anforderungen.tex
+   trunk/docs/beleg1/titel.tex
+Log:
+- Neues Ereignis zum Auflisten der neuen Literatur
+- Korrektur kleiner Rechtschreibefehler (Navigations-.., Antwortzeien)
+- Benedikt Keil aus der Liste der Teammitglieder entfernt
+
+
+Modified: trunk/docs/beleg1/funktionelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 15:21:00 UTC (rev 62)
++++ trunk/docs/beleg1/funktionelle_anforderungen.tex	2006-04-26 15:27:14 UTC (rev 63)
+@@ -28,20 +28,21 @@
+ \hline\hline
+ \endhead
+ 
+-1. &amp; N sucht Literatur &amp; Suchbegriff &amp; Suchtreffer \\\hline
+-2. &amp; N w&#228;hlt Literatur &amp; Literatur\_Nr &amp; Literatur\_Info \\\hline
+-3. &amp; N exportiert Literatur &amp; Exportanfrage &amp;  BibTeX-Datei \\\hline
+-4. &amp; M legt Literatur an &amp; Literaturdaten &amp; Best&#228;tigung\_Literaturanlegen \\\hline
+-5. &amp; M &#228;ndert Literatur &amp; Literatur &amp; Best&#228;tigung\_Literatur&#228;ndern\\\hline
+-6. &amp; M l&#246;scht Literatur &amp; Literatur\_Nr &amp; Best&#228;tigung\_Literaturl&#246;schen \\\hline
+-7. &amp; M &#228;ndert Mitglied &amp; Mitglied &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
+-8. &amp; M legt Kommentar an &amp; Kommentardaten &amp; Best&#228;tigung\_Kommentaranlegen \\\hline
+-9. &amp; M &#228;ndert Kommentar &amp; Kommentar &amp; Best&#228;tigung\_Kommentar&#228;ndern \\\hline
+-10. &amp; M l&#246;scht Kommentar &amp; Kommentar\_Nr &amp; Best&#228;tigung\_Kommentarl&#246;schen \\\hline
+-11.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
+-12.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
+-13.&amp; A l&#246;scht Mitglied &amp; Mitglieds\_Nr &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
+-14.&amp; A ruft Mitglieder ab &amp; - &amp; Mitgliederliste \\\hline
++1. &amp; N ruft neu hinzugef&#252;gte Literatur ab &amp; - &amp; Letzte\_Literatur \\\hline
++2. &amp; N sucht Literatur &amp; Suchbegriff &amp; Suchtreffer \\\hline
++3. &amp; N w&#228;hlt Literatur &amp; Literatur\_Nr &amp; Literatur\_Info \\\hline
++4. &amp; N exportiert Literatur &amp; Exportanfrage &amp;  BibTeX-Datei \\\hline
++5. &amp; M legt Literatur an &amp; Literaturdaten &amp; Best&#228;tigung\_Literaturanlegen \\\hline
++6. &amp; M &#228;ndert Literatur &amp; Literatur &amp; Best&#228;tigung\_Literatur&#228;ndern\\\hline
++7. &amp; M l&#246;scht Literatur &amp; Literatur\_Nr &amp; Best&#228;tigung\_Literaturl&#246;schen \\\hline
++8. &amp; M &#228;ndert Mitglied &amp; Mitglied &amp; Best&#228;tigung\_Mitglied&#228;ndern \\\hline
++9. &amp; M legt Kommentar an &amp; Kommentardaten &amp; Best&#228;tigung\_Kommentaranlegen \\\hline
++10. &amp; M &#228;ndert Kommentar &amp; Kommentar &amp; Best&#228;tigung\_Kommentar&#228;ndern \\\hline
++11. &amp; M l&#246;scht Kommentar &amp; Kommentar\_Nr &amp; Best&#228;tigung\_Kommentarl&#246;schen \\\hline
++12.&amp; M importiert BibTeX &amp; BibTeX-Datei &amp; Best&#228;tigung\_BibTeXImport \\\hline
++13.&amp; A legt Mitglied an &amp; Mitgliedsdaten &amp; Best&#228;tigung\_Mitgliedanlegen \\\hline
++14.&amp; A l&#246;scht Mitglied &amp; Mitglieds\_Nr &amp; Best&#228;tigung\_Mitgliedl&#246;schen \\\hline
++15.&amp; A ruft Mitglieder ab &amp; - &amp; Mitgliederliste \\\hline
+ \end{longtable}
+ 
+ \newpage % Viele Bilder so skaliert, dass sie ordentlich auf A4-Seiten passen
+@@ -192,7 +193,7 @@
+ des Browser Schriftgr&quot;o&quot;se und andere visuelle Einstellungen ver&quot;andern. Das Grundlayout bleibt jedoch immer erhalten
+ und richtet sich unter anderem auch nach der Gr&quot;o&quot;se des ge&quot;offneten Browserfensters.\\
+ \\
+-Das Layout teilt sich in einen Navigations/&quot;Ubersichtsteil auf der linken Seite der unabh&quot;angig von der Auswahl immer
++Das Layout teilt sich in einen Navigations-/&quot;Ubersichtsteil auf der linken Seite der unabh&quot;angig von der Auswahl immer
+ zu sehen ist. Hier findet sich die Navigation, die Suchmaske f&quot;ur die Suchfunktion sowie Authentifikationsmaske zum Login.
+ Auf der rechten, gr&quot;o&quot;seren Seite befindet sich der Inhalt der aktuell aufgerufenen Funktion.\\
+ \\
+
+Modified: trunk/docs/beleg1/operationelle_anforderungen.tex
+===================================================================
+--- trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 15:21:00 UTC (rev 62)
++++ trunk/docs/beleg1/operationelle_anforderungen.tex	2006-04-26 15:27:14 UTC (rev 63)
+@@ -152,5 +152,5 @@
+ 
+ 
+ \section{Operationelle Anforderungen an die Prozesse}
+-Es wird von Antwortzeien bis zu 5 Sekunden gerechnet. Da die meisten Prozesse auf dem Server verarbeitet werden und der Client diese nur Darstellen muss, 
++Es wird von Antwortzeiten bis zu 5 Sekunden gerechnet. Da die meisten Prozesse auf dem Server verarbeitet werden und der Client diese nur Darstellen muss, 
+ kann von 5 Sekunden ausgegangen werden. 
+
+Modified: trunk/docs/beleg1/titel.tex
+===================================================================
+--- trunk/docs/beleg1/titel.tex	2006-04-26 15:21:00 UTC (rev 62)
++++ trunk/docs/beleg1/titel.tex	2006-04-26 15:27:14 UTC (rev 63)
+@@ -29,7 +29,6 @@
+ 			\hspace{4.5cm}\=\textbf{Teamleiter:}\hspace{0.5cm}\=Simon~Wunderlich\\[2.0ex]
+ 				\&gt;\textbf{Mitglieder des Projektteams:}\\[1.5ex]
+ 				\&gt;            \&gt;Andreas~Tr&#246;ger \\[1.5ex]
+-				\&gt;            \&gt;Benedikt~Keil \\[1.5ex]
+ 				\&gt;            \&gt;Frank~Wilhelm \\[1.5ex]
+ 				\&gt;            \&gt;Florian~Scharl \\[1.5ex]
+ 				\&gt;            \&gt;Sven~Eckelmann \\[4.0ex]
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000052.html">[Liman-svn] r62 - trunk/docs/beleg1
+</A></li>
+	<LI>Next message: <A HREF="000054.html">[Liman-svn] r64 - in trunk/docs: beleg1 protokoll
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#53">[ date ]</a>
+              <a href="thread.html#53">[ thread ]</a>
+              <a href="subject.html#53">[ subject ]</a>
+              <a href="author.html#53">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

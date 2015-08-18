@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r95 - in trunk/docs/beleg2: . doxygen
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-May/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r95%20-%20in%20trunk/docs/beleg2%3A%20.%20doxygen&In-Reply-To=%3C200605111122.k4BBMnkU012400%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000084.html">
+   <LINK REL="Next"  HREF="000086.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r95 - in trunk/docs/beleg2: . doxygen</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r95%20-%20in%20trunk/docs/beleg2%3A%20.%20doxygen&In-Reply-To=%3C200605111122.k4BBMnkU012400%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r95 - in trunk/docs/beleg2: . doxygen">lazhur at berlios.de
+       </A><BR>
+    <I>Thu May 11 13:22:49 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000084.html">[Liman-svn] r94 - in trunk/docs/beleg2: . doxygen
+</A></li>
+        <LI>Next message: <A HREF="000086.html">[Liman-svn] r96 - trunk/docs/beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-05-11 13:22:38 +0200 (Thu, 11 May 2006)
+New Revision: 95
+
+Modified:
+   trunk/docs/beleg2/Doxyfile
+   trunk/docs/beleg2/doxygen/classBibTeX.tex
+   trunk/docs/beleg2/teilbeleg2.tex
+   trunk/docs/beleg2/user.sty
+Log:
+- Anpassung der ?\195?\156berschriften f?\195?\188r BibTeX
+- Einf?\195?\188hren von Hyperlinks in PDF
+- kleinere Tests zur LaTeX-Ausgabe von Doxygen
+
+
+Modified: trunk/docs/beleg2/Doxyfile
+===================================================================
+--- trunk/docs/beleg2/Doxyfile	2006-05-10 22:26:24 UTC (rev 94)
++++ trunk/docs/beleg2/Doxyfile	2006-05-11 11:22:38 UTC (rev 95)
+@@ -43,9 +43,9 @@
+ #---------------------------------------------------------------------------
+ # Build related configuration options
+ #---------------------------------------------------------------------------
+-EXTRACT_ALL            = NO
+-EXTRACT_PRIVATE        = NO
+-EXTRACT_STATIC         = NO
++EXTRACT_ALL            = YES
++EXTRACT_PRIVATE        = YES
++EXTRACT_STATIC         = YES
+ EXTRACT_LOCAL_CLASSES  = YES
+ EXTRACT_LOCAL_METHODS  = NO
+ HIDE_UNDOC_MEMBERS     = YES
+@@ -182,7 +182,7 @@
+ PAPER_TYPE             = a4
+ EXTRA_PACKAGES         = 
+ LATEX_HEADER           = 
+-PDF_HYPERLINKS         = NO
++PDF_HYPERLINKS         = YES
+ USE_PDFLATEX           = YES
+ LATEX_BATCHMODE        = NO
+ LATEX_HIDE_INDICES     = NO
+
+Modified: trunk/docs/beleg2/doxygen/classBibTeX.tex
+===================================================================
+--- trunk/docs/beleg2/doxygen/classBibTeX.tex	2006-05-10 22:26:24 UTC (rev 94)
++++ trunk/docs/beleg2/doxygen/classBibTeX.tex	2006-05-11 11:22:38 UTC (rev 95)
+@@ -1,32 +1,70 @@
++\hypertarget{classBibTeX}{
+ \subsection{Bib\-Te\-X Klassenreferenz}
+ \label{classBibTeX}\index{BibTeX@{BibTeX}}
+-{\bf Bib\-Te\-X}{\rm (S.\,\pageref{classBibTeX})} Parser und Exporter.  
++}
++\hyperlink{classBibTeX}{Bib\-Te\-X} Parser und Exporter.  
+ 
+ 
+ \subsubsection*{\&quot;{O}ffentliche Methoden}
+ \begin{CompactItemize}
+ \item 
+-{\bf Bib\-Te\-X} ()\label{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}
+-
++\hyperlink{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}{Bib\-Te\-X} ()
+ \begin{CompactList}\small\item\em Konstruktor. \item\end{CompactList}\item 
+-{\bf parse} (\$string)
+-\begin{CompactList}\small\item\em Parser f&#252;r {\bf Bib\-Te\-X}{\rm (S.\,\pageref{classBibTeX})}. \item\end{CompactList}\item 
+-{\bf to\-String} ()
++\hyperlink{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}{parse} (\$string)
++\begin{CompactList}\small\item\em Parser f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}{to\-String} ()
+ \begin{CompactList}\small\item\em Konvertiert Bib\-Te\-X-Eintrag in String. \item\end{CompactList}\end{CompactItemize}
++\subsubsection*{\&quot;{O}ffentliche Attribute}
++\begin{CompactItemize}
++\item 
++\hyperlink{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}{\$type}
++\begin{CompactList}\small\item\em Typ der Literatur. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_13b46f23224381be3a2693f2832bb0ab}{\$id}
++\begin{CompactList}\small\item\em Buchidentifikationsnummer. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}{\$title}
++\begin{CompactList}\small\item\em Titel der Literatur. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_05df25974ad6f4b708e608f9a40ff186}{\$author}
++\begin{CompactList}\small\item\em Autoren der Literatur. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}{\$year}
++\begin{CompactList}\small\item\em Erscheinungsjahr. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_635a5c6fbed663cfd66104596e249303}{\$publisher}
++\begin{CompactList}\small\item\em Verlag/Herausgeber. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}{\$isbn}
++\begin{CompactList}\small\item\em ISBN der Literatur. \item\end{CompactList}\item 
++\hyperlink{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}{\$annote}
++\begin{CompactList}\small\item\em Bemerkung zur Literatur. \item\end{CompactList}\end{CompactItemize}
+ 
+ 
+ \subsubsection{Ausf\&quot;{u}hrliche Beschreibung}
+-{\bf Bib\-Te\-X}{\rm (S.\,\pageref{classBibTeX})} Parser und Exporter. 
++\hyperlink{classBibTeX}{Bib\-Te\-X} Parser und Exporter. 
+ 
++\begin{Desc}
++\item[Zu beachten:]Das sollte mit Buch verschmolzen werden \end{Desc}
+ 
+ 
++
++
++\subsubsection{Beschreibung der Konstruktoren und Destruktoren}
++\hypertarget{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}{
++\index{BibTeX@{Bib\-Te\-X}!BibTeX@{BibTeX}}
++\index{BibTeX@{BibTeX}!BibTeX@{Bib\-Te\-X}}
++\paragraph[BibTeX]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::Bib\-Te\-X ()}\hfill}
++\label{classBibTeX_8f5bb42a792203a05dd14a55cd8e0fb3}
++
++
++Konstruktor. 
++
++Erstellt eine leere Literaturangabe 
++
+ \subsubsection{Dokumentation der Elementfunktionen}
++\hypertarget{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}{
+ \index{BibTeX@{Bib\-Te\-X}!parse@{parse}}
+ \index{parse@{parse}!BibTeX@{Bib\-Te\-X}}
+-\paragraph{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::parse (\$ {\em string})}\hfill\label{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}
++\paragraph[parse]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::parse (\$ {\em string})}\hfill}
++\label{classBibTeX_0fcfbb98f28eb1700cd6877116dc57f6}
+ 
+ 
+-Parser f&#252;r {\bf Bib\-Te\-X}{\rm (S.\,\pageref{classBibTeX})}. 
++Parser f&#252;r \hyperlink{classBibTeX}{Bib\-Te\-X}. 
+ 
+ \begin{Desc}
+ \item[Parameter:]
+@@ -34,14 +72,16 @@
+ \item[{\em \$string}]Zu \char`\&quot;{}parsende\char`\&quot;{} String \end{description}
+ \end{Desc}
+ \begin{Desc}
+-\item[R\&quot;{u}ckgabe:]Array von {\bf Bib\-Te\-X}{\rm (S.\,\pageref{classBibTeX})} \end{Desc}
++\item[R\&quot;{u}ckgabe:]Array von \hyperlink{classBibTeX}{Bib\-Te\-X} \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]\$string wird nicht exakt auf Fehler untersucht und gegebenenfalls versuchen zu ignorieren 
+ 
+ Gibt boolean false zur&#252;ck, wenn nichts gefunden werden kann \end{Desc}
++\hypertarget{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}{
+ \index{BibTeX@{Bib\-Te\-X}!toString@{toString}}
+ \index{toString@{toString}!BibTeX@{Bib\-Te\-X}}
+-\paragraph{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::to\-String ()}\hfill\label{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}
++\paragraph[toString]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::to\-String ()}\hfill}
++\label{classBibTeX_e656009bd9e0ddf6cf4076d7d76fe94c}
+ 
+ 
+ Konvertiert Bib\-Te\-X-Eintrag in String. 
+@@ -50,3 +90,78 @@
+ \item[R\&quot;{u}ckgabe:]String mit Bib\-Te\-X-Informationen \end{Desc}
+ \begin{Desc}
+ \item[Bemerkungen:]Gibt boolean false zur&#252;ck, wenn zu wenig Informationen vorhanden sind \end{Desc}
++
++
++\subsubsection{Dokumentation der Datenelemente}
++\hypertarget{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}{
++\index{BibTeX@{Bib\-Te\-X}!$annote@{\$annote}}
++\index{$annote@{\$annote}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$annote]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$annote}\hfill}
++\label{classBibTeX_31f87aba6ba9094f59b6231fa7edd70b}
++
++
++Bemerkung zur Literatur. 
++
++\hypertarget{classBibTeX_05df25974ad6f4b708e608f9a40ff186}{
++\index{BibTeX@{Bib\-Te\-X}!$author@{\$author}}
++\index{$author@{\$author}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$author]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$author}\hfill}
++\label{classBibTeX_05df25974ad6f4b708e608f9a40ff186}
++
++
++Autoren der Literatur. 
++
++\hypertarget{classBibTeX_13b46f23224381be3a2693f2832bb0ab}{
++\index{BibTeX@{Bib\-Te\-X}!$id@{\$id}}
++\index{$id@{\$id}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$id]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$id}\hfill}
++\label{classBibTeX_13b46f23224381be3a2693f2832bb0ab}
++
++
++Buchidentifikationsnummer. 
++
++\hypertarget{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}{
++\index{BibTeX@{Bib\-Te\-X}!$isbn@{\$isbn}}
++\index{$isbn@{\$isbn}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$isbn]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$isbn}\hfill}
++\label{classBibTeX_b803583fb6c220e4e8eb1cf4252d2593}
++
++
++ISBN der Literatur. 
++
++\hypertarget{classBibTeX_635a5c6fbed663cfd66104596e249303}{
++\index{BibTeX@{Bib\-Te\-X}!$publisher@{\$publisher}}
++\index{$publisher@{\$publisher}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$publisher]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$publisher}\hfill}
++\label{classBibTeX_635a5c6fbed663cfd66104596e249303}
++
++
++Verlag/Herausgeber. 
++
++\hypertarget{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}{
++\index{BibTeX@{Bib\-Te\-X}!$title@{\$title}}
++\index{$title@{\$title}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$title]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$title}\hfill}
++\label{classBibTeX_17292d55e888dc83accb2ee131d6b8d7}
++
++
++Titel der Literatur. 
++
++\hypertarget{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}{
++\index{BibTeX@{Bib\-Te\-X}!$type@{\$type}}
++\index{$type@{\$type}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$type]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$type}\hfill}
++\label{classBibTeX_c308c02e47ae28f70adb8cc9c084786d}
++
++
++Typ der Literatur. 
++
++\hypertarget{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}{
++\index{BibTeX@{Bib\-Te\-X}!$year@{\$year}}
++\index{$year@{\$year}!BibTeX@{Bib\-Te\-X}}
++\paragraph[\$year]{\setlength{\rightskip}{0pt plus 5cm}Bib\-Te\-X::\$year}\hfill}
++\label{classBibTeX_6d4d6589bfbda549bf0d2303f4942b3d}
++
++
++Erscheinungsjahr. 
++
+
+Modified: trunk/docs/beleg2/teilbeleg2.tex
+===================================================================
+--- trunk/docs/beleg2/teilbeleg2.tex	2006-05-10 22:26:24 UTC (rev 94)
++++ trunk/docs/beleg2/teilbeleg2.tex	2006-05-11 11:22:38 UTC (rev 95)
+@@ -1,6 +1,6 @@
+ %TODO Gr&#246;&#223;e der &#220;berschriften anpassen (sonst unleserlich)
+ 
+-\documentclass[a4paper,twoside]{scrreprt}
++\documentclass[a4paper,twoside,bigheadings]{scrreprt}
+ 
+ \usepackage[ngerman]{babel}
+ \usepackage[utf8]{inputenc}
+
+Modified: trunk/docs/beleg2/user.sty
+===================================================================
+--- trunk/docs/beleg2/user.sty	2006-05-10 22:26:24 UTC (rev 94)
++++ trunk/docs/beleg2/user.sty	2006-05-11 11:22:38 UTC (rev 95)
+@@ -19,6 +19,11 @@
+ \fi
+ 
+ 
++% Anpassung der &#220;berschriften
++\setkomafont{subsubsection}{\bfseries\normalcolor\sffamily\large} 
++\setkomafont{paragraph}{\bfseries\normalcolor\sffamily\large} 
++
++
+ %% Doxygen Stuff
+ \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+ \newenvironment{CompactList}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000084.html">[Liman-svn] r94 - in trunk/docs/beleg2: . doxygen
+</A></li>
+	<LI>Next message: <A HREF="000086.html">[Liman-svn] r96 - trunk/docs/beleg2/visio
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#85">[ date ]</a>
+              <a href="thread.html#85">[ thread ]</a>
+              <a href="subject.html#85">[ subject ]</a>
+              <a href="author.html#85">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r134 - trunk
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r134%20-%20trunk&In-Reply-To=%3C200606041510.k54FAhfE010908%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000123.html">
+   <LINK REL="Next"  HREF="000125.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r134 - trunk</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r134%20-%20trunk&In-Reply-To=%3C200606041510.k54FAhfE010908%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r134 - trunk">lazhur at berlios.de
+       </A><BR>
+    <I>Sun Jun  4 17:10:43 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000123.html">[Liman-svn] r133 - trunk
+</A></li>
+        <LI>Next message: <A HREF="000125.html">[Liman-svn] r135 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-04 17:10:42 +0200 (Sun, 04 Jun 2006)
+New Revision: 134
+
+Modified:
+   trunk/litmod.php
+   trunk/usermod.php
+Log:
+Aussagekr?\195?\164ftigere ?\195?\156berschriften in Literatur- und Nutzerverwaltung
+
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-04 15:00:22 UTC (rev 133)
++++ trunk/litmod.php	2006-06-04 15:10:42 UTC (rev 134)
+@@ -1,5 +1,16 @@
+ &lt;?php
+-	$title = &quot;Literatur bearbeiten/hinzuf&uuml;gen&quot;;
++	if (isset($_GET[&quot;delete&quot;]) === true)
++	{
++		$title = &quot;Literatur l&#246;schen&quot;;
++	}
++	elseif (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true)
++	{
++		$title = &quot;Literatur &#228;ndern&quot;;
++	}
++	else
++	{
++		$title = &quot;Literatur hinzuf&#252;gen&quot;;
++	}
+ 	//$extracss = &quot;home.css&quot;;
+ 
+ 	require_once(&quot;include/header.php&quot;);
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-06-04 15:00:22 UTC (rev 133)
++++ trunk/usermod.php	2006-06-04 15:10:42 UTC (rev 134)
+@@ -1,5 +1,16 @@
+ &lt;?php
+-	$title = &quot;Nutzer bearbeiten/hinzuf&uuml;gen&quot;;
++	if (isset($_GET[&quot;delete&quot;]) === true)
++	{
++		$title = &quot;Nutzer l&#246;schen&quot;;
++	}
++	elseif (isset($_GET[&quot;id&quot;]) === true || isset($_POST[&quot;id&quot;]) === true)
++	{
++		$title = &quot;Nutzer &#228;ndern&quot;;
++	}
++	else
++	{
++		$title = &quot;Nutzer hinzuf&#252;gen&quot;;
++	}
+ 	//$extracss = &quot;home.css&quot;;
+ 
+ 	require_once(&quot;include/header.php&quot;);
+@@ -55,6 +66,9 @@
+ 			$error_email = true;
+ 			$error_occurred = true;
+ 		}
++		elseif ()
++		{
++		}
+ 
+ 		if (empty($_POST[&quot;password&quot;]) === true &amp;&amp; isset($_GET[&quot;insert&quot;]) === true)
+ 		{
+@@ -285,7 +299,7 @@
+ 		{
+ 			if (Mitglied::Insert($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]) === true)
+ 			{
+-				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde ge&#228;ndert&lt;/p&gt;&quot;;
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Nutzer wurde angelegt&lt;/p&gt;&quot;;
+ 			}
+ 			else
+ 			{
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000123.html">[Liman-svn] r133 - trunk
+</A></li>
+	<LI>Next message: <A HREF="000125.html">[Liman-svn] r135 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#124">[ date ]</a>
+              <a href="thread.html#124">[ thread ]</a>
+              <a href="subject.html#124">[ subject ]</a>
+              <a href="author.html#124">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>

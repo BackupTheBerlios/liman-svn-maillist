@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Liman-svn] r132 - in trunk: . design include
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/liman-svn/2006-June/index.html" >
+   <LINK REL="made" HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r132%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606041452.k54EqUtt007314%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000121.html">
+   <LINK REL="Next"  HREF="000123.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Liman-svn] r132 - in trunk: . design include</H1>
+    <B>lazhur at BerliOS</B> 
+    <A HREF="mailto:liman-svn%40lists.berlios.de?Subject=Re%3A%20%5BLiman-svn%5D%20r132%20-%20in%20trunk%3A%20.%20design%20include&In-Reply-To=%3C200606041452.k54EqUtt007314%40sheep.berlios.de%3E"
+       TITLE="[Liman-svn] r132 - in trunk: . design include">lazhur at berlios.de
+       </A><BR>
+    <I>Sun Jun  4 16:52:30 CEST 2006</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000121.html">[Liman-svn] r131 - in trunk: . db design docs/beleg2/doxygen docs/protokoll include
+</A></li>
+        <LI>Next message: <A HREF="000123.html">[Liman-svn] r133 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#122">[ date ]</a>
+              <a href="thread.html#122">[ thread ]</a>
+              <a href="subject.html#122">[ subject ]</a>
+              <a href="author.html#122">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Author: lazhur
+Date: 2006-06-04 16:52:30 +0200 (Sun, 04 Jun 2006)
+New Revision: 132
+
+Modified:
+   trunk/design/liman.css
+   trunk/include/header.php
+   trunk/litmod.php
+   trunk/login.php
+   trunk/search.php
+   trunk/userlist.php
+   trunk/usermod.php
+Log:
+- Warnungen hinzugef?\195?\188gt
+- Literaturverwaltung erweitert
+
+
+Modified: trunk/design/liman.css
+===================================================================
+--- trunk/design/liman.css	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/design/liman.css	2006-06-04 14:52:30 UTC (rev 132)
+@@ -54,7 +54,7 @@
+ 	list-style: none;
+ }
+ 
+-#search input, #loginform #login, #loginform #password {
++#search input, #loginform #benutzername, #loginform #password {
+ 	margin: 0 auto;
+ 	font-size: 1em;
+ 	width: 10.8em;
+@@ -122,13 +122,18 @@
+ 	vertical-align: top;
+ }
+ 
+-#error_list {
++#error_list, #error {
+ 	padding: 0.5em;
+ 	border: 2px solid red;
+ 	margin: 0 auto;
+ 	margin-bottom: 1em;
+ 	background-color: #ffeaea;
+ }
++
++#error, #warning {
++	text-align: center;
++}
++
+ .input_failure {
+ 	border-color: red;
+ 	background-color: red;
+
+Modified: trunk/include/header.php
+===================================================================
+--- trunk/include/header.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/include/header.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -64,7 +64,7 @@
+ 					?&gt;
+ 						&lt;form action=&quot;login.&lt;?=$ext;?&gt;&quot; id=&quot;loginform&quot; method=&quot;post&quot;&gt;
+ 							&lt;div&gt;
+-							&lt;label for=&quot;login&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;login&quot; name=&quot;login&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
++							&lt;label for=&quot;benutzername&quot;&gt;Login:&lt;/label&gt;&lt;input id=&quot;benutzername&quot; name=&quot;benutzername&quot; value=&quot;&quot; type=&quot;text&quot;&gt;
+ 							&lt;label for=&quot;password&quot;&gt;Passwort:&lt;/label&gt;&lt;input id=&quot;password&quot; name=&quot;password&quot; type=&quot;password&quot;&gt;
+ 							&lt;input type=&quot;submit&quot; value=&quot;Login&quot;&gt;
+ 							&lt;/div&gt;
+
+Modified: trunk/litmod.php
+===================================================================
+--- trunk/litmod.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/litmod.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -6,6 +6,7 @@
+ 
+ 	if ($login-&gt;IsMember() === false)
+ 	{
++		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
+ 		require_once(&quot;include/footer.php&quot;);
+ 		die();
+ 	}
+@@ -262,21 +263,93 @@
+ 		require_once(&quot;include/literatur.php&quot;);
+ 		if (isset($_GET[&quot;delete&quot;]) === true)
+ 		{
+-			/// \todo Hier erstmal nachfragen, ob &#252;berhaupt L&#246;schen
+-			
+-			Literatur::Delete($_GET[&quot;id&quot;]);
++			if (isset($_POST[&quot;accept&quot;]) === true)
++			{
++				Literatur::Delete($_POST[&quot;id&quot;]);
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde entfernt&lt;/p&gt;&quot;;
++			}
++			else
++			{
++				require_once(&quot;include/form_helper.php&quot;);
++				echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
++				echo &quot;Trotzdem entfernen?&quot;;
++				echo &quot;&lt;form action=\&quot;litmod.&quot;.$ext.&quot;?delete\&quot; id=\&quot;litupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
++				echo form_input(&quot;hidden&quot;, &quot;id&quot;, $_GET[&quot;id&quot;]);
++				echo form_input(&quot;hidden&quot;, &quot;accept&quot;, &quot;true&quot;);
++				echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Best&#228;tigen\&quot;&gt;&quot;;
++				echo &quot;&lt;/form&gt;&lt;/div&gt;&quot;;
++			}
+ 		}
+ 		elseif  (isset($_GET[&quot;insert&quot;]) === true)
+ 		{
+-			/// \todo Hier erstmal schauen, ob Literatur mit Titel und Autor existiert und entsprechend Nachfragen
+-			Literatur::Insert($_POST[&quot;autor&quot;], $_POST[&quot;art&quot;], $_POST[&quot;titel&quot;], $_POST[&quot;jahr&quot;], $_POST[&quot;verlag&quot;], $_POST[&quot;isbn&quot;], $_POST[&quot;beschreibung&quot;], $_POST[&quot;ort&quot;], $_POST[&quot;stichworte&quot;]);
++			if (isset($_POST[&quot;accept&quot;]) === false)
++			{
++				require_once(&quot;include/suche.php&quot;);
++				$search = new Suche($_POST[&quot;titel&quot;], $_POST[&quot;autor&quot;]);
++				if (empty($search-&gt;Treffer) === false)
++				{
++				?&gt;
++					Es wurde &#228;hnliche Literatur gefunden:
++					&lt;table id=&quot;searchresult&quot;&gt;
++				
++						&lt;thead&gt;
++							&lt;tr&gt;
++								&lt;th scope=&quot;col&quot;&gt;Titel&lt;/th&gt;
++								&lt;th scope=&quot;col&quot;&gt;Autor&lt;/th&gt;
++								&lt;th scope=&quot;col&quot;&gt;Verlag&lt;/th&gt;
++								&lt;th scope=&quot;col&quot;&gt;ISBN&lt;/th&gt;
++							&lt;/tr&gt;
++						&lt;/thead&gt;
++					&lt;tbody&gt;
++				&lt;?php
++			
++					for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
++					{
++						$cur = $search-&gt;Treffer[$i];
++				?&gt;
++					&lt;tr&gt;
++						&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
++						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
++						&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
++					&lt;/tr&gt;
++				&lt;?php
++					}
++				?&gt;
++						&lt;/tbody&gt;
++					&lt;/table&gt;
++				&lt;?php
++					require_once(&quot;include/form_helper.php&quot;);
++					echo &quot;&lt;div id=\&quot;warning\&quot; style=\&quot;margin-top: 2em\&quot;&gt;&quot;;
++					echo &quot;Trotzdem hinzuf&#252;gen?&quot;;
++					echo &quot;&lt;form action=\&quot;litmod.&quot;.$ext.&quot;?insert\&quot; id=\&quot;litupdateform\&quot; method=\&quot;post\&quot;&gt;&quot;;
++					echo form_input(&quot;hidden&quot;, &quot;accept&quot;, &quot;true&quot;);
++					echo form_input(&quot;hidden&quot;, &quot;titel&quot;, $_POST[&quot;titel&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;autor&quot;, $_POST[&quot;autor&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;jahr&quot;, $_POST[&quot;jahr&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;stichworte&quot;, $_POST[&quot;stichworte&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;art&quot;, $_POST[&quot;art&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;verlag&quot;, $_POST[&quot;verlag&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;ort&quot;, $_POST[&quot;ort&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;isbn&quot;, $_POST[&quot;isbn&quot;]);
++					echo form_input(&quot;hidden&quot;, &quot;beschreibung&quot;, $_POST[&quot;beschreibung&quot;]);
++					echo &quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Best&#228;tigen\&quot;&gt;&quot;;
++					echo &quot;&lt;/form&gt;&lt;/div&gt;&quot;;
++				}
++			}
++
++			if (isset($_POST[&quot;accept&quot;]) === true || empty($search-&gt;Treffer) === true)
++			{
++				Literatur::Insert($_POST[&quot;autor&quot;], $_POST[&quot;art&quot;], $_POST[&quot;titel&quot;], $_POST[&quot;jahr&quot;], $_POST[&quot;verlag&quot;], $_POST[&quot;isbn&quot;], $_POST[&quot;beschreibung&quot;], $_POST[&quot;ort&quot;], $_POST[&quot;stichworte&quot;]);
++				echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde hinzugef&#252;gt&lt;/p&gt;&quot;;
++			}
+ 		}
+ 		elseif (isset($_GET[&quot;update&quot;]) === true)
+ 		{
+ 			Literatur::Update($_POST[&quot;id&quot;], $_POST[&quot;autor&quot;], $_POST[&quot;art&quot;], $_POST[&quot;titel&quot;], $_POST[&quot;jahr&quot;], $_POST[&quot;verlag&quot;], $_POST[&quot;isbn&quot;], $_POST[&quot;beschreibung&quot;], $_POST[&quot;ort&quot;], $_POST[&quot;stichworte&quot;]);
++			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Literatur wurde ge&#228;ndert&lt;/p&gt;&quot;;
+ 		}
+ 	}
+ ?&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+-
+
+Modified: trunk/login.php
+===================================================================
+--- trunk/login.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/login.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -5,11 +5,11 @@
+ 	
+ 	require_once(&quot;include/global.php&quot;);
+ 
+-	if (!empty($_POST[&quot;login&quot;]) &amp;&amp; !empty($_POST[&quot;password&quot;]))
++	if (empty($_POST[&quot;benutzername&quot;]) === false &amp;&amp; empty($_POST[&quot;password&quot;]) === false)
+ 	{
+-		$login = new Login($_POST[&quot;login&quot;], $_POST[&quot;password&quot;]);
++		$login = new Login($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;]);
+ 	}
+-	elseif (isset($_GET[&quot;logout&quot;]))
++	elseif (isset($_GET[&quot;logout&quot;]) === true)
+ 	{
+ 		$login-&gt;Logout();
+ 	}
+@@ -17,5 +17,23 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;clogin&quot; class=&quot;content&quot;&gt;
++	&lt;div style=&quot;text-align: center&quot;&gt;
++	&lt;?php
++		if (isset($_GET[&quot;logout&quot;]) === true)
++		{
++			echo &quot;Auf Wiedersehen&quot;;
++		}
++		elseif ($login-&gt;IsMember() === true)
++		{
++			require_once(&quot;include/mitglied.php&quot;);
++			$mitglied = new Mitglied($login-&gt;Nr);
++			echo &quot;Willkommen &quot;.$mitglied-&gt;Vorname.&quot; &quot;.$mitglied-&gt;Nachname;
++		}
++		else
++		{
++			echo &quot;&lt;div id=\&quot;error\&quot;&gt;Login ist Fehlgeschlagen&lt;/div&gt;&quot;;
++		}
++	?&gt;
++	&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/search.php
+===================================================================
+--- trunk/search.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/search.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -17,61 +17,73 @@
+ 	require_once(&quot;include/header.php&quot;);
+ ?&gt;
+ &lt;div id=&quot;cfront&quot; class=&quot;content&quot;&gt;
+-	
+-	&lt;table id=&quot;searchresult&quot;&gt;
+-		&lt;thead&gt;
+-			&lt;tr&gt;
+-				&lt;th scope=&quot;col&quot;&gt;Titel&lt;/th&gt;
+-				&lt;th scope=&quot;col&quot;&gt;Autor&lt;/th&gt;
+-				&lt;th scope=&quot;col&quot;&gt;Verlag&lt;/th&gt;
+-				&lt;th scope=&quot;col&quot;&gt;ISBN&lt;/th&gt;
+-			&lt;/tr&gt;
+-		&lt;/thead&gt;
+-		&lt;tbody&gt;
+-			&lt;?php
+-				require_once(&quot;include/suche.php&quot;);
++&lt;?php
++	require_once(&quot;include/suche.php&quot;);
+ 
+-				if (isset($_GET[&quot;suchbegriff&quot;]) === true)
+-				{
+-					$search = new Suche($_GET[&quot;suchbegriff&quot;]);
+-				}
+-				elseif (isset($_GET[&quot;autor&quot;]) === true &amp;&amp; isset($_GET[&quot;titel&quot;]) === true)
+-				{
+-					$search = new Suche($_GET[&quot;titel&quot;], $_GET[&quot;autor&quot;]);
+-				}
+-				else
+-				{
+-					$search = new Suche();
+-				}
++	if (isset($_GET[&quot;suchbegriff&quot;]) === true)
++	{
++		$search = new Suche($_GET[&quot;suchbegriff&quot;]);
++	}
++	elseif (isset($_GET[&quot;autor&quot;]) === true &amp;&amp; isset($_GET[&quot;titel&quot;]) === true)
++	{
++		$search = new Suche($_GET[&quot;titel&quot;], $_GET[&quot;autor&quot;]);
++	}
++	else
++	{
++		$search = new Suche();
++	}
+ 
+-				for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
+-				{
+-					$cur = $search-&gt;Treffer[$i];
+-			?&gt;
++	if (empty($search-&gt;Treffer) === false)
++	{
++	?&gt;
++		&lt;table id=&quot;searchresult&quot;&gt;
++			&lt;thead&gt;
+ 				&lt;tr&gt;
+-					&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
+-					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
+-					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
+-					&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
++					&lt;th scope=&quot;col&quot;&gt;Titel&lt;/th&gt;
++					&lt;th scope=&quot;col&quot;&gt;Autor&lt;/th&gt;
++					&lt;th scope=&quot;col&quot;&gt;Verlag&lt;/th&gt;
++					&lt;th scope=&quot;col&quot;&gt;ISBN&lt;/th&gt;
+ 				&lt;/tr&gt;
+-			&lt;?php
+-				}
+-			?&gt;
+-		&lt;/tbody&gt;
+-	&lt;/table&gt;
++			&lt;/thead&gt;
++		&lt;tbody&gt;
++	&lt;?php
+ 
+-	&lt;?php
+-		if ($login-&gt;IsMember() === true)
++		for ($i = 0; $i &lt; count($search-&gt;Treffer); $i++)
+ 		{
++			$cur = $search-&gt;Treffer[$i];
+ 	?&gt;
+-		&lt;hr&gt;
+-		&lt;form action=&quot;litmod.php&quot;&gt;
+-			&lt;div&gt;
+-				&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
+-			&lt;/div&gt;
+-		&lt;/form&gt;
++		&lt;tr&gt;
++			&lt;td&gt;&lt;a href=&quot;lit.&lt;?=$ext;?&gt;?id=&lt;?=htmlspecialchars($cur-&gt;Nr);?&gt;&quot;&gt;&lt;?=htmlspecialchars($cur-&gt;Titel);?&gt;&lt;/a&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Autor);?&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;Verlag);?&gt;&lt;/td&gt;
++			&lt;td&gt;&lt;?=htmlspecialchars($cur-&gt;ISBN);?&gt;&lt;/td&gt;
++		&lt;/tr&gt;
+ 	&lt;?php
+ 		}
+ 	?&gt;
++			&lt;/tbody&gt;
++		&lt;/table&gt;	
++	&lt;?php
++	}
++	else
++	{
++		echo &quot;&lt;div id=\&quot;warning\&quot;&gt;Keine Treffern gefunden&lt;/div&gt;&quot;;
++	}
++?&gt;
++
++
++&lt;?php
++	if ($login-&gt;IsMember() === true)
++	{
++?&gt;
++	&lt;hr&gt;
++	&lt;form action=&quot;litmod.php&quot;&gt;
++		&lt;div&gt;
++			&lt;input type=&quot;submit&quot; value=&quot;Literatur hinzuf&uuml;gen&quot;&gt;
++		&lt;/div&gt;
++	&lt;/form&gt;
++&lt;?php
++	}
++?&gt;
+ &lt;/div&gt;
+ &lt;?php	require_once(&quot;include/footer.php&quot;); ?&gt;
+
+Modified: trunk/userlist.php
+===================================================================
+--- trunk/userlist.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/userlist.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -66,11 +66,11 @@
+ 		}
+ 		elseif ($login-&gt;IsMember() === true)
+ 		{
+-			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Sie sind nicht berechtigt alle Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
++			echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Sie sind nicht berechtigt alle Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
+ 		}
+ 		else
+ 		{
+-			echo &quot;&lt;p style=\&quot;text-align: center\&quot;&gt;Sie sind nicht berechtigt Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
++			echo &quot;&lt;p id=\&quot;warning\&quot;&gt;Sie sind nicht berechtigt Nutzerinformationen einzusehen&lt;/p&gt;&quot;;
+ 		}
+ 	?&gt;
+ 
+
+Modified: trunk/usermod.php
+===================================================================
+--- trunk/usermod.php	2006-06-04 13:37:50 UTC (rev 131)
++++ trunk/usermod.php	2006-06-04 14:52:30 UTC (rev 132)
+@@ -4,8 +4,12 @@
+ 
+ 	require_once(&quot;include/header.php&quot;);
+ 
+-	if ($login-&gt;IsMember() === false)
++	if ($login-&gt;IsMember() === false
++		|| ($login-&gt;IsAdministrator() === false
++			&amp;&amp; (isset($_GET[&quot;delete&quot;]) === true || isset($_GET[&quot;insert&quot;]) === true)
++		))
+ 	{
++		echo &quot;&lt;div id=\&quot;error\&quot;&gt;Sie sind f&#252;r diese Aktion nicht berechtigt&lt;/div&gt;&quot;;
+ 		require_once(&quot;include/footer.php&quot;);
+ 		die();
+ 	}
+@@ -265,12 +269,12 @@
+ 		}
+ 		elseif  (isset($_GET[&quot;insert&quot;]) === true)
+ 		{
+-			/// \todo &#252;berhaupt die Rechte dazu?
++			/// \todo gab es den Login vielleicht schon?
+ 			Mitglied::Insert($_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]);
+ 		}
+ 		elseif (isset($_GET[&quot;update&quot;]) === true)
+ 		{
+-			/// \todo beide passw&#246;rter gleich?
++			/// \todo gab es den Login vielleicht schon?
+ 			Mitglied::Update($_POST[&quot;id&quot;], $_POST[&quot;benutzername&quot;], $_POST[&quot;password&quot;], $_POST[&quot;rechte&quot;], $_POST[&quot;vorname&quot;], $_POST[&quot;nachname&quot;], $_POST[&quot;email&quot;]);
+ 		}
+ 	}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000121.html">[Liman-svn] r131 - in trunk: . db design docs/beleg2/doxygen docs/protokoll include
+</A></li>
+	<LI>Next message: <A HREF="000123.html">[Liman-svn] r133 - trunk
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#122">[ date ]</a>
+              <a href="thread.html#122">[ thread ]</a>
+              <a href="subject.html#122">[ subject ]</a>
+              <a href="author.html#122">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/liman-svn">More information about the Liman-svn
+mailing list</a><br>
+</body></html>
